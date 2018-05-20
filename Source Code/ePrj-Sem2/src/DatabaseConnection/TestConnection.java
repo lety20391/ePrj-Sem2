@@ -6,6 +6,8 @@
 package DatabaseConnection;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
 
 /**
  *
@@ -21,7 +23,12 @@ public class TestConnection {
         DatabaseConnect objDBConnect;
         objDBConnect = new DatabaseConnect();
         Connection objConnection;
-        objConnection = objDBConnect.DBConnect("prj2Database", "sa", "abc123");
+        objConnection = objDBConnect.DBConnect("Sem2_project_group2", "sa", "abc123");
+        
+        //Test List All Table
+        objDBConnect.ListTable();
+        objDBConnect.Close();
+        
     }
     
 }
