@@ -10,5 +10,8 @@ package Ngoc_Duyen;
  * @author Dat ThinkPad
  */
 public class Ngoc_Duyen {
+    public Ngoc_Duyen(){
+        
+    }
     
 }
