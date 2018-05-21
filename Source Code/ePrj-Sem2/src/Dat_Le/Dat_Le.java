@@ -10,5 +10,7 @@ package Dat_Le;
  * @author Dat ThinkPad
  */
 public class Dat_Le {
-    
+    public Dat_Le(){
+        
+    }
 }
