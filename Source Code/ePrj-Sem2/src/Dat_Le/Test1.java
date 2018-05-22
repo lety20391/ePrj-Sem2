@@ -17,7 +17,8 @@ public class Test1 {
     public static void main(String[] args) {
         // TODO code application logic here
         Dat_Le objDat = new Dat_Le();
-        objDat.TestArduino();
+        //objDat.TestReadArduino();
+        objDat.TestWriteArduino();
     }
     
 }

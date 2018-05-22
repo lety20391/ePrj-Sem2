@@ -5,6 +5,7 @@
  */
 package Dat_Le;
 import com.fazecast.jSerialComm.*;
+import java.util.Scanner;
 /**
  *
  * @author Dat ThinkPad
@@ -15,7 +16,7 @@ public class Dat_Le {
         
     }
     
-    public void TestArduino(){
+    public void TestReadArduino(){
         SerialPort comPort = SerialPort.getCommPorts()[0];
         comPort.openPort();
         try {
@@ -33,6 +34,22 @@ public class Dat_Le {
            }
         } catch (Exception e) 
         { System.out.println(e.getMessage()); }
+        comPort.closePort();
+    }
+    
+    public void TestWriteArduino(){
+        Scanner sc = new Scanner(System.in);
+        SerialPort comPort = SerialPort.getCommPorts()[0];
+        comPort.openPort();
+        try {
+            System.out.println("Enter data:");
+            String outData = sc.nextLine();
+            byte[] outByte = outData.getBytes();
+            comPort.writeBytes(outByte, outByte.length);
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         comPort.closePort();
     }
     
