@@ -7,9 +7,8 @@ package Ngoc_Duyen;
 
 /**
  *
- * @author Dat ThinkPad
+ * @author Dell
  */
-public class Ngoc_Duyen {
-
+public class NewClass {
     
 }

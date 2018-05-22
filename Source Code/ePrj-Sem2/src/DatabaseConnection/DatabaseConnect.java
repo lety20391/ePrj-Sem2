@@ -6,6 +6,7 @@
 package DatabaseConnection;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -42,6 +43,9 @@ Nên kiểm tra kết nối này trước, nếu không thành công thì không
 
 4. Ví dụ kết nối nằm trong file TestConnection.java
 
+5. Method ListTable sử dụng để liệt kê tất cả các bảng có trong Database được kết nối (đang thử nghiệm)
+
+6. Method Close sử dụng để đóng kết nối đến Database
 */
 
 public class DatabaseConnect {
@@ -65,6 +69,39 @@ public class DatabaseConnect {
             System.out.println(e.getMessage());
         }
         return objConnection;
+    }
+    
+    public void ListTable(){
+        try {
+            DatabaseMetaData metaObj = objConnection.getMetaData();
+            ResultSet rsTable = metaObj.getTables(null, null, null, new String[] {"TABLE"});
+            while (rsTable.next()) 
+            {
+                System.out.println("*******************");
+                String tableName = rsTable.getString("TABLE_NAME");
+                System.out.println(tableName);
+                ResultSet rsCol = metaObj.getColumns(null, null, tableName, null);
+                while(rsCol.next()){
+                    System.out.print(rsCol.getString("COLUMN_NAME") + ", ");
+                }
+                System.out.println("");
+                System.out.println("*******************");
+                System.out.println("");
+                
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void Close(){
+        try {
+            objConnection.close();
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
     }
     
 }
