@@ -6,6 +6,7 @@
 package Nam;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -119,6 +120,11 @@ public class LoginForm extends javax.swing.JFrame {
         btnLogin.setText("Login");
         btnLogin.setBorder(null);
         btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLoginMouseClicked(evt);
+            }
+        });
 
         btnReset.setBackground(new java.awt.Color(255, 102, 153));
         btnReset.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -230,6 +236,22 @@ public class LoginForm extends javax.swing.JFrame {
         fgp.pack();
         this.dispose();
     }//GEN-LAST:event_lbForgotpasswordMouseClicked
+
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
+        if (txtUsername.getText().equals("namcham")) {
+            MainControlInterface mci = new MainControlInterface();
+            mci.setVisible(true);
+            mci.pack();
+            mci.setTxtAccount(txtUsername.getText());
+            dispose();
+        }else{
+            JOptionPane.showMessageDialog(this, "UserName or Password not exact.");
+            txtUsername.setText("");
+            txtPassword.setText("");
+            txtUsername.requestFocus();
+        }
+        
+    }//GEN-LAST:event_btnLoginMouseClicked
 
     /**
      * @param args the command line arguments
