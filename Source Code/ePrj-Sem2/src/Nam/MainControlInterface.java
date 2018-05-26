@@ -319,6 +319,9 @@ public class MainControlInterface extends javax.swing.JFrame {
 
     private void btnDiscountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDiscountMouseClicked
         Ai.dispose();
+        DiscountForm df = new DiscountForm();
+        df.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnDiscountMouseClicked
 
     private void txtSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchMouseClicked
