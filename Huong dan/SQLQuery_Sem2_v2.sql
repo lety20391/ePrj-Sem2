@@ -117,6 +117,8 @@ create table Contract
 	DateCon date not null,
 	IDHo varchar(20) not null,
 	PriceCon money not null,
-	StatusCon varchar(20) not null
+	StatusCon varchar(20) not null,
+	constraint pk_Contract primary key (IDCon),
+	constraint fk_Contract_Holding foreign key (IDHo) references Holding(IDHo)
 
 )
