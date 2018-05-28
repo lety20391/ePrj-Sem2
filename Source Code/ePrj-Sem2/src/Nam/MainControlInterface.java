@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 public class MainControlInterface extends javax.swing.JFrame {
 
     AccountInfo Ai;
+    RegisterForm Rf;
 
     /**
      * Creates new form MainControlInterface
@@ -304,9 +305,10 @@ public class MainControlInterface extends javax.swing.JFrame {
 
     private void btnCreateNewAccountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCreateNewAccountMouseClicked
         Ai.dispose();
-        RegisterForm rf = new RegisterForm();
-        rf.setVisible(true);
-        dispose();
+        Rf = new RegisterForm();
+        Rf.setVisible(true);
+        setVisible(false);
+        
     }//GEN-LAST:event_btnCreateNewAccountMouseClicked
 
     private void btnBookingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBookingMouseClicked
