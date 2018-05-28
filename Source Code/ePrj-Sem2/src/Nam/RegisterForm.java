@@ -142,11 +142,6 @@ public class RegisterForm extends javax.swing.JFrame {
         btnCreate.setText("Create");
         btnCreate.setBorder(null);
         btnCreate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCreate.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCreateMouseClicked(evt);
-            }
-        });
 
         btnReset.setBackground(new java.awt.Color(255, 102, 153));
         btnReset.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -398,10 +393,13 @@ public class RegisterForm extends javax.swing.JFrame {
         radioBtnStaff.setSelected(true);
     }//GEN-LAST:event_radioBtnStaffMouseClicked
 
+<<<<<<< HEAD
     private void btnCreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCreateMouseClicked
         dispose();
     }//GEN-LAST:event_btnCreateMouseClicked
 
+=======
+>>>>>>> 75d848c5cee3f4b2505eb7fc993f9120ff29108c
     /**
      * @param args the command line arguments
      */
