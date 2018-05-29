@@ -393,13 +393,11 @@ public class RegisterForm extends javax.swing.JFrame {
         radioBtnStaff.setSelected(true);
     }//GEN-LAST:event_radioBtnStaffMouseClicked
 
-<<<<<<< HEAD
+
     private void btnCreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCreateMouseClicked
         dispose();
     }//GEN-LAST:event_btnCreateMouseClicked
 
-=======
->>>>>>> 75d848c5cee3f4b2505eb7fc993f9120ff29108c
     /**
      * @param args the command line arguments
      */
