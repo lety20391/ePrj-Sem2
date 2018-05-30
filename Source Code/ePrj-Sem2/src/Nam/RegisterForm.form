@@ -24,15 +24,19 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel3" max="32767" attributes="0"/>
           <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <Component id="jPanel3" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="jPanel1" min="-2" pref="60" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Component id="jPanel3" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -141,125 +145,167 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace min="158" pref="158" max="-2" attributes="0"/>
-                  <Component id="btnCreate" min="-2" pref="88" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="btnReset" min="-2" pref="88" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="72" pref="72" max="-2" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="lbAccount" min="-2" pref="82" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="radioBtnStaff" min="-2" pref="112" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="radioBtnPax" min="-2" pref="112" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="lbAddress1" min="-2" pref="82" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="txtAddress" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="lbDOB" min="-2" pref="82" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="jDateChooser_DOB" pref="197" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbusername" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbPassword" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbReEnter" alignment="0" min="-2" pref="82" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="txtUsername" pref="197" max="32767" attributes="0"/>
+                                  <Component id="txtPassword" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtReEnterPass" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
+                      <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lbAddress1" min="-2" pref="82" max="-2" attributes="0"/>
-                              <Component id="lbusername" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lbPassword" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lbReEnter" alignment="0" min="-2" pref="82" max="-2" attributes="0"/>
                               <Component id="lbFullName" alignment="0" min="-2" pref="82" max="-2" attributes="0"/>
                               <Component id="lbEmail" alignment="0" min="-2" pref="82" max="-2" attributes="0"/>
                               <Component id="lbPhone" alignment="0" min="-2" pref="82" max="-2" attributes="0"/>
-                              <Component id="lbDOB" alignment="0" min="-2" pref="82" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="txtFullName" max="32767" attributes="0"/>
+                              <Component id="txtEmail" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtPhone" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="lbQuestion" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
                               <Component id="lbAnswer" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtUsername" alignment="1" min="-2" pref="247" max="-2" attributes="0"/>
-                              <Component id="txtPassword" alignment="1" min="-2" pref="247" max="-2" attributes="0"/>
-                              <Component id="txtReEnterPass" alignment="1" min="-2" pref="247" max="-2" attributes="0"/>
-                              <Component id="txtFullName" alignment="1" min="-2" pref="247" max="-2" attributes="0"/>
-                              <Component id="txtEmail" alignment="1" min="-2" pref="247" max="-2" attributes="0"/>
-                              <Component id="txtPhone" alignment="1" max="32767" attributes="0"/>
-                              <Component id="jDateChooser_DOB" alignment="1" max="32767" attributes="0"/>
-                              <Component id="cbQuestion" alignment="1" min="-2" pref="247" max="-2" attributes="0"/>
-                              <Component id="txtAnswer" alignment="1" max="32767" attributes="0"/>
-                              <Component id="txtAddress" alignment="1" min="-2" pref="247" max="-2" attributes="0"/>
+                              <Component id="cbQuestion" pref="0" max="32767" attributes="0"/>
+                              <Component id="txtAnswer" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="lbAccount" min="-2" pref="82" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="btnCreate" min="-2" pref="88" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btnReset" min="-2" pref="88" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="radioBtnStaff" min="-2" pref="112" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                                  <Component id="radioBtnPax" min="-2" pref="112" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
+                  <EmptySpace pref="33" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lbusername" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="txtUsername" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lbPassword" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="txtPassword" linkSize="1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lbReEnter" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="txtReEnterPass" linkSize="1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lbFullName" alignment="0" min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="txtFullName" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lbEmail" alignment="0" min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="txtEmail" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lbPhone" alignment="0" min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="txtPhone" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="lbDOB" max="32767" attributes="0"/>
-                      <Component id="jDateChooser_DOB" linkSize="1" min="-2" pref="29" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="cbQuestion" linkSize="1" pref="33" max="32767" attributes="0"/>
-                      <Component id="lbQuestion" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lbAnswer" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="txtAnswer" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtAddress" linkSize="1" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="lbAddress1" alignment="3" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="radioBtnStaff" alignment="3" max="32767" attributes="0"/>
-                              <Component id="radioBtnPax" alignment="3" max="32767" attributes="0"/>
+                              <Component id="lbusername" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                              <Component id="txtUsername" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lbPassword" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                              <Component id="txtPassword" linkSize="1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lbReEnter" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                              <Component id="txtReEnterPass" linkSize="1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <Component id="lbAccount" min="-2" pref="26" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lbFullName" alignment="0" min="-2" pref="26" max="-2" attributes="0"/>
+                              <Component id="txtFullName" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lbEmail" alignment="0" min="-2" pref="26" max="-2" attributes="0"/>
+                              <Component id="txtEmail" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lbPhone" alignment="0" min="-2" pref="26" max="-2" attributes="0"/>
+                              <Component id="txtPhone" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnCreate" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                      <Component id="btnReset" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="lbDOB" max="32767" attributes="0"/>
+                          <Component id="jDateChooser_DOB" linkSize="1" min="-2" pref="29" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="cbQuestion" linkSize="1" pref="33" max="32767" attributes="0"/>
+                              <Component id="lbQuestion" min="-2" pref="33" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lbAnswer" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="txtAnswer" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                                  <Component id="txtAddress" linkSize="1" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                  <Component id="lbAddress1" alignment="3" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="lbAccount" min="-2" pref="26" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="radioBtnStaff" alignment="3" max="32767" attributes="0"/>
+                                      <Component id="radioBtnPax" alignment="3" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="147" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="btnCreate" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                                      <Component id="btnReset" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -587,6 +633,21 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="radioBtnPaxMouseClicked"/>
           </Events>
         </Component>
+        <Container class="javax.swing.JPanel" name="jPanel2">
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <EmptySpace min="0" pref="197" max="32767" attributes="0"/>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <EmptySpace min="0" pref="209" max="32767" attributes="0"/>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+        </Container>
       </SubComponents>
     </Container>
   </SubComponents>
