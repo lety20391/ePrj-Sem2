@@ -46,19 +46,19 @@ public class Form2 extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Địa Điểm Bạn Muốn");
+        jLabel1.setText("Location");
 
-        jLabel2.setText("Ngày Nhận Phòng");
+        jLabel2.setText("Check-in Date");
 
-        jLabel3.setText("Ngày Trả Phòng");
+        jLabel3.setText("Check-out Date");
 
-        jLabel4.setText("Số Người ");
+        jLabel4.setText("Amt. of People");
 
-        jLabel5.setText("Bạn Muốn Số Phòng Là");
+        jLabel5.setText("Amt. of Rooms");
 
         jButton1.setText("OK");
 
-        jLabel6.setText("Bạn Muốn Tầm Gía");
+        jLabel6.setText("Price");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
