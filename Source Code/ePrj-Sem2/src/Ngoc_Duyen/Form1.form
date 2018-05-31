@@ -67,7 +67,7 @@
                 <Column editable="true" title="ID" type="java.lang.Object"/>
                 <Column editable="true" title="Location" type="java.lang.Object"/>
                 <Column editable="true" title="Amt. of Rooms" type="java.lang.Object"/>
-                <Column editable="true" title="Ch&#x1ee7; C&#x103;n***" type="java.lang.Object"/>
+                <Column editable="true" title="Owner" type="java.lang.Object"/>
                 <Column editable="true" title="Price" type="java.lang.Object"/>
               </Table>
             </Property>

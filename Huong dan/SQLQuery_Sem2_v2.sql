@@ -1,3 +1,6 @@
+drop database Sem2_Project_Group2
+go
+
 create database Sem2_Project_Group2
 on primary
 (
@@ -25,6 +28,8 @@ create table Account
 	ID varchar(20),
 	[Password] varchar(20) not null,
 	[Type] varchar(3) not null,
+	Question varchar(100) not null,
+	Answer varchar(100) not null,
 	constraint pk_Taikhoan primary key (ID)
 )
 go
@@ -36,30 +41,30 @@ create table Collaborator
 	[AddressCo] nvarchar(50) not null,
 	DOBCo date not null,
 	IdentificationNumberCo varchar(12) not null,
-	FundCo money not null,
+	DepositCo money not null,
 	PhoneCo varchar(11) not null,
 	EmailCo varchar(50) not null,
 	StatusCo varchar(20) not null,
-	[ImageCo] varchar(20) not null,
+	[ImageCo] varchar(50) not null,
 	constraint pk_Collabrator primary key (IDCo),
 	constraint fk_Collabrator_Account foreign key (IDCo) references Account(ID)
 )
 go
 
 
-create table Guest
+create table Client
 (
-	IDGu varchar(20),
-	NameGu nvarchar(50) not null,
-	DOBGu date not null,
-	IdentificationNumberGu varchar(12) not null,
-	PhoneGu varchar(11) not null,
-	EmailGu varchar(50) not null,
-	StatusGu varchar(20) not null,
-	constraint pk_Guest primary key (IDGu),
+	IDCl varchar(20),
+	NameCl nvarchar(50) not null,
+	DOBCl date not null,
+	IdentificationNumberCl varchar(12) not null,
+	PhoneCl varchar(11) not null,
+	EmailCl varchar(50) not null,
+	StatusCl varchar(20) not null,
+	constraint pk_Guest primary key (IDCl),
 	IDCo varchar(20) null,
 	constraint fk_Guest_Collaborator foreign key (IDCo) references Collaborator(IDCo),
-	constraint fk_Guest_Account foreign key (IDGu) references Account(ID)
+	constraint fk_Guest_Account foreign key (IDCl) references Account(ID)
 )
 go
 
@@ -86,7 +91,7 @@ create table FeedbackNote
 	ContentFb nvarchar(1000) not null,
 	StatusFb varchar(30) not null,
 	constraint pk_FeedbackNote primary key (IDFb),
-	constraint fk_FeedbackNote_Guest foreign key (IDGu) references Guest(IDGu),
+	constraint fk_FeedbackNote_Guest foreign key (IDGu) references Client(IDCl),
 	constraint fk_FeedbackNote_Apartment foreign key (IDApa) references Apartment(IDApa)
 )
 go
@@ -105,7 +110,7 @@ create table Holding
 	TotalHo money not null,
 	CommissionHo money null,	
 	constraint pk_Holding primary key (IDHo),
-	constraint fk_Holding_Guest foreign key (IDGu) references Guest(IDGu),
+	constraint fk_Holding_Guest foreign key (IDGu) references Client(IDCl),
 	constraint fk_Holding_Apartment foreign key (IDApa) references Apartment(IDApa),
 	constraint fk_Holding_Collaborator foreign key (IDCo) references Collaborator(IDCo)
 )
@@ -122,3 +127,4 @@ create table Contract
 	constraint fk_Contract_Holding foreign key (IDHo) references Holding(IDHo)
 
 )
+go
