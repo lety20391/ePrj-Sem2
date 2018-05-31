@@ -169,13 +169,13 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="btnDiscount" min="-2" pref="249" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="btnStaff" min="-2" pref="229" max="-2" attributes="0"/>
+                          <Component id="btnCollaborators" min="-2" pref="229" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btnSearch" alignment="1" min="-2" pref="205" max="-2" attributes="0"/>
-                      <Component id="btnCustomer" alignment="1" min="-2" pref="205" max="-2" attributes="0"/>
+                      <Component id="btnClient" alignment="1" min="-2" pref="205" max="-2" attributes="0"/>
                       <Component id="txtAccount" alignment="1" min="-2" pref="205" max="-2" attributes="0"/>
                       <Component id="btnService" alignment="1" min="-2" pref="205" max="-2" attributes="0"/>
                   </Group>
@@ -202,11 +202,11 @@
                   </Group>
                   <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnCustomer" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnStaff" linkSize="2" alignment="3" min="-2" pref="121" max="-2" attributes="0"/>
+                      <Component id="btnClient" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnCollaborators" linkSize="2" alignment="3" min="-2" pref="121" max="-2" attributes="0"/>
                       <Component id="btnDiscount" linkSize="2" alignment="3" min="-2" pref="126" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="11" max="32767" attributes="0"/>
+                  <EmptySpace pref="8" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btnCreateNewAccount" min="-2" pref="164" max="-2" attributes="0"/>
                       <Component id="btnService" min="-2" pref="162" max="-2" attributes="0"/>
@@ -337,27 +337,27 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCreateNewAccountMouseClicked"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnStaff">
+        <Component class="javax.swing.JButton" name="btnCollaborators">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="ff" red="33" type="rgb"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="34" style="1"/>
+              <Font name="Tahoma" size="28" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Staff "/>
+            <Property name="text" type="java.lang.String" value="Collaborators"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Hand Cursor"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnStaffMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCollaboratorsMouseClicked"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnCustomer">
+        <Component class="javax.swing.JButton" name="btnClient">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="33" red="ff" type="rgb"/>
@@ -368,13 +368,13 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Customer"/>
+            <Property name="text" type="java.lang.String" value="Clients"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Hand Cursor"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCustomerMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnClientMouseClicked"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnService">

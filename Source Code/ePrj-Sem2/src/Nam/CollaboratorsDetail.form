@@ -84,7 +84,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Staff Detail"/>
+            <Property name="text" type="java.lang.String" value="Collaborators Detail"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbMin">
@@ -152,9 +152,9 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jPanel3" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="radActive" min="-2" pref="89" max="-2" attributes="0"/>
+                                  <Component id="radActive" linkSize="4" min="-2" pref="89" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="radActive1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="radActive1" linkSize="4" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace pref="66" max="32767" attributes="0"/>
