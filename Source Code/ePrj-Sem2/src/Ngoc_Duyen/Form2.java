@@ -15,7 +15,7 @@ public class Form2 extends javax.swing.JFrame {
      * Creates new form Form2
      */
     public Form2() {
-        this.setTitle("Tìm Phòng");
+        this.setTitle("Find Room");
         initComponents();
     }
 

@@ -15,7 +15,7 @@ public class Form1 extends javax.swing.JFrame {
      * Creates new form Form1
      */
     public Form1() {
-        this.setTitle("Quản Lí Căn Hộ");
+        this.setTitle("Apartment Manager");
         initComponents();
     }
 
@@ -54,7 +54,7 @@ public class Form1 extends javax.swing.JFrame {
 
             },
             new String [] {
-                "No.", "Name", "ID", "Location", "Amt. of Rooms", "Chủ Căn***", "Price"
+                "No.", "Name", "ID", "Location", "Amt. of Rooms", "Owner", "Price"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
