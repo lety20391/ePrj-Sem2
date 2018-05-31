@@ -16,7 +16,7 @@ public class Form3 extends javax.swing.JFrame {
      */
     public Form3() {
         
-        this.setTitle("Đặt Phòng");
+        this.setTitle("Book Room");
         initComponents();
     }
 
