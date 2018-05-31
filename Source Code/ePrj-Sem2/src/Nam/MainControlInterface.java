@@ -7,6 +7,7 @@ package Nam;
 
 import java.awt.Point;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -45,14 +46,15 @@ public class MainControlInterface extends javax.swing.JFrame {
         lbMin = new javax.swing.JLabel();
         lbClose = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        btnAnounce = new javax.swing.JButton();
+        btnNotification = new javax.swing.JButton();
         txtAccount = new javax.swing.JTextField();
         btnBooking = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
         btnDiscount = new javax.swing.JButton();
         btnCreateNewAccount = new javax.swing.JButton();
-        btnStaff = new javax.swing.JButton();
-        btnCustomer = new javax.swing.JButton();
+        btnCollaborators = new javax.swing.JButton();
+        btnClient = new javax.swing.JButton();
+        btnService = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -130,14 +132,14 @@ public class MainControlInterface extends javax.swing.JFrame {
             }
         });
 
-        btnAnounce.setBackground(new java.awt.Color(255, 0, 255));
-        btnAnounce.setFont(new java.awt.Font("Tahoma", 1, 40)); // NOI18N
-        btnAnounce.setForeground(new java.awt.Color(255, 255, 255));
-        btnAnounce.setText("Anounce");
-        btnAnounce.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAnounce.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnNotification.setBackground(new java.awt.Color(255, 0, 255));
+        btnNotification.setFont(new java.awt.Font("Tahoma", 1, 35)); // NOI18N
+        btnNotification.setForeground(new java.awt.Color(255, 255, 255));
+        btnNotification.setText("Notification");
+        btnNotification.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNotification.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAnounceMouseClicked(evt);
+                btnNotificationMouseClicked(evt);
             }
         });
 
@@ -196,25 +198,36 @@ public class MainControlInterface extends javax.swing.JFrame {
             }
         });
 
-        btnStaff.setBackground(new java.awt.Color(51, 255, 51));
-        btnStaff.setFont(new java.awt.Font("Tahoma", 1, 34)); // NOI18N
-        btnStaff.setForeground(new java.awt.Color(255, 255, 255));
-        btnStaff.setText("Staff ");
-        btnStaff.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnStaff.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnCollaborators.setBackground(new java.awt.Color(51, 255, 51));
+        btnCollaborators.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
+        btnCollaborators.setForeground(new java.awt.Color(255, 255, 255));
+        btnCollaborators.setText("Collaborators");
+        btnCollaborators.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCollaborators.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnStaffMouseClicked(evt);
+                btnCollaboratorsMouseClicked(evt);
             }
         });
 
-        btnCustomer.setBackground(new java.awt.Color(255, 51, 0));
-        btnCustomer.setFont(new java.awt.Font("Tahoma", 1, 34)); // NOI18N
-        btnCustomer.setForeground(new java.awt.Color(255, 255, 255));
-        btnCustomer.setText("Customer");
-        btnCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnClient.setBackground(new java.awt.Color(255, 51, 0));
+        btnClient.setFont(new java.awt.Font("Tahoma", 1, 34)); // NOI18N
+        btnClient.setForeground(new java.awt.Color(255, 255, 255));
+        btnClient.setText("Clients");
+        btnClient.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnClient.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCustomerMouseClicked(evt);
+                btnClientMouseClicked(evt);
+            }
+        });
+
+        btnService.setBackground(new java.awt.Color(255, 102, 102));
+        btnService.setFont(new java.awt.Font("Tahoma", 1, 34)); // NOI18N
+        btnService.setForeground(new java.awt.Color(255, 255, 255));
+        btnService.setText("Services");
+        btnService.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnService.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnServiceMouseClicked(evt);
             }
         });
 
@@ -224,23 +237,22 @@ public class MainControlInterface extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnCreateNewAccount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(btnAnounce, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(btnDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCustomer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAccount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(btnNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCollaborators, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClient, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtAccount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnService, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -254,21 +266,23 @@ public class MainControlInterface extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(9, 9, 9)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAnounce, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(7, 7, 7)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCustomer)
-                    .addComponent(btnStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClient)
+                    .addComponent(btnCollaborators, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addComponent(btnCreateNewAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCreateNewAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnService, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9))
         );
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAnounce, btnBooking});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnBooking, btnNotification});
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCustomer, btnDiscount, btnStaff});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnClient, btnCollaborators, btnDiscount});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -294,7 +308,11 @@ public class MainControlInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_lbMinMouseClicked
 
     private void lbCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCloseMouseClicked
-        System.exit(0);
+        if (JOptionPane.showConfirmDialog(new JFrame(),
+                "Do you want to quit this application ?", "",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
     }//GEN-LAST:event_lbCloseMouseClicked
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
@@ -326,7 +344,7 @@ public class MainControlInterface extends javax.swing.JFrame {
         Rf = new RegisterForm();
         Rf.setVisible(true);
         setVisible(false);
-        
+
     }//GEN-LAST:event_btnCreateNewAccountMouseClicked
 
     private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
@@ -337,21 +355,25 @@ public class MainControlInterface extends javax.swing.JFrame {
         Ai.dispose();
     }//GEN-LAST:event_btnBookingMouseClicked
 
-    private void btnAnounceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAnounceMouseClicked
+    private void btnNotificationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNotificationMouseClicked
         Ai.dispose();
-    }//GEN-LAST:event_btnAnounceMouseClicked
+    }//GEN-LAST:event_btnNotificationMouseClicked
 
     private void btnDiscountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDiscountMouseClicked
         Ai.dispose();
     }//GEN-LAST:event_btnDiscountMouseClicked
 
-    private void btnStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStaffMouseClicked
+    private void btnCollaboratorsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCollaboratorsMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnStaffMouseClicked
+    }//GEN-LAST:event_btnCollaboratorsMouseClicked
 
-    private void btnCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCustomerMouseClicked
+    private void btnClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClientMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnCustomerMouseClicked
+    }//GEN-LAST:event_btnClientMouseClicked
+
+    private void btnServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnServiceMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnServiceMouseClicked
 
     /**
      * @param args the command line arguments
@@ -389,13 +411,14 @@ public class MainControlInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAnounce;
     private javax.swing.JButton btnBooking;
+    private javax.swing.JButton btnClient;
+    private javax.swing.JButton btnCollaborators;
     private javax.swing.JButton btnCreateNewAccount;
-    private javax.swing.JButton btnCustomer;
     private javax.swing.JButton btnDiscount;
+    private javax.swing.JButton btnNotification;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JButton btnStaff;
+    private javax.swing.JButton btnService;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbClose;
