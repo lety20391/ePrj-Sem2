@@ -36,3 +36,15 @@ add IDSer varchar(20)
 go
 alter table Holding
 add constraint fk_Holding_Services foreign key (IDSer) references Services(IDSer)
+
+go
+create table [Notification]
+(
+	IDNot varchar(20) not null,
+	IDAcc varchar(20) not null,
+	DetailNot nvarchar(50) not null,
+	StatusNot varchar(20) not null,
+	Redirect varchar(20) not null,
+	constraint pk_Notification primary key (IDNot),
+	constraint fk_Notification_Account foreign key (IDAcc) references Account(ID)
+)
