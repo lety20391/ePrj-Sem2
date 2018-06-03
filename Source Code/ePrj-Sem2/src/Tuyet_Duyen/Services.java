@@ -5,19 +5,101 @@
  */
 package Tuyet_Duyen;
 
+import DatabaseConnection.DatabaseConnect;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Elisa
  */
 public class Services extends javax.swing.JFrame {
+    DefaultTableModel serModel;
+    Vector header,data,row;
+    String sql;
+    ResultSet rs;
+    Statement stmt;
+    Connection objConnection;
 
     /**
      * Creates new form Services
      */
     public Services() {
-        initComponents();
+        initComponents();      
+        connectSQL();
+        showTable();
+        manageButton(true,false,false);
+        manageTextField(false, false, false);
+    }
+    
+    public void connectSQL(){
+        DatabaseConnect objDBConnect;
+        objDBConnect = new DatabaseConnect();
+        
+        objConnection = objDBConnect.DBConnect("Sem2_project_group2", "sa", "abc123");
+        try {
+            stmt = objConnection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void showTable()
+    {
+        serModel = new DefaultTableModel();
+        header = new Vector();
+        header.add("Service ID");
+        header.add("Service Name");
+        header.add("Service Price");
+        data = new Vector();
+        serModel.setRowCount(0);
+        
+        try {            
+            //select * from Services
+            sql = "select * from Services";
+            rs = stmt.executeQuery(sql);
+            rs.beforeFirst();
+            while(rs.next())
+            {
+                row = new Vector();
+                row.add(rs.getString("IDSer"));
+                row.add(rs.getString("NameSer"));
+                row.add(rs.getDouble("Price"));
+                data.add(row);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        serModel.setDataVector(data, header);
+        tblService.setModel(serModel);
+        //tblBook.setModel(bookModel);
     }
 
+    public void manageButton(boolean BtnAddStatus, boolean BtnUpdateStatus, boolean BtnDeleteStatus)
+    {
+        btnAdd.setEnabled(BtnAddStatus);
+        btnUpdate.setEnabled(BtnUpdateStatus);
+        btnDelete.setEnabled(BtnDeleteStatus);
+    }
+    
+    public void manageTextField(boolean txtIDStatus, boolean txtNameStatus, boolean txtPriceStatus)
+    {
+        txtID.setEditable(txtIDStatus);
+        txtName.setEditable(txtNameStatus);
+        txtPrice.setEditable(txtPriceStatus);
+    }
+    
+    public void clearTxt()
+    {
+        txtID.setText("");
+        txtName.setText("");
+        txtPrice.setText("");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,18 +112,18 @@ public class Services extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtID = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtPrice = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblService = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("services");
@@ -56,9 +138,9 @@ public class Services extends javax.swing.JFrame {
 
         jLabel3.setText("Name");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txtName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                txtNameActionPerformed(evt);
             }
         });
 
@@ -76,9 +158,9 @@ public class Services extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(txtPrice)
+                    .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtID, javax.swing.GroupLayout.Alignment.LEADING))
                 .addGap(22, 22, 22))
         );
         jPanel1Layout.setVerticalGroup(
@@ -87,21 +169,21 @@ public class Services extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblService.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -112,7 +194,12 @@ public class Services extends javax.swing.JFrame {
                 "IDService", "Name", "Price"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tblService.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblServiceMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblService);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -133,11 +220,26 @@ public class Services extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton4.setText("Add");
+        btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("Update");
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
-        jButton6.setText("Delete");
+        btnDelete.setText("Delete");
+        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDeleteMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -146,20 +248,20 @@ public class Services extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                    .addComponent(btnAdd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
 
@@ -199,9 +301,139 @@ public class Services extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txtNameActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        
+            String labelButton = btnAdd.getText();
+            if (labelButton.equalsIgnoreCase("Add"))
+            {
+                clearTxt();               
+                manageTextField(true, true, true);
+                btnAdd.setText("Save");            
+            }else{
+                try {    
+                    String ID = txtID.getText();
+                    String Name = txtName.getText();
+                    String Price = txtPrice.getText();
+                    
+                    //bat loi empty voi ID
+                    if (ID.isEmpty())
+                    {
+                        JOptionPane.showMessageDialog(this, "ID cannot be blank. Pls re-enter");
+                        txtID.grabFocus();
+                        return;
+                    }
+                    
+                    //insert into Services(IDSer, NameSer, Price) values ('S02', 'Lau nha', 200)
+                    sql = "insert into Services(IDSer, NameSer, Price) values ('" + ID + "', '" + Name + "', " + Price +")";
+                    stmt.executeUpdate(sql);
+                    //hien thi thong tin trong Table
+                    showTable();
+                    //doi ten button lai thanh Add
+                    btnAdd.setText("Add");
+                    //xoa trang cac textfield
+                    clearTxt(); 
+                    //disable cac textfield
+                    manageTextField(false, false, false);
+
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void tblServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblServiceMouseClicked
+        // TODO add your handling code here:
+        manageButton(true, true, true);
+        int row;
+        String IDser;
+        String Nameser;
+        Double Price;
+        
+        row = tblService.getSelectedRow();
+        
+        IDser = (String) tblService.getValueAt(row, 0);        
+        Nameser = (String)tblService.getValueAt(row, 1);
+        Price = (double)tblService.getValueAt(row, 2);
+        
+        txtID.setText(IDser);
+        txtName.setText(Nameser);
+        //tra ve kieu String vi Price la kieu Double
+        txtPrice.setText(String.valueOf(Price));
+        
+        
+    }//GEN-LAST:event_tblServiceMouseClicked
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        
+        String labelBtn = btnUpdate.getText();
+        if( labelBtn.equalsIgnoreCase("Update"))
+        {
+            btnUpdate.setText("Save");            
+            manageTextField(false, true, true);
+            //dat lai trang thai cac Button
+            manageButton(false, true, false);
+           
+            
+        }else
+        {
+            //kiem tra cac textField co thoa man khong
+            String ID = txtID.getText();
+            String Name = txtName.getText();
+            String Price = txtPrice.getText();
+            try {
+                //tien hanh update thong tin len database
+                //cau lenh sql mau da kiem tra thu tren SQL
+                //update Services set  NameSer = 'Ban nha', Price = 100 where IDSer = 'S06'
+                sql = "update Services set  NameSer = '" + Name + "', Price = " + Price + " where IDSer = '" + ID + "'";
+                stmt.executeUpdate(sql);
+                
+                //chay xong thi doi ten Button lai thanh Update
+                btnUpdate.setText("Update");
+                //xoa trang cac textField
+                clearTxt();
+                //enable lai cac Button
+                manageButton(true, true, true);
+                //cap nhat lai Table
+                showTable();
+                
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            
+            
+            
+            
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
+        // TODO add your handling code here:
+        try {
+            int check = JOptionPane.showConfirmDialog(this, "Are you sure for deleting?");
+            if (check == JOptionPane.OK_OPTION)
+            {
+                String ID = txtID.getText();
+                //cau lenh SQL mau da kiem tra thu tren SQl
+                //delete from Services where IDSer = 'S06'
+                sql = "delete from Services where IDSer = '" + ID + "'";
+                stmt.executeUpdate(sql);
+                //xoa xong thi cap nhat lai Table
+                showTable();
+                //xoa cac textField
+                clearTxt();
+            }else{
+                return;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_btnDeleteMouseClicked
 
     /**
      * @param args the command line arguments
@@ -239,9 +471,9 @@ public class Services extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -250,9 +482,9 @@ public class Services extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTable tblService;
+    private javax.swing.JTextField txtID;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtPrice;
     // End of variables declaration//GEN-END:variables
 }
