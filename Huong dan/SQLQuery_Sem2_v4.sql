@@ -91,7 +91,7 @@ create table FeedbackNote
 	ContentFb nvarchar(1000) not null,
 	StatusFb varchar(30) not null,
 	constraint pk_FeedbackNote primary key (IDFb),
-	constraint fk_FeedbackNote_Guest foreign key (IDGu) references Client(IDCl),
+	constraint fk_FeedbackNote_Guest foreign key (IDGu) references Guest(IDGu),
 	constraint fk_FeedbackNote_Apartment foreign key (IDApa) references Apartment(IDApa)
 )
 go
@@ -110,7 +110,7 @@ create table Holding
 	TotalHo money not null,
 	CommissionHo money null,	
 	constraint pk_Holding primary key (IDHo),
-	constraint fk_Holding_Guest foreign key (IDGu) references Client(IDCl),
+	constraint fk_Holding_Guest foreign key (IDGu) references Guest(IDGu),
 	constraint fk_Holding_Apartment foreign key (IDApa) references Apartment(IDApa),
 	constraint fk_Holding_Collaborator foreign key (IDCo) references Collaborator(IDCo)
 )
@@ -128,3 +128,50 @@ create table Contract
 
 )
 go
+alter table Apartment
+add IDSup varchar(20) not null
+go
+
+create table Supplier
+(
+	IDSup varchar(20),
+	NameSup nvarchar(30) not null,
+	[AddressSup] nvarchar(50) not null,
+	PhoneSup varchar(11) not null,
+	EmailSup varchar(50) not null,
+	StatusSup varchar(20) not null,
+	constraint pk_Supplier primary key (IDSup)
+)
+
+go
+alter table Apartment
+add constraint fk_Apartment_Supplier foreign key (IDSup) references Supplier(IDSup)
+
+go
+create table Services
+(
+	IDSer varchar(20) not null,
+	NameSer nvarchar(30) not null,
+	Price money not null,
+	constraint pk_Services primary key (IDSer)
+)
+
+go
+alter table Holding
+add IDSer varchar(20)
+
+go
+alter table Holding
+add constraint fk_Holding_Services foreign key (IDSer) references Services(IDSer)
+
+go
+create table [Notification]
+(
+	IDNot varchar(20) not null,
+	IDAcc varchar(20) not null,
+	DetailNot nvarchar(50) not null,
+	StatusNot varchar(20) not null,
+	Redirect varchar(20) not null,
+	constraint pk_Notification primary key (IDNot),
+	constraint fk_Notification_Account foreign key (IDAcc) references Account(ID)
+)
