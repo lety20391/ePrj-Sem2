@@ -14,8 +14,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.Vector;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -25,8 +27,14 @@ public class uiContract_2 extends javax.swing.JFrame {
     Statement stmt;
     DatabaseConnect objDBConnect;
     Connection objConnection;
+    ResultSet rs;
+    String sql;
+    
     HashMap<String, String> dataMap;
     HashMap<String, JTextField> txtMap;
+    
+    DefaultTableModel conModel;
+    Vector header, row, data;
     
 
     /**
@@ -36,6 +44,7 @@ public class uiContract_2 extends javax.swing.JFrame {
         initComponents();
         connectToDatabase();
         initData();
+        showTable();
     }
     
     public void initData()
@@ -108,6 +117,46 @@ public class uiContract_2 extends javax.swing.JFrame {
         }
         
     }
+    
+    public void showTable()
+    {
+        conModel = new DefaultTableModel();
+        
+        header = new Vector();
+        header.add("ID Contract");
+        header.add("ID Holding");
+        header.add("Date Contract");
+        header.add("Price");
+        header.add("Status");
+        
+        data = new Vector();
+        
+        conModel.setRowCount(0);
+        
+        try {            
+            //select * from Services
+            sql = "select * from Contract";
+            rs = stmt.executeQuery(sql);
+            
+            rs.beforeFirst();
+            while(rs.next())
+            {
+                row = new Vector();                
+                row.add( rs.getString("IDCon"));
+                row.add(rs.getString("DateCon"));
+                row.add(rs.getString("IDHo"));
+                row.add(rs.getString("PriceCon"));
+                row.add(rs.getString("StatusCon"));
+                data.add(row);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        conModel.setDataVector(data, header);
+        tblCon.setModel(conModel);
+        //tblBook.setModel(bookModel);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -119,7 +168,7 @@ public class uiContract_2 extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblCon = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -147,7 +196,7 @@ public class uiContract_2 extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblCon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -158,7 +207,7 @@ public class uiContract_2 extends javax.swing.JFrame {
                 "ID Contract", "ID Holding", "Date", "Price", "Status"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblCon);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Contract");
@@ -492,8 +541,8 @@ public class uiContract_2 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel pContract;
+    private javax.swing.JTable tblCon;
     private javax.swing.JTextField txtDateCon;
     private javax.swing.JTextField txtIDCon;
     private javax.swing.JTextField txtIDHo;
