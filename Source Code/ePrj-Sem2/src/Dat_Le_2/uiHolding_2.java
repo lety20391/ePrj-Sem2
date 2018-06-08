@@ -52,6 +52,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
         modifyTable(tblHo);
     }
     
+  
     public void modifyTable(JTable table)
     {
         table.removeColumn(table.getColumn("Gu"));
@@ -95,6 +96,21 @@ public class uiHolding_2 extends javax.swing.JFrame {
         btnAdd.setEnabled(btnAddStatus);
         btnUpdate.setEnabled(btnUpdateStatus);
         btnDelete.setEnabled(btnDeleteStatus);
+    }
+    
+    public void getDataFromTextField()
+    {
+        IDHo = txtIDHo.getText();
+        IDGu = txtIDGu.getText();
+        IDApa = txtIDApa.getText();
+        IDCo = txtIDCo.getText();
+        DateHo = txtDateHo.getText();
+        FromDateHo = txtFromDateHo.getText();
+        ToDateHo = txtToDateHo.getText();
+        PayStatusHo = txtPayStatusHo.getText();
+        TotalHo = Double.parseDouble(txtTotalHo.getText());
+        CommissionHo = Double.parseDouble(txtCommissionHo.getText());
+        IDSer = txtIDSer.getText();
     }
     
     public void showTable(String sql)
@@ -586,6 +602,11 @@ public class uiHolding_2 extends javax.swing.JFrame {
         pHolding.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 453, 154, 57));
 
         btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
         pHolding.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 521, 144, 57));
 
         btnDelete.setText("Delete");
@@ -668,18 +689,8 @@ public class uiHolding_2 extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        IDHo = txtIDHo.getText();
-        IDGu = txtIDGu.getText();
-        IDApa = txtIDApa.getText();
-        IDCo = txtIDCo.getText();
-        DateHo = txtDateHo.getText();
-        FromDateHo = txtFromDateHo.getText();
-        ToDateHo = txtToDateHo.getText();
-        PayStatusHo = txtPayStatusHo.getText();
-        TotalHo = Double.parseDouble(txtTotalHo.getText());
-        CommissionHo = Double.parseDouble(txtCommissionHo.getText());
-        IDSer = txtIDSer.getText();
         
+        getDataFromTextField();
         manageBtn(false, true, false, false);
         
         String labelButton = btnAdd.getText();
@@ -704,6 +715,33 @@ public class uiHolding_2 extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        getDataFromTextField();
+        manageBtn(false, false, true, false);
+        
+        String labelButton = btnUpdate.getText();
+        if (labelButton.equalsIgnoreCase("Update"))
+        {
+            btnUpdate.setText("Save");
+        }else
+        {
+        
+            try {
+                //update Holding set IDGu = 'Gu01', IDApa = 'Ap01', IDCo = 'Co02', DateHo = '2018-8-6', FromDateHo = '2019-6-6', ToDateHo = '2019-6-10', PayStatusHo = 'Thanh toan 50%', TotalHo = 100, CommissionHo = 10, IDSer = 'Se02' where IDHo = 'Ho01'
+                sql = "update Holding set IDGu = '" + IDGu + "', IDApa = '" + IDApa + "', IDCo = '" + IDCo + "', DateHo = '" + DateHo + "', FromDateHo = '" + FromDateHo + "', ToDateHo = '" + ToDateHo + "', PayStatusHo = '" + PayStatusHo + "', TotalHo = " + TotalHo + ", CommissionHo = " + CommissionHo + ", IDSer = '" + IDSer + "' where IDHo = '" + IDHo + "'";
+                stmt.executeUpdate(sql);
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            sql = "select * from Holding";
+            showTable(sql);
+            btnUpdate.setText("Update");
+            manageBtn(true, true, true, true);
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     /**
      * @param args the command line arguments
