@@ -15,7 +15,7 @@ on primary
 log on
 (
 	name = 'Sem2_Project_Group2_lg',
-	filename = 'E:\Aptech\Data Prj2\Sem2_Project_Group2_lg.ldf',
+	filename = 'D:\Aptech\Data Prj2\Sem2_Project_Group2_lg.ldf',
 	size = 2MB,
 	maxsize = 2MB,
 	filegrowth = 10%
