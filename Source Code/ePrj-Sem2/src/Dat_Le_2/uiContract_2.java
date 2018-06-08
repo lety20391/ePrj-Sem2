@@ -568,14 +568,15 @@ public class uiContract_2 extends javax.swing.JFrame {
                 
         manageBtn(false, false, true, false);
         
-        String labelButton = btnAdd.getText();
+        String labelButton = btnUpdate.getText();
         if (labelButton.equalsIgnoreCase("Update"))
         {
-            btnAdd.setText("Save");
+            btnUpdate.setText("Save");
         }else
         {
         
             try {
+                sql = "";
                 stmt.executeUpdate(sql);
 
             } catch (Exception e) {
@@ -583,7 +584,7 @@ public class uiContract_2 extends javax.swing.JFrame {
             }
             sql = "select * from COntract";
             showTable(sql);
-            btnAdd.setText("Add");
+            btnUpdate.setText("Update");
             manageBtn(true, true, true, true);
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
