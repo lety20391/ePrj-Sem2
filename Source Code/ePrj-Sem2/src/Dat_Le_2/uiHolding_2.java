@@ -49,7 +49,6 @@ public class uiHolding_2 extends javax.swing.JFrame {
         connectToDatabase();
         initData();
         showTable("Select * from Holding");
-        modifyTable(tblHo);
     }
     
   
@@ -163,7 +162,8 @@ public class uiHolding_2 extends javax.swing.JFrame {
         
         hoModel.setDataVector(data, header);
         tblHo.setModel(hoModel);
-        //tblBook.setModel(bookModel);
+        //remove unnecessary column
+        modifyTable(tblHo);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -610,6 +610,11 @@ public class uiHolding_2 extends javax.swing.JFrame {
         pHolding.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 521, 144, 57));
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
         pHolding.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 521, 154, 57));
 
         btnMakeContract.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -742,6 +747,32 @@ public class uiHolding_2 extends javax.swing.JFrame {
             manageBtn(true, true, true, true);
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        getDataFromTextField();
+        manageBtn(false, false, false, true);
+        String labelButton = btnDelete.getText();
+        if (labelButton.equalsIgnoreCase("Delete"))
+        {
+            btnDelete.setText("Continue");
+        }else
+        {
+        
+            try {
+                //delete Holding where IDHo = 'Ho03'
+                sql = "delete Holding where IDHo = '"+ IDHo +"'";
+                stmt.executeUpdate(sql);
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            sql = "select * from Holding";
+            showTable(sql);
+            btnDelete.setText("Delete");
+            manageBtn(true, true, true, true);
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
