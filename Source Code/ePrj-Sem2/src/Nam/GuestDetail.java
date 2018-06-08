@@ -12,12 +12,12 @@ import javax.swing.JOptionPane;
  *
  * @author Namcham
  */
-public class ClientDetail extends javax.swing.JFrame {
+public class GuestDetail extends javax.swing.JFrame {
 
     /**
      * Creates new form StaffDetail
      */
-    public ClientDetail() {
+    public GuestDetail() {
         initComponents();
     }
 
@@ -66,7 +66,7 @@ public class ClientDetail extends javax.swing.JFrame {
         lbRegister.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         lbRegister.setForeground(new java.awt.Color(255, 255, 255));
         lbRegister.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbRegister.setText("Customer Detail");
+        lbRegister.setText("Guest Detail");
 
         lbMin.setBackground(new java.awt.Color(255, 153, 0));
         lbMin.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
@@ -407,14 +407,18 @@ public class ClientDetail extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ClientDetail.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GuestDetail.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ClientDetail.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GuestDetail.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ClientDetail.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GuestDetail.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ClientDetail.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GuestDetail.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -423,7 +427,7 @@ public class ClientDetail extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ClientDetail().setVisible(true);
+                new GuestDetail().setVisible(true);
             }
         });
     }

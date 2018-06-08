@@ -5,6 +5,13 @@
  */
 package Nam;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -14,12 +21,47 @@ import javax.swing.JOptionPane;
  */
 public class ForgotPassword extends javax.swing.JFrame {
 
+    Connection connection = null;
+    String dbAccount = "sa";
+    String dbPassword = "123";
+    String dbName = "Sem2_Project_Mine";
+    Statement stmt;
+    ResultSet rs;
+    String sql;
+
+    CreateNewPassword cnp;
+
+    ArrayList<String> listID;
+    String question, answer;
+
     /**
      * Creates new form ForgotPassword
      */
     public ForgotPassword() {
         initComponents();
         setLocationRelativeTo(null);
+        try {
+            connection = DBConnection.getDBConnection(dbName, dbAccount, dbPassword);
+            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        loadAccountList();
+        pack();
+    }
+
+    private void loadAccountList() {
+        listID = new ArrayList();
+        sql = "select * from Account";
+        try {
+            rs = stmt.executeQuery(sql);
+            rs.beforeFirst();
+            while (rs.next()) {
+                listID.add(rs.getString("ID"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -110,7 +152,7 @@ public class ForgotPassword extends javax.swing.JFrame {
         lbQuestion.setForeground(new java.awt.Color(255, 255, 255));
         lbQuestion.setText("Security Question");
 
-        cbQuestion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tên thú cưng của bạn là gì ?", "Bộ phim bạn yêu thích nhất ?", "Tên người bạn thân nhất của bạn ?" }));
+        cbQuestion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is name of your pet ?", "What is name of your favorite film ?", "What is name of your best friend ?" }));
 
         lbAnswer.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lbAnswer.setForeground(new java.awt.Color(255, 255, 255));
@@ -227,11 +269,52 @@ public class ForgotPassword extends javax.swing.JFrame {
     }//GEN-LAST:event_txtAnswerActionPerformed
 
     private void btnContinueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnContinueMouseClicked
-        CreateNewPassword cnp = new CreateNewPassword();
-        cnp.setVisible(true);
-        cnp.pack();
-        cnp.SettxtUsername(this.txtUsername.getText());
-        this.dispose();
+        if (txtUsername.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Username cannot be blank. Please re-enter.");
+            txtUsername.grabFocus();
+            return;
+        }
+        if (txtAnswer.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Answer cannot be blank. Please re-enter.");
+            txtAnswer.grabFocus();
+            return;
+        }
+        boolean check = false;
+        for (String id : listID) {
+            if (id.equals(txtUsername.getText())) {
+                check = true;
+                sql = "select * from Account where ID = " + "'" + id + "'";
+                try {
+                    rs = stmt.executeQuery(sql);
+                    rs.beforeFirst();
+                    while (rs.next()) {
+                        question = rs.getString("Question");
+                        answer = rs.getString("Answer");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
+            }
+        }
+        if (check == true) {
+            if (cbQuestion.getSelectedItem().equals(question) && txtAnswer.getText().equals(answer)) {
+                cnp = new CreateNewPassword(txtUsername.getText());
+                cnp.setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Question or Answer is not correct. Please re-enter.");
+                cbQuestion.setSelectedIndex(0);
+                cbQuestion.grabFocus();
+                txtAnswer.setText("");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Account is not correct. Please re-enter.");
+            cbQuestion.setSelectedIndex(0);
+            txtAnswer.setText("");
+            txtUsername.setText("");
+            txtUsername.grabFocus();
+        }
     }//GEN-LAST:event_btnContinueMouseClicked
 
     private void btnResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseClicked
@@ -243,37 +326,37 @@ public class ForgotPassword extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ForgotPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ForgotPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ForgotPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ForgotPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ForgotPassword().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(ForgotPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(ForgotPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(ForgotPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(ForgotPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new ForgotPassword().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnContinue;

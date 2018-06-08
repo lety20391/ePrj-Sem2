@@ -85,7 +85,7 @@ public class CollaboratorsManagement extends javax.swing.JFrame {
         lbRegister.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         lbRegister.setForeground(new java.awt.Color(255, 255, 255));
         lbRegister.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbRegister.setText("Staff Management");
+        lbRegister.setText("Collabarator Management");
 
         lbMin.setBackground(new java.awt.Color(255, 153, 0));
         lbMin.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N

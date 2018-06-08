@@ -84,7 +84,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Customer Management"/>
+            <Property name="text" type="java.lang.String" value="Guest Detail"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbMin">
@@ -142,72 +142,68 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" max="32767" attributes="0"/>
-                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
-                  <Component id="btnAddNewStaff" linkSize="1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                  <Component id="btnAddNewStaff1" linkSize="1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="btnAddNewStaff2" linkSize="1" min="-2" pref="122" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="btnAddNewStaff3" linkSize="1" min="-2" pref="98" max="-2" attributes="0"/>
-                  <EmptySpace pref="62" max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jPanel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="radActive" linkSize="4" min="-2" pref="89" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="radActive1" linkSize="4" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jPanel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="radActive" linkSize="3" min="-2" pref="89" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="radActive1" linkSize="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace pref="59" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lbStaffID" alignment="1" min="-2" pref="110" max="-2" attributes="0"/>
-                              <Component id="lbStaffID1" alignment="1" min="-2" pref="110" max="-2" attributes="0"/>
-                              <Component id="lbStaffID2" alignment="1" min="-2" pref="110" max="-2" attributes="0"/>
-                              <Component id="lbStaffID3" linkSize="5" alignment="1" min="-2" pref="110" max="-2" attributes="0"/>
-                              <Component id="lbStaffID5" alignment="1" min="-2" pref="110" max="-2" attributes="0"/>
-                              <Component id="lbStaffID6" alignment="1" min="-2" pref="110" max="-2" attributes="0"/>
-                              <Component id="lbStaffID8" alignment="1" min="-2" pref="110" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                                  <Component id="lbStaffID" alignment="1" min="-2" pref="110" max="-2" attributes="0"/>
+                                  <Component id="lbStaffID1" alignment="1" min="-2" pref="110" max="-2" attributes="0"/>
+                                  <Component id="lbStaffID2" alignment="1" min="-2" pref="110" max="-2" attributes="0"/>
+                                  <Component id="lbStaffID3" alignment="1" min="-2" pref="110" max="-2" attributes="0"/>
+                                  <Component id="lbStaffID5" alignment="1" min="-2" pref="110" max="-2" attributes="0"/>
+                                  <Component id="lbStaffID6" alignment="1" min="-2" pref="110" max="-2" attributes="0"/>
+                                  <Component id="lbStaffID8" alignment="1" min="-2" pref="110" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="lbStaffID9" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jTextField10" alignment="1" min="-2" pref="231" max="-2" attributes="0"/>
                               <Component id="jTextField9" alignment="1" min="-2" pref="231" max="-2" attributes="0"/>
                               <Component id="jTextField8" alignment="1" min="-2" pref="231" max="-2" attributes="0"/>
                               <Component id="jTextField7" alignment="1" min="-2" pref="231" max="-2" attributes="0"/>
-                              <Component id="jTextField5" alignment="1" min="-2" pref="231" max="-2" attributes="0"/>
-                              <Component id="jTextField3" alignment="1" min="-2" pref="231" max="-2" attributes="0"/>
-                              <Component id="jTextField2" alignment="1" min="-2" pref="231" max="-2" attributes="0"/>
+                              <Component id="jTextField1" alignment="1" min="-2" pref="231" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="lbStaffID9" linkSize="5" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jTextField1" min="-2" pref="231" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
+                          <Component id="btnAddNewStaff1" linkSize="1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="btnAddNewStaff2" linkSize="1" min="-2" pref="122" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="btnAddNewStaff3" linkSize="1" min="-2" pref="98" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jTextField2" alignment="1" min="-2" pref="231" max="-2" attributes="0"/>
+                      <Component id="jTextField3" alignment="1" min="-2" pref="231" max="-2" attributes="0"/>
+                      <Component id="jTextField5" alignment="1" min="-2" pref="231" max="-2" attributes="0"/>
+                      <Component id="jTextField10" alignment="1" min="-2" pref="231" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="44" pref="44" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jScrollPane1" min="-2" pref="91" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lbStaffID" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="jTextField10" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
@@ -247,55 +243,30 @@
                               <Component id="lbStaffID8" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="jTextField2" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="radActive" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="radActive1" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="radActive" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="radActive1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace pref="42" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                          <Component id="btnAddNewStaff" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnAddNewStaff1" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="btnAddNewStaff1" linkSize="2" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                           <Component id="btnAddNewStaff2" linkSize="2" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
                           <Component id="btnAddNewStaff3" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-          <AuxValues>
-            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-          </AuxValues>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable1">
-              <Properties>
-                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="4" rowCount="4">
-                    <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                    <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                    <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                    <Column editable="true" title="Title 4" type="java.lang.Object"/>
-                  </Table>
-                </Property>
-              </Properties>
-            </Component>
-          </SubComponents>
-        </Container>
         <Container class="javax.swing.JPanel" name="jPanel3">
 
           <Layout>
@@ -472,20 +443,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField10ActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnAddNewStaff">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="0" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="20" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Add new"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnAddNewStaff1">
           <Properties>

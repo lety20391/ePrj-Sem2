@@ -5,6 +5,12 @@
  */
 package Nam;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -14,13 +20,31 @@ import javax.swing.JOptionPane;
  */
 public class CreateNewPassword extends javax.swing.JFrame {
 
+    LoginForm login;
+
+    Connection connection = null;
+    String dbAccount = "sa";
+    String dbPassword = "123";
+    String dbName = "Sem2_Project_Group2";
+    Statement stmt;
+    ResultSet rs;
+    String sql;
     /**
      * Creates new form CreateNewPassword
+     * @param acccount
      */
-    public CreateNewPassword() {
+   public CreateNewPassword(String acccount) {
         initComponents();
-        this.setLocationRelativeTo(null);
+        setLocationRelativeTo(null);
+        try {
+            connection = DBConnection.getDBConnection(dbName, dbAccount, dbPassword);
+            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        txtUsername.setText(acccount);
         txtUsername.disable();
+        pack();
     }
 
     public void SettxtUsername(String a) {
@@ -125,6 +149,11 @@ public class CreateNewPassword extends javax.swing.JFrame {
         btnContinue.setText("Continue");
         btnContinue.setBorder(null);
         btnContinue.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnContinue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnContinueActionPerformed(evt);
+            }
+        });
 
         btnReset.setBackground(new java.awt.Color(255, 102, 153));
         btnReset.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -229,40 +258,70 @@ public class CreateNewPassword extends javax.swing.JFrame {
         txtReEnterPass.setText("");
     }//GEN-LAST:event_btnResetMouseClicked
 
+    private void btnContinueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinueActionPerformed
+        // TODO add your handling code here:
+        if (txtPassword.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "New password cannot be blank. Please re-enter.");
+            txtPassword.grabFocus();
+            return;
+        }
+        if (txtReEnterPass.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Confirm password cannot be blank. Please re-enter.");
+            txtReEnterPass.grabFocus();
+            return;
+        }
+        if (txtPassword.getText().equals(txtReEnterPass.getText())) {
+            sql = "update Account set Password = " + "'" + txtPassword.getText() + "'" + " where ID = " + "'" + txtUsername.getText() + "'";
+            try {
+                stmt.executeUpdate(sql);
+            } catch (SQLException ex) {
+                Logger.getLogger(CreateNewPassword.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            login = new LoginForm(txtUsername.getText());
+            login.setVisible(true);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Re-enter password is not correct.");
+            txtReEnterPass.setText("");
+            txtPassword.setText("");
+            txtPassword.grabFocus();
+        }
+    }//GEN-LAST:event_btnContinueActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateNewPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateNewPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateNewPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateNewPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CreateNewPassword().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(CreateNewPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(CreateNewPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(CreateNewPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(CreateNewPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new CreateNewPassword().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnContinue;
