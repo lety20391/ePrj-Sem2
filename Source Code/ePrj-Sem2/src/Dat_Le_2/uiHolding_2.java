@@ -14,8 +14,10 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Vector;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -47,6 +49,15 @@ public class uiHolding_2 extends javax.swing.JFrame {
         connectToDatabase();
         initData();
         showTable("Select * from Holding");
+        modifyTable(tblHo);
+    }
+    
+    public void modifyTable(JTable table)
+    {
+        table.removeColumn(table.getColumn("Gu"));
+        table.removeColumn(table.getColumn("Apa"));
+        table.removeColumn(table.getColumn("Co"));
+        table.removeColumn(table.getColumn("Commission"));
     }
     
     public void connectToDatabase()
@@ -127,7 +138,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
                 row.add(rs.getString("PayStatusHo"));
                 row.add(rs.getDouble("TotalHo"));
                 row.add(rs.getDouble("CommissionHo"));
-                row.add(rs.getString("DateHo"));
+                row.add(rs.getString("IDSer"));
                 data.add(row);
             }
         } catch (Exception e) {
@@ -567,6 +578,11 @@ public class uiHolding_2 extends javax.swing.JFrame {
         pHolding.add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 453, 144, 57));
 
         btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
         pHolding.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 453, 154, 57));
 
         btnUpdate.setText("Update");
@@ -621,18 +637,19 @@ public class uiHolding_2 extends javax.swing.JFrame {
         int row;
         
         row = tblHo.getSelectedRow();
+        TableModel tblModel = tblHo.getModel();
         
-        IDHo = (String) tblHo.getValueAt(row, 0);       
-        IDGu = (String)tblHo.getValueAt(row, 1);
-        IDApa = (String)tblHo.getValueAt(row, 2);
-        IDCo = (String)tblHo.getValueAt(row, 3);
-        DateHo = (String)tblHo.getValueAt(row, 4);
-        FromDateHo = (String)tblHo.getValueAt(row, 5);
-        ToDateHo = (String)tblHo.getValueAt(row, 6);
-        PayStatusHo = (String)tblHo.getValueAt(row, 7);
-        TotalHo = (Double)tblHo.getValueAt(row, 8);
-        CommissionHo = (Double)tblHo.getValueAt(row, 9);
-        IDSer = (String)tblHo.getValueAt(row, 10);
+        IDHo = (String) tblModel.getValueAt(row, 0);       
+        IDGu = (String)tblModel.getValueAt(row, 1);
+        IDApa = (String)tblModel.getValueAt(row, 2);
+        IDCo = (String)tblModel.getValueAt(row, 3);
+        DateHo = (String)tblModel.getValueAt(row, 4);
+        FromDateHo = (String)tblModel.getValueAt(row, 5);
+        ToDateHo = (String)tblModel.getValueAt(row, 6);
+        PayStatusHo = (String)tblModel.getValueAt(row, 7);
+        TotalHo = (Double)tblModel.getValueAt(row, 8);
+        CommissionHo = (Double)tblModel.getValueAt(row, 9);
+        IDSer = (String)tblModel.getValueAt(row, 10);
         
         
         txtIDHo.setText(IDHo);
@@ -648,6 +665,11 @@ public class uiHolding_2 extends javax.swing.JFrame {
         txtIDSer.setText(IDSer);
         
     }//GEN-LAST:event_tblHoMouseClicked
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnAddActionPerformed
 
     /**
      * @param args the command line arguments
