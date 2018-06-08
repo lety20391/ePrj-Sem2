@@ -1,3 +1,4 @@
+use master
 drop database Sem2_Project_Group2
 go
 
