@@ -211,6 +211,11 @@ public class Theme_guest extends javax.swing.JFrame {
         btnCancel.setText("Cancel");
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         tblCustomer.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         tblCustomer.setModel(new javax.swing.table.DefaultTableModel(
@@ -469,7 +474,7 @@ public class Theme_guest extends javax.swing.JFrame {
             try {
                 //tien hanh update thong tin len database
                 //cau lenh sql mau da kiem tra thu tren SQL
-                //update Services set  NameSer = 'Ban nha', Price = 100 where IDSer = 'S06'
+                //update Guest set  NameSer = 'Ban nha', Price = 100 where IDSer = 'S06'
                 sql = "update Guest set  NameGu = '" + Name + "',DOBGu = '" + DOB + "',IdentificationNumberGu = '" + IDentiNo + "',PhoneGu = '" + Phone + "',EmailGu  = '" + Email + "',StatusGu = '" + Status + "', IDCo = " + CoID + " where IDGu = '" + ID + "'";
                 stmt.executeUpdate(sql);
                 
@@ -488,6 +493,29 @@ public class Theme_guest extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        try {
+            int check = JOptionPane.showConfirmDialog(this, "Are you sure for deleting?");
+            if (check == JOptionPane.OK_OPTION)
+            {
+                String ID = txtID.getText();
+                //cau lenh SQL mau da kiem tra thu tren SQl
+                //delete from Guest where IDGu = 'S06'
+                sql = "delete from Guest where IDGu = '" + ID + "'";
+                stmt.executeUpdate(sql);
+                //xoa xong thi cap nhat lai Table
+                showTable();
+                //xoa cac textField
+                clearTxt();
+            }else{
+                return;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     
     /**
