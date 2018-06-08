@@ -76,6 +76,8 @@ public class uiHolding_2 extends javax.swing.JFrame {
         manageTextField(pHolding);
         manageTextField(pGuest);
         manageTextField(pCollaborator);
+        IDCo = "";
+        IDGu = "";
     }
 
     public void manageTextField(JPanel targetPanel)
@@ -115,7 +117,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
     public void setDataToGuestPanel()
     {
         try {
-            System.out.println(IDGu);
+            
             rs = stmt.executeQuery("Select * from Guest where IDGu = '" + IDGu + "'");
             rs.beforeFirst();
             rs.next();
@@ -125,6 +127,25 @@ public class uiHolding_2 extends javax.swing.JFrame {
                 txtIdentificationNumberGu2.setText(rs.getString("IdentificationNumberGu"));
                 txtPhoneGu2.setText(rs.getString("PhoneGu"));
                 txtEmailGu2.setText(rs.getString("EmailGu"));
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void setDataToCollaboratorPanel()
+    {
+        try {
+            
+            rs = stmt.executeQuery("Select * from Collaborator where IDCo = '" + IDCo + "'");
+            rs.beforeFirst();
+            rs.next();
+                txtIDCo2.setText(rs.getString("IDCo"));
+                txtNameCo2.setText(rs.getString("NameCo"));
+                txtDOBCo2.setText(rs.getString("DOBCo"));
+                txtIdentificationNumberCo2.setText(rs.getString("IdentificationNumberCo"));
+                txtPhoneCo2.setText(rs.getString("PhoneCo"));
+                txtEmailCo2.setText(rs.getString("EmailCo"));
             
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -183,6 +204,12 @@ public class uiHolding_2 extends javax.swing.JFrame {
         tblHo.setModel(hoModel);
         //remove unnecessary column
         modifyTable(tblHo);
+        //show Guest and Collaborator Info
+        if (!(IDGu.isEmpty()) && !(IDCo.isEmpty()))
+        {
+            setDataToGuestPanel();
+            setDataToCollaboratorPanel();
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -710,6 +737,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
         txtIDSer.setText(IDSer);
         
         setDataToGuestPanel();
+        setDataToCollaboratorPanel();
     }//GEN-LAST:event_tblHoMouseClicked
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
