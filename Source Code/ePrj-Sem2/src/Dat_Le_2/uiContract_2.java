@@ -532,7 +532,7 @@ public class uiContract_2 extends javax.swing.JFrame {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-            sql = "select * from COntract";
+            sql = "select * from Contract";
             showTable(sql);
             btnAdd.setText("Add");
             manageBtn(true, true, true, true);

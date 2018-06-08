@@ -668,6 +668,40 @@ public class uiHolding_2 extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
+        IDHo = txtIDHo.getText();
+        IDGu = txtIDGu.getText();
+        IDApa = txtIDApa.getText();
+        IDCo = txtIDCo.getText();
+        DateHo = txtDateHo.getText();
+        FromDateHo = txtFromDateHo.getText();
+        ToDateHo = txtToDateHo.getText();
+        PayStatusHo = txtPayStatusHo.getText();
+        TotalHo = Double.parseDouble(txtTotalHo.getText());
+        CommissionHo = Double.parseDouble(txtCommissionHo.getText());
+        IDSer = txtIDSer.getText();
+        
+        manageBtn(false, true, false, false);
+        
+        String labelButton = btnAdd.getText();
+        if (labelButton.equalsIgnoreCase("Add"))
+        {
+            btnAdd.setText("Save");
+        }else
+        {
+        
+            try {
+                //insert into Holding values('Ho01', 'Gu01', 'Ap01', 'Co01', '2018-5-5', '2018-6-6', '2018-6-12', 'Chua thanh toan', 10000, 100, 'Se01')
+                sql = "insert into Holding values('"+IDHo+"', '"+IDGu+"', '"+IDApa+"', '"+IDCo+"', '"+DateHo+"', '"+FromDateHo+"', '"+ToDateHo+"', '"+PayStatusHo+"', "+TotalHo+", "+CommissionHo+", '"+IDSer+"')";
+                stmt.executeUpdate(sql);
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            sql = "select * from Holding";
+            showTable(sql);
+            btnAdd.setText("Add");
+            manageBtn(true, true, true, true);
+        }
         
     }//GEN-LAST:event_btnAddActionPerformed
 
