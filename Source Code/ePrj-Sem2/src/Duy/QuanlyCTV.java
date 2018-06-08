@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,6 +23,8 @@ public class QuanlyCTV extends javax.swing.JFrame {
     Vector header, row, data;
     String sql;
     ResultSet rs;
+    Statement stmt;
+    Connection objConnection;
     
     /**
      * Creates new form QuanlyCTV
@@ -31,13 +34,15 @@ public class QuanlyCTV extends javax.swing.JFrame {
         initComponents();
         connect();
         showTable();
-        
+        manageButton(true,false,false);
+        managTextField(false,false,false,false,false,false,false,false,false,false,false,false,false,false);
     }
+   
     public void manageBtn(boolean btnAddStatus, boolean btnEditStatus, boolean btnViewStatus, boolean btnSearchStatus)
     {
         btnAdd.setEnabled(btnAddStatus);
         btnEdit.setEnabled(btnEditStatus);
-        btnView.setEnabled(btnViewStatus);
+        btnDelete.setEnabled(btnViewStatus);
         btnSearch.setEnabled(btnSearchStatus);
     }
     
@@ -49,7 +54,7 @@ public class QuanlyCTV extends javax.swing.JFrame {
         DatabaseConnect objDBConnect;
         objDBConnect = new DatabaseConnect();
         Connection objConnection;
-        objConnection = objDBConnect.DBConnect("Sem2_project_group2", "sa", "abc123");
+        objConnection = objDBConnect.DBConnect("Sem2_project_group2", "sa", "123");
         try {
             stmt = objConnection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
         } catch (Exception e) {
@@ -131,7 +136,7 @@ public class QuanlyCTV extends javax.swing.JFrame {
         txtEmail = new javax.swing.JTextField();
         btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
-        btnView = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
@@ -188,9 +193,19 @@ public class QuanlyCTV extends javax.swing.JFrame {
 
         btnEdit.setText("Edit");
         btnEdit.setPreferredSize(new java.awt.Dimension(99, 25));
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
 
-        btnView.setText("View");
-        btnView.setPreferredSize(new java.awt.Dimension(99, 25));
+        btnDelete.setText("Delete");
+        btnDelete.setPreferredSize(new java.awt.Dimension(99, 25));
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnSearch.setText("Search");
         btnSearch.setPreferredSize(new java.awt.Dimension(99, 25));
@@ -237,7 +252,7 @@ public class QuanlyCTV extends javax.swing.JFrame {
                 .addContainerGap(80, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(51, 51, 51)
                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -280,7 +295,7 @@ public class QuanlyCTV extends javax.swing.JFrame {
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
@@ -546,10 +561,53 @@ public class QuanlyCTV extends javax.swing.JFrame {
             
             showTable();
             btnAdd.setText("Add");
+            clearTxt();
             manageBtn(true, true, true, true);
+            manageTextfield(false, false,false,false,false,false,false,false,false,false,false,false,false,false);
         }
     }//GEN-LAST:event_btnAddActionPerformed
-
+    public void manageButton(boolean btnAddStatus, boolean btnEditStatus, boolean btnDeleteStatus, boolean btnSearchStatus)
+    {
+        btnAdd.setEnabled(btnAddStatus);
+        btnEdit.setEnabled(btnEditStatus);
+        btnDelete.setEnabled(btnDeleteStatus);
+        btnSearch.setEnabled(btnSearchStatus);
+    }
+    public void manageTextfield (boolean txtIDStatus, boolean txtNameStatus, boolean txtAddressStatus, boolean txtPhoneStatus, boolean txtEmailStatus, boolean txtDOBStatus, boolean txtIDNoStatus, boolean txtImageStatus, boolean txtStatusStatus, boolean txtDepositStatus, boolean txtPassStatus, boolean txtTypeStatus, boolean txtQuesStatus, boolean txtAnsStatus)
+    {
+        txtID.setEditable(txtIDStatus);
+        txtName.setEditable(txtNameStatus);
+        txtAddress.setEditable(txtAddressStatus);
+        txtPhone.setEditable(txtPhoneStatus);
+        txtEmail.setEditable(txtEmailStatus);
+        txtDOB.setEditable(txtDOBStatus);
+        txtIDNo.setEditable(txtIDNoStatus);
+        txtImage.setEditable(txtImageStatus);
+        txtStatus.setEditable(txtStatusStatus);
+        txtDeposit.setEditable(txtDepositStatus);
+        txtPass.setEditable(txtPassStatus);
+        txtType.setEditable(txtTypeStatus);
+        txtQues.setEditable(txtQuesStatus);
+        txtAns.setEditable(txtAnsStatus);                
+    }
+    public void clearTxt()
+    {
+        txtID.setText("");
+        txtName.setText("");
+        txtAddress.setText("");
+        txtPhone.setText("");
+        txtEmail.setText("");
+        txtDOB.setText("");
+        txtIDNo.setText("");
+        txtImage.setText("");
+        txtStatus.setText("");
+        txtDeposit.setText("");
+        txtPass.setText("");
+        txtType.setText("");
+        txtQues.setText("");
+        txtAns.setText("");
+        
+    }
     private void tblCoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCoMouseClicked
         // TODO add your handling code here:
         
@@ -585,6 +643,67 @@ public class QuanlyCTV extends javax.swing.JFrame {
         //tra ve kieu String vi Price la kieu Double
         txtDeposit.setText(String.valueOf(DepositCo));
     }//GEN-LAST:event_tblCoMouseClicked
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+    
+        String labelBtn = btnEdit.getText();
+        if( labelBtn.equalsIgnoreCase("Edit"))
+        {
+            btnEdit.setText("Save");
+            manageTextfield(false,true,true,true,true,true,true,true,true,true,true,true,true,true);
+            manageButton(false,true,false,false);
+        }
+        else
+        {
+            String ID = txtID.getText();
+            String Name = txtName.getText();
+            String Address = txtAddress.getText();
+            String Phone =   txtPhone.getText();
+            String Email =   txtEmail.getText();
+            String DOB =   txtDOB.getText();
+            String IDNo =    txtIDNo.getText();
+            String Image =   txtImage.getText();
+            String Status =  txtStatus.getText();
+            String Deposit =    txtDeposit.getText();
+            String Pass =   txtPass.getText();
+            String Type =    txtType.getText();
+            String Ques =   txtQues.getText();
+            String Ans =   txtAns.getText();
+            try {
+                //update Guest set  NameSer = 'Ban nha', Price = 100 where IDSer = 'S06'
+                    sql = "update Collaborator set  NameCo = '"+Name+"', AddressCo = '"+Address+"', PhoneCo = '"+Phone+"',EmailCo = '"+Email+"', DOBCo = '"+DOB+"', IdentificationNumberCo = '"+IDNo+"', ImageCo = '"+Image+"', StatusCo = '"+Status+"', DepositCo = '"+Deposit+"',Password = '"+Pass+"' where IDCo = '"+ID+"'";
+                    stmt.executeUpdate(sql);
+                    btnEdit.setText("Edit");
+                    clearTxt();
+                    manageButton(true,true,true,true);
+                    showTable();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        try {
+            int check = JOptionPane.showConfirmDialog(this, "You want to delete,sure?");
+            if (check == JOptionPane.OK_OPTION)
+            {
+                String ID = txtID.getText();
+                //cau lenh SQL mau da kiem tra thu tren SQl
+                //delete from Guest where IDGu = 'S06'
+                sql = "delete from Collaborator where IDCo = '" + ID + "'";
+                stmt.executeUpdate(sql);
+                //xoa xong thi cap nhat lai Table
+                showTable();
+                //xoa cac textField
+                clearTxt();
+            }else{
+                return;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -624,9 +743,9 @@ public class QuanlyCTV extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JButton btnView;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
