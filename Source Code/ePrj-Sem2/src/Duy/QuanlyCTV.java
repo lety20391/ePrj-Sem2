@@ -23,7 +23,7 @@ public class QuanlyCTV extends javax.swing.JFrame {
     Vector header, row, data;
     String sql;
     ResultSet rs;
-    Statement stmt;
+   
     Connection objConnection;
     
     /**
@@ -34,8 +34,8 @@ public class QuanlyCTV extends javax.swing.JFrame {
         initComponents();
         connect();
         showTable();
-        manageButton(true,false,false);
-        managTextField(false,false,false,false,false,false,false,false,false,false,false,false,false,false);
+        manageButton(true,false,false,false);
+        manageTextfield(false,false,false,false,false,false,false,false,false,false,false,false,false,false);
     }
    
     public void manageBtn(boolean btnAddStatus, boolean btnEditStatus, boolean btnViewStatus, boolean btnSearchStatus)
