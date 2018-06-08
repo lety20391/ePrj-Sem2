@@ -141,6 +141,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblConMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -279,12 +282,12 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="btnConfirm" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="jButton3" min="-2" pref="114" max="-2" attributes="0"/>
+                          <Component id="btnUpdate" min="-2" pref="114" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButton4" min="-2" pref="114" max="-2" attributes="0"/>
+                          <Component id="btnDelete" min="-2" pref="114" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Component id="jButton1" min="-2" pref="114" max="-2" attributes="0"/>
+                          <Component id="btnSearch" min="-2" pref="114" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="btnAdd" min="-2" pref="114" max="-2" attributes="0"/>
                       </Group>
@@ -348,13 +351,13 @@
                   </Group>
                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButton1" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
+                      <Component id="btnSearch" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
                       <Component id="btnAdd" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButton3" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
-                      <Component id="jButton4" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
+                      <Component id="btnUpdate" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
+                      <Component id="btnDelete" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnConfirm" min="-2" pref="67" max="-2" attributes="0"/>
@@ -435,7 +438,7 @@
             <Property name="text" type="java.lang.String" value="Status"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="btnSearch">
           <Properties>
             <Property name="text" type="java.lang.String" value="Search"/>
           </Properties>
@@ -448,12 +451,15 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
+        <Component class="javax.swing.JButton" name="btnUpdate">
           <Properties>
             <Property name="text" type="java.lang.String" value="Update"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton4">
+        <Component class="javax.swing.JButton" name="btnDelete">
           <Properties>
             <Property name="text" type="java.lang.String" value="Delete"/>
           </Properties>

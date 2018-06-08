@@ -36,6 +36,9 @@ public class uiContract_2 extends javax.swing.JFrame {
     DefaultTableModel conModel;
     Vector header, row, data;
     
+    String IDCon, DateCon, IDHo, StatusCon;
+    Double PriceCon;
+    
 
     /**
      * Creates new form uiContract
@@ -44,7 +47,8 @@ public class uiContract_2 extends javax.swing.JFrame {
         initComponents();
         connectToDatabase();
         initData();
-        showTable();
+        showTable("Select * from Contract");
+        manageBtn(true, true, false, false);
     }
     
     public void initData()
@@ -55,6 +59,7 @@ public class uiContract_2 extends javax.swing.JFrame {
         dataMap.put("IDHo", "HOL001" );
         dataMap.put("PriceCon", "1234");
         dataMap.put("StatusCon", "Waiting");
+        btnConfirm.setEnabled(false);
         
         txtMap = new HashMap<String, JTextField>();  
     }
@@ -87,7 +92,7 @@ public class uiContract_2 extends javax.swing.JFrame {
         }
     }
 
-    public void testHierarchy()
+    public void bindTextField()
     {
         Component[] objGetComponents = pContract.getComponents();
         for (Component objTemp : objGetComponents) {
@@ -118,7 +123,15 @@ public class uiContract_2 extends javax.swing.JFrame {
         
     }
     
-    public void showTable()
+    public void manageBtn(boolean btnSearchStatus, boolean btnAddStatus, boolean btnUpdateStatus, boolean btnDeleteStatus)
+    {
+        btnSearch.setEnabled(btnSearchStatus);
+        btnAdd.setEnabled(btnAddStatus);
+        btnUpdate.setEnabled(btnUpdateStatus);
+        btnDelete.setEnabled(btnDeleteStatus);
+    }
+    
+    public void showTable(String sql)
     {
         conModel = new DefaultTableModel();
         
@@ -135,7 +148,8 @@ public class uiContract_2 extends javax.swing.JFrame {
         
         try {            
             //select * from Services
-            sql = "select * from Contract";
+            if (sql.isEmpty())                
+                sql = "select * from Contract";
             rs = stmt.executeQuery(sql);
             
             rs.beforeFirst();
@@ -145,7 +159,7 @@ public class uiContract_2 extends javax.swing.JFrame {
                 row.add( rs.getString("IDCon"));
                 row.add(rs.getString("DateCon"));
                 row.add(rs.getString("IDHo"));
-                row.add(rs.getString("PriceCon"));
+                row.add(rs.getDouble("PriceCon"));
                 row.add(rs.getString("StatusCon"));
                 data.add(row);
             }
@@ -186,10 +200,10 @@ public class uiContract_2 extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         txtStatusCon = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnSearch = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
         btnConfirm = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -207,6 +221,11 @@ public class uiContract_2 extends javax.swing.JFrame {
                 "ID Contract", "ID Holding", "Date", "Price", "Status"
             }
         ));
+        tblCon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblConMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblCon);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -335,7 +354,7 @@ public class uiContract_2 extends javax.swing.JFrame {
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel18.setText("Status");
 
-        jButton1.setText("Search");
+        btnSearch.setText("Search");
 
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -344,9 +363,14 @@ public class uiContract_2 extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Update");
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Delete");
+        btnDelete.setText("Delete");
 
         btnConfirm.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         btnConfirm.setText("Confirm");
@@ -365,11 +389,11 @@ public class uiContract_2 extends javax.swing.JFrame {
                 .addGroup(pContractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pContractLayout.createSequentialGroup()
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pContractLayout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pContractLayout.createSequentialGroup()
@@ -419,12 +443,12 @@ public class uiContract_2 extends javax.swing.JFrame {
                     .addComponent(txtStatusCon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addGroup(pContractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pContractLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -461,7 +485,7 @@ public class uiContract_2 extends javax.swing.JFrame {
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         // TODO add your handling code here:
-        this.testHierarchy();
+        this.bindTextField();
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void txtDateConActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDateConActionPerformed
@@ -474,17 +498,96 @@ public class uiContract_2 extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        Set keySet = txtMap.keySet();
-        Iterator ite = keySet.iterator();
-        while(ite.hasNext())
+        
+//        Set keySet = txtMap.keySet();
+//        Iterator ite = keySet.iterator();
+//        while(ite.hasNext())
+//        {
+//            String key = (String)ite.next();
+//            if (key.equalsIgnoreCase("IDCon"))
+//            {
+//                txtMap.get(key).setText("Test");
+//            }
+//        }
+        
+        //lay du lieu tu textField
+        IDCon = txtIDCon.getText();
+        DateCon = txtDateCon.getText();
+        IDHo = txtIDHo.getText();
+        PriceCon = Double.parseDouble(txtPriceCon.getText());
+        StatusCon = txtStatusCon.getText();
+                
+        manageBtn(false, true, false, false);
+        
+        String labelButton = btnAdd.getText();
+        if (labelButton.equalsIgnoreCase("Add"))
         {
-            String key = (String)ite.next();
-            if (key.equalsIgnoreCase("IDCon"))
-            {
-                txtMap.get(key).setText("Test");
+            btnAdd.setText("Save");
+        }else
+        {
+        
+            try {
+                stmt.executeUpdate(sql);
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
+            sql = "select * from Contract";
+            showTable(sql);
+            btnAdd.setText("Add");
+            manageBtn(true, true, true, true);
         }
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void tblConMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblConMouseClicked
+        // TODO add your handling code here:
+        int row;
+        
+        row = tblCon.getSelectedRow();
+        
+        IDCon = (String) tblCon.getValueAt(row, 0);       
+        DateCon = (String)tblCon.getValueAt(row, 1);
+        IDHo = (String)tblCon.getValueAt(row, 2);
+        PriceCon = (Double)tblCon.getValueAt(row, 3);
+        StatusCon = (String)tblCon.getValueAt(row, 4);       
+        
+        txtIDCon.setText(IDCon);
+        txtDateCon.setText(DateCon);
+        txtIDHo.setText(IDHo);
+        txtPriceCon.setText(String.valueOf(PriceCon));
+        txtStatusCon.setText(StatusCon);
+    }//GEN-LAST:event_tblConMouseClicked
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        IDCon = txtIDCon.getText();
+        DateCon = txtDateCon.getText();
+        IDHo = txtIDHo.getText();
+        PriceCon = Double.parseDouble(txtPriceCon.getText());
+        StatusCon = txtStatusCon.getText();
+                
+        manageBtn(false, false, true, false);
+        
+        String labelButton = btnUpdate.getText();
+        if (labelButton.equalsIgnoreCase("Update"))
+        {
+            btnUpdate.setText("Save");
+        }else
+        {
+        
+            try {
+                sql = "";
+                stmt.executeUpdate(sql);
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            sql = "select * from COntract";
+            showTable(sql);
+            btnUpdate.setText("Update");
+            manageBtn(true, true, true, true);
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -525,9 +628,9 @@ public class uiContract_2 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnConfirm;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
