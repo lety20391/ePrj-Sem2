@@ -33,7 +33,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTabbedPane" min="-2" max="-2" attributes="0"/>
+              <Component id="jTabbedPane" pref="451" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -277,6 +277,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Collaborators"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCollaboratorActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnSearch">
               <Properties>
@@ -359,20 +362,20 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="btnBooking1" min="-2" pref="256" max="-2" attributes="0"/>
+                                      <Component id="colBtnBooking" min="-2" pref="256" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="btnGuest1" min="-2" pref="269" max="-2" attributes="0"/>
+                                      <Component id="colBtnGuest" min="-2" pref="269" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="btnDiscount1" min="-2" pref="258" max="-2" attributes="0"/>
+                                      <Component id="colBtnDiscount" min="-2" pref="258" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="btnNotification1" max="32767" attributes="0"/>
+                                      <Component id="colLbNotification" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="txtAccountCol" pref="201" max="32767" attributes="0"/>
+                              <Component id="colTxtAccount" pref="201" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="btnCreate1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="colBtnCreate" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -384,25 +387,25 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="btnBooking1" linkSize="3" alignment="3" min="-2" pref="113" max="-2" attributes="0"/>
-                              <Component id="btnGuest1" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="colBtnBooking" linkSize="3" alignment="3" min="-2" pref="113" max="-2" attributes="0"/>
+                              <Component id="colBtnGuest" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="txtAccountCol" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                          <Component id="colTxtAccount" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnDiscount1" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
-                          <Component id="btnNotification1" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
+                          <Component id="colBtnDiscount" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
+                          <Component id="colLbNotification" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="17" max="32767" attributes="0"/>
-                      <Component id="btnCreate1" min="-2" pref="128" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="colBtnCreate" min="-2" pref="128" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="btnBooking1">
+            <Component class="javax.swing.JButton" name="colBtnBooking">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="66" green="33" red="ff" type="rgb"/>
@@ -416,7 +419,7 @@
                 <Property name="text" type="java.lang.String" value="Booking"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnGuest1">
+            <Component class="javax.swing.JButton" name="colBtnGuest">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="99" red="99" type="rgb"/>
@@ -430,14 +433,14 @@
                 <Property name="text" type="java.lang.String" value="Guest"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtAccountCol">
+            <Component class="javax.swing.JTextField" name="colTxtAccount">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="18" style="1"/>
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnDiscount1">
+            <Component class="javax.swing.JButton" name="colBtnDiscount">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="ff" red="33" type="rgb"/>
@@ -451,7 +454,7 @@
                 <Property name="text" type="java.lang.String" value="Discount"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnNotification1">
+            <Component class="javax.swing.JButton" name="colLbNotification">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="ff" type="rgb"/>
@@ -465,7 +468,7 @@
                 <Property name="text" type="java.lang.String" value="Notification"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnCreate1">
+            <Component class="javax.swing.JButton" name="colBtnCreate">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="99" green="0" red="99" type="rgb"/>
@@ -498,46 +501,49 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" pref="555" max="-2" attributes="0"/>
-                      <Component id="txtAccountGuest" pref="201" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="guBtnDiscount" min="-2" pref="258" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <Component id="guBtnNotification" pref="253" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="guTxtAccount" min="-2" pref="207" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="254" max="-2" attributes="0"/>
-                          <Component id="btnDiscount2" min="-2" pref="258" max="-2" attributes="0"/>
-                          <EmptySpace pref="254" max="32767" attributes="0"/>
-                      </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
+                      <Component id="guBtnViewAllRoom" min="-2" pref="351" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtAccountGuest" min="-2" pref="28" max="-2" attributes="0"/>
-                      <EmptySpace pref="380" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="145" max="-2" attributes="0"/>
-                          <Component id="btnDiscount2" min="-2" pref="128" max="-2" attributes="0"/>
-                          <EmptySpace pref="146" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="guBtnDiscount" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
+                              <Component id="guBtnNotification" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="guTxtAccount" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="guBtnViewAllRoom" min="-2" pref="125" max="-2" attributes="0"/>
+                      <EmptySpace pref="143" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JTextField" name="txtAccountGuest">
+            <Component class="javax.swing.JTextField" name="guTxtAccount">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="18" style="1"/>
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnDiscount2">
+            <Component class="javax.swing.JButton" name="guBtnDiscount">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="ff" red="33" type="rgb"/>
@@ -549,6 +555,34 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Discount"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="guBtnNotification">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="ff" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="30" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Notification"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="guBtnViewAllRoom">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="33" red="ff" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="30" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="View all apartment"/>
               </Properties>
             </Component>
           </SubComponents>

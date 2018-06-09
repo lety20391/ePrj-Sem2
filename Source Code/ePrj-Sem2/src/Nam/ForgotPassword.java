@@ -24,7 +24,7 @@ public class ForgotPassword extends javax.swing.JFrame {
     Connection connection = null;
     String dbAccount = "sa";
     String dbPassword = "123";
-    String dbName = "Sem2_Project_Mine";
+    String dbName = "Sem2_Project_Group2";
     Statement stmt;
     ResultSet rs;
     String sql;
