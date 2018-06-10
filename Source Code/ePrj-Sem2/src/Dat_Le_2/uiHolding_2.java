@@ -7,6 +7,7 @@ package Dat_Le_2;
 
 import Dat_Le.*;
 import DatabaseConnection.DatabaseConnect;
+import DatabaseConnection.connectionContainer;
 import java.awt.Component;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -62,13 +63,12 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.getIDFrom
     
     public void connectToDatabase()
     {
-        objDBConnect = new DatabaseConnect();        
-        objConnection = objDBConnect.DBConnect("Sem2_project_group2", "sa", "abc123");
-        try {
-            stmt = objConnection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        DatabaseConnect objDBConnect;
+        objDBConnect = new DatabaseConnect();
+        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "abc123");
+        
+        objConnection = connectContainer.getObjCon();
+        stmt = connectContainer.getStatement();
     }
     
     public void initData()

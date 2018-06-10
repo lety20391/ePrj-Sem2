@@ -21,15 +21,18 @@ public class TestConnection {
     /**
      * @param args the command line arguments
      */
+    
     public static void main(String[] args) {
         
         // TODO code application logic here
+        Connection con;
+        Statement stmt;
         DatabaseConnect objDBConnect;
         objDBConnect = new DatabaseConnect();
         connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "abc123");
         
-        Connection con = connectContainer.getObjCon();
-        Statement stmt = connectContainer.getStatement();
+        con = connectContainer.getObjCon();
+        stmt = connectContainer.getStatement();
         
         
         
