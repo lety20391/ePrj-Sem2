@@ -23,7 +23,7 @@ import javax.swing.table.TableModel;
  *
  * @author Dat ThinkPad
  */
-public class uiHolding_2 extends javax.swing.JFrame {
+public class uiHolding_2 extends javax.swing.JFrame implements Library.getIDFromFrame{
     
     Statement stmt;
     DatabaseConnect objDBConnect;
@@ -284,7 +284,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
         jLabel26 = new javax.swing.JLabel();
         txtIDSer = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Holding");
 
         pTblHo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -923,4 +923,15 @@ public class uiHolding_2 extends javax.swing.JFrame {
     private javax.swing.JTextField txtToDateHo;
     private javax.swing.JTextField txtTotalHo;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public String returnMainId() {
+        return IDHo;
+    }
+    
+    @Override
+    public void dispose(){
+        System.out.println("Disposed complete");
+        super.dispose();
+    }
 }
