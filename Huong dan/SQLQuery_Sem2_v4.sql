@@ -1,5 +1,5 @@
 use master
-
+go
 drop database Sem2_Project_Group2
 go
 
@@ -37,13 +37,7 @@ create table Account
 	constraint pk_Taikhoan primary key (ID)
 )
 go
-/* Nhap du lieu vao bang tai khoan */
-insert into Account(ID, Password, Type, Question, Answer, Active) values
-('Ad01','123','ad','What is name of your best friend ?','datle','true'),
-('Co01','456','co','What is name of your pet ?','min','true'),
-('Co02','654','co','What is name of your favorite film ?','ffvii','false'),
-('Gu01','789','gu','What is name of your favorite film ?','avatar','true')
-go
+
 
 
 /* Tao bang cong tac vien */
@@ -65,11 +59,7 @@ create table Collaborator
 	constraint fk_Collabrator_Account foreign key (IDCo) references Account(ID)
 )
 go
-/* Nhap du lieu vao bang cong tac vien */
-insert into Collaborator(IDCo, NameCo, AddressCo, DOBCo, IdentificationNumberCo, DepositCo, PhoneCo, EmailCo, ActiveCo, ImageCo, GradeCo, NumberOfGuest) values
-('Co01', 'Nguyen Thanh Nam', 'Tan Binh', '1988-04-10', '123456789', 12332, '0969460713', 'nguyenthanhnam1004@gmail.com', 'true', 'image', 'normal', 6),
-('Co02', 'Le Cong Dat', 'Quan 10', '1990-03-11', '123454321', 10, '0909999999', 'lecongdat@gmail.com', 'false', 'image', 'good', 8)
-go
+
 update Collaborator set ImageCo = 'E:\\NAM_FPT\\Database_Sem2_Mine\\beautiful_1.jpg' where IDCo = 'Co02'
 go
 
