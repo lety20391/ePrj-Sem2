@@ -351,9 +351,15 @@ public class LoginForm extends javax.swing.JFrame {
         }
         if (check == true) {
             sqlConnectionClose();
-            mcf = new MainControlInterface(txtUsername.getText());
-            mcf.setVisible(true);
-            
+            java.awt.EventQueue.invokeLater(new Runnable()
+                {
+                    public void run()
+                    {
+                        mcf = new MainControlInterface(txtUsername.getText());
+                        mcf.setVisible(true);
+                    }
+                }            
+            );
             dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Username or Password is incorrect.");
