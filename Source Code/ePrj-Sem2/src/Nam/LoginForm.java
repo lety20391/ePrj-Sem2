@@ -31,6 +31,7 @@ public class LoginForm extends javax.swing.JFrame {
 
     ArrayList<String> listID;
     String password;
+    boolean active;
 
     MainControlInterface mcf;
     ForgotPassword fgp;
@@ -328,6 +329,7 @@ public class LoginForm extends javax.swing.JFrame {
                     rs.beforeFirst();
                     while (rs.next()) {
                         password = rs.getString("Password");
+                        active = rs.getBoolean("Active");
                     }
                     break;
                 } catch (SQLException ex) {
@@ -339,11 +341,16 @@ public class LoginForm extends javax.swing.JFrame {
         if (txtPassword.getText().equals(password)) {
             check = true;
         }
-        if (check == true) {
+        if (check == true && active) {
             mcf = new MainControlInterface(txtUsername.getText());
             mcf.setVisible(true);
             dispose();
-        } else {
+        }
+        if (check == true && !active) {
+            JOptionPane.showMessageDialog(this, "This username is blocked.");
+            textReset();
+        }
+        if (check == false) {
             JOptionPane.showMessageDialog(this, "Username or Password is incorrect.");
             textReset();
         }

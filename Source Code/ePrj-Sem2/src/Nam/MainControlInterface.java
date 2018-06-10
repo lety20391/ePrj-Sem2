@@ -53,15 +53,15 @@ public class MainControlInterface extends javax.swing.JFrame {
     }
 
     private void load() {
-        if (checkAccount().equals("Ad")) {
+        if (checkAccount().equals("ad")) {
             jTabbedPane.remove(jPanelCol);
             jTabbedPane.remove(jPanelGuest);
         }
-        if (checkAccount().equals("Co")) {
+        if (checkAccount().equals("co")) {
             jTabbedPane.remove(jPanelAdmin);
             jTabbedPane.remove(jPanelGuest);
         }
-        if (checkAccount().equals("Gu")) {
+        if (checkAccount().equals("gu")) {
             jTabbedPane.remove(jPanelAdmin);
             jTabbedPane.remove(jPanelCol);
         }
