@@ -5,10 +5,15 @@
  */
 package Nam;
 
+import java.awt.Image;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -26,23 +31,28 @@ public class CollaboratorsManagement extends javax.swing.JFrame {
     Statement stmt;
     ResultSet rs;
     String sql;
-    
+
     MainControlInterface mci;
-    
+
     DefaultTableModel collaboratorsModel;
     Vector header, data, row;
     int dong;
     String id;
-    
+    boolean active;
+    String path;//duong dan image
+
     private static String accID;
+
     /**
      * Creates new form StaffForm
+     *
      * @param account
      */
     public CollaboratorsManagement(String account) {
         initComponents();
         setLocationRelativeTo(null);
         pack();
+        datechooserCol.setDateFormatString("yyyy-mm-dd");
         try {
             connection = DBConnection.getDBConnection(dbName, dbAccount, dbPassword);
             stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -56,22 +66,20 @@ public class CollaboratorsManagement extends javax.swing.JFrame {
         header.add("Deposit");
         header.add("Phone");
         header.add("Email");
-        
+
         data = new Vector();
         showTableData();
-        
+
         accID = account;
     }
-    
-    private void showTableData()
-    {
+
+    private void showTableData() {
         collaboratorsModel.setRowCount(0);
         try {
             sql = "select * from Collaborator";
             rs = stmt.executeQuery(sql);
             rs.beforeFirst();
-            while(rs.next())
-            {
+            while (rs.next()) {
                 row = new Vector();
                 row.add(rs.getString("IDCo"));
                 row.add(rs.getString("NameCo"));
@@ -90,30 +98,42 @@ public class CollaboratorsManagement extends javax.swing.JFrame {
         }
         collaboratorsModel.setDataVector(data, header);
         tblCollaborator.setModel(collaboratorsModel);
-//        setButtonOnOff(false);
-//        setTextOnOff(false);
-//        deleteText();
+        setButtonOnOff(false);
+        setTextOnOff(false);
+        deleteText();
     }
-    
-//    private void setButtonOnOff(boolean check)
-//    {
-//        btnUpdate.setEnabled(check);
-//        btnDelete.setEnabled(check);
-//    }
-//    
-//    private void setTextOnOff(boolean check)
-//    {
-//        txtID.setEditable(check);
-//        txtTitle.setEditable(check);
-//        txtPrice.setEditable(check);
-//    }
-//    
-//    private void deleteText()
-//    {
-//        txtID.setText("");
-//        txtTitle.setText("");
-//        txtPrice.setText("");
-//    }
+
+    private void setButtonOnOff(boolean check) {
+        btnUpdateCol.setEnabled(check);
+        btnBlockCol.setEnabled(check);
+        btnUnlockCol.setEnabled(check);
+    }
+
+    private void setTextOnOff(boolean check) {
+        txtColID.setEditable(check);
+        txtColName.setEditable(check);
+        datechooserCol.setEnabled(check);
+        txtDeposit.setEditable(check);
+        txtEmail.setEditable(check);
+        txtIdentify.setEditable(check);
+        txtNumberofGuest.setEditable(check);
+        txtAddress.setEditable(check);
+        txtPhone.setEditable(check);
+        txtNumberofGuest.setEditable(check);
+    }
+
+    private void deleteText() {
+        txtColID.setText("");
+        txtColName.setText("");
+        datechooserCol.setDate(null);
+        txtDeposit.setText("");
+        txtEmail.setText("");
+        txtIdentify.setText("");
+        txtNumberofGuest.setText("");
+        txtAddress.setText("");
+        txtPhone.setText("");
+        txtNumberofGuest.setText("");
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -124,65 +144,54 @@ public class CollaboratorsManagement extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lbStaffID7 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        lbRegister = new javax.swing.JLabel();
+        lbColManagement = new javax.swing.JLabel();
         lbMin = new javax.swing.JLabel();
         lbClose = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCollaborator = new javax.swing.JTable();
-        jPanel3 = new javax.swing.JPanel();
-        lbStaffID = new javax.swing.JLabel();
-        lbStaffID1 = new javax.swing.JLabel();
-        lbStaffID2 = new javax.swing.JLabel();
-        lbStaffID3 = new javax.swing.JLabel();
-        lbStaffID4 = new javax.swing.JLabel();
-        lbStaffID5 = new javax.swing.JLabel();
-        lbStaffID6 = new javax.swing.JLabel();
-        lbStaffID8 = new javax.swing.JLabel();
-        lbStaffID9 = new javax.swing.JLabel();
+        panelImage = new javax.swing.JPanel();
+        lbImage = new javax.swing.JLabel();
+        lbColID = new javax.swing.JLabel();
+        lbColName = new javax.swing.JLabel();
+        lbColDOB = new javax.swing.JLabel();
+        lbColIdentifiedNo = new javax.swing.JLabel();
+        lbColDeposit = new javax.swing.JLabel();
+        lbColPhone = new javax.swing.JLabel();
+        lbColEmail = new javax.swing.JLabel();
+        lbColGrade = new javax.swing.JLabel();
+        lbColNumberOfGuest = new javax.swing.JLabel();
         txtNumberofGuest = new javax.swing.JTextField();
         txtGrade = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         txtPhone = new javax.swing.JTextField();
         txtDeposit = new javax.swing.JTextField();
         txtIdentify = new javax.swing.JTextField();
-        txtDOB = new javax.swing.JTextField();
-        txtName = new javax.swing.JTextField();
-        txtID = new javax.swing.JTextField();
-        btnAddNewStaff = new javax.swing.JButton();
-        btnAddNewStaff1 = new javax.swing.JButton();
-        btnAddNewStaff2 = new javax.swing.JButton();
+        txtColName = new javax.swing.JTextField();
+        txtColID = new javax.swing.JTextField();
+        btnAddNewCol = new javax.swing.JButton();
+        btnUpdateCol = new javax.swing.JButton();
+        btnBlockCol = new javax.swing.JButton();
         radActive = new javax.swing.JRadioButton();
-        radActive1 = new javax.swing.JRadioButton();
-        btnAddNewStaff3 = new javax.swing.JButton();
-        lbStaffID10 = new javax.swing.JLabel();
+        radBlock = new javax.swing.JRadioButton();
+        btnUnlockCol = new javax.swing.JButton();
+        lbColAddress = new javax.swing.JLabel();
         txtAddress = new javax.swing.JTextField();
         btnBack = new javax.swing.JButton();
-
-        lbStaffID7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lbStaffID7.setForeground(new java.awt.Color(255, 255, 255));
-        lbStaffID7.setText("Email");
-
-        jTextField4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
-            }
-        });
+        datechooserCol = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 153, 51));
 
-        lbRegister.setBackground(new java.awt.Color(255, 153, 0));
-        lbRegister.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        lbRegister.setForeground(new java.awt.Color(255, 255, 255));
-        lbRegister.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbRegister.setText("Collabarator Management");
+        lbColManagement.setBackground(new java.awt.Color(255, 153, 0));
+        lbColManagement.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        lbColManagement.setForeground(new java.awt.Color(255, 255, 255));
+        lbColManagement.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbColManagement.setText("Collabarator Management");
 
         lbMin.setBackground(new java.awt.Color(255, 153, 0));
         lbMin.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
@@ -213,7 +222,7 @@ public class CollaboratorsManagement extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(lbRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbColManagement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(46, 46, 46)
                 .addComponent(lbMin, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -224,7 +233,7 @@ public class CollaboratorsManagement extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbColManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbMin, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbClose, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -250,137 +259,107 @@ public class CollaboratorsManagement extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblCollaborator);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 195, Short.MAX_VALUE)
+        javax.swing.GroupLayout panelImageLayout = new javax.swing.GroupLayout(panelImage);
+        panelImage.setLayout(panelImageLayout);
+        panelImageLayout.setHorizontalGroup(
+            panelImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lbImage, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 224, Short.MAX_VALUE)
+        panelImageLayout.setVerticalGroup(
+            panelImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lbImage, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
         );
 
-        lbStaffID.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lbStaffID.setForeground(new java.awt.Color(255, 255, 255));
-        lbStaffID.setText("Id");
+        lbColID.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbColID.setForeground(new java.awt.Color(255, 255, 255));
+        lbColID.setText("Id");
 
-        lbStaffID1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lbStaffID1.setForeground(new java.awt.Color(255, 255, 255));
-        lbStaffID1.setText("Name");
+        lbColName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbColName.setForeground(new java.awt.Color(255, 255, 255));
+        lbColName.setText("Name");
 
-        lbStaffID2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lbStaffID2.setForeground(new java.awt.Color(255, 255, 255));
-        lbStaffID2.setText("DOB");
+        lbColDOB.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbColDOB.setForeground(new java.awt.Color(255, 255, 255));
+        lbColDOB.setText("DOB");
 
-        lbStaffID3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lbStaffID3.setForeground(new java.awt.Color(255, 255, 255));
-        lbStaffID3.setText("Identify No.");
+        lbColIdentifiedNo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbColIdentifiedNo.setForeground(new java.awt.Color(255, 255, 255));
+        lbColIdentifiedNo.setText("Identify No.");
 
-        lbStaffID4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lbStaffID4.setForeground(new java.awt.Color(255, 255, 255));
-        lbStaffID4.setText("Balance");
+        lbColDeposit.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbColDeposit.setForeground(new java.awt.Color(255, 255, 255));
+        lbColDeposit.setText("Deposit");
 
-        lbStaffID5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lbStaffID5.setForeground(new java.awt.Color(255, 255, 255));
-        lbStaffID5.setText("Phone");
+        lbColPhone.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbColPhone.setForeground(new java.awt.Color(255, 255, 255));
+        lbColPhone.setText("Phone");
 
-        lbStaffID6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lbStaffID6.setForeground(new java.awt.Color(255, 255, 255));
-        lbStaffID6.setText("Email");
+        lbColEmail.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbColEmail.setForeground(new java.awt.Color(255, 255, 255));
+        lbColEmail.setText("Email");
 
-        lbStaffID8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lbStaffID8.setForeground(new java.awt.Color(255, 255, 255));
-        lbStaffID8.setText("Grade");
+        lbColGrade.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbColGrade.setForeground(new java.awt.Color(255, 255, 255));
+        lbColGrade.setText("Grade");
 
-        lbStaffID9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lbStaffID9.setForeground(new java.awt.Color(255, 255, 255));
-        lbStaffID9.setText("No. of guests");
+        lbColNumberOfGuest.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbColNumberOfGuest.setForeground(new java.awt.Color(255, 255, 255));
+        lbColNumberOfGuest.setText("No. of guests");
 
         txtNumberofGuest.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         txtGrade.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         txtEmail.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txtEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmailActionPerformed(evt);
-            }
-        });
 
         txtPhone.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txtPhone.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPhoneActionPerformed(evt);
-            }
-        });
 
         txtDeposit.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txtDeposit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDepositActionPerformed(evt);
-            }
-        });
 
         txtIdentify.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txtIdentify.addActionListener(new java.awt.event.ActionListener() {
+
+        txtColName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        txtColID.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        btnAddNewCol.setBackground(new java.awt.Color(0, 255, 255));
+        btnAddNewCol.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        btnAddNewCol.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddNewCol.setText("Add new");
+        btnAddNewCol.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdentifyActionPerformed(evt);
+                btnAddNewColActionPerformed(evt);
             }
         });
 
-        txtDOB.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txtDOB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDOBActionPerformed(evt);
-            }
-        });
+        btnUpdateCol.setBackground(new java.awt.Color(255, 255, 0));
+        btnUpdateCol.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        btnUpdateCol.setForeground(new java.awt.Color(255, 255, 255));
+        btnUpdateCol.setText("Update");
 
-        txtName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txtName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNameActionPerformed(evt);
-            }
-        });
+        btnBlockCol.setBackground(new java.awt.Color(255, 0, 51));
+        btnBlockCol.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        btnBlockCol.setForeground(new java.awt.Color(255, 255, 255));
+        btnBlockCol.setText("Block");
 
-        txtID.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txtID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIDActionPerformed(evt);
-            }
-        });
-
-        btnAddNewStaff.setBackground(new java.awt.Color(0, 255, 255));
-        btnAddNewStaff.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        btnAddNewStaff.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddNewStaff.setText("Add new");
-
-        btnAddNewStaff1.setBackground(new java.awt.Color(255, 255, 0));
-        btnAddNewStaff1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        btnAddNewStaff1.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddNewStaff1.setText("Update");
-
-        btnAddNewStaff2.setBackground(new java.awt.Color(255, 0, 51));
-        btnAddNewStaff2.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        btnAddNewStaff2.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddNewStaff2.setText("Block");
-
+        buttonGroup1.add(radActive);
         radActive.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         radActive.setForeground(new java.awt.Color(255, 255, 255));
         radActive.setText("Active");
 
-        radActive1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        radActive1.setForeground(new java.awt.Color(255, 255, 255));
-        radActive1.setText("Blocked");
+        buttonGroup1.add(radBlock);
+        radBlock.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        radBlock.setForeground(new java.awt.Color(255, 255, 255));
+        radBlock.setText("Blocked");
 
-        btnAddNewStaff3.setBackground(new java.awt.Color(51, 255, 51));
-        btnAddNewStaff3.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        btnAddNewStaff3.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddNewStaff3.setText("Unblock");
+        btnUnlockCol.setBackground(new java.awt.Color(51, 255, 51));
+        btnUnlockCol.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        btnUnlockCol.setForeground(new java.awt.Color(255, 255, 255));
+        btnUnlockCol.setText("Unblock");
 
-        lbStaffID10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lbStaffID10.setForeground(new java.awt.Color(255, 255, 255));
-        lbStaffID10.setText("Address");
+        lbColAddress.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbColAddress.setForeground(new java.awt.Color(255, 255, 255));
+        lbColAddress.setText("Address");
 
         txtAddress.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
@@ -393,6 +372,8 @@ public class CollaboratorsManagement extends javax.swing.JFrame {
                 btnBackActionPerformed(evt);
             }
         });
+
+        datechooserCol.setDateFormatString("yyyy-mm-dd");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -408,59 +389,59 @@ public class CollaboratorsManagement extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnBack)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAddNewStaff)
+                        .addComponent(btnAddNewCol)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAddNewStaff1)
+                        .addComponent(btnUpdateCol)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAddNewStaff2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBlockCol, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAddNewStaff3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnUnlockCol, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(lbStaffID10))
+                                .addComponent(lbColAddress))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lbStaffID9))
+                                .addComponent(lbColNumberOfGuest))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(38, 38, 38)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(panelImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                         .addComponent(radActive, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(radActive1)))
+                                        .addComponent(radBlock)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbStaffID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbStaffID1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbStaffID2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbStaffID3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbStaffID4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbStaffID5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbStaffID6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbStaffID8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(lbColID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbColName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbColDOB, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbColIdentifiedNo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbColDeposit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbColPhone, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbColEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbColGrade, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDOB, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtIdentify, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDeposit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPhone, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtGrade, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNumberofGuest, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtColID, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                            .addComponent(txtColName, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                            .addComponent(txtIdentify, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                            .addComponent(txtDeposit, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                            .addComponent(txtPhone, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                            .addComponent(txtGrade, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                            .addComponent(txtNumberofGuest, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                            .addComponent(txtAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                            .addComponent(datechooserCol, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(37, 37, 37))
         );
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAddNewStaff, btnAddNewStaff1, btnAddNewStaff2, btnAddNewStaff3, btnBack});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAddNewCol, btnBack, btnBlockCol, btnUnlockCol, btnUpdateCol});
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {radActive, radActive1});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {radActive, radBlock});
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lbStaffID, lbStaffID1, lbStaffID10, lbStaffID2, lbStaffID3, lbStaffID4, lbStaffID5, lbStaffID6, lbStaffID8, lbStaffID9});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lbColAddress, lbColDOB, lbColDeposit, lbColEmail, lbColGrade, lbColID, lbColIdentifiedNo, lbColName, lbColNumberOfGuest, lbColPhone});
 
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -471,62 +452,62 @@ public class CollaboratorsManagement extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbStaffID, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lbColID, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtColID, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbStaffID1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lbColName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtColName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbColDOB, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                            .addComponent(datechooserCol, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbStaffID2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDOB, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbStaffID3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbColIdentifiedNo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtIdentify, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbStaffID4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbColDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbStaffID5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbColPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbStaffID6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbColEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbStaffID8, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbColGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(panelImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(radActive)
-                            .addComponent(radActive1))
+                            .addComponent(radBlock))
                         .addGap(18, 18, 18)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNumberofGuest, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbStaffID9, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbColNumberOfGuest, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbStaffID10, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbColAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddNewStaff2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAddNewStaff3)
-                    .addComponent(btnAddNewStaff1)
-                    .addComponent(btnAddNewStaff)
+                    .addComponent(btnBlockCol, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUnlockCol)
+                    .addComponent(btnUpdateCol)
+                    .addComponent(btnAddNewCol)
                     .addComponent(btnBack))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAddNewStaff, btnAddNewStaff1, btnAddNewStaff2, btnAddNewStaff3, btnBack});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAddNewCol, btnBack, btnBlockCol, btnUnlockCol, btnUpdateCol});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -558,38 +539,6 @@ public class CollaboratorsManagement extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lbCloseMouseClicked
 
-    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmailActionPerformed
-
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
-
-    private void txtPhoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPhoneActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPhoneActionPerformed
-
-    private void txtDepositActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDepositActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDepositActionPerformed
-
-    private void txtIdentifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdentifyActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdentifyActionPerformed
-
-    private void txtDOBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDOBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDOBActionPerformed
-
-    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNameActionPerformed
-
-    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDActionPerformed
-
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
         mci = new MainControlInterface(accID);
@@ -600,20 +549,129 @@ public class CollaboratorsManagement extends javax.swing.JFrame {
     private void tblCollaboratorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCollaboratorMouseClicked
         // TODO add your handling code here:
         dong = tblCollaborator.getSelectedRow();
-        id = (String)tblCollaborator.getValueAt(dong, 0);
-        txtID.setText(id);
-        //sql = "select * from Collaborator where IDCo = "+"'"+id+"'";
-//        try {
-//            rs.absolute(dong + 1);
-//            rs.beforeFirst();
-//            while (rs.next()) {
-//                txtID.setText(rs.getString("IDCo"));
-//            }
-//            txtID.setText(id);
-//        } catch (SQLException ex) {
-//            Logger.getLogger(CollaboratorsManagement.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        id = (String) tblCollaborator.getValueAt(dong, 0);
+
+        txtColID.setText(id);
+        txtColName.setText((String) tblCollaborator.getValueAt(dong, 1));
+        txtDeposit.setText(String.valueOf(tblCollaborator.getValueAt(dong, 2)));
+        txtPhone.setText((String) tblCollaborator.getValueAt(dong, 3));
+        txtEmail.setText((String) tblCollaborator.getValueAt(dong, 4));
+
+        try {
+            sql = "select c.IDCo, c.DOBCo, c.IdentificationNumberCo, c.ImageCo, c.GradeCo, c.NumberOfGuest, c.AddressCo, a.Active from Collaborator c join Account a on c.IDCo = a.ID where c.IDCo = " + "'" + id + "'";
+            rs = stmt.executeQuery(sql);
+            rs.beforeFirst();
+            while (rs.next()) {
+                datechooserCol.setDate(rs.getDate("DOBCo"));
+                txtGrade.setText(rs.getString("GradeCo"));
+                txtIdentify.setText(rs.getString("IdentificationNumberCo"));
+                txtAddress.setText(rs.getString("AddressCo"));
+                txtNumberofGuest.setText(String.valueOf(rs.getInt("NumberOfGuest")));
+                active = rs.getBoolean("Active");
+                path = rs.getString("ImageCo");
+            }
+            if (active) {
+                radActive.setSelected(true);
+            }
+            if (!active) {
+                radBlock.setSelected(true);
+            }
+            ImageIcon colImage = new ImageIcon(path);
+            Image img = colImage.getImage();
+            Image newImage = img.getScaledInstance(lbImage.getWidth(), lbImage.getHeight(), Image.SCALE_SMOOTH);
+            ImageIcon image = new ImageIcon(newImage);
+            lbImage.setIcon(image);
+        } catch (SQLException ex) {
+            Logger.getLogger(CollaboratorsManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_tblCollaboratorMouseClicked
+
+    private void btnAddNewColActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewColActionPerformed
+        // TODO add your handling code here:
+        if (btnAddNewCol.getText().equalsIgnoreCase("add new")) {
+            setTextOnOff(true);
+            deleteText();
+            txtColID.grabFocus();
+            btnAddNewCol.setText("Save");
+        } else {
+            //Kiêm tra trang
+            if (txtColID.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "ID cannot be blank. Re-enter.");
+                txtColID.grabFocus();
+                return;
+            }
+            if (txtColName.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Name cannot be blank. Re-enter.");
+                txtColName.grabFocus();
+                return;
+            }
+            if (txtAddress.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Address cannot be blank. Re-enter.");
+                txtAddress.grabFocus();
+                return;
+            }
+            if (txtDeposit.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Deposit cannot be blank. Re-enter.");
+                txtDeposit.grabFocus();
+                return;
+            }
+            if (txtEmail.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Email cannot be blank. Re-enter.");
+                txtEmail.grabFocus();
+                return;
+            }
+            if (txtGrade.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Grade cannot be blank. Re-enter.");
+                txtGrade.grabFocus();
+                return;
+            }
+            if (txtIdentify.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Identification number cannot be blank. Re-enter.");
+                txtIdentify.grabFocus();
+                return;
+            }
+            if (txtNumberofGuest.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Number of guest cannot be blank. Re-enter.");
+                txtNumberofGuest.grabFocus();
+                return;
+            }
+            if (txtPhone.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Phone cannot be blank. Re-enter.");
+                txtPhone.grabFocus();
+                return;
+            }
+            if (datechooserCol.getDate() == null) {
+                JOptionPane.showMessageDialog(this, "Date of birth cannot be blank. Re-enter.");
+                datechooserCol.grabFocus();
+                return;
+            }
+            int so;
+            if (radActive.isSelected()) {
+                hasCD = true;
+                so = 1;
+            } else {
+                hasCD = false;
+                so = 0;
+            }
+            sql = "insert into Book values('" + bid + "','" + btitle + "'," + catID + "," + quan + "," + price + "," + so + ")";
+            try {
+                stmt.executeUpdate(sql);
+                row = new Vector();
+                row.add(bid);
+                row.add(btitle);
+                row.add(catID);
+                bookModel.addRow(row);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            btnAddNewCol.setText("Add New");
+            deleteText();
+            setButton(false);
+            setTextCheck(false);
+
+        }
+    }//GEN-LAST:event_btnAddNewColActionPerformed
 
     /**
      * @param args the command line arguments
@@ -654,41 +712,41 @@ public class CollaboratorsManagement extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddNewStaff;
-    private javax.swing.JButton btnAddNewStaff1;
-    private javax.swing.JButton btnAddNewStaff2;
-    private javax.swing.JButton btnAddNewStaff3;
+    private javax.swing.JButton btnAddNewCol;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnBlockCol;
+    private javax.swing.JButton btnUnlockCol;
+    private javax.swing.JButton btnUpdateCol;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private com.toedter.calendar.JDateChooser datechooserCol;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JLabel lbClose;
+    private javax.swing.JLabel lbColAddress;
+    private javax.swing.JLabel lbColDOB;
+    private javax.swing.JLabel lbColDeposit;
+    private javax.swing.JLabel lbColEmail;
+    private javax.swing.JLabel lbColGrade;
+    private javax.swing.JLabel lbColID;
+    private javax.swing.JLabel lbColIdentifiedNo;
+    private javax.swing.JLabel lbColManagement;
+    private javax.swing.JLabel lbColName;
+    private javax.swing.JLabel lbColNumberOfGuest;
+    private javax.swing.JLabel lbColPhone;
+    private javax.swing.JLabel lbImage;
     private javax.swing.JLabel lbMin;
-    private javax.swing.JLabel lbRegister;
-    private javax.swing.JLabel lbStaffID;
-    private javax.swing.JLabel lbStaffID1;
-    private javax.swing.JLabel lbStaffID10;
-    private javax.swing.JLabel lbStaffID2;
-    private javax.swing.JLabel lbStaffID3;
-    private javax.swing.JLabel lbStaffID4;
-    private javax.swing.JLabel lbStaffID5;
-    private javax.swing.JLabel lbStaffID6;
-    private javax.swing.JLabel lbStaffID7;
-    private javax.swing.JLabel lbStaffID8;
-    private javax.swing.JLabel lbStaffID9;
+    private javax.swing.JPanel panelImage;
     private javax.swing.JRadioButton radActive;
-    private javax.swing.JRadioButton radActive1;
+    private javax.swing.JRadioButton radBlock;
     private javax.swing.JTable tblCollaborator;
     private javax.swing.JTextField txtAddress;
-    private javax.swing.JTextField txtDOB;
+    private javax.swing.JTextField txtColID;
+    private javax.swing.JTextField txtColName;
     private javax.swing.JTextField txtDeposit;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtGrade;
-    private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtIdentify;
-    private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtNumberofGuest;
     private javax.swing.JTextField txtPhone;
     // End of variables declaration//GEN-END:variables
