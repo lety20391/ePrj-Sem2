@@ -7,9 +7,21 @@ insert into Account(ID, Password, Type, Question, Answer) values
 ('Co02', 'abc123', 'Co', 'Dog Name' , 'Min'), 
 ('Gu01', 'abc123', 'Gu', 'Dog Name' , 'Be'),
 ('Gu02', 'abc123', 'Gu', 'Dog Name' , 'Lu')
-
 go
 
+update Account set Question = 'What is name of your pet ?' where ID = 'Co01'
+update Account set Question = 'What is name of your favorite film ?' where ID = 'Co02'
+update Account set Question = 'What is name of your pet ?' where ID = 'Gu01'
+update Account set Question = 'What is name of your best friend ?' where ID = 'Gu02'
+go
+
+insert into Account(ID, Password, Type, Question, Answer) values
+('Ad01', 'abc123', 'Co', 'What is name of your favorite film ?' , 'ffvii')
+go
+update Account set Type = 'Ad' where ID = 'Ad01'
+go
+select * from Account
+go
 insert into Collaborator(IDCo, NameCo, AddressCo, DOBCo, IdentificationNumberCo, DepositCo, PhoneCo, EmailCo, StatusCo, ImageCo) values
 ('Co01', 'Duy', 'Q5', '2005-12-20',  '1234', 123, '12345', 'email', 'Normal', 'Link' ),
 ('Co02', 'Duyen', 'Q10', '2005-12-30', '1234', 123, '12345', 'email', 'Normal', 'Link' )
@@ -52,6 +64,9 @@ go
 insert into [Notification] values
 ('Not01', 'Gu01', 'Dat phong thanh cong', 'unread', 'Link Frame'),
 ('Not02', 'Gu02', 'Sap het han thanh toan', 'read', 'Link Frame')
+
+select * from Collaborator
+go
 
 
 

@@ -7,7 +7,7 @@ create database Sem2_Project_Group2
 on primary
 (
 	name = 'Sem2_Project_Group2',
-	filename = 'D:\Aptech\Data Prj2\Sem2_Project_Group2.mdf',
+	filename = 'E:\Aptech\Data Prj2\Sem2_Project_Group2.mdf',
 	size = 5MB,
 	maxsize = 5MB,
 	filegrowth = 10%
@@ -15,7 +15,7 @@ on primary
 log on
 (
 	name = 'Sem2_Project_Group2_lg',
-	filename = 'D:\Aptech\Data Prj2\Sem2_Project_Group2_lg.ldf',
+	filename = 'E:\Aptech\Data Prj2\Sem2_Project_Group2_lg.ldf',
 	size = 2MB,
 	maxsize = 2MB,
 	filegrowth = 10%
@@ -25,6 +25,7 @@ go
 use Sem2_Project_Group2
 go
 
+/* Tao bang tai khoan */
 create table Account
 (
 	ID varchar(20),
@@ -32,10 +33,20 @@ create table Account
 	[Type] varchar(3) not null,
 	Question varchar(100) not null,
 	Answer varchar(100) not null,
+	Active bit not null,
 	constraint pk_Taikhoan primary key (ID)
 )
 go
+/* Nhap du lieu vao bang tai khoan */
+insert into Account(ID, Password, Type, Question, Answer, Active) values
+('Ad01','123','ad','What is name of your best friend ?','datle','true'),
+('Co01','456','co','What is name of your pet ?','min','true'),
+('Co02','654','co','What is name of your favorite film ?','ffvii','false'),
+('Gu01','789','gu','What is name of your favorite film ?','avatar','true')
+go
 
+
+/* Tao bang cong tac vien */
 create table Collaborator
 (
 	IDCo varchar(20),
@@ -46,13 +57,21 @@ create table Collaborator
 	DepositCo money not null,
 	PhoneCo varchar(11) not null,
 	EmailCo varchar(50) not null,
-	StatusCo varchar(20) not null,
+	ActiveCo bit not null,
 	[ImageCo] varchar(50) not null,
+	GradeCo varchar(20) not null,
+	NumberOfGuest int not null
 	constraint pk_Collabrator primary key (IDCo),
 	constraint fk_Collabrator_Account foreign key (IDCo) references Account(ID)
 )
 go
-
+/* Nhap du lieu vao bang cong tac vien */
+insert into Collaborator(IDCo, NameCo, AddressCo, DOBCo, IdentificationNumberCo, DepositCo, PhoneCo, EmailCo, ActiveCo, ImageCo, GradeCo, NumberOfGuest) values
+('Co01', 'Nguyen Thanh Nam', 'Tan Binh', '1988-04-10', '123456789', 12332, '0969460713', 'nguyenthanhnam1004@gmail.com', 'true', 'image', 'normal', 6),
+('Co02', 'Le Cong Dat', 'Quan 10', '1990-03-11', '123454321', 10, '0909999999', 'lecongdat@gmail.com', 'false', 'image', 'good', 8)
+go
+update Collaborator set ImageCo = 'E:\\NAM_FPT\\Database_Sem2_Mine\\beautiful_1.jpg' where IDCo = 'Co02'
+go
 
 create table Guest
 (

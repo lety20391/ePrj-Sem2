@@ -3,17 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Nam;
+package Nam_Test;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,47 +13,13 @@ import javax.swing.JOptionPane;
  */
 public class ForgotPassword extends javax.swing.JFrame {
 
-    Connection connection = null;
-    String dbAccount = "sa";
-    String dbPassword = "123";
-    String dbName = "Sem2_Project_Group2";
-    Statement stmt;
-    ResultSet rs;
-    String sql;
-
-    CreateNewPassword cnp;
-
-    ArrayList<String> listID;
-    String question, answer;
-
     /**
      * Creates new form ForgotPassword
      */
     public ForgotPassword() {
         initComponents();
         setLocationRelativeTo(null);
-        try {
-            connection = DBConnection.getDBConnection(dbName, dbAccount, dbPassword);
-            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        loadAccountList();
-        pack();
-    }
-
-    private void loadAccountList() {
-        listID = new ArrayList();
-        sql = "select * from Account";
-        try {
-            rs = stmt.executeQuery(sql);
-            rs.beforeFirst();
-            while (rs.next()) {
-                listID.add(rs.getString("ID"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        btnBackToLoginForm.addActionListener( new Login());
     }
 
     /**
@@ -86,9 +44,9 @@ public class ForgotPassword extends javax.swing.JFrame {
         txtAnswer = new javax.swing.JTextField();
         btnContinue = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
+        btnBackToLoginForm = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 153, 0));
 
@@ -124,7 +82,7 @@ public class ForgotPassword extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(lbForgotPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addComponent(lbMin, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbClose, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -152,7 +110,7 @@ public class ForgotPassword extends javax.swing.JFrame {
         lbQuestion.setForeground(new java.awt.Color(255, 255, 255));
         lbQuestion.setText("Security Question");
 
-        cbQuestion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is name of your pet ?", "What is name of your favorite film ?", "What is name of your best friend ?" }));
+        cbQuestion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tên thú cưng của bạn là gì ?", "Bộ phim bạn yêu thích nhất ?", "Tên người bạn thân nhất của bạn ?" }));
 
         lbAnswer.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lbAnswer.setForeground(new java.awt.Color(255, 255, 255));
@@ -191,6 +149,23 @@ public class ForgotPassword extends javax.swing.JFrame {
             }
         });
 
+        btnBackToLoginForm.setBackground(new java.awt.Color(102, 153, 255));
+        btnBackToLoginForm.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnBackToLoginForm.setForeground(new java.awt.Color(255, 255, 255));
+        btnBackToLoginForm.setText("Back to login form");
+        btnBackToLoginForm.setBorder(null);
+        btnBackToLoginForm.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBackToLoginForm.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBackToLoginFormMouseClicked(evt);
+            }
+        });
+        btnBackToLoginForm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackToLoginFormActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -198,9 +173,10 @@ public class ForgotPassword extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(115, 115, 115)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbEnterUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                    .addComponent(lbEnterUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lbQuestion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lbAnswer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lbAnswer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBackToLoginForm, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -230,7 +206,9 @@ public class ForgotPassword extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnContinue, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnContinue, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBackToLoginForm, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(24, 24, 24))
         );
 
@@ -245,7 +223,7 @@ public class ForgotPassword extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -253,11 +231,7 @@ public class ForgotPassword extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lbCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCloseMouseClicked
-        if (JOptionPane.showConfirmDialog(new JFrame(),
-                "Do you want to quit this application ?", "",
-                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            System.exit(0);
-        }
+        System.exit(0);
     }//GEN-LAST:event_lbCloseMouseClicked
 
     private void lbMinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbMinMouseClicked
@@ -269,52 +243,11 @@ public class ForgotPassword extends javax.swing.JFrame {
     }//GEN-LAST:event_txtAnswerActionPerformed
 
     private void btnContinueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnContinueMouseClicked
-        if (txtUsername.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Username cannot be blank. Please re-enter.");
-            txtUsername.grabFocus();
-            return;
-        }
-        if (txtAnswer.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Answer cannot be blank. Please re-enter.");
-            txtAnswer.grabFocus();
-            return;
-        }
-        boolean check = false;
-        for (String id : listID) {
-            if (id.equals(txtUsername.getText())) {
-                check = true;
-                sql = "select * from Account where ID = " + "'" + id + "'";
-                try {
-                    rs = stmt.executeQuery(sql);
-                    rs.beforeFirst();
-                    while (rs.next()) {
-                        question = rs.getString("Question");
-                        answer = rs.getString("Answer");
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                break;
-            }
-        }
-        if (check == true) {
-            if (cbQuestion.getSelectedItem().equals(question) && txtAnswer.getText().equals(answer)) {
-                cnp = new CreateNewPassword(txtUsername.getText());
-                cnp.setVisible(true);
-                dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Question or Answer is not correct. Please re-enter.");
-                cbQuestion.setSelectedIndex(0);
-                cbQuestion.grabFocus();
-                txtAnswer.setText("");
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Account is not correct. Please re-enter.");
-            cbQuestion.setSelectedIndex(0);
-            txtAnswer.setText("");
-            txtUsername.setText("");
-            txtUsername.grabFocus();
-        }
+        CreateNewPassword cnp = new CreateNewPassword();
+        cnp.setVisible(true);
+        cnp.pack();
+        cnp.SettxtUsername(this.txtUsername.getText());
+        this.dispose();
     }//GEN-LAST:event_btnContinueMouseClicked
 
     private void btnResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseClicked
@@ -322,6 +255,14 @@ public class ForgotPassword extends javax.swing.JFrame {
         txtUsername.requestFocus();
         txtAnswer.setText("");
     }//GEN-LAST:event_btnResetMouseClicked
+
+    private void btnBackToLoginFormMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackToLoginFormMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBackToLoginFormMouseClicked
+
+    private void btnBackToLoginFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToLoginFormActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_btnBackToLoginFormActionPerformed
 
     /**
      * @param args the command line arguments
@@ -359,6 +300,7 @@ public class ForgotPassword extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBackToLoginForm;
     private javax.swing.JButton btnContinue;
     private javax.swing.JButton btnReset;
     private javax.swing.JComboBox<String> cbQuestion;

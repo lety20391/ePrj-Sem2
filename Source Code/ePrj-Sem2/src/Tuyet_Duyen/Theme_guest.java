@@ -356,7 +356,7 @@ public class Theme_guest extends javax.swing.JFrame {
         String labelButton = btnAdd.getText();
             if (labelButton.equalsIgnoreCase("Add"))
             {
-                clearTxt();               
+                //clearTxt();               
                 manageTextField(true, true, true,true, true, true,true, true);
                 btnAdd.setText("Save");            
             }else{
