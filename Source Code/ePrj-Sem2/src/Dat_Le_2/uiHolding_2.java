@@ -52,6 +52,15 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.getIDFrom
         showTable("Select * from Holding");
     }
     
+    public uiHolding_2(Connection objConnection, Statement stmt)
+    {
+        initComponents();
+        this.objConnection = objConnection;
+        this.stmt = stmt;
+        initData();
+        showTable("Select * from Holding");
+    }
+    
   
     public void modifyTable(JTable table)
     {

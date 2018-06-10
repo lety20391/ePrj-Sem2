@@ -357,7 +357,7 @@ public class LoginForm_mod extends javax.swing.JFrame {
                     rs.beforeFirst();
                     while (rs.next()) {
                         password = rs.getString("Password");
-                        active = rs.getBoolean("Active");
+                        active = true;
                     }
                     break;
                 } catch (SQLException ex) {

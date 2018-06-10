@@ -516,7 +516,7 @@ public class MainControlInterface extends javax.swing.JFrame {
             {
                 public void run ()
                 {
-                    objHolding = new uiHolding_2();
+                    objHolding = new uiHolding_2(connection, stmt);
                     objHolding.setVisible(true);
                 }
             }  
