@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import Nam.RegisterForm;
 
 /**
  *
@@ -349,6 +350,9 @@ public class Theme_guest extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
+        RegisterForm objRF = new RegisterForm();
+        objRF.setVisible(true);
+        
         String labelButton = btnAdd.getText();
             if (labelButton.equalsIgnoreCase("Add"))
             {
