@@ -6,6 +6,7 @@
 package Tuyet_Duyen;
 
 import DatabaseConnection.DatabaseConnect;
+import DatabaseConnection.connectionContainer;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -35,18 +36,49 @@ public class Services extends javax.swing.JFrame {
         manageButton(true,false,false);
         manageTextField(false, false, false);
     }
+    //------------------------------------------------------
+    //tui tạo lại method mới để connect nên tui ẩn cái này đi
+    //------------------------------------------------------
+    //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
     
-    public void connectSQL(){
+    
+//    public void connectSQL(){
+//        DatabaseConnect objDBConnect;
+//        objDBConnect = new DatabaseConnect();
+//        
+//        objConnection = objDBConnect.DBConnect("Sem2_project_group2", "sa", "abc123");
+//        try {
+//            stmt = objConnection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+//    }
+    
+    
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //------------------------------------------------------
+    //tui tạo lại method mới để connect nên tui ẩn cái này đi
+    //------------------------------------------------------
+    
+    
+    //------------------------------------------------------
+    //đây là cái method mới để kết nối
+    //------------------------------------------------------
+    //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+    public void connectSQL()
+    {
         DatabaseConnect objDBConnect;
         objDBConnect = new DatabaseConnect();
+        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "abc123");
         
-        objConnection = objDBConnect.DBConnect("Sem2_project_group2", "sa", "abc123");
-        try {
-            stmt = objConnection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        objConnection = connectContainer.getObjCon();
+        stmt = connectContainer.getStatement();
     }
+    
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //------------------------------------------------------
+    //đây là method mới để kết nối
+    //------------------------------------------------------
     
     public void showTable()
     {
