@@ -14,6 +14,8 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import Dat_Le_2.uiHolding_2;
+
 /**
  *
  * @author Namcham
@@ -22,7 +24,7 @@ public class MainControlInterface extends javax.swing.JFrame {
 
     Connection connection = null;
     String dbAccount = "sa";
-    String dbPassword = "123";
+    String dbPassword = "abc123";
     String dbName = "Sem2_Project_Group2";
     Statement stmt;
     ResultSet rs;
@@ -30,6 +32,9 @@ public class MainControlInterface extends javax.swing.JFrame {
     
     CollaboratorsManagement colmanage;
     GuestManagement guestmanega;
+    
+    //phan dat ten cac variable cho tung Frame
+    uiHolding_2 objHolding;
 
     /**
      * Creates new form MainControlInterface
@@ -99,7 +104,7 @@ public class MainControlInterface extends javax.swing.JFrame {
         jPanelAdmin = new javax.swing.JPanel();
         btnNotification = new javax.swing.JButton();
         txtAccount = new javax.swing.JTextField();
-        btnBooking = new javax.swing.JButton();
+        btnHolding = new javax.swing.JButton();
         btnDiscount = new javax.swing.JButton();
         btnCollaborator = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
@@ -185,10 +190,15 @@ public class MainControlInterface extends javax.swing.JFrame {
 
         txtAccount.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
-        btnBooking.setBackground(new java.awt.Color(255, 51, 102));
-        btnBooking.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
-        btnBooking.setForeground(new java.awt.Color(255, 255, 255));
-        btnBooking.setText("Booking");
+        btnHolding.setBackground(new java.awt.Color(255, 51, 102));
+        btnHolding.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        btnHolding.setForeground(new java.awt.Color(255, 255, 255));
+        btnHolding.setText("Holding");
+        btnHolding.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHoldingActionPerformed(evt);
+            }
+        });
 
         btnDiscount.setBackground(new java.awt.Color(51, 255, 51));
         btnDiscount.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
@@ -237,7 +247,7 @@ public class MainControlInterface extends javax.swing.JFrame {
                         .addGroup(jPanelAdminLayout.createSequentialGroup()
                             .addComponent(btnNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnHolding, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanelAdminLayout.createSequentialGroup()
                             .addComponent(btnDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -251,7 +261,7 @@ public class MainControlInterface extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanelAdminLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnBooking, btnNotification});
+        jPanelAdminLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnHolding, btnNotification});
 
         jPanelAdminLayout.setVerticalGroup(
             jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,7 +274,7 @@ public class MainControlInterface extends javax.swing.JFrame {
                         .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnHolding, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -277,7 +287,7 @@ public class MainControlInterface extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanelAdminLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnBooking, btnNotification});
+        jPanelAdminLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnHolding, btnNotification});
 
         jTabbedPane.addTab("Manager", jPanelAdmin);
 
@@ -443,6 +453,20 @@ public class MainControlInterface extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnCollaboratorActionPerformed
 
+    private void btnHoldingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoldingActionPerformed
+        // TODO add your handling code here:
+        java.awt.EventQueue.invokeLater(new Runnable()
+            {
+                public void run ()
+                {
+                    objHolding = new uiHolding_2();
+                    objHolding.setVisible(true);
+                }
+            }  
+        );
+        
+    }//GEN-LAST:event_btnHoldingActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -479,11 +503,11 @@ public class MainControlInterface extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBooking;
     private javax.swing.JButton btnCollaborator;
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnDiscount;
     private javax.swing.JButton btnGuest;
+    private javax.swing.JButton btnHolding;
     private javax.swing.JButton btnNotification;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnServices;

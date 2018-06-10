@@ -23,7 +23,7 @@ public class LoginForm extends javax.swing.JFrame {
 
     Connection connection = null;
     String dbAccount = "sa";
-    String dbPassword = "123";
+    String dbPassword = "abc123";
     String dbName = "Sem2_Project_Group2";
     Statement stmt;
     ResultSet rs;
@@ -92,6 +92,16 @@ public class LoginForm extends javax.swing.JFrame {
         txtUsername.grabFocus();
     }
     
+    private void sqlConnectionClose()
+    {
+        try {
+            stmt.close();
+            connection.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -341,9 +351,19 @@ public class LoginForm extends javax.swing.JFrame {
         if (txtPassword.getText().equals(password)) {
             check = true;
         }
-        if (check == true && active) {
-            mcf = new MainControlInterface(txtUsername.getText());
-            mcf.setVisible(true);
+
+        if (check == true) {
+            sqlConnectionClose();
+            java.awt.EventQueue.invokeLater(new Runnable()
+                {
+                    public void run()
+                    {
+                        mcf = new MainControlInterface(txtUsername.getText());
+                        mcf.setVisible(true);
+                    }
+                }            
+            );
+
             dispose();
         }
         if (check == true && !active) {

@@ -163,7 +163,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="btnNotification" linkSize="1" min="-2" pref="258" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btnBooking" linkSize="1" min="-2" pref="256" max="-2" attributes="0"/>
+                                  <Component id="btnHolding" linkSize="1" min="-2" pref="256" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="btnDiscount" min="-2" pref="258" max="-2" attributes="0"/>
@@ -195,7 +195,7 @@
                           </Group>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnNotification" linkSize="2" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
-                              <Component id="btnBooking" linkSize="2" alignment="3" min="-2" pref="113" max="-2" attributes="0"/>
+                              <Component id="btnHolding" linkSize="2" alignment="3" min="-2" pref="113" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -236,7 +236,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnBooking">
+            <Component class="javax.swing.JButton" name="btnHolding">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="66" green="33" red="ff" type="rgb"/>
@@ -247,8 +247,11 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Booking"/>
+                <Property name="text" type="java.lang.String" value="Holding"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHoldingActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnDiscount">
               <Properties>
