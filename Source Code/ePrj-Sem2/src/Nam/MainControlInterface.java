@@ -41,21 +41,59 @@ public class MainControlInterface extends javax.swing.JFrame {
      *
      * @param account
      */
-    public MainControlInterface(String account) {
+    
+    public MainControlInterface(String account, Connection connection, Statement stmt)
+    {
         initComponents();
+        //------------------------------------------------------
+        //tui gán 2 cái connection và statement vào hàm dựng này để dùng luôn
+        //----------------------------------------------------------
+        //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+        
+        this.connection = connection;
+        this.stmt = stmt;
+        
+        //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        //------------------------------------------------------
+        //tui gán 2 cái connection và statement vào hàm dựng này để dùng luôn
+        //----------------------------------------------------------
         setLocationRelativeTo(null);
-        try {
-            connection = DBConnection.getDBConnection(dbName, dbAccount, dbPassword);
-            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         txtAccount.setText(account);
         colTxtAccount.setText(account);
         guTxtAccount.setText(account);
         load();
         pack();
     }
+    
+    public MainControlInterface(String account) {
+        initComponents();
+        setLocationRelativeTo(null);
+        //------------------------------------------
+        //Phần connect Database này tui ẩn đi, sẽ sử dụng connection và statemnt
+        //đã khởi tạo trong LoginForm để tránh lỗi reset connection
+        //-----------------------------------------
+        //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+        
+//        try {
+//            connection = DBConnection.getDBConnection(dbName, dbAccount, dbPassword);
+//            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        
+        //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        //------------------------------------------
+        //Phần connect Database này tui ẩn đi, sẽ sử dụng connection và statemnt
+        //đã khởi tạo trong LoginForm để tránh lỗi reset connection
+        //-----------------------------------------
+        txtAccount.setText(account);
+        colTxtAccount.setText(account);
+        guTxtAccount.setText(account);
+        load();
+        pack();
+    }
+    
+    
 
     private void load() {
         if (checkAccount().equals("ad")) {
