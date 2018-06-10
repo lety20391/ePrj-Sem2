@@ -1,18 +1,30 @@
 use Sem2_Project_Group2
 go
-select * from Collaborator
 
-insert into Account(ID, Password, Type, Question, Answer) values 
-('Co01', 'abc123', 'Co', 'Dog Name' , 'Duy'),
-('Co02', 'abc123', 'Co', 'Dog Name' , 'Min'), 
-('Gu01', 'abc123', 'Gu', 'Dog Name' , 'Be'),
-('Gu02', 'abc123', 'Gu', 'Dog Name' , 'Lu')
-
+/* Nhap du lieu vao bang tai khoan */
+insert into Account(ID, Password, Type, Question, Answer, Active) values
+('Ad01','123','ad','What is name of your best friend ?','datle','true'),
+('Co01','456','co','What is name of your pet ?','min','true'),
+('Co02','654','co','What is name of your favorite film ?','ffvii','false'),
+('Gu01','789','gu','What is name of your favorite film ?','avatar','true'),
+('Gu02', 'abc123', 'Gu', 'Dog Name' , 'Lu', 'true')
 go
 
-insert into Collaborator(IDCo, NameCo, AddressCo, DOBCo, IdentificationNumberCo, DepositCo, PhoneCo, EmailCo, StatusCo, ImageCo) values
-('Co01', 'Duy', 'Q5', '2005-12-20',  '1234', 123, '12345', 'email', 'Normal', 'Link' ),
-('Co02', 'Duyen', 'Q10', '2005-12-30', '1234', 123, '12345', 'email', 'Normal', 'Link' )
+update Account set Question = 'What is name of your pet ?' where ID = 'Co01'
+update Account set Question = 'What is name of your favorite film ?' where ID = 'Co02'
+update Account set Question = 'What is name of your pet ?' where ID = 'Gu01'
+update Account set Question = 'What is name of your best friend ?' where ID = 'Gu02'
+go
+
+
+update Account set Type = 'Ad' where ID = 'Ad01'
+go
+select * from Account
+go
+/* Nhap du lieu vao bang cong tac vien */
+insert into Collaborator(IDCo, NameCo, AddressCo, DOBCo, IdentificationNumberCo, DepositCo, PhoneCo, EmailCo, ActiveCo, ImageCo, GradeCo, NumberOfGuest) values
+('Co01', 'Nguyen Thanh Nam', 'Tan Binh', '1988-04-10', '123456789', 12332, '0969460713', 'nguyenthanhnam1004@gmail.com', 'true', 'image', 'normal', 6),
+('Co02', 'Le Cong Dat', 'Quan 10', '1990-03-11', '123454321', 10, '0909999999', 'lecongdat@gmail.com', 'false', 'image', 'good', 8)
 go
 
 insert into Guest values
@@ -52,6 +64,9 @@ go
 insert into [Notification] values
 ('Not01', 'Gu01', 'Dat phong thanh cong', 'unread', 'Link Frame'),
 ('Not02', 'Gu02', 'Sap het han thanh toan', 'read', 'Link Frame')
+
+select * from Collaborator
+go
 
 
 

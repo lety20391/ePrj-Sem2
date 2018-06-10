@@ -10,6 +10,8 @@ import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
 /**
  *
  * @author Dat ThinkPad
@@ -29,10 +31,12 @@ objDBConnect = new DatabaseConnect();
 2. Khởi tạo kết nối đến SQL của máy với tham số DatabaseName, Accout, Password 
 thông qua method DBConnect
 
-Vì Class DatabaseConnect trả về 1 đối tượng thuộc class Connection
-nên mình khai báo 1 đối tượng objConnection để gán vào
+Vì Class DatabaseConnect trả về 2 đối tượng 
+1 thuộc class Connection
+2 thuộc class Statement
+nên mình khai báo 1 kiểu dữ liệu mới (Class mới) là connectionContainer, trong đó sẽ chứa 2 variable kiểu Connection và kiểu Statement
 
-Đối tượng objConnection này chính là object Connection lên Database sẽ được
+Đối tượng objConnection và statement này chính là object Connection lên Database sẽ được
 sử dụng để chạy các câu truy vấn Query trong code của mỗi bạn
 
 Connection objConnection;
@@ -47,28 +51,30 @@ Nên kiểm tra kết nối này trước, nếu không thành công thì không
 
 6. Method Close sử dụng để đóng kết nối đến Database
 */
-
 public class DatabaseConnect {
     Connection objConnection;
     Statement statement;
     ResultSet resultSet;
     String url;
+    connectionContainer objConContainer;
     
     
-    public  Connection DBConnect(String DatabaseName, String Account, String Password)
+    public  connectionContainer DBConnect(String DatabaseName, String Account, String Password)
     {
         try {
             
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             url = "jdbc:sqlserver://localhost:1433;database="+DatabaseName;
             objConnection = DriverManager.getConnection(url, Account, Password);
+            statement = objConnection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             System.out.println("");
             System.out.println("--------Connection established---------");
+            objConContainer = new connectionContainer(objConnection, statement);
             
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return objConnection;
+        return objConContainer;
     }
     
     public void ListTable(){
