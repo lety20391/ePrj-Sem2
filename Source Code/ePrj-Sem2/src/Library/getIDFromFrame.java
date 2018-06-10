@@ -11,7 +11,7 @@ package Library;
  */
 public interface getIDFromFrame {
     //String mainID;
-    public String returnMainId();
+    public void receiveData(String data);
 //    {
 //        return mainID;
 //    }
