@@ -26,7 +26,7 @@ public class TestConnection {
         
         DatabaseConnect objDBConnect;
         objDBConnect = new DatabaseConnect();
-        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "123");
+        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "123", "1433");
         
         con = connectContainer.getObjCon();
         stmt = connectContainer.getStatement();
