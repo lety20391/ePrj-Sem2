@@ -25,13 +25,13 @@ public class MainControlInterface extends javax.swing.JFrame {
     String dbAccount = "sa";
     String dbPassword = "abc123";
     String dbName = "Sem2_Project_Group2";
-    String port;
     Statement stmt;
     ResultSet rs;
     String sql;
 
-    //CollaboratorsManagement colmanage;
-    //GuestManagement guestmanega;
+    
+    CollaboratorsManagement colmanage;
+    GuestManagement guestmanega;
     //phan dat ten cac variable cho tung Frame
     //uiHolding_2 objHolding;
 
@@ -39,23 +39,12 @@ public class MainControlInterface extends javax.swing.JFrame {
      * Creates new form MainControlInterface
      *
      * @param account
-     * @param dbName
-     * @param dbAccount
-     * @param dbPassword
-     * @param port
      */
-    public MainControlInterface(String account, String dbName, String dbAccount, String dbPassword, String port) {
-        initComponents();
-        setLocationRelativeTo(null);
-        try {
-            connection = DBConnection.getDBConnection(dbName, dbAccount, dbPassword, port);
-            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
-    public MainControlInterface(String account, Connection connection, Statement stmt) {
+
+    
+    public MainControlInterface(String account, Connection connection, Statement stmt)
+    {
         initComponents();
         //------------------------------------------------------
         //tui gán 2 cái connection và statement vào hàm dựng này để dùng luôn
@@ -500,8 +489,8 @@ public class MainControlInterface extends javax.swing.JFrame {
 
     private void btnCollaboratorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCollaboratorActionPerformed
         // TODO add your handling code here:
-//        colmanage = new CollaboratorsManagement(txtAccount.getText());
-//        colmanage.setVisible(true);
+        colmanage = new CollaboratorsManagement(txtAccount.getText());
+        colmanage.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnCollaboratorActionPerformed
 
