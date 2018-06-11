@@ -5,18 +5,51 @@
  */
 package Ngoc_Duyen;
 
+
+import Ngoc_Duyen.folder1.IOfile;
+import Ngoc_Duyen.folder1.NewInterface;// cai nay la de xem bang ne
+import Ngoc_Duyen.newpackage.Apartment; //cai nay la de control nha
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+
 /**
  *
  * @author Dell
  */
 public class Form1 extends javax.swing.JFrame {
+    private  ArrayList<NewInterface> Apartment;
+    IOfile ioFile;
+    DefaultTableModel model;
 
     /**
      * Creates new form Form1
      */
     public Form1() {
         this.setTitle("Apartment Manager");
+        
+        ioFile = new IOfile();
+        Apartment = new ArrayList<>();
+        Apartment = ioFile.read("Apartment");
+        //this.setLocationRelativeTo(null);
+        //list = new ArrayList<>();
         initComponents();
+        SHOWApartment();
+        
+        model = (DefaultTableModel) jTable1.getModel();
+    }
+    public void SHOWApartment()
+    {
+        for(NewInterface n : Apartment)
+        {
+            Apartment a = (Apartment) n;
+            model.addRow(new Object[]
+            {
+                a.getName(), a.getID(), a.getLocation(), a.getAmt(), a.getOwner(), a.getPrice()
+            });
+        }
     }
 
     /**
@@ -58,6 +91,10 @@ public class Form1 extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(0).setHeaderValue("No");
+        }
 
         jLabel1.setText("Name");
 
@@ -222,6 +259,11 @@ public class Form1 extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        int r = jTable1.getSelectedRow();
+        if(r ! -1)
+        {
+            txtName.setText();
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
@@ -236,14 +278,66 @@ public class Form1 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    public boolean dontreplayNoApartment(int id)
+    {
+        for(NewInterface n : Apartment)
+        {
+            Apartment a = (Apartment) n;
+            if(a.getID() == id)
+             return  false;
+        }
+        return  true;
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:\
+        if (jTextField1.getText().length() != 0) {
+            int No = 10000;
+            while (true) 
+            {                
+                if (dontreplayNoApartment(No)) break; //no o day la ma la id nha
+                No++;
+            }
+            
+            Apartment a = new Apartment();
+            a.setID(No);
+            a.setName(jTextField1.getText());
+            a.setLocation(jTextField3.getText());
+            a.setAmt(jTextField4.getText());
+            a.getOwner(jTextField5.getText());
+            //a.getPrice()
+            
+            Apartment.add(a);
+            ioFile.write(Apartment, "..");
+            model.addRow(new Object[]{
+         a.getName() , a.getID() ,a.getLocation() , a.getAmt(), a.getOwner(),a.getPrice()
+         });
+        }
+        else JOptionPane.showMessageDialog(rootPane, jTextField1);
+        /*
+        Apartment a = new Apartment();
+        a.setAmt(txtAmt.getText());
+        a.setName(txtName.getText());
+        a.setID(txtID.getText());
+        a.setLocation(txtLocation.getText());
+        a.setOwner(txtOwner.getText());
+        a.setPrice(Float.parseFloat(txtPrice.getText()));
+        list.add(a);//Them vao bang
+        showResult();
     }//GEN-LAST:event_jButton1ActionPerformed
-
+ 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    /*int i = 1;
+    public void showResult()
+    {
+        Apartment a = list.get(list.size()-1);
+         model.addRow(new Object[]{
+         i++, a.getName() , a.getID() ,a.getLocation() , a.getAmt(), a.getOwner(),a.getPrice();
+         });
+        
+    }*/}
+      public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

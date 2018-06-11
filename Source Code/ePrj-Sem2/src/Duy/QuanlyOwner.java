@@ -52,7 +52,7 @@ public class QuanlyOwner extends javax.swing.JFrame {
         DatabaseConnect objDBConnect;
         objDBConnect = new DatabaseConnect();
         Connection objConnection;
-        objConnection = objDBConnect.DBConnect("Sem2_project_group2", "sa", "123");
+        objConnection = (Connection) objDBConnect.DBConnect("Sem2_project_group2", "sa", "123");
         try {
             stmt = objConnection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
         } catch (Exception e) {

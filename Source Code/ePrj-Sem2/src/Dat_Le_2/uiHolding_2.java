@@ -7,6 +7,7 @@ package Dat_Le_2;
 
 import Dat_Le.*;
 import DatabaseConnection.DatabaseConnect;
+import DatabaseConnection.connectionContainer;
 import java.awt.Component;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -23,7 +24,7 @@ import javax.swing.table.TableModel;
  *
  * @author Dat ThinkPad
  */
-public class uiHolding_2 extends javax.swing.JFrame {
+public class uiHolding_2 extends javax.swing.JFrame implements Library.getIDFromFrame{
     
     Statement stmt;
     DatabaseConnect objDBConnect;
@@ -49,9 +50,18 @@ public class uiHolding_2 extends javax.swing.JFrame {
         connectToDatabase();
         initData();
         showTable("Select * from Holding");
-        modifyTable(tblHo);
     }
     
+    public uiHolding_2(Connection objConnection, Statement stmt)
+    {
+        initComponents();
+        this.objConnection = objConnection;
+        this.stmt = stmt;
+        initData();
+        showTable("Select * from Holding");
+    }
+    
+  
     public void modifyTable(JTable table)
     {
         table.removeColumn(table.getColumn("Gu"));
@@ -62,13 +72,12 @@ public class uiHolding_2 extends javax.swing.JFrame {
     
     public void connectToDatabase()
     {
-        objDBConnect = new DatabaseConnect();        
-        objConnection = objDBConnect.DBConnect("Sem2_project_group2", "sa", "abc123");
-        try {
-            stmt = objConnection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        DatabaseConnect objDBConnect;
+        objDBConnect = new DatabaseConnect();
+        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "abc123");
+        
+        objConnection = connectContainer.getObjCon();
+        stmt = connectContainer.getStatement();
     }
     
     public void initData()
@@ -76,6 +85,8 @@ public class uiHolding_2 extends javax.swing.JFrame {
         manageTextField(pHolding);
         manageTextField(pGuest);
         manageTextField(pCollaborator);
+        IDCo = "";
+        IDGu = "";
     }
 
     public void manageTextField(JPanel targetPanel)
@@ -95,6 +106,59 @@ public class uiHolding_2 extends javax.swing.JFrame {
         btnAdd.setEnabled(btnAddStatus);
         btnUpdate.setEnabled(btnUpdateStatus);
         btnDelete.setEnabled(btnDeleteStatus);
+    }
+    
+    public void getDataFromTextField()
+    {
+        IDHo = txtIDHo.getText();
+        IDGu = txtIDGu.getText();
+        IDApa = txtIDApa.getText();
+        IDCo = txtIDCo.getText();
+        DateHo = txtDateHo.getText();
+        FromDateHo = txtFromDateHo.getText();
+        ToDateHo = txtToDateHo.getText();
+        PayStatusHo = txtPayStatusHo.getText();
+        TotalHo = Double.parseDouble(txtTotalHo.getText());
+        CommissionHo = Double.parseDouble(txtCommissionHo.getText());
+        IDSer = txtIDSer.getText();
+    }
+    
+    public void setDataToGuestPanel()
+    {
+        try {
+            
+            rs = stmt.executeQuery("Select * from Guest where IDGu = '" + IDGu + "'");
+            rs.beforeFirst();
+            rs.next();
+                txtIDGu2.setText(rs.getString("IDGu"));
+                txtNameGu2.setText(rs.getString("NameGu"));
+                txtDOBGu2.setText(rs.getString("DOBGu"));
+                txtIdentificationNumberGu2.setText(rs.getString("IdentificationNumberGu"));
+                txtPhoneGu2.setText(rs.getString("PhoneGu"));
+                txtEmailGu2.setText(rs.getString("EmailGu"));
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void setDataToCollaboratorPanel()
+    {
+        try {
+            
+            rs = stmt.executeQuery("Select * from Collaborator where IDCo = '" + IDCo + "'");
+            rs.beforeFirst();
+            rs.next();
+                txtIDCo2.setText(rs.getString("IDCo"));
+                txtNameCo2.setText(rs.getString("NameCo"));
+                txtDOBCo2.setText(rs.getString("DOBCo"));
+                txtIdentificationNumberCo2.setText(rs.getString("IdentificationNumberCo"));
+                txtPhoneCo2.setText(rs.getString("PhoneCo"));
+                txtEmailCo2.setText(rs.getString("EmailCo"));
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
     
     public void showTable(String sql)
@@ -147,7 +211,14 @@ public class uiHolding_2 extends javax.swing.JFrame {
         
         hoModel.setDataVector(data, header);
         tblHo.setModel(hoModel);
-        //tblBook.setModel(bookModel);
+        //remove unnecessary column
+        modifyTable(tblHo);
+        //show Guest and Collaborator Info
+        if (!(IDGu.isEmpty()) && !(IDCo.isEmpty()))
+        {
+            setDataToGuestPanel();
+            setDataToCollaboratorPanel();
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -165,32 +236,32 @@ public class uiHolding_2 extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         pCollaborator = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        txtIDCo2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        txtNameCo2 = new javax.swing.JTextField();
+        txtDOBCo2 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        txtIdentificationNumberCo2 = new javax.swing.JTextField();
+        txtPhoneCo2 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        txtEmailCo2 = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         pGuest = new javax.swing.JPanel();
-        jTextField5 = new javax.swing.JTextField();
+        txtIDGu2 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
+        txtNameGu2 = new javax.swing.JTextField();
+        txtDOBGu2 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
+        txtIdentificationNumberGu2 = new javax.swing.JTextField();
+        txtPhoneGu2 = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
+        txtEmailGu2 = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         pHolding = new javax.swing.JPanel();
@@ -222,7 +293,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
         jLabel26 = new javax.swing.JLabel();
         txtIDSer = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Holding");
 
         pTblHo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -259,29 +330,29 @@ public class uiHolding_2 extends javax.swing.JFrame {
 
         pCollaborator.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTextField1.setText("jTextField1");
+        txtIDCo2.setText("jTextField1");
 
         jLabel3.setText("ID");
 
         jLabel4.setText("Name");
 
-        jTextField2.setText("jTextField1");
+        txtNameCo2.setText("jTextField1");
 
-        jTextField3.setText("jTextField1");
+        txtDOBCo2.setText("jTextField1");
 
         jLabel5.setText("DOB");
 
         jLabel6.setText("IDNo.");
 
-        jTextField4.setText("jTextField1");
+        txtIdentificationNumberCo2.setText("jTextField1");
 
-        jTextField6.setText("jTextField1");
+        txtPhoneCo2.setText("jTextField1");
 
         jLabel8.setText("Phone");
 
         jLabel9.setText("Email");
 
-        jTextField7.setText("jTextField1");
+        txtEmailCo2.setText("jTextField1");
 
         javax.swing.GroupLayout pCollaboratorLayout = new javax.swing.GroupLayout(pCollaborator);
         pCollaborator.setLayout(pCollaboratorLayout);
@@ -298,14 +369,14 @@ public class uiHolding_2 extends javax.swing.JFrame {
                     .addComponent(jLabel9))
                 .addGap(18, 18, 18)
                 .addGroup(pCollaboratorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField6)
-                    .addComponent(jTextField4)
-                    .addComponent(jTextField2)
-                    .addComponent(jTextField3)
+                    .addComponent(txtPhoneCo2)
+                    .addComponent(txtIdentificationNumberCo2)
+                    .addComponent(txtNameCo2)
+                    .addComponent(txtDOBCo2)
                     .addGroup(pCollaboratorLayout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtIDCo2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jTextField7))
+                    .addComponent(txtEmailCo2))
                 .addGap(23, 23, 23))
         );
         pCollaboratorLayout.setVerticalGroup(
@@ -314,27 +385,27 @@ public class uiHolding_2 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pCollaboratorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIDCo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pCollaboratorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNameCo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pCollaboratorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDOBCo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pCollaboratorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIdentificationNumberCo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pCollaboratorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPhoneCo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pCollaboratorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEmailCo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -353,29 +424,29 @@ public class uiHolding_2 extends javax.swing.JFrame {
 
         pGuest.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTextField5.setText("jTextField1");
+        txtIDGu2.setText("jTextField1");
 
         jLabel7.setText("ID");
 
         jLabel10.setText("Name");
 
-        jTextField8.setText("jTextField1");
+        txtNameGu2.setText("jTextField1");
 
-        jTextField9.setText("jTextField1");
+        txtDOBGu2.setText("jTextField1");
 
         jLabel11.setText("DOB");
 
         jLabel12.setText("IDNo.");
 
-        jTextField10.setText("jTextField1");
+        txtIdentificationNumberGu2.setText("jTextField1");
 
-        jTextField11.setText("jTextField1");
+        txtPhoneGu2.setText("jTextField1");
 
         jLabel13.setText("Phone");
 
         jLabel14.setText("Email");
 
-        jTextField12.setText("jTextField1");
+        txtEmailGu2.setText("jTextField1");
 
         javax.swing.GroupLayout pGuestLayout = new javax.swing.GroupLayout(pGuest);
         pGuest.setLayout(pGuestLayout);
@@ -392,14 +463,14 @@ public class uiHolding_2 extends javax.swing.JFrame {
                     .addComponent(jLabel14))
                 .addGap(18, 18, 18)
                 .addGroup(pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField11)
-                    .addComponent(jTextField10)
-                    .addComponent(jTextField8)
-                    .addComponent(jTextField9)
+                    .addComponent(txtPhoneGu2)
+                    .addComponent(txtIdentificationNumberGu2)
+                    .addComponent(txtNameGu2)
+                    .addComponent(txtDOBGu2)
                     .addGroup(pGuestLayout.createSequentialGroup()
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtIDGu2, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jTextField12))
+                    .addComponent(txtEmailGu2))
                 .addGap(20, 20, 20))
         );
         pGuestLayout.setVerticalGroup(
@@ -408,27 +479,27 @@ public class uiHolding_2 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIDGu2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNameGu2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDOBGu2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIdentificationNumberGu2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPhoneGu2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEmailGu2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -586,9 +657,19 @@ public class uiHolding_2 extends javax.swing.JFrame {
         pHolding.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 453, 154, 57));
 
         btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
         pHolding.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 521, 144, 57));
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
         pHolding.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 521, 154, 57));
 
         btnMakeContract.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -664,22 +745,14 @@ public class uiHolding_2 extends javax.swing.JFrame {
         txtCommissionHo.setText(String.valueOf(CommissionHo));
         txtIDSer.setText(IDSer);
         
+        setDataToGuestPanel();
+        setDataToCollaboratorPanel();
     }//GEN-LAST:event_tblHoMouseClicked
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        IDHo = txtIDHo.getText();
-        IDGu = txtIDGu.getText();
-        IDApa = txtIDApa.getText();
-        IDCo = txtIDCo.getText();
-        DateHo = txtDateHo.getText();
-        FromDateHo = txtFromDateHo.getText();
-        ToDateHo = txtToDateHo.getText();
-        PayStatusHo = txtPayStatusHo.getText();
-        TotalHo = Double.parseDouble(txtTotalHo.getText());
-        CommissionHo = Double.parseDouble(txtCommissionHo.getText());
-        IDSer = txtIDSer.getText();
         
+        getDataFromTextField();
         manageBtn(false, true, false, false);
         
         String labelButton = btnAdd.getText();
@@ -704,6 +777,59 @@ public class uiHolding_2 extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        getDataFromTextField();
+        manageBtn(false, false, true, false);
+        
+        String labelButton = btnUpdate.getText();
+        if (labelButton.equalsIgnoreCase("Update"))
+        {
+            btnUpdate.setText("Save");
+        }else
+        {
+        
+            try {
+                //update Holding set IDGu = 'Gu01', IDApa = 'Ap01', IDCo = 'Co02', DateHo = '2018-8-6', FromDateHo = '2019-6-6', ToDateHo = '2019-6-10', PayStatusHo = 'Thanh toan 50%', TotalHo = 100, CommissionHo = 10, IDSer = 'Se02' where IDHo = 'Ho01'
+                sql = "update Holding set IDGu = '" + IDGu + "', IDApa = '" + IDApa + "', IDCo = '" + IDCo + "', DateHo = '" + DateHo + "', FromDateHo = '" + FromDateHo + "', ToDateHo = '" + ToDateHo + "', PayStatusHo = '" + PayStatusHo + "', TotalHo = " + TotalHo + ", CommissionHo = " + CommissionHo + ", IDSer = '" + IDSer + "' where IDHo = '" + IDHo + "'";
+                stmt.executeUpdate(sql);
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            sql = "select * from Holding";
+            showTable(sql);
+            btnUpdate.setText("Update");
+            manageBtn(true, true, true, true);
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        getDataFromTextField();
+        manageBtn(false, false, false, true);
+        String labelButton = btnDelete.getText();
+        if (labelButton.equalsIgnoreCase("Delete"))
+        {
+            btnDelete.setText("Continue");
+        }else
+        {
+        
+            try {
+                //delete Holding where IDHo = 'Ho03'
+                sql = "delete Holding where IDHo = '"+ IDHo +"'";
+                stmt.executeUpdate(sql);
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            sql = "select * from Holding";
+            showTable(sql);
+            btnDelete.setText("Delete");
+            manageBtn(true, true, true, true);
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -777,33 +903,44 @@ public class uiHolding_2 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JPanel pCollaborator;
     private javax.swing.JPanel pGuest;
     private javax.swing.JPanel pHolding;
     private javax.swing.JPanel pTblHo;
     private javax.swing.JTable tblHo;
     private javax.swing.JTextField txtCommissionHo;
+    private javax.swing.JTextField txtDOBCo2;
+    private javax.swing.JTextField txtDOBGu2;
     private javax.swing.JTextField txtDateHo;
+    private javax.swing.JTextField txtEmailCo2;
+    private javax.swing.JTextField txtEmailGu2;
     private javax.swing.JTextField txtFromDateHo;
     private javax.swing.JTextField txtIDApa;
     private javax.swing.JTextField txtIDCo;
+    private javax.swing.JTextField txtIDCo2;
     private javax.swing.JTextField txtIDGu;
+    private javax.swing.JTextField txtIDGu2;
     private javax.swing.JTextField txtIDHo;
     private javax.swing.JTextField txtIDSer;
+    private javax.swing.JTextField txtIdentificationNumberCo2;
+    private javax.swing.JTextField txtIdentificationNumberGu2;
+    private javax.swing.JTextField txtNameCo2;
+    private javax.swing.JTextField txtNameGu2;
     private javax.swing.JTextField txtPayStatusHo;
+    private javax.swing.JTextField txtPhoneCo2;
+    private javax.swing.JTextField txtPhoneGu2;
     private javax.swing.JTextField txtToDateHo;
     private javax.swing.JTextField txtTotalHo;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public String returnMainId() {
+        return IDHo;
+    }
+    
+    @Override
+    public void dispose(){
+        System.out.println("Disposed complete");
+        super.dispose();
+    }
 }

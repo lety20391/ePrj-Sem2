@@ -5,6 +5,8 @@
  */
 package Nam;
 
+import DatabaseConnection.DatabaseConnect;
+import DatabaseConnection.connectionContainer;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +21,7 @@ import javax.swing.JOptionPane;
  *
  * @author Namcham
  */
-public class LoginForm extends javax.swing.JFrame {
+public class LoginForm_mod extends javax.swing.JFrame {
 
     Connection connection = null;
     String dbAccount = "sa";
@@ -39,28 +41,44 @@ public class LoginForm extends javax.swing.JFrame {
     /**
      * Creates new form LoginForm
      */
-    public LoginForm() {
+    
+    //---------------------------------------------------------
+    //    Tui thêm phương thức kết nối Database thành method mới, để trả về
+    //    connection và statement dùng cho các form khác luôn    
+    //---------------------------------------------------------
+    //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+    public void connectDatabase()
+    {
+        DatabaseConnect objDBConnect;
+        objDBConnect = new DatabaseConnect();
+        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "abc123");
+        
+        connection = connectContainer.getObjCon();
+        stmt = connectContainer.getStatement();
+    }
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //---------------------------------------------------------
+    //    Tui thêm phương thức kết nối Database thành method mới, để trả về
+    //    connection và statement dùng cho các form khác luôn    
+    //---------------------------------------------------------
+    
+    public LoginForm_mod() {
         initComponents();
         this.setLocationRelativeTo(null);
-        try {
-            connection = DBConnection.getDBConnection(dbName, dbAccount, dbPassword);
-            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        //tui thêm dòng này để kết nối Database
+        connectDatabase();
+        //
         loadAccountList();
         pack();
     }
     
-    public LoginForm(String account) {
+    
+    public LoginForm_mod(String account) {
         initComponents();
         setLocationRelativeTo(null);
-        try {
-            connection = DBConnection.getDBConnection(dbName, dbAccount, dbPassword);
-            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        //tui thêm dòng này để kết nối Database
+        connectDatabase();
+        //
         loadAccountList();
         pack();
         txtUsername.setText(account);
@@ -82,7 +100,7 @@ public class LoginForm extends javax.swing.JFrame {
                 listID.add(rs.getString("ID"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginForm_mod.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -339,11 +357,11 @@ public class LoginForm extends javax.swing.JFrame {
                     rs.beforeFirst();
                     while (rs.next()) {
                         password = rs.getString("Password");
-                        active = rs.getBoolean("Active");
+                        active = true;
                     }
                     break;
                 } catch (SQLException ex) {
-                    Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(LoginForm_mod.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
             }
@@ -353,12 +371,42 @@ public class LoginForm extends javax.swing.JFrame {
         }
 
         if (check == true) {
-            sqlConnectionClose();
+            //------------------------
+            //tui bỏ dòng Close connection này đi vì các frame sau này sẽ
+            //sử dụng connection này luôn, truyền qua hàm dựng của các Frame khác
+            //------------------------
+            //VVVVVVVVVVVVVVVVVVVVVVVV
+            
+            //sqlConnectionClose();
+//            java.awt.EventQueue.invokeLater(new Runnable()
+//                {
+//                    public void run()
+//                    {
+//                        mcf = new MainControlInterface(txtUsername.getText());
+//                        mcf.setVisible(true);
+//                    }
+//                }            
+//            );
+            
+            //^^^^^^^^^^^^^^^^^^^^^^^^
+            //------------------------
+            //tui bỏ dòng Close connection này đi vì các frame sau này sẽ
+            //sử dụng connection này luôn, truyền qua hàm dựng của các Frame khác
+            //------------------------
             java.awt.EventQueue.invokeLater(new Runnable()
                 {
                     public void run()
                     {
-                        mcf = new MainControlInterface(txtUsername.getText());
+                        //------------------------------------
+                        //dòng này tui truyền 2 tham số vào luôn nè
+                        //-------------------------------------
+                        //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+                        
+                        mcf = new MainControlInterface(txtUsername.getText(), connection, stmt);
+                        //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        //------------------------------------
+                        //dòng này tui truyền 2 tham số vào luôn nè
+                        //-------------------------------------
                         mcf.setVisible(true);
                     }
                 }            
@@ -399,20 +447,21 @@ public class LoginForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm_mod.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm_mod.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm_mod.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm_mod.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginForm().setVisible(true);
+                new LoginForm_mod().setVisible(true);
             }
         });
     }

@@ -7,7 +7,7 @@ create database Sem2_Project_Group2
 on primary
 (
 	name = 'Sem2_Project_Group2',
-	filename = 'D:\Aptech\Data Prj2\Sem2_Project_Group2.mdf',
+	filename = 'E:\Aptech\Data Prj2\Sem2_Project_Group2.mdf',
 	size = 5MB,
 	maxsize = 5MB,
 	filegrowth = 10%
@@ -15,7 +15,7 @@ on primary
 log on
 (
 	name = 'Sem2_Project_Group2_lg',
-	filename = 'D:\Aptech\Data Prj2\Sem2_Project_Group2_lg.ldf',
+	filename = 'E:\Aptech\Data Prj2\Sem2_Project_Group2_lg.ldf',
 	size = 2MB,
 	maxsize = 2MB,
 	filegrowth = 10%
@@ -25,6 +25,7 @@ go
 use Sem2_Project_Group2
 go
 
+/* Tao bang tai khoan */
 create table Account
 (
 	ID varchar(20),
@@ -32,10 +33,14 @@ create table Account
 	[Type] varchar(3) not null,
 	Question varchar(100) not null,
 	Answer varchar(100) not null,
+	Active bit not null,
 	constraint pk_Taikhoan primary key (ID)
 )
 go
 
+
+
+/* Tao bang cong tac vien */
 create table Collaborator
 (
 	IDCo varchar(20),
@@ -46,13 +51,17 @@ create table Collaborator
 	DepositCo money not null,
 	PhoneCo varchar(11) not null,
 	EmailCo varchar(50) not null,
-	StatusCo varchar(20) not null,
+	ActiveCo bit not null,
 	[ImageCo] varchar(50) not null,
+	GradeCo varchar(20) not null,
+	NumberOfGuest int not null
 	constraint pk_Collabrator primary key (IDCo),
 	constraint fk_Collabrator_Account foreign key (IDCo) references Account(ID)
 )
 go
 
+update Collaborator set ImageCo = 'E:\\NAM_FPT\\Database_Sem2_Mine\\beautiful_1.jpg' where IDCo = 'Co02'
+go
 
 create table Guest
 (
