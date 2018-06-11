@@ -933,14 +933,16 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.getIDFrom
     private javax.swing.JTextField txtTotalHo;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public String returnMainId() {
-        return IDHo;
-    }
+   
     
     @Override
     public void dispose(){
         System.out.println("Disposed complete");
         super.dispose();
+    }
+
+    @Override
+    public void receiveData() {
+        System.out.println("data");
     }
 }

@@ -3,33 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package testEvent;
-
+package Dat_Le_2;
 import Library.StringListener;
+import Library.mainTextField;
 
 /**
  *
  * @author Dat ThinkPad
  */
-public class ReceiverFrame extends javax.swing.JFrame implements Library.getIDFromFrame, Runnable{
+public class testMainTextField extends javax.swing.JFrame {
 
     /**
-     * Creates new form ReceiverFrame
+     * Creates new form testMainTextField
      */
-    StringListener objStr;
-    Thread t;
-    String Str = "Test1";
-    
-    public ReceiverFrame()
-    {
-        objStr = new StringListener("");
-    }
-    
-    public ReceiverFrame(String status) {
-        //initComponents();
-        System.out.println(status);
+    public testMainTextField() {
+        initComponents();
+        
     }
 
+    public void addStringListen(StringListener objStrListener)
+    {
+        txtMain.addStringListener(objStrListener);
+        txtMain.checkTextField();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,28 +35,27 @@ public class ReceiverFrame extends javax.swing.JFrame implements Library.getIDFr
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lbReceiver = new javax.swing.JLabel();
+        txtMain = new mainTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lbReceiver.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lbReceiver.setText("jLabel1");
+        txtMain.setText("jTextField1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(135, 135, 135)
-                .addComponent(lbReceiver, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addGap(152, 152, 152)
+                .addComponent(txtMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(189, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(102, 102, 102)
-                .addComponent(lbReceiver)
-                .addContainerGap(176, Short.MAX_VALUE))
+                .addGap(119, 119, 119)
+                .addComponent(txtMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(161, Short.MAX_VALUE))
         );
 
         pack();
@@ -83,38 +78,28 @@ public class ReceiverFrame extends javax.swing.JFrame implements Library.getIDFr
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReceiverFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(testMainTextField.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReceiverFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(testMainTextField.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReceiverFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(testMainTextField.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReceiverFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(testMainTextField.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                new ReceiverFrame().setVisible(true);
+//                new testMainTextField().setVisible(true);
 //            }
 //        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel lbReceiver;
+    /*
+    private javax.swing.JTextField txtMain;
+    */
+    private Library.mainTextField txtMain;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void receiveData(String data) {
-        this.Str = data;
-        lbReceiver.setText(Str);
-    }
-
-    @Override
-    public void run() {
-        initComponents();
-        this.setVisible(true);
-        System.out.println("init from run");
-    }
 }
