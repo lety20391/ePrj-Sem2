@@ -6,6 +6,7 @@
 package Duy;
 
 import DatabaseConnection.DatabaseConnect;
+import DatabaseConnection.connectionContainer;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -45,17 +46,12 @@ public class QuanlyCTV extends javax.swing.JFrame {
     {
         
         // TODO code application logic here
+        DatabaseConnect objDBConnect;
+        objDBConnect = new DatabaseConnect();
+        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "123");
         
-        
-        try {
-            DatabaseConnect objDBConnect;
-            objDBConnect = new DatabaseConnect();
-            Connection objConnection;
-            objConnection = objDBConnect.DBConnect("Sem2_project_group2", "sa", "123");
-            stmt = objConnection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        objConnection = connectContainer.getObjCon();
+        stmt = connectContainer.getStatement();
     }
 
     public void showTable()
