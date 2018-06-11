@@ -46,6 +46,7 @@ public class MainControlInterface extends javax.swing.JFrame {
      * @param dbPassword
      * @param port
      */
+
     public MainControlInterface(String account, String dbName, String dbAccount, String dbPassword, String port) {
         initComponents();
         setLocationRelativeTo(null);
@@ -55,12 +56,61 @@ public class MainControlInterface extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+    
+    public MainControlInterface(String account, Connection connection, Statement stmt)
+    {
+        initComponents();
+        //------------------------------------------------------
+        //tui gán 2 cái connection và statement vào hàm dựng này để dùng luôn
+        //----------------------------------------------------------
+        //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+        
+        this.connection = connection;
+        this.stmt = stmt;
+        
+        //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        //------------------------------------------------------
+        //tui gán 2 cái connection và statement vào hàm dựng này để dùng luôn
+        //----------------------------------------------------------
+        setLocationRelativeTo(null);
         txtAccount.setText(account);
         colTxtAccount.setText(account);
         guTxtAccount.setText(account);
         load();
         pack();
     }
+    
+    public MainControlInterface(String account) {
+        initComponents();
+        setLocationRelativeTo(null);
+        //------------------------------------------
+        //Phần connect Database này tui ẩn đi, sẽ sử dụng connection và statemnt
+        //đã khởi tạo trong LoginForm để tránh lỗi reset connection
+        //-----------------------------------------
+        //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+        
+//        try {
+//            connection = DBConnection.getDBConnection(dbName, dbAccount, dbPassword);
+//            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        
+        //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        //------------------------------------------
+        //Phần connect Database này tui ẩn đi, sẽ sử dụng connection và statemnt
+        //đã khởi tạo trong LoginForm để tránh lỗi reset connection
+        //-----------------------------------------
+
+        txtAccount.setText(account);
+        colTxtAccount.setText(account);
+        guTxtAccount.setText(account);
+        load();
+        pack();
+    }
+    
+    
 
     private void load() {
         if (checkAccount().equals("ad")) {
@@ -117,7 +167,7 @@ public class MainControlInterface extends javax.swing.JFrame {
         btnCreate = new javax.swing.JButton();
         btnServices = new javax.swing.JButton();
         jPanelCol = new javax.swing.JPanel();
-        colBtnBooking = new javax.swing.JButton();
+        colBtnHolding = new javax.swing.JButton();
         colBtnGuest = new javax.swing.JButton();
         colTxtAccount = new javax.swing.JTextField();
         colBtnDiscount = new javax.swing.JButton();
@@ -298,10 +348,15 @@ public class MainControlInterface extends javax.swing.JFrame {
 
         jPanelCol.setBackground(new java.awt.Color(102, 102, 102));
 
-        colBtnBooking.setBackground(new java.awt.Color(255, 51, 102));
-        colBtnBooking.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
-        colBtnBooking.setForeground(new java.awt.Color(255, 255, 255));
-        colBtnBooking.setText("Booking");
+        colBtnHolding.setBackground(new java.awt.Color(255, 51, 102));
+        colBtnHolding.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        colBtnHolding.setForeground(new java.awt.Color(255, 255, 255));
+        colBtnHolding.setText("Holding");
+        colBtnHolding.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colBtnHoldingActionPerformed(evt);
+            }
+        });
 
         colBtnGuest.setBackground(new java.awt.Color(153, 153, 0));
         colBtnGuest.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
@@ -335,7 +390,7 @@ public class MainControlInterface extends javax.swing.JFrame {
                     .addGroup(jPanelColLayout.createSequentialGroup()
                         .addGroup(jPanelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanelColLayout.createSequentialGroup()
-                                .addComponent(colBtnBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(colBtnHolding, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(colBtnGuest, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanelColLayout.createSequentialGroup()
@@ -353,7 +408,7 @@ public class MainControlInterface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(colBtnBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(colBtnHolding, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(colBtnGuest))
                     .addComponent(colTxtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -365,7 +420,7 @@ public class MainControlInterface extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanelColLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {colBtnBooking, colBtnGuest});
+        jPanelColLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {colBtnGuest, colBtnHolding});
 
         jTabbedPane.addTab("Collaborator", jPanelCol);
 
@@ -472,6 +527,19 @@ public class MainControlInterface extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnHoldingActionPerformed
 
+    private void colBtnHoldingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colBtnHoldingActionPerformed
+        // TODO add your handling code here:
+        java.awt.EventQueue.invokeLater(new Runnable()
+            {
+                public void run ()
+                {
+                    objHolding = new uiHolding_2(connection, stmt);
+                    objHolding.setVisible(true);
+                }
+            }  
+        );
+    }//GEN-LAST:event_colBtnHoldingActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -516,10 +584,10 @@ public class MainControlInterface extends javax.swing.JFrame {
     private javax.swing.JButton btnNotification;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnServices;
-    private javax.swing.JButton colBtnBooking;
     private javax.swing.JButton colBtnCreate;
     private javax.swing.JButton colBtnDiscount;
     private javax.swing.JButton colBtnGuest;
+    private javax.swing.JButton colBtnHolding;
     private javax.swing.JButton colLbNotification;
     private javax.swing.JTextField colTxtAccount;
     private javax.swing.JButton guBtnDiscount;

@@ -7,6 +7,7 @@ package Dat_Le_2;
 
 import Dat_Le.*;
 import DatabaseConnection.DatabaseConnect;
+import DatabaseConnection.connectionContainer;
 import java.awt.Component;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -23,7 +24,7 @@ import javax.swing.table.TableModel;
  *
  * @author Dat ThinkPad
  */
-public class uiHolding_2 extends javax.swing.JFrame {
+public class uiHolding_2 extends javax.swing.JFrame implements Library.getIDFromFrame{
     
     Statement stmt;
     DatabaseConnect objDBConnect;
@@ -51,6 +52,15 @@ public class uiHolding_2 extends javax.swing.JFrame {
         showTable("Select * from Holding");
     }
     
+    public uiHolding_2(Connection objConnection, Statement stmt)
+    {
+        initComponents();
+        this.objConnection = objConnection;
+        this.stmt = stmt;
+        initData();
+        showTable("Select * from Holding");
+    }
+    
   
     public void modifyTable(JTable table)
     {
@@ -62,13 +72,12 @@ public class uiHolding_2 extends javax.swing.JFrame {
     
     public void connectToDatabase()
     {
-        objDBConnect = new DatabaseConnect();        
-        objConnection = objDBConnect.DBConnect("Sem2_project_group2", "sa", "abc123");
-        try {
-            stmt = objConnection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        DatabaseConnect objDBConnect;
+        objDBConnect = new DatabaseConnect();
+        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "abc123");
+        
+        objConnection = connectContainer.getObjCon();
+        stmt = connectContainer.getStatement();
     }
     
     public void initData()
@@ -284,7 +293,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
         jLabel26 = new javax.swing.JLabel();
         txtIDSer = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Holding");
 
         pTblHo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -923,4 +932,17 @@ public class uiHolding_2 extends javax.swing.JFrame {
     private javax.swing.JTextField txtToDateHo;
     private javax.swing.JTextField txtTotalHo;
     // End of variables declaration//GEN-END:variables
+
+   
+    
+    @Override
+    public void dispose(){
+        System.out.println("Disposed complete");
+        super.dispose();
+    }
+
+    @Override
+    public void receiveData() {
+        System.out.println("data");
+    }
 }

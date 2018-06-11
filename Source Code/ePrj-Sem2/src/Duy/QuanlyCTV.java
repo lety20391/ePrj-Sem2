@@ -13,6 +13,7 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+
 /**
  *
  * @author DuDu
@@ -34,28 +35,23 @@ public class QuanlyCTV extends javax.swing.JFrame {
         initComponents();
         connect();
         showTable();
-        manageButton(true,false,false,false);
+        manageButton(true,true,true,true);
         manageTextfield(false,false,false,false,false,false,false,false,false,false,false,false,false,false);
     }
    
-    public void manageBtn(boolean btnAddStatus, boolean btnEditStatus, boolean btnViewStatus, boolean btnSearchStatus)
-    {
-        btnAdd.setEnabled(btnAddStatus);
-        btnEdit.setEnabled(btnEditStatus);
-        btnDelete.setEnabled(btnViewStatus);
-        btnSearch.setEnabled(btnSearchStatus);
-    }
+
     
     public void connect()
     {
         
         // TODO code application logic here
         
-        DatabaseConnect objDBConnect;
-        objDBConnect = new DatabaseConnect();
-        Connection objConnection;
-        objConnection = objDBConnect.DBConnect("Sem2_project_group2", "sa", "123");
+        
         try {
+            DatabaseConnect objDBConnect;
+            objDBConnect = new DatabaseConnect();
+            Connection objConnection;
+            objConnection = objDBConnect.DBConnect("Sem2_project_group2", "sa", "123");
             stmt = objConnection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -67,16 +63,16 @@ public class QuanlyCTV extends javax.swing.JFrame {
         coModel = new DefaultTableModel();
         
         header = new Vector();
-        header.add("Collaborator ID");
-        header.add("Collaborator Name");
-        header.add("Collaborator Address");
-        header.add("Collaborator DOB");
-        header.add("Collaborator IDNo");
-        header.add("Collaborator Deposit");
-        header.add("Collaborator Phone");
-        header.add("Collaborator Email");
-        header.add("Collaborator Status");
-        header.add("Collaborator Image");
+        header.add("ID");
+        header.add("Name");
+        header.add("Address");
+        header.add("DOB");
+        header.add("IDNo");
+        header.add("Deposit");
+        header.add("Phone");
+        header.add("Email");
+        header.add("Status");
+        header.add("Image");
         
         data = new Vector();
         
@@ -137,11 +133,9 @@ public class QuanlyCTV extends javax.swing.JFrame {
         btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        btnSearch = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblCo = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
@@ -164,6 +158,7 @@ public class QuanlyCTV extends javax.swing.JFrame {
         txtQues = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         txtAns = new javax.swing.JTextField();
+        btnClose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -206,9 +201,6 @@ public class QuanlyCTV extends javax.swing.JFrame {
                 btnDeleteActionPerformed(evt);
             }
         });
-
-        btnSearch.setText("Search");
-        btnSearch.setPreferredSize(new java.awt.Dimension(99, 25));
 
         jRadioButton1.setText("Unlocked");
 
@@ -253,8 +245,7 @@ public class QuanlyCTV extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(51, 51, 51)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(150, 150, 150))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -294,9 +285,7 @@ public class QuanlyCTV extends javax.swing.JFrame {
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
@@ -305,9 +294,6 @@ public class QuanlyCTV extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("COLLABORATOR MANAGERMENT");
-
-        jButton6.setText("Close");
-        jButton6.setPreferredSize(new java.awt.Dimension(99, 25));
 
         tblCo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -345,33 +331,26 @@ public class QuanlyCTV extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(78, 78, 78)
-                        .addComponent(txtIDNo)
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(78, 78, 78)
-                        .addComponent(txtDOB)
-                        .addGap(142, 142, 142))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(78, 78, 78)
-                        .addComponent(txtImage))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9))
                         .addGap(78, 78, 78)
-                        .addComponent(txtStatus))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtIDNo)
+                            .addComponent(txtImage)
+                            .addComponent(txtDOB)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addGap(78, 78, 78)
-                        .addComponent(txtDeposit)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel12))
+                        .addGap(72, 72, 72)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtDeposit)
+                            .addComponent(txtStatus))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -414,40 +393,35 @@ public class QuanlyCTV extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel14)
-                        .addGap(78, 78, 78)
-                        .addComponent(txtType))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(jLabel13)
-                        .addGap(78, 78, 78)
-                        .addComponent(txtPass)))
-                .addGap(104, 104, 104))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel15)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel13))
                         .addGap(78, 78, 78)
-                        .addComponent(txtQues))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPass)
+                            .addComponent(txtType)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel16)
-                        .addGap(78, 78, 78)
-                        .addComponent(txtAns)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel16))
+                        .addGap(64, 64, 64)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtAns)
+                            .addComponent(txtQues))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14))
@@ -455,12 +429,19 @@ public class QuanlyCTV extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtQues, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtAns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
+
+        btnClose.setText("Close");
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -482,8 +463,8 @@ public class QuanlyCTV extends javax.swing.JFrame {
                 .addContainerGap(70, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(115, 115, 115))
+                .addComponent(btnClose)
+                .addGap(196, 196, 196))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -492,17 +473,16 @@ public class QuanlyCTV extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(163, 163, 163)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnClose)
+                .addContainerGap(116, Short.MAX_VALUE))
         );
 
         pack();
@@ -517,36 +497,33 @@ public class QuanlyCTV extends javax.swing.JFrame {
         String IDCo;
         String NameCo, AddressCo, DOBCo, IDNoCo, PhoneCo, EmailCo, StatusCo, ImageCo, Pass, Type, Ques, Ans;
         String DepositCo;
-        
-        //lay du lieu tu textField
-        IDCo = txtID.getText();
-        NameCo = txtName.getText();
-        AddressCo = txtAddress.getText();
-        DOBCo = txtDOB.getText();
-        IDNoCo = txtIDNo.getText();
-        PhoneCo = txtPhone.getText();
-        EmailCo = txtEmail.getText();
-        StatusCo = txtStatus.getText();
-        ImageCo = txtImage.getText();
-        //tra ve kieu String vi Price la kieu Double
-        DepositCo = txtDeposit.getText();
-        Pass = txtPass.getText();
-        Type = txtType.getText();
-        Ques = txtQues.getText();
-        Ans = txtAns.getText();
-        
-        manageBtn(true, false, false, false);
-        
-        
         String labelButton = btnAdd.getText();
         if (labelButton.equalsIgnoreCase("Add"))
         {
+            clearTxt();
+            manageButton(true, false, false, false);
+            manageTextfield(true, true, true,true, true, true,true, true, true, true, true, true, true, true);
             btnAdd.setText("Save");
         }else
         {
         
             try {
-
+                //lay du lieu tu textField
+                IDCo = txtID.getText();
+                NameCo = txtName.getText();
+                AddressCo = txtAddress.getText();
+                DOBCo = txtDOB.getText();
+                IDNoCo = txtIDNo.getText();
+                PhoneCo = txtPhone.getText();
+                EmailCo = txtEmail.getText();
+                StatusCo = txtStatus.getText();
+                ImageCo = txtImage.getText();
+                //tra ve kieu String vi Price la kieu Double
+                DepositCo = txtDeposit.getText();
+                Pass = txtPass.getText();
+                Type = txtType.getText();
+                Ques = txtQues.getText();
+                Ans = txtAns.getText();
                 //insert into Account(ID, Password, Type, Question, Answer) values ('Co01', 'abc123', 'Co', 'Dog Name' , 'Duy')
                 sql = "insert into Account(ID, Password, Type, Question, Answer) values ('" + IDCo + "', '" + Pass + "', '" + Type + "', '" + Ques + "' , '" + Ans + "')";
                 stmt.executeUpdate(sql);
@@ -561,8 +538,8 @@ public class QuanlyCTV extends javax.swing.JFrame {
             
             showTable();
             btnAdd.setText("Add");
-            clearTxt();
-            manageBtn(true, true, true, true);
+            
+            manageButton(true, true, true, true);
             manageTextfield(false, false,false,false,false,false,false,false,false,false,false,false,false,false);
         }
     }//GEN-LAST:event_btnAddActionPerformed
@@ -571,7 +548,7 @@ public class QuanlyCTV extends javax.swing.JFrame {
         btnAdd.setEnabled(btnAddStatus);
         btnEdit.setEnabled(btnEditStatus);
         btnDelete.setEnabled(btnDeleteStatus);
-        btnSearch.setEnabled(btnSearchStatus);
+        btnClose.setEnabled(btnSearchStatus);
     }
     public void manageTextfield (boolean txtIDStatus, boolean txtNameStatus, boolean txtAddressStatus, boolean txtPhoneStatus, boolean txtEmailStatus, boolean txtDOBStatus, boolean txtIDNoStatus, boolean txtImageStatus, boolean txtStatusStatus, boolean txtDepositStatus, boolean txtPassStatus, boolean txtTypeStatus, boolean txtQuesStatus, boolean txtAnsStatus)
     {
@@ -665,13 +642,10 @@ public class QuanlyCTV extends javax.swing.JFrame {
             String Image =   txtImage.getText();
             String Status =  txtStatus.getText();
             String Deposit =    txtDeposit.getText();
-            String Pass =   txtPass.getText();
-            String Type =    txtType.getText();
-            String Ques =   txtQues.getText();
-            String Ans =   txtAns.getText();
+
             try {
                 //update Guest set  NameSer = 'Ban nha', Price = 100 where IDSer = 'S06'
-                    sql = "update Collaborator set  NameCo = '"+Name+"', AddressCo = '"+Address+"', PhoneCo = '"+Phone+"',EmailCo = '"+Email+"', DOBCo = '"+DOB+"', IdentificationNumberCo = '"+IDNo+"', ImageCo = '"+Image+"', StatusCo = '"+Status+"', DepositCo = '"+Deposit+"',Password = '"+Pass+"' where IDCo = '"+ID+"'";
+                    sql = "update Collaborator set  NameCo = '"+Name+"', AddressCo = '"+Address+"', PhoneCo = '"+Phone+"',EmailCo = '"+Email+"', DOBCo = '"+DOB+"', IdentificationNumberCo = '"+IDNo+"', ImageCo = '"+Image+"', StatusCo = '"+Status+"', DepositCo = '"+Deposit+"' where IDCo = '"+ID+"'";
                     stmt.executeUpdate(sql);
                     btnEdit.setText("Edit");
                     clearTxt();
@@ -704,6 +678,10 @@ public class QuanlyCTV extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCloseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -743,10 +721,9 @@ public class QuanlyCTV extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
-    private javax.swing.JButton btnSearch;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
