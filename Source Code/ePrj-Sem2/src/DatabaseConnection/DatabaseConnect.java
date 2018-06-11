@@ -10,8 +10,6 @@ import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
 /**
  *
  * @author Dat ThinkPad
@@ -57,14 +55,15 @@ public class DatabaseConnect {
     ResultSet resultSet;
     String url;
     connectionContainer objConContainer;
+    String port;
     
     
-    public  connectionContainer DBConnect(String DatabaseName, String Account, String Password)
+    public  connectionContainer DBConnect(String DatabaseName, String Account, String Password, String port)
     {
         try {
             
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            url = "jdbc:sqlserver://localhost:1433;database="+DatabaseName;
+            url = "jdbc:sqlserver://localhost:"+port+";database="+DatabaseName;
             objConnection = DriverManager.getConnection(url, Account, Password);
             statement = objConnection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             System.out.println("");

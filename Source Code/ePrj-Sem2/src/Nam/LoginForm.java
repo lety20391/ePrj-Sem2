@@ -119,20 +119,6 @@ public class LoginForm extends javax.swing.JFrame {
         btnLogin = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
         lbForgotpassword = new javax.swing.JLabel();
-<<<<<<< HEAD
-        jPanelConfig = new javax.swing.JPanel();
-        lbDatabase = new javax.swing.JLabel();
-        txtDatabase = new javax.swing.JTextField();
-        lbPort = new javax.swing.JLabel();
-        txtPort = new javax.swing.JTextField();
-        lbDBusername = new javax.swing.JLabel();
-        lbDBPass = new javax.swing.JLabel();
-        txtDBUser = new javax.swing.JTextField();
-        btnDBOK = new javax.swing.JButton();
-        btnDBReset = new javax.swing.JButton();
-        txtDBPass = new javax.swing.JPasswordField();
-=======
->>>>>>> a0a3bc23d619ef0db2d37ebced1877ad99fcf224
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -207,7 +193,7 @@ public class LoginForm extends javax.swing.JFrame {
         btnLogin.setBackground(new java.awt.Color(102, 153, 255));
         btnLogin.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(255, 255, 255));
-        btnLogin.setText("Config");
+        btnLogin.setText("Login");
         btnLogin.setBorder(null);
         btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -263,24 +249,8 @@ public class LoginForm extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(lbUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-<<<<<<< HEAD
-                                .addComponent(txtUsername)))
-                        .addGap(0, 14, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lbForgotpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91))
-=======
                                 .addComponent(txtUsername)))))
                 .addGap(63, 63, 63))
->>>>>>> a0a3bc23d619ef0db2d37ebced1877ad99fcf224
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -347,38 +317,8 @@ public class LoginForm extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_lbForgotpasswordMouseClicked
 
-<<<<<<< HEAD
-    private void btnDBOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDBOKActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDBOKActionPerformed
-
-    private void btnDBResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDBResetActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDBResetActionPerformed
-
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        //Ket noi database
-        String str = btnLogin.getText();
-        if (str.equalsIgnoreCase("config")) {
-            jPanelConfig.setVisible(true);
-            btnLogin.disable();
-            btnReset.disable();
-            //btnLogin.setText("Login");
-        } else {
-            
-        }
-        try {
-            connection = DBConnection.getDBConnection(dbName, dbAccount, dbPassword, port);
-            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        //Kiem tra trang
-=======
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
->>>>>>> a0a3bc23d619ef0db2d37ebced1877ad99fcf224
         if (txtUsername.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Username cannot be blank.");
             txtUsername.grabFocus();
@@ -478,11 +418,6 @@ public class LoginForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-<<<<<<< HEAD
-    private javax.swing.JButton btnDBOK;
-    private javax.swing.JButton btnDBReset;
-=======
->>>>>>> a0a3bc23d619ef0db2d37ebced1877ad99fcf224
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnReset;
     private javax.swing.JPanel jPanel1;
