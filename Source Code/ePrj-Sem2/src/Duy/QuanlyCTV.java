@@ -67,7 +67,7 @@ public class QuanlyCTV extends javax.swing.JFrame {
         header.add("Deposit");
         header.add("Phone");
         header.add("Email");
-        header.add("Status");
+
         header.add("Image");
         
         data = new Vector();
@@ -91,7 +91,7 @@ public class QuanlyCTV extends javax.swing.JFrame {
                 row.add(rs.getDouble("DepositCo"));
                 row.add(rs.getString("PhoneCo"));
                 row.add(rs.getString("EmailCo"));
-                row.add(rs.getString("StatusCo"));
+
                 row.add(rs.getString("ImageCo"));
                 
                 
