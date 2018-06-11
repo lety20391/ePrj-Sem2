@@ -58,6 +58,9 @@ public class TestMain extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtPort = new javax.swing.JTextField();
+        btnDuyCTV = new javax.swing.JButton();
+        btnDuyOwner = new javax.swing.JButton();
+        btnDatHolding = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -135,14 +138,35 @@ public class TestMain extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
                         .addComponent(txtPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        btnDuyCTV.setText("Duy CTV");
+        btnDuyCTV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDuyCTVActionPerformed(evt);
+            }
+        });
+
+        btnDuyOwner.setText("Duy Owner");
+        btnDuyOwner.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDuyOwnerActionPerformed(evt);
+            }
+        });
+
+        btnDatHolding.setText("Dat Holding");
+        btnDatHolding.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDatHoldingActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -154,19 +178,30 @@ public class TestMain extends javax.swing.JFrame {
                         .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnDuyenService, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnDuyenGuest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(btnDuyenGuest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnDuyCTV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDuyOwner, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDatHolding, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(71, 71, 71)
-                .addComponent(btnDuyenService)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDuyenService)
+                    .addComponent(btnDuyCTV)
+                    .addComponent(btnDatHolding))
                 .addGap(18, 18, 18)
-                .addComponent(btnDuyenGuest)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDuyenGuest)
+                    .addComponent(btnDuyOwner))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -202,6 +237,42 @@ public class TestMain extends javax.swing.JFrame {
             }
         );
     }//GEN-LAST:event_btnDuyenGuestActionPerformed
+
+    private void btnDuyCTVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuyCTVActionPerformed
+        // TODO add your handling code here:
+        SwingUtilities.invokeLater(new Runnable()
+            {
+                public void run()
+                {
+                    new Duy.QuanlyCTV_2(con, stmt).setVisible(true);
+                }
+            }        
+        );
+    }//GEN-LAST:event_btnDuyCTVActionPerformed
+
+    private void btnDuyOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuyOwnerActionPerformed
+        // TODO add your handling code here:
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                new Duy.QuanlyOwner_2(con, stmt).setVisible(true);
+            }
+        }        
+        );
+    }//GEN-LAST:event_btnDuyOwnerActionPerformed
+
+    private void btnDatHoldingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatHoldingActionPerformed
+        // TODO add your handling code here:
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                new Dat_Le_2.uiHolding_2(con, stmt).setVisible(true);
+            }
+        }        
+        );
+    }//GEN-LAST:event_btnDatHoldingActionPerformed
 
     /**
      * @param args the command line arguments
@@ -239,6 +310,9 @@ public class TestMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDatHolding;
+    private javax.swing.JButton btnDuyCTV;
+    private javax.swing.JButton btnDuyOwner;
     private javax.swing.JButton btnDuyenGuest;
     private javax.swing.JButton btnDuyenService;
     private javax.swing.JLabel jLabel1;
