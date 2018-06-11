@@ -5,6 +5,8 @@
  */
 package testEvent;
 
+import Library.StringListener;
+
 /**
  *
  * @author Dat ThinkPad
@@ -14,11 +16,13 @@ public class ReceiverFrame extends javax.swing.JFrame implements Library.getIDFr
     /**
      * Creates new form ReceiverFrame
      */
+    StringListener objStr;
     Thread t;
     String Str = "Test1";
+    
     public ReceiverFrame()
     {
-        
+        objStr = new StringListener("");
     }
     
     public ReceiverFrame(String status) {
