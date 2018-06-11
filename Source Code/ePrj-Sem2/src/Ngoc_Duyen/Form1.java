@@ -6,9 +6,13 @@
 package Ngoc_Duyen;
 
 
+import DatabaseConnection.DatabaseConnect;
+import DatabaseConnection.connectionContainer;
 import Ngoc_Duyen.folder1.IOfile;
 import Ngoc_Duyen.folder1.NewInterface;// cai nay la de xem bang ne
 import Ngoc_Duyen.newpackage.Apartment; //cai nay la de control nha
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -27,6 +31,24 @@ public class Form1 extends javax.swing.JFrame {
     /**
      * Creates new form Form1
      */
+    
+        
+    
+    public void Connect(){
+                    Connection con;
+        Statement stmt;
+        
+        DatabaseConnect objDBConnect;
+        objDBConnect = new DatabaseConnect();
+        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "123456789", "1433");
+        
+        con = connectContainer.getObjCon();
+        stmt = connectContainer.getStatement();
+        
+        
+        
+    }
+    
     public Form1() {
         this.setTitle("Apartment Manager");
         
@@ -37,7 +59,7 @@ public class Form1 extends javax.swing.JFrame {
         //list = new ArrayList<>();
         initComponents();
         SHOWApartment();
-        
+        Connect();
         model = (DefaultTableModel) jTable1.getModel();
     }
     public void SHOWApartment()
@@ -260,9 +282,9 @@ public class Form1 extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         int r = jTable1.getSelectedRow();
-        if(r ! -1)
+        if(r != 1)
         {
-            txtName.setText();
+            //txtName.setText();
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
