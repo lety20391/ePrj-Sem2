@@ -5,19 +5,106 @@
  */
 package Duy;
 
+import DatabaseConnection.DatabaseConnect;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author DuDu
  */
 public class QuanlyOwner extends javax.swing.JFrame {
+        Statement stmt;
+    DefaultTableModel supModel;
+    Vector header, row, data;
+    String sql;
+    ResultSet rs;
+
+    Connection objConnection;
 
     /**
      * Creates new form QuanlyOwner
      */
     public QuanlyOwner() {
         initComponents();
+        connect();
+        showTable();
+        manageButton(true,true,true,true);
+        manageTextfield(false,false,false,false,false);
+    }
+       
+    public void manageButton(boolean btnAddStatus, boolean btnEditStatus, boolean btnViewStatus, boolean btnSearchStatus)
+    {
+        btnAdd.setEnabled(btnAddStatus);
+        btnEdit.setEnabled(btnEditStatus);
+        btnDelete.setEnabled(btnViewStatus);
+        btnSearch.setEnabled(btnSearchStatus);
+    }
+    public void connect()
+    {
+        
+        // TODO code application logic here
+        
+        DatabaseConnect objDBConnect;
+        objDBConnect = new DatabaseConnect();
+        Connection objConnection;
+        objConnection = objDBConnect.DBConnect("Sem2_project_group2", "sa", "123");
+        try {
+            stmt = objConnection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public void showTable()
+    {
+        supModel = new DefaultTableModel();
+        
+        header = new Vector();
+        header.add("Supplier ID");
+        header.add("Collaborator Name");
+        header.add("Collaborator Address");
+        header.add("Collaborator Phone");
+        header.add("Collaborator Email");
+        
+        
+        
+        data = new Vector();
+        
+        supModel.setRowCount(0);
+        
+        try {            
+            //select * from Services
+            sql = "select * from Supplier";
+            rs = stmt.executeQuery(sql);
+            
+            rs.beforeFirst();
+            while(rs.next())
+            {
+                row = new Vector();                
+                row.add( rs.getString("IDSup"));
+                row.add(rs.getString("NameSup"));
+                row.add(rs.getString("AddressSup"));
+                row.add(rs.getString("PhoneSup"));
+                row.add(rs.getString("EmailSup"));
+                
+                
+                
+                data.add(row);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        supModel.setDataVector(data, header);
+        tblSup.setModel(supModel);
+        //tblBook.setModel(bookModel);
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,9 +115,9 @@ public class QuanlyOwner extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
+        btnClose = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblSup = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -38,17 +125,17 @@ public class QuanlyOwner extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        txtID = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
+        txtAddress = new javax.swing.JTextField();
+        txtPhone = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
+        btnEdit = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        btnSearch = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
+        btnAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,10 +143,10 @@ public class QuanlyOwner extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("SUPPLIER MANAGERMENT");
 
-        jButton6.setText("Close");
-        jButton6.setPreferredSize(new java.awt.Dimension(99, 25));
+        btnClose.setText("Close");
+        btnClose.setPreferredSize(new java.awt.Dimension(99, 25));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblSup.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -71,7 +158,12 @@ public class QuanlyOwner extends javax.swing.JFrame {
                 "ID", "Name"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        tblSup.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblSupMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblSup);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -87,19 +179,27 @@ public class QuanlyOwner extends javax.swing.JFrame {
 
         jLabel7.setText("Status");
 
-        jTextField2.setToolTipText("");
+        txtName.setToolTipText("");
 
-        jButton1.setText("Add");
-        jButton1.setPreferredSize(new java.awt.Dimension(99, 25));
+        btnEdit.setText("Edit");
+        btnEdit.setPreferredSize(new java.awt.Dimension(99, 25));
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Edit");
-        jButton2.setPreferredSize(new java.awt.Dimension(99, 25));
+        btnDelete.setText("Delete");
+        btnDelete.setAutoscrolls(true);
+        btnDelete.setPreferredSize(new java.awt.Dimension(99, 25));
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("View");
-        jButton4.setPreferredSize(new java.awt.Dimension(99, 25));
-
-        jButton5.setText("Search");
-        jButton5.setPreferredSize(new java.awt.Dimension(99, 25));
+        btnSearch.setText("Search");
+        btnSearch.setPreferredSize(new java.awt.Dimension(99, 25));
 
         jRadioButton1.setText("Unlocked");
 
@@ -107,6 +207,13 @@ public class QuanlyOwner extends javax.swing.JFrame {
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton2ActionPerformed(evt);
+            }
+        });
+
+        btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
             }
         });
 
@@ -127,11 +234,11 @@ public class QuanlyOwner extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(99, 99, 99)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField4)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField5))
+                            .addComponent(txtPhone)
+                            .addComponent(txtAddress)
+                            .addComponent(txtName)
+                            .addComponent(txtID)
+                            .addComponent(txtEmail))
                         .addGap(57, 57, 57))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(47, 47, 47)
@@ -143,13 +250,13 @@ public class QuanlyOwner extends javax.swing.JFrame {
                 .addContainerGap(80, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(51, 51, 51)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAdd)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(65, 65, 65))
         );
         jPanel3Layout.setVerticalGroup(
@@ -158,23 +265,23 @@ public class QuanlyOwner extends javax.swing.JFrame {
                 .addGap(50, 50, 50)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -182,12 +289,12 @@ public class QuanlyOwner extends javax.swing.JFrame {
                     .addComponent(jRadioButton2))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAdd))
                 .addGap(34, 34, 34)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
@@ -208,7 +315,7 @@ public class QuanlyOwner extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(115, 115, 115))
         );
         layout.setVerticalGroup(
@@ -221,16 +328,153 @@ public class QuanlyOwner extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    public void clearTxt()
+    {
+        txtID.setText("");
+        txtName.setText("");
+        txtAddress.setText("");
+        txtPhone.setText("");
+        txtEmail.setText("");
+    }       
 
+    public void manageTextfield (boolean txtIDStatus, boolean txtNameStatus, boolean txtAddressStatus, boolean txtPhoneStatus, boolean txtEmailStatus)
+    {
+        txtID.setEditable(txtIDStatus);
+        txtName.setEditable(txtNameStatus);
+        txtAddress.setEditable(txtAddressStatus);
+        txtPhone.setEditable(txtPhoneStatus);
+        txtEmail.setEditable(txtEmailStatus);
+    }    
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+         String IDSup;
+        String NameSup, AddressSup, PhoneSup, EmailSup;
+        String labelButton = btnAdd.getText();
+        if (labelButton.equalsIgnoreCase("Add"))
+        {
+            clearTxt();
+            manageButton(true, false, false, false);
+            manageTextfield(true, true, true,true, true);
+            btnAdd.setText("Save");
+        }else
+        {
+        
+            try {
+                //lay du lieu tu textField
+                IDSup = txtID.getText();
+                NameSup = txtName.getText();
+                AddressSup = txtAddress.getText();
+               
+                PhoneSup = txtPhone.getText();
+                EmailSup= txtEmail.getText();
+             
+              
+                //insert into Account(ID, Password, Type, Question, Answer) values ('Co01', 'abc123', 'Co', 'Dog Name' , 'Duy')
+    //            sql = "insert into Account(ID, Password, Type, Question, Answer) values ('" + IDSup + "', '" + Pass + "', '" + Type + "', '" + Ques + "' , '" + Ans + "')";
+   //             stmt.executeUpdate(sql);
+
+                //insert into Collaborator(IDCo, NameCo, AddressCo, DOBCo, IdentificationNumberCo, DepositCo, PhoneCo, EmailCo, StatusCo, ImageCo) values ('Co01', 'Duy', 'Q5', '2005-12-20',  '1234', 123, '12345', 'email', 'Normal', 'Link' )
+    //            sql = "insert into Supplier (IDCo, NameCo, AddressCo, DOBCo, IdentificationNumberCo, DepositCo, PhoneCo, EmailCo, StatusCo, ImageCo) values ('" + IDCo + "', '" + NameCo + "', '" + AddressCo + "', '" + DOBCo + "',  '" + IDNoCo + "', " + DepositCo + ", '" + PhoneCo + "', '" + EmailCo + "', '" + StatusCo + "', '" + ImageCo + "' )";
+    //            stmt.executeUpdate(sql);
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            
+            showTable();
+            btnAdd.setText("Add");
+            
+            manageButton(true, true, true, true);
+            manageTextfield(false, false,false,false,false);
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+    String labelBtn = btnEdit.getText();
+        if( labelBtn.equalsIgnoreCase("Edit"))
+        {
+            btnEdit.setText("Save");
+            manageTextfield(false,true,true,true,true);
+            manageButton(false,true,false,false);
+        }
+        else
+        {
+            String ID = txtID.getText();
+            String Name = txtName.getText();
+            String Address = txtAddress.getText();
+            String Phone =   txtPhone.getText();
+            String Email =   txtEmail.getText();
+         
+            try {
+                //update Guest set  NameSer = 'Ban nha', Price = 100 where IDSer = 'S06'
+                    sql = "update Supplier set NameSup = '"+Name+"', AddressSup = '"+Address+"', PhoneSup = '"+Phone+"',EmailSup = '"+Email+"'' where IDSup = '"+ID+"'";
+                    stmt.executeUpdate(sql);
+                    btnEdit.setText("Edit");
+                    clearTxt();
+                    manageButton(true,true,true,true);
+                    showTable();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void tblSupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSupMouseClicked
+      int row;
+        String IDSup;
+        String NameSup, AddressSup ;
+        String EmailSup, PhoneSup;
+        
+        
+        
+        row = tblSup.getSelectedRow();
+        
+        IDSup = (String) tblSup.getValueAt(row, 0);       
+        NameSup = (String)tblSup.getValueAt(row, 1);
+        AddressSup = (String)tblSup.getValueAt(row, 2);   
+        PhoneSup = (String)tblSup.getValueAt(row, 3);
+        EmailSup = (String)tblSup.getValueAt(row, 4);
+           
+        
+        txtID.setText(IDSup);
+        txtName.setText(NameSup);
+        txtAddress.setText(AddressSup);
+        txtPhone.setText(PhoneSup);
+        txtEmail.setText(EmailSup);
+       
+       
+    }//GEN-LAST:event_tblSupMouseClicked
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+     try {
+            int check = JOptionPane.showConfirmDialog(this, "You want to delete,sure?");
+            if (check == JOptionPane.OK_OPTION)
+            {
+                String ID = txtID.getText();
+                //cau lenh SQL mau da kiem tra thu tren SQl
+                //delete from Guest where IDGu = 'S06'
+                sql = "delete from Supplier where IDCo = '" + ID + "'";
+                stmt.executeUpdate(sql);
+                //xoa xong thi cap nhat lai Table
+                showTable();
+                //xoa cac textField
+                clearTxt();
+            }else{
+                return;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -268,11 +512,11 @@ public class QuanlyOwner extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnClose;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -284,11 +528,11 @@ public class QuanlyOwner extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTable tblSup;
+    private javax.swing.JTextField txtAddress;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtID;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtPhone;
     // End of variables declaration//GEN-END:variables
 }
