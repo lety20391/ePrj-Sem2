@@ -5,7 +5,6 @@
  */
 package Dat_Le_2;
 
-import Dat_Le.*;
 import DatabaseConnection.DatabaseConnect;
 import DatabaseConnection.connectionContainer;
 import java.awt.Component;
@@ -944,5 +943,10 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.getIDFrom
     @Override
     public void receiveData() {
         System.out.println("data");
+    }
+
+    @Override
+    public void receiveData(String data) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
