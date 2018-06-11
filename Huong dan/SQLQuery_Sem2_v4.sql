@@ -7,7 +7,7 @@ create database Sem2_Project_Group2
 on primary
 (
 	name = 'Sem2_Project_Group2',
-	filename = 'E:\Aptech\Data Prj2\Sem2_Project_Group2.mdf',
+	filename = 'C:\Aptech\sql prj\Sem2_Project_Group2.mdf',
 	size = 5MB,
 	maxsize = 5MB,
 	filegrowth = 10%
@@ -15,7 +15,7 @@ on primary
 log on
 (
 	name = 'Sem2_Project_Group2_lg',
-	filename = 'E:\Aptech\Data Prj2\Sem2_Project_Group2_lg.ldf',
+	filename = 'C:\Aptech\sql prj\Sem2_Project_Group2_lg.ldf',
 	size = 2MB,
 	maxsize = 2MB,
 	filegrowth = 10%

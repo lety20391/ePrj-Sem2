@@ -48,7 +48,7 @@ public class QuanlyCTV extends javax.swing.JFrame {
         // TODO code application logic here
         DatabaseConnect objDBConnect;
         objDBConnect = new DatabaseConnect();
-        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "123");
+        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "abc123");
         
         objConnection = connectContainer.getObjCon();
         stmt = connectContainer.getStatement();
