@@ -601,8 +601,7 @@ public class QuanlyCTV extends javax.swing.JFrame {
         DepositCo = (Double)tblCo.getValueAt(row, 5);
         PhoneCo = (String)tblCo.getValueAt(row, 6);
         EmailCo = (String)tblCo.getValueAt(row, 7);
-        StatusCo = (String)tblCo.getValueAt(row, 8);
-        ImageCo = (String)tblCo.getValueAt(row, 9);        
+        ImageCo = (String)tblCo.getValueAt(row, 8);        
         
         txtID.setText(IDCo);
         txtName.setText(NameCo);
@@ -611,7 +610,6 @@ public class QuanlyCTV extends javax.swing.JFrame {
         txtIDNo.setText(IDNoCo);
         txtPhone.setText(PhoneCo);
         txtEmail.setText(EmailCo);
-        txtStatus.setText(StatusCo);
         txtImage.setText(ImageCo);
         //tra ve kieu String vi Price la kieu Double
         txtDeposit.setText(String.valueOf(DepositCo));
