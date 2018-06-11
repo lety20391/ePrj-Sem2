@@ -5,6 +5,7 @@
  */
 package Dat_Le_2;
 
+import Dat_Le.*;
 import DatabaseConnection.DatabaseConnect;
 import DatabaseConnection.connectionContainer;
 import java.awt.Component;
@@ -23,7 +24,7 @@ import javax.swing.table.TableModel;
  *
  * @author Dat ThinkPad
  */
-public class uiHolding_2 extends javax.swing.JFrame implements Library.getIDFromFrame{
+public class uiHolding_2 extends javax.swing.JFrame {
     
     Statement stmt;
     DatabaseConnect objDBConnect;
@@ -46,7 +47,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.getIDFrom
     public uiHolding_2() 
     {
         initComponents();
-        connectToDatabase();
+        //connectToDatabase();
         initData();
         showTable("Select * from Holding");
     }
@@ -69,15 +70,15 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.getIDFrom
         table.removeColumn(table.getColumn("Commission"));
     }
     
-    public void connectToDatabase()
-    {
-        DatabaseConnect objDBConnect;
-        objDBConnect = new DatabaseConnect();
-        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "abc123");
-        
-        objConnection = connectContainer.getObjCon();
-        stmt = connectContainer.getStatement();
-    }
+//    public void connectToDatabase()
+//    {
+//        DatabaseConnect objDBConnect;
+//        objDBConnect = new DatabaseConnect();
+//        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "abc123");
+//        
+//        objConnection = connectContainer.getObjCon();
+//        stmt = connectContainer.getStatement();
+//    }
     
     public void initData()
     {
@@ -294,6 +295,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.getIDFrom
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Holding");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pTblHo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         pTblHo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -321,6 +323,8 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.getIDFrom
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Holding Detail");
         pTblHo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(147, 9, -1, -1));
+
+        getContentPane().add(pTblHo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 462, -1));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -561,91 +565,71 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.getIDFrom
                         .addGap(24, 24, 24))))
         );
 
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 227, -1, -1));
+
         pHolding.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        pHolding.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtIDHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtIDHo.setText("jTextField1");
-        pHolding.add(txtIDHo, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 13, 197, -1));
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel16.setText("ID");
-        pHolding.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 16, -1, -1));
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel17.setText("ID Guest");
-        pHolding.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 57, -1, -1));
 
         txtIDGu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtIDGu.setText("jTextField1");
-        pHolding.add(txtIDGu, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 54, 197, -1));
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel18.setText("ID Collaborator");
-        pHolding.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 98, -1, -1));
 
         txtIDCo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtIDCo.setText("jTextField1");
-        pHolding.add(txtIDCo, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 95, 197, -1));
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel19.setText("ID Apartment");
-        pHolding.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 139, -1, -1));
 
         txtIDApa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtIDApa.setText("jTextField1");
-        pHolding.add(txtIDApa, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 136, 197, -1));
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel20.setText("Date");
-        pHolding.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 180, -1, -1));
 
         txtDateHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtDateHo.setText("jTextField1");
-        pHolding.add(txtDateHo, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 177, 197, -1));
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel21.setText("From Date");
-        pHolding.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 221, -1, -1));
 
         txtFromDateHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtFromDateHo.setText("jTextField1");
-        pHolding.add(txtFromDateHo, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 218, 197, -1));
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel22.setText("To Date");
-        pHolding.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 262, -1, -1));
 
         txtToDateHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtToDateHo.setText("jTextField1");
-        pHolding.add(txtToDateHo, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 259, 197, -1));
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel23.setText("Status");
-        pHolding.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 340, -1, -1));
 
         txtPayStatusHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtPayStatusHo.setText("jTextField1");
-        pHolding.add(txtPayStatusHo, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 337, 197, -1));
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel24.setText("Commission");
-        pHolding.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 381, -1, -1));
 
         txtCommissionHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtCommissionHo.setText("jTextField1");
-        pHolding.add(txtCommissionHo, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 378, 197, -1));
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel25.setText("Total");
-        pHolding.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 422, -1, -1));
 
         txtTotalHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtTotalHo.setText("jTextField1");
-        pHolding.add(txtTotalHo, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 419, 197, -1));
 
         btnSearch.setText("Search");
-        pHolding.add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 453, 144, 57));
 
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -653,7 +637,6 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.getIDFrom
                 btnAddActionPerformed(evt);
             }
         });
-        pHolding.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 453, 154, 57));
 
         btnUpdate.setText("Update");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -661,7 +644,6 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.getIDFrom
                 btnUpdateActionPerformed(evt);
             }
         });
-        pHolding.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 521, 144, 57));
 
         btnDelete.setText("Delete");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -669,45 +651,159 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.getIDFrom
                 btnDeleteActionPerformed(evt);
             }
         });
-        pHolding.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 521, 154, 57));
 
         btnMakeContract.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnMakeContract.setText("Make Contract");
-        pHolding.add(btnMakeContract, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 584, 341, 68));
 
         jLabel26.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel26.setText("Services");
-        pHolding.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 303, -1, -1));
 
         txtIDSer.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtIDSer.setText("jTextField1");
-        pHolding.add(txtIDSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 300, 197, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pTblHo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        javax.swing.GroupLayout pHoldingLayout = new javax.swing.GroupLayout(pHolding);
+        pHolding.setLayout(pHoldingLayout);
+        pHoldingLayout.setHorizontalGroup(
+            pHoldingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pHoldingLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(pHolding, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGroup(pHoldingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pHoldingLayout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addGap(127, 127, 127)
+                        .addComponent(txtIDHo, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pHoldingLayout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addGap(83, 83, 83)
+                        .addComponent(txtIDGu, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pHoldingLayout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addGap(37, 37, 37)
+                        .addComponent(txtIDCo, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pHoldingLayout.createSequentialGroup()
+                        .addComponent(jLabel19)
+                        .addGap(48, 48, 48)
+                        .addComponent(txtIDApa, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pHoldingLayout.createSequentialGroup()
+                        .addComponent(jLabel20)
+                        .addGap(112, 112, 112)
+                        .addComponent(txtDateHo, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pHoldingLayout.createSequentialGroup()
+                        .addComponent(jLabel21)
+                        .addGap(72, 72, 72)
+                        .addComponent(txtFromDateHo, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pHoldingLayout.createSequentialGroup()
+                        .addComponent(jLabel22)
+                        .addGap(90, 90, 90)
+                        .addComponent(txtToDateHo, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pHoldingLayout.createSequentialGroup()
+                        .addComponent(jLabel26)
+                        .addGap(88, 88, 88)
+                        .addComponent(txtIDSer, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pHoldingLayout.createSequentialGroup()
+                        .addComponent(jLabel23)
+                        .addGap(99, 99, 99)
+                        .addComponent(txtPayStatusHo, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pHoldingLayout.createSequentialGroup()
+                        .addComponent(jLabel24)
+                        .addGap(61, 61, 61)
+                        .addComponent(txtCommissionHo, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pHoldingLayout.createSequentialGroup()
+                        .addComponent(jLabel25)
+                        .addGap(109, 109, 109)
+                        .addComponent(txtTotalHo, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pHoldingLayout.createSequentialGroup()
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pHoldingLayout.createSequentialGroup()
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnMakeContract, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pHolding, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(pTblHo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+        pHoldingLayout.setVerticalGroup(
+            pHoldingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pHoldingLayout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addGroup(pHoldingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pHoldingLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel16))
+                    .addComponent(txtIDHo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pHoldingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pHoldingLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel17))
+                    .addComponent(txtIDGu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pHoldingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pHoldingLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel18))
+                    .addComponent(txtIDCo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pHoldingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pHoldingLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel19))
+                    .addComponent(txtIDApa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pHoldingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pHoldingLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel20))
+                    .addComponent(txtDateHo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pHoldingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pHoldingLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel21))
+                    .addComponent(txtFromDateHo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pHoldingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pHoldingLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel22))
+                    .addComponent(txtToDateHo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pHoldingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pHoldingLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel26))
+                    .addComponent(txtIDSer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
+                .addGroup(pHoldingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pHoldingLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel23))
+                    .addComponent(txtPayStatusHo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pHoldingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pHoldingLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel24))
+                    .addComponent(txtCommissionHo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pHoldingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pHoldingLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel25))
+                    .addComponent(txtTotalHo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(pHoldingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(pHoldingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addComponent(btnMakeContract, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        getContentPane().add(pHolding, new org.netbeans.lib.awtextra.AbsoluteConstraints(491, 11, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -940,13 +1036,8 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.getIDFrom
         super.dispose();
     }
 
-    @Override
-    public void receiveData() {
-        System.out.println("data");
-    }
-
-    @Override
-    public void receiveData(String data) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//    @Override
+//    public void receiveData() {
+//        System.out.println("data");
+//    }
 }
