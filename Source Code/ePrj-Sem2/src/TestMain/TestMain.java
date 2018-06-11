@@ -24,7 +24,7 @@ public class TestMain extends javax.swing.JFrame {
      */
     public TestMain() {
         initComponents();
-        connectSQL();
+        //connectSQL();
     }
     
     public void connectSQL()
@@ -61,6 +61,7 @@ public class TestMain extends javax.swing.JFrame {
         btnDuyCTV = new javax.swing.JButton();
         btnDuyOwner = new javax.swing.JButton();
         btnDatHolding = new javax.swing.JButton();
+        btnConnect = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -168,6 +169,13 @@ public class TestMain extends javax.swing.JFrame {
             }
         });
 
+        btnConnect.setText("Connect SQL");
+        btnConnect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConnectActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -187,13 +195,18 @@ public class TestMain extends javax.swing.JFrame {
                         .addComponent(btnDatHolding, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(198, 198, 198)
+                        .addComponent(btnConnect)))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(71, 71, 71)
+                .addGap(30, 30, 30)
+                .addComponent(btnConnect)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDuyenService)
                     .addComponent(btnDuyCTV)
@@ -274,6 +287,11 @@ public class TestMain extends javax.swing.JFrame {
         );
     }//GEN-LAST:event_btnDatHoldingActionPerformed
 
+    private void btnConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConnectActionPerformed
+        // TODO add your handling code here:
+        connectSQL();
+    }//GEN-LAST:event_btnConnectActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -310,6 +328,7 @@ public class TestMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConnect;
     private javax.swing.JButton btnDatHolding;
     private javax.swing.JButton btnDuyCTV;
     private javax.swing.JButton btnDuyOwner;
