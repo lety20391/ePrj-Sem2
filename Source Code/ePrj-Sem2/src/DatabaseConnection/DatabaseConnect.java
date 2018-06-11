@@ -55,10 +55,10 @@ public class DatabaseConnect {
     ResultSet resultSet;
     String url;
     connectionContainer objConContainer;
-    String port;
+
     
     
-    public  connectionContainer DBConnect(String DatabaseName, String Account, String Password, String port)
+    public connectionContainer DBConnect(String DatabaseName, String Account, String Password, String port)
     {
         try {
             
