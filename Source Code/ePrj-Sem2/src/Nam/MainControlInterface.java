@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import Dat_Le_2.uiHolding_2;
 
 /**
  *
@@ -29,18 +28,20 @@ public class MainControlInterface extends javax.swing.JFrame {
     Statement stmt;
     ResultSet rs;
     String sql;
+
     
     CollaboratorsManagement colmanage;
     GuestManagement guestmanega;
-    
     //phan dat ten cac variable cho tung Frame
-    uiHolding_2 objHolding;
+    //uiHolding_2 objHolding;
 
     /**
      * Creates new form MainControlInterface
      *
      * @param account
      */
+
+
     
     public MainControlInterface(String account, Connection connection, Statement stmt)
     {
@@ -49,10 +50,10 @@ public class MainControlInterface extends javax.swing.JFrame {
         //tui gán 2 cái connection và statement vào hàm dựng này để dùng luôn
         //----------------------------------------------------------
         //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-        
+
         this.connection = connection;
         this.stmt = stmt;
-        
+
         //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         //------------------------------------------------------
         //tui gán 2 cái connection và statement vào hàm dựng này để dùng luôn
@@ -64,7 +65,7 @@ public class MainControlInterface extends javax.swing.JFrame {
         load();
         pack();
     }
-    
+
     public MainControlInterface(String account) {
         initComponents();
         setLocationRelativeTo(null);
@@ -73,14 +74,13 @@ public class MainControlInterface extends javax.swing.JFrame {
         //đã khởi tạo trong LoginForm để tránh lỗi reset connection
         //-----------------------------------------
         //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-        
+
 //        try {
 //            connection = DBConnection.getDBConnection(dbName, dbAccount, dbPassword);
 //            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
-        
         //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         //------------------------------------------
         //Phần connect Database này tui ẩn đi, sẽ sử dụng connection và statemnt
@@ -92,8 +92,6 @@ public class MainControlInterface extends javax.swing.JFrame {
         load();
         pack();
     }
-    
-    
 
     private void load() {
         if (checkAccount().equals("ad")) {
@@ -112,7 +110,7 @@ public class MainControlInterface extends javax.swing.JFrame {
 
     private String checkAccount() {
         String type = null;
-        sql = "select * from Account where ID = " + "'" + txtAccount.getText()+ "'";
+        sql = "select * from Account where ID = " + "'" + txtAccount.getText() + "'";
         try {
             rs = stmt.executeQuery(sql);
             rs.beforeFirst();
@@ -498,28 +496,24 @@ public class MainControlInterface extends javax.swing.JFrame {
 
     private void btnHoldingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoldingActionPerformed
         // TODO add your handling code here:
-        java.awt.EventQueue.invokeLater(new Runnable()
-            {
-                public void run ()
-                {
-                    objHolding = new uiHolding_2();
-                    objHolding.setVisible(true);
-                }
-            }  
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                //objHolding = new uiHolding_2();
+                //objHolding.setVisible(true);
+            }
+        }
         );
-        
+
     }//GEN-LAST:event_btnHoldingActionPerformed
 
     private void colBtnHoldingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colBtnHoldingActionPerformed
         // TODO add your handling code here:
-        java.awt.EventQueue.invokeLater(new Runnable()
-            {
-                public void run ()
-                {
-                    objHolding = new uiHolding_2(connection, stmt);
-                    objHolding.setVisible(true);
-                }
-            }  
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                //objHolding = new uiHolding_2(connection, stmt);
+                //objHolding.setVisible(true);
+            }
+        }
         );
     }//GEN-LAST:event_colBtnHoldingActionPerformed
 
