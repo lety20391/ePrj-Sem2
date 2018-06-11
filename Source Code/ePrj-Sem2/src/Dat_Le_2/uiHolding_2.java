@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Vector;
+import java.util.regex.Pattern;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -40,28 +41,32 @@ public class uiHolding_2 extends javax.swing.JFrame {
     
     String IDHo, IDGu, IDApa, IDCo, DateHo,FromDateHo, ToDateHo, PayStatusHo, IDSer;
     Double CommissionHo, TotalHo;
+    
+    String patStr;
 
     /**
      * Creates new form uiHolding
      */
-    public uiHolding_2() 
-    {
-        initComponents();
-        //connectToDatabase();
-        initData();
-        showTable("Select * from Holding");
-    }
+//    public uiHolding_2() 
+//    {
+//        initComponents();
+//        //connectToDatabase();
+//        initData();
+//        showTable("Select * from Holding");
+//    }
     
     public uiHolding_2(Connection objConnection, Statement stmt)
     {
-        initComponents();
         this.objConnection = objConnection;
         this.stmt = stmt;
+        initComponents();   
+        patStr = txtIDHo.getText();
         initData();
         showTable("Select * from Holding");
+        
     }
     
-  
+    
     public void modifyTable(JTable table)
     {
         table.removeColumn(table.getColumn("Gu"));
@@ -97,6 +102,19 @@ public class uiHolding_2 extends javax.swing.JFrame {
             {
                 ((JTextField) comp).setText("");
             }
+        }
+    }
+    
+    public void validateTextField()
+    {
+        System.out.println(patStr);
+        System.out.println(txtIDHo.getText());
+        if ( Pattern.matches("(^(Ho))(\\d+)", txtIDHo.getText()))
+        {
+            System.out.println("Chuan com me nau");
+        }else
+        {
+            System.out.println("Sai cmnr");
         }
     }
     
@@ -570,7 +588,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
         pHolding.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         txtIDHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtIDHo.setText("jTextField1");
+        txtIDHo.setText("^(Ho)\\d+");
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel16.setText("ID");
@@ -654,6 +672,11 @@ public class uiHolding_2 extends javax.swing.JFrame {
 
         btnMakeContract.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnMakeContract.setText("Make Contract");
+        btnMakeContract.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMakeContractActionPerformed(evt);
+            }
+        });
 
         jLabel26.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel26.setText("Services");
@@ -926,6 +949,11 @@ public class uiHolding_2 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    private void btnMakeContractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMakeContractActionPerformed
+        // TODO add your handling code here:
+        validateTextField();
+    }//GEN-LAST:event_btnMakeContractActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -955,11 +983,11 @@ public class uiHolding_2 extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new uiHolding_2().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new uiHolding_2().setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
