@@ -5,8 +5,12 @@
  */
 package TestMain;
 
+import Dat_Le_2.uiHolding_2;
 import DatabaseConnection.DatabaseConnect;
 import DatabaseConnection.connectionContainer;
+import Duy.QuanlyCTV_2;
+import Tuyet_Duyen.Services_2;
+import Tuyet_Duyen.Theme_guest_2;
 import java.sql.Connection;
 import java.sql.Statement;
 import javax.swing.SwingUtilities;
@@ -18,6 +22,11 @@ import javax.swing.SwingUtilities;
 public class TestMain extends javax.swing.JFrame {
     Connection con;
     Statement stmt;
+    Dat_Le_2.uiHolding_2 objUIHolding;
+    Duy.QuanlyCTV_2 objCTV;
+    Duy.QuanlyOwner_2 objOwner;
+    Tuyet_Duyen.Services_2 objService;
+    Tuyet_Duyen.Theme_guest_2 objThemeGuest;
 
     /**
      * Creates new form TestMain
@@ -233,7 +242,9 @@ public class TestMain extends javax.swing.JFrame {
             {
                 public void run()
                 {
-                    new Tuyet_Duyen.Services_2(con, stmt).setVisible(true);
+                    //new Tuyet_Duyen.Services_2(con, stmt).setVisible(true);
+                    objService = new Services_2(con, stmt);
+                    objService.setVisible(true);
                 }
             }
         );
@@ -245,7 +256,9 @@ public class TestMain extends javax.swing.JFrame {
             {
                 public void run()
                 {
-                    new Tuyet_Duyen.Theme_guest_2(con, stmt).setVisible(true);
+                    //new Tuyet_Duyen.Theme_guest_2(con, stmt).setVisible(true);
+                    objThemeGuest = new Theme_guest_2(con, stmt);
+                    objThemeGuest.setVisible(true);
                 }
             }
         );
@@ -269,7 +282,9 @@ public class TestMain extends javax.swing.JFrame {
         {
             public void run()
             {
-                new Duy.QuanlyOwner_2(con, stmt).setVisible(true);
+                //new Duy.QuanlyOwner_2(con, stmt).setVisible(true);
+                objCTV = new QuanlyCTV_2(con, stmt);
+                objCTV.setVisible(true);
             }
         }        
         );
@@ -281,7 +296,8 @@ public class TestMain extends javax.swing.JFrame {
         {
             public void run()
             {
-                new Dat_Le_2.uiHolding_2(con, stmt).setVisible(true);
+                objUIHolding = new uiHolding_2(con, stmt);
+                objUIHolding.setVisible(true);
             }
         }        
         );
