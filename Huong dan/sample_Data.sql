@@ -22,9 +22,9 @@ go
 select * from Account
 go
 /* Nhap du lieu vao bang cong tac vien */
-insert into Collaborator(IDCo, NameCo, AddressCo, DOBCo, IdentificationNumberCo, DepositCo, PhoneCo, EmailCo, ActiveCo, ImageCo, GradeCo, NumberOfGuest) values
-('Co01', 'Nguyen Thanh Nam', 'Tan Binh', '1988-04-10', '123456789', 12332, '0969460713', 'nguyenthanhnam1004@gmail.com', 'true', 'image', 'normal', 6),
-('Co02', 'Le Cong Dat', 'Quan 10', '1990-03-11', '123454321', 10, '0909999999', 'lecongdat@gmail.com', 'false', 'image', 'good', 8)
+insert into Collaborator(IDCo, NameCo, AddressCo, DOBCo, IdentificationNumberCo, DepositCo, PhoneCo, EmailCo, ImageCo, GradeCo, NumberOfGuest) values
+('Co01', 'Nguyen Thanh Nam', 'Tan Binh', '1988-04-10', '123456789', 12332, '0969460713', 'nguyenthanhnam1004@gmail.com', 'image', 'normal', 6),
+('Co02', 'Le Cong Dat', 'Quan 10', '1990-03-11', '123454321', 10, '0909999999', 'lecongdat@gmail.com', 'image', 'good', 8)
 go
 
 insert into Guest values
