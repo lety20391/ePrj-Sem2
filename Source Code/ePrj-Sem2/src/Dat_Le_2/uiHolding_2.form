@@ -843,8 +843,11 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="\u005cw+" containsInvalidXMLChars="true"/>
+            <Property name="text" type="java.lang.String" value="^\u005cd{4}(-)\u005cd{2}(-)\u005cd{2}" containsInvalidXMLChars="true"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtDateHoMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel21">
           <Properties>
@@ -859,7 +862,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="\u005cw+" containsInvalidXMLChars="true"/>
+            <Property name="text" type="java.lang.String" value="^\u005cd{4}(-)\u005cd{2}(-)\u005cd{2}" containsInvalidXMLChars="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel22">
@@ -875,7 +878,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="\u005cw+" containsInvalidXMLChars="true"/>
+            <Property name="text" type="java.lang.String" value="^\u005cd{4}(-)\u005cd{2}(-)\u005cd{2}" containsInvalidXMLChars="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel23">
@@ -986,6 +989,48 @@
               <Font name="Tahoma" size="14" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="^(Se)\u005cd+" containsInvalidXMLChars="true"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jPanel1">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+            <EtchetBorder/>
+          </Border>
+        </Property>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="10" y="180" width="460" height="40"/>
+        </Constraint>
+      </Constraints>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                  <Component id="dateInput" pref="425" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="dateInput" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="com.toedter.calendar.JDateChooser" name="dateInput">
+          <Properties>
+            <Property name="dateFormatString" type="java.lang.String" value="yyyy-mm-dd"/>
           </Properties>
         </Component>
       </SubComponents>

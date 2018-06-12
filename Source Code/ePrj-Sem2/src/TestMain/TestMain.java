@@ -298,6 +298,7 @@ public class TestMain extends javax.swing.JFrame {
             {
                 objUIHolding = new uiHolding_2(con, stmt);
                 objUIHolding.setVisible(true);
+                
             }
         }        
         );

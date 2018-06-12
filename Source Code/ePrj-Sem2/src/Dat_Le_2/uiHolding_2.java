@@ -23,6 +23,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import Library.DateChooser;
+import java.awt.HeadlessException;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -47,6 +50,13 @@ public class uiHolding_2 extends javax.swing.JFrame {
     Double CommissionHo, TotalHo;
     
     String patStr;
+    
+    DateChooser diaDateChooser;
+
+    public uiHolding_2() throws HeadlessException {
+    }
+    
+    
 
     /**
      * Creates new form uiHolding
@@ -67,7 +77,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
         //patStr = txtIDHo.getText();
         attachRegex(pHolding);
         initData();
-        showTable("Select * from Holding");
+        showTable("Select * from Holding");        
         
     }
     
@@ -335,6 +345,8 @@ public class uiHolding_2 extends javax.swing.JFrame {
         btnMakeContract = new javax.swing.JButton();
         jLabel26 = new javax.swing.JLabel();
         txtIDSer = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        dateInput = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Holding");
@@ -640,19 +652,24 @@ public class uiHolding_2 extends javax.swing.JFrame {
         jLabel20.setText("Date");
 
         txtDateHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtDateHo.setText("\\w+");
+        txtDateHo.setText("^\\d{4}(-)\\d{2}(-)\\d{2}");
+        txtDateHo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtDateHoMouseClicked(evt);
+            }
+        });
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel21.setText("From Date");
 
         txtFromDateHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtFromDateHo.setText("\\w+");
+        txtFromDateHo.setText("^\\d{4}(-)\\d{2}(-)\\d{2}");
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel22.setText("To Date");
 
         txtToDateHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtToDateHo.setText("\\w+");
+        txtToDateHo.setText("^\\d{4}(-)\\d{2}(-)\\d{2}");
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel23.setText("Status");
@@ -863,6 +880,29 @@ public class uiHolding_2 extends javax.swing.JFrame {
 
         getContentPane().add(pHolding, new org.netbeans.lib.awtextra.AbsoluteConstraints(491, 11, -1, -1));
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        dateInput.setDateFormatString("yyyy-mm-dd");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(dateInput, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(dateInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 460, 40));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -987,6 +1027,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
     private void btnMakeContractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMakeContractActionPerformed
         // TODO add your handling code here:
         validateTextField();
+        //System.out.println(dateInput.getDate().toString());
     }//GEN-LAST:event_btnMakeContractActionPerformed
 
     private void txtTotalHoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalHoActionPerformed
@@ -996,6 +1037,21 @@ public class uiHolding_2 extends javax.swing.JFrame {
     private void txtPayStatusHoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPayStatusHoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPayStatusHoActionPerformed
+
+    private void txtDateHoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDateHoMouseClicked
+        // TODO add your handling code here:
+        diaDateChooser = new DateChooser(this, true, txtDateHo);
+        SwingUtilities.invokeLater(new Runnable()
+            {
+               public void run()
+               {
+                    diaDateChooser.showGUI();
+                    diaDateChooser.setVisible(true);
+               }
+            }        
+        );
+        
+    }//GEN-LAST:event_txtDateHoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1039,6 +1095,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
     private javax.swing.JButton btnMakeContract;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnUpdate;
+    private com.toedter.calendar.JDateChooser dateInput;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1065,6 +1122,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
