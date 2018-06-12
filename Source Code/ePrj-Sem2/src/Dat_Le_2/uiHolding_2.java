@@ -53,7 +53,9 @@ public class uiHolding_2 extends javax.swing.JFrame {
     
     DateChooser diaDateChooser;
 
-    public uiHolding_2() throws HeadlessException {
+    public uiHolding_2() throws HeadlessException 
+    {
+        
     }
     
     
