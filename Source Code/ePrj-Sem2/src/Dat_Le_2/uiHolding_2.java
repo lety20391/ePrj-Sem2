@@ -8,11 +8,14 @@ package Dat_Le_2;
 import Dat_Le.*;
 import DatabaseConnection.DatabaseConnect;
 import DatabaseConnection.connectionContainer;
+import java.awt.Color;
 import java.awt.Component;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 import java.util.Vector;
 import java.util.regex.Pattern;
 import javax.swing.JPanel;
@@ -35,6 +38,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
     
     HashMap<String, String> dataMap;
     HashMap<String, JTextField> txtMap;
+    HashMap<JTextField, String> regexMap;
     
     DefaultTableModel hoModel;
     Vector header, row, data;
@@ -60,10 +64,24 @@ public class uiHolding_2 extends javax.swing.JFrame {
         this.objConnection = objConnection;
         this.stmt = stmt;
         initComponents();   
-        patStr = txtIDHo.getText();
+        //patStr = txtIDHo.getText();
+        attachRegex(pHolding);
         initData();
         showTable("Select * from Holding");
         
+    }
+    
+    public void attachRegex(JPanel panel)
+    {
+        regexMap = new HashMap<JTextField, String>();
+        Component[] listComponent = panel.getComponents();
+        for (Component component : listComponent) {
+            if (component instanceof JTextField)
+            {
+                JTextField tempTextField = (JTextField) component;
+                regexMap.put(tempTextField, tempTextField.getText() );
+            }
+        }
     }
     
     
@@ -107,14 +125,21 @@ public class uiHolding_2 extends javax.swing.JFrame {
     
     public void validateTextField()
     {
-        System.out.println(patStr);
-        System.out.println(txtIDHo.getText());
-        if ( Pattern.matches("(^(Ho))(\\d+)", txtIDHo.getText()))
+        
+        Iterator iteEntry = regexMap.entrySet().iterator();
+        while (iteEntry.hasNext())
         {
-            System.out.println("Chuan com me nau");
-        }else
-        {
-            System.out.println("Sai cmnr");
+            HashMap.Entry objEntry = (HashMap.Entry)iteEntry.next();
+            String patRegex = (String)objEntry.getValue();
+            JTextField objTextField = (JTextField)objEntry.getKey();
+            if (Pattern.matches(patRegex, objTextField.getText()))
+            {
+                System.out.println("Chuan com me nau");
+            }else
+            {
+                objTextField.setBackground(Color.red);
+            }
+            
         }
     }
     
@@ -597,55 +622,65 @@ public class uiHolding_2 extends javax.swing.JFrame {
         jLabel17.setText("ID Guest");
 
         txtIDGu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtIDGu.setText("jTextField1");
+        txtIDGu.setText("^(Gu)\\d+");
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel18.setText("ID Collaborator");
 
         txtIDCo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtIDCo.setText("jTextField1");
+        txtIDCo.setText("^(Co)\\d+");
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel19.setText("ID Apartment");
 
         txtIDApa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtIDApa.setText("jTextField1");
+        txtIDApa.setText("^(Ap)\\d+");
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel20.setText("Date");
 
         txtDateHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtDateHo.setText("jTextField1");
+        txtDateHo.setText("\\w+");
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel21.setText("From Date");
 
         txtFromDateHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtFromDateHo.setText("jTextField1");
+        txtFromDateHo.setText("\\w+");
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel22.setText("To Date");
 
         txtToDateHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtToDateHo.setText("jTextField1");
+        txtToDateHo.setText("\\w+");
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel23.setText("Status");
 
         txtPayStatusHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtPayStatusHo.setText("jTextField1");
+        txtPayStatusHo.setText("\\w+(.)*\\w");
+        txtPayStatusHo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPayStatusHoActionPerformed(evt);
+            }
+        });
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel24.setText("Commission");
 
         txtCommissionHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtCommissionHo.setText("jTextField1");
+        txtCommissionHo.setText("\\d+(.)*(\\d)+");
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel25.setText("Total");
 
         txtTotalHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtTotalHo.setText("jTextField1");
+        txtTotalHo.setText("\\d+(.)*(\\d)+");
+        txtTotalHo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTotalHoActionPerformed(evt);
+            }
+        });
 
         btnSearch.setText("Search");
 
@@ -682,7 +717,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
         jLabel26.setText("Services");
 
         txtIDSer.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtIDSer.setText("jTextField1");
+        txtIDSer.setText("^(Se)\\d+");
 
         javax.swing.GroupLayout pHoldingLayout = new javax.swing.GroupLayout(pHolding);
         pHolding.setLayout(pHoldingLayout);
@@ -953,6 +988,14 @@ public class uiHolding_2 extends javax.swing.JFrame {
         // TODO add your handling code here:
         validateTextField();
     }//GEN-LAST:event_btnMakeContractActionPerformed
+
+    private void txtTotalHoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalHoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTotalHoActionPerformed
+
+    private void txtPayStatusHoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPayStatusHoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPayStatusHoActionPerformed
 
     /**
      * @param args the command line arguments
