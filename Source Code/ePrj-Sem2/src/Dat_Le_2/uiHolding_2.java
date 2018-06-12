@@ -79,6 +79,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
         //patStr = txtIDHo.getText();
         attachRegex(pHolding);
         initData();
+        initDateChooser();
         showTable("Select * from Holding");        
         
     }
@@ -122,6 +123,21 @@ public class uiHolding_2 extends javax.swing.JFrame {
         manageTextField(pCollaborator);
         IDCo = "";
         IDGu = "";
+        
+    }
+    
+    public void initDateChooser()
+    {
+        diaDateChooser = new DateChooser(this, true);
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                diaDateChooser.showGUI();
+            }
+        }        
+        );
+        
     }
 
     public void manageTextField(JPanel targetPanel)
@@ -664,12 +680,22 @@ public class uiHolding_2 extends javax.swing.JFrame {
 
         txtFromDateHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtFromDateHo.setText("^\\d{4}(-)\\d{2}(-)\\d{2}");
+        txtFromDateHo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtFromDateHoMouseClicked(evt);
+            }
+        });
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel22.setText("To Date");
 
         txtToDateHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtToDateHo.setText("^\\d{4}(-)\\d{2}(-)\\d{2}");
+        txtToDateHo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtToDateHoMouseClicked(evt);
+            }
+        });
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel23.setText("Status");
@@ -1017,18 +1043,21 @@ public class uiHolding_2 extends javax.swing.JFrame {
 
     private void txtDateHoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDateHoMouseClicked
         // TODO add your handling code here:
-        diaDateChooser = new DateChooser(this, true, txtDateHo);
-        SwingUtilities.invokeLater(new Runnable()
-            {
-               public void run()
-               {
-                    diaDateChooser.showGUI();
-                    diaDateChooser.setVisible(true);
-               }
-            }        
-        );
-        
+        diaDateChooser.addListener(txtDateHo);
+        diaDateChooser.setVisible(true);        
     }//GEN-LAST:event_txtDateHoMouseClicked
+
+    private void txtFromDateHoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFromDateHoMouseClicked
+        // TODO add your handling code here:
+        diaDateChooser.addListener(txtFromDateHo);
+        diaDateChooser.setVisible(true);  
+    }//GEN-LAST:event_txtFromDateHoMouseClicked
+
+    private void txtToDateHoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtToDateHoMouseClicked
+        // TODO add your handling code here:
+        diaDateChooser.addListener(txtToDateHo);
+        diaDateChooser.setVisible(true); 
+    }//GEN-LAST:event_txtToDateHoMouseClicked
 
     /**
      * @param args the command line arguments

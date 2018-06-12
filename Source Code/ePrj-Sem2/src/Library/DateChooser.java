@@ -8,6 +8,7 @@ package Library;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -20,9 +21,10 @@ public class DateChooser extends javax.swing.JDialog {
      * Creates new form DateChooser
      */
     JTextField objTextField;
-    public DateChooser(java.awt.Frame parent, boolean modal, JTextField txtOutput) {
+    public DateChooser(java.awt.Frame parent, boolean modal ) {
         super(parent, modal);
-        this.objTextField = txtOutput;
+        
+        
         
         //initComponents();
     }    
@@ -32,9 +34,9 @@ public class DateChooser extends javax.swing.JDialog {
         initComponents();
     }
     
-    public void addListener(ActionListener objListener)
+    public void addListener(JTextField txtOutput)
     {
-        
+        this.objTextField = txtOutput;
     }
     
     //public void addListener(ActionListener )
@@ -51,6 +53,7 @@ public class DateChooser extends javax.swing.JDialog {
         dateChooser = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        btnDone = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -61,6 +64,14 @@ public class DateChooser extends javax.swing.JDialog {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setText("Then choose your desire date");
+
+        btnDone.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnDone.setText("Done");
+        btnDone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDoneActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -76,6 +87,10 @@ public class DateChooser extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(101, 101, 101)
+                .addComponent(btnDone, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,11 +101,18 @@ public class DateChooser extends javax.swing.JDialog {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addComponent(btnDone)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnDoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoneActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_btnDoneActionPerformed
 
     /**
      * @param args the command line arguments
@@ -135,6 +157,7 @@ public class DateChooser extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDone;
     private com.toedter.calendar.JDateChooser dateChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -142,9 +165,15 @@ public class DateChooser extends javax.swing.JDialog {
     @Override
     public void dispose()
     {
-        Date dataDate = dateChooser.getDate();
-        String output = new SimpleDateFormat("yyyy-MM-dd").format(dataDate);
-        objTextField.setText(output);
-        super.dispose();
+        if (dateChooser.getDate() != null)
+        {
+            Date dataDate = dateChooser.getDate();
+            String output = new SimpleDateFormat("yyyy-MM-dd").format(dataDate);
+            objTextField.setText(output);
+            super.dispose();
+        }else
+        {
+            JOptionPane.showMessageDialog(this, "Please choose a date!!!", "Warning", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }
