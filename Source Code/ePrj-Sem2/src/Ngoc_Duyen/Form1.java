@@ -27,6 +27,8 @@ public class Form1 extends javax.swing.JFrame {
     private  ArrayList<NewInterface> Apartment;
     IOfile ioFile;
     DefaultTableModel model;
+    Connection con;
+    Statement stmt;
 
     /**
      * Creates new form Form1
@@ -34,24 +36,25 @@ public class Form1 extends javax.swing.JFrame {
     
         
     
-    public void Connect(){
-                    Connection con;
-        Statement stmt;
-        
-        DatabaseConnect objDBConnect;
-        objDBConnect = new DatabaseConnect();
-        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "123456789", "1433");
-        
-        con = connectContainer.getObjCon();
-        stmt = connectContainer.getStatement();
-        
-        
-        
-    }
+//    public void Connect(){
+//        Connection con;
+//        Statement stmt;
+//        
+//        DatabaseConnect objDBConnect;
+//        objDBConnect = new DatabaseConnect();
+//        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "123456789", "1433");
+//        
+//        con = connectContainer.getObjCon();
+//        stmt = connectContainer.getStatement();
+//        
+//        
+//        
+//    }
     
-    public Form1() {
+    public Form1(Connection con, Statement stmt) {
         this.setTitle("Apartment Manager");
-        
+        this.con = con;
+        this.stmt = stmt;
         ioFile = new IOfile();
         Apartment = new ArrayList<>();
         Apartment = ioFile.read("Apartment");
@@ -59,7 +62,7 @@ public class Form1 extends javax.swing.JFrame {
         //list = new ArrayList<>();
         initComponents();
         SHOWApartment();
-        Connect();
+        //Connect();
         model = (DefaultTableModel) jTable1.getModel();
     }
     public void SHOWApartment()
@@ -384,11 +387,11 @@ public class Form1 extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Form1().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new Form1().setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
