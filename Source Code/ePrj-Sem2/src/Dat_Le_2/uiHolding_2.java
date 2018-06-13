@@ -168,7 +168,8 @@ public class uiHolding_2 extends javax.swing.JFrame {
                 objTextField.setBackground(Color.red);
             }
             
-        }
+        }        
+        
     }
     
     public void manageBtn(boolean btnSearchStatus, boolean btnAddStatus, boolean btnUpdateStatus, boolean btnDeleteStatus)
