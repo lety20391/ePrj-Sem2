@@ -125,9 +125,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
         manageTextField(pCollaborator);
         IDCo = "";
         IDGu = "";
-        pHolding.attachButton(pHolding);
-        pHolding.setMainRight("ad");
-        
+        pHolding.attachButtonAndSetMainRight(pHolding,"gu");       
         
     }
     

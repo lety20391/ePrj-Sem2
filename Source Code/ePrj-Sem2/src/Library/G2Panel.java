@@ -31,7 +31,7 @@ public class G2Panel extends JPanel
         mapBaseRight = new HashMap<String, Boolean>();       
     }
     
-    public void attachButton(G2Panel obj)
+    public void attachButtonAndSetMainRight(G2Panel obj, String mainRight)
     {
         Component[] objListComp = obj.getComponents();
         System.out.println("Comp: " + objListComp.length);
@@ -42,6 +42,8 @@ public class G2Panel extends JPanel
                 mapBtn.put(tempBtn.getText().toLowerCase(),tempBtn);
             }
         }
+        
+        setMainRight(mainRight);
     }
     
     public void setMainRight(String mainRight)
