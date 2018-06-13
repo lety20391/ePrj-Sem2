@@ -6,6 +6,7 @@
 package Dat_Le_2;
 
 import Library.G2TextField;
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 
@@ -144,6 +145,7 @@ public class TestNewTextField extends javax.swing.JFrame {
                 {
                     error = true;
                     allError += temp+ "\n";
+                    //objComp.setBackground(Color.red);
                 }
             }
         }
