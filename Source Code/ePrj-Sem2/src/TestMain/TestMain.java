@@ -5,6 +5,7 @@
  */
 package TestMain;
 
+import Dat_Le_2.uiContract_2;
 import Dat_Le_2.uiHolding_2;
 import DatabaseConnection.DatabaseConnect;
 import DatabaseConnection.connectionContainer;
@@ -23,6 +24,7 @@ public class TestMain extends javax.swing.JFrame {
     Connection con;
     Statement stmt;
     Dat_Le_2.uiHolding_2 objUIHolding;
+    Dat_Le_2.uiContract_2 objUIContract;
     Duy.QuanlyCTV_2 objCTV;
     Duy.QuanlyOwner_2 objOwner;
     Tuyet_Duyen.Services_2 objService;
@@ -74,6 +76,7 @@ public class TestMain extends javax.swing.JFrame {
         btnDatHolding = new javax.swing.JButton();
         btnConnect = new javax.swing.JButton();
         lbStatus = new javax.swing.JLabel();
+        btnDatContract = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -191,6 +194,13 @@ public class TestMain extends javax.swing.JFrame {
         lbStatus.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lbStatus.setText("Not Connect");
 
+        btnDatContract.setText("Dat Contract");
+        btnDatContract.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDatContractActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -212,7 +222,9 @@ public class TestMain extends javax.swing.JFrame {
                             .addComponent(btnDuyCTV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnDuyOwner, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addComponent(btnDatHolding, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnDatHolding, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(btnDatContract, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -230,7 +242,8 @@ public class TestMain extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDuyenGuest)
-                    .addComponent(btnDuyOwner))
+                    .addComponent(btnDuyOwner)
+                    .addComponent(btnDatContract))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -304,8 +317,7 @@ public class TestMain extends javax.swing.JFrame {
             public void run()
             {
                 objUIHolding = new uiHolding_2(con, stmt);
-                objUIHolding.setVisible(true);
-                
+                objUIHolding.setVisible(true);                
             }
         }        
         );
@@ -315,6 +327,17 @@ public class TestMain extends javax.swing.JFrame {
         // TODO add your handling code here:
         connectSQL();
     }//GEN-LAST:event_btnConnectActionPerformed
+
+    private void btnDatContractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatContractActionPerformed
+        // TODO add your handling code here:
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                objUIContract = new uiContract_2(con, stmt);
+                objUIContract.setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_btnDatContractActionPerformed
 
     /**
      * @param args the command line arguments
@@ -353,6 +376,7 @@ public class TestMain extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConnect;
+    private javax.swing.JButton btnDatContract;
     private javax.swing.JButton btnDatHolding;
     private javax.swing.JButton btnDuyCTV;
     private javax.swing.JButton btnDuyOwner;

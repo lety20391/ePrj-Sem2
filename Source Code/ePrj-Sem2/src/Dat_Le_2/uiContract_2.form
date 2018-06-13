@@ -406,6 +406,7 @@
             <Property name="text" type="java.lang.String" value="txtDateCon"/>
           </Properties>
           <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtDateConMouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDateConActionPerformed"/>
           </Events>
         </Component>

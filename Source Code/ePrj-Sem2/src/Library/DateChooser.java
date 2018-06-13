@@ -22,10 +22,8 @@ public class DateChooser extends javax.swing.JDialog {
      */
     JTextField objTextField;
     public DateChooser(java.awt.Frame parent, boolean modal ) {
-        super(parent, modal);
-        
-        
-        
+        super(parent, modal);      
+                
         //initComponents();
     }    
     

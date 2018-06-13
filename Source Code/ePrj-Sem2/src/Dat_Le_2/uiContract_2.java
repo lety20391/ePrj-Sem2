@@ -17,6 +17,7 @@ import java.util.Set;
 import java.util.Vector;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -39,14 +40,19 @@ public class uiContract_2 extends javax.swing.JFrame {
     String IDCon, DateCon, IDHo, StatusCon;
     Double PriceCon;
     
+    Library.DateChooser diaDateChooser;
+    
 
     /**
      * Creates new form uiContract
      */
-    public uiContract_2() {
+    public uiContract_2(Connection objConnection, Statement stmt) {
         initComponents();
-        connectToDatabase();
+        this.objConnection = objConnection;
+        this.stmt = stmt;
+        //connectToDatabase();
         initData();
+        initDateChooser();
         showTable("Select * from Contract");
         manageBtn(true, true, false, false);
     }
@@ -62,6 +68,22 @@ public class uiContract_2 extends javax.swing.JFrame {
         btnConfirm.setEnabled(false);
         
         txtMap = new HashMap<String, JTextField>();  
+    }
+    
+    public void initDateChooser()
+    {
+        diaDateChooser = new Library.DateChooser(this, true);
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                diaDateChooser.showGUI();
+                //diaDateChooser.setVisible(true);
+            }
+        }        
+        );
+               
+        
     }
     
     public void testCollection(HashMap data, JPanel panel)
@@ -81,16 +103,16 @@ public class uiContract_2 extends javax.swing.JFrame {
     }
     
     
-    public void connectToDatabase()
-    {
-        objDBConnect = new DatabaseConnect();        
-        objConnection = objDBConnect.DBConnect("Sem2_project_group2", "sa", "abc123");
-        try {
-            stmt = objConnection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
+//    public void connectToDatabase()
+//    {
+//        objDBConnect = new DatabaseConnect();        
+//        objConnection = objDBConnect.DBConnect("Sem2_project_group2", "sa", "abc123");
+//        try {
+//            stmt = objConnection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+//    }
 
     public void bindTextField()
     {
@@ -333,6 +355,11 @@ public class uiContract_2 extends javax.swing.JFrame {
         jLabel16.setText("Date");
 
         txtDateCon.setText("txtDateCon");
+        txtDateCon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtDateConMouseClicked(evt);
+            }
+        });
         txtDateCon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDateConActionPerformed(evt);
@@ -589,6 +616,12 @@ public class uiContract_2 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
+    private void txtDateConMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDateConMouseClicked
+        // TODO add your handling code here:
+        diaDateChooser.addListener(txtDateCon);
+        diaDateChooser.setVisible(true);
+    }//GEN-LAST:event_txtDateConMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -618,11 +651,11 @@ public class uiContract_2 extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new uiContract_2().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new uiContract_2().setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
