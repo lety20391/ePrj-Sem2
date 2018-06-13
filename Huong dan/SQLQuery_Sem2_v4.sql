@@ -183,3 +183,8 @@ create table [Notification]
 	constraint pk_Notification primary key (IDNot),
 	constraint fk_Notification_Account foreign key (IDAcc) references Account(ID)
 )
+go
+
+select * from Account
+go
+

@@ -28,13 +28,14 @@ public class LoginForm extends javax.swing.JFrame {
 
     ArrayList<String> listID;
     String password;
-    boolean active;
+    int active;
 
     MainControlInterface mcf;
     ForgotPassword fgp;
 
     /**
      * Creates new form LoginForm
+     *
      * @param connection
      * @param statement
      */
@@ -46,7 +47,8 @@ public class LoginForm extends javax.swing.JFrame {
         loadAccountList();
         pack();
     }
-    public LoginForm(String account,Connection connection, Statement statement) {
+
+    public LoginForm(String account, Connection connection, Statement statement) {
         initComponents();
         conn = connection;
         stmt = statement;
@@ -81,7 +83,6 @@ public class LoginForm extends javax.swing.JFrame {
         txtPassword.setText("");
         txtUsername.grabFocus();
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -320,45 +321,47 @@ public class LoginForm extends javax.swing.JFrame {
         boolean check = false;
         for (String id : listID) {
             if (id.equals(txtUsername.getText())) {
-                sql = "select * from Account where ID = " + "'" + id + "'";
+                sql = "select * from Account where ID = " + "'" + txtUsername.getText() + "'";
                 try {
                     rs = stmt.executeQuery(sql);
                     rs.beforeFirst();
                     while (rs.next()) {
                         password = rs.getString("Password");
-                        active = rs.getBoolean("Active");
+                        active = rs.getInt("Active");
                     }
+                    //check = true;
                     break;
                 } catch (SQLException ex) {
                     Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
-            if (txtPassword.getText().equals(password)) {
-                check = true;
-            }
-
-            if (check == true) {
-                java.awt.EventQueue.invokeLater(new Runnable() {
-                    public void run() {
-                        mcf = new MainControlInterface(txtUsername.getText(), conn, stmt);
-                        mcf.setVisible(true);
-                    }
-                }
-                );
-                dispose();
-            }
-
-            if (check == true && !active) {
-                JOptionPane.showMessageDialog(this, "This username is blocked.");
-                textReset();
-            }
-
-            if (check == false) {
-                JOptionPane.showMessageDialog(this, "Username or Password is incorrect.");
-                textReset();
-            }
         }
+
+        if (txtPassword.getText().equals(password)) {
+            check = true;
+        }
+
+        if (check == true && active == 1) {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    mcf = new MainControlInterface(txtUsername.getText(), conn, stmt);
+                    mcf.setVisible(true);
+                }
+            }
+            );
+            dispose();
+        }
+
+        if (check == true && active == 0) {
+            JOptionPane.showMessageDialog(this, "This username is blocked.");
+            textReset();
+        }
+
+        if (check == false) {
+            JOptionPane.showMessageDialog(this, "Username or Password is incorrect.");
+            textReset();
+        }
+
     }
 
     /**

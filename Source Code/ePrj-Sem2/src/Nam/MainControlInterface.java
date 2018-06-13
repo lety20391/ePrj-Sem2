@@ -5,6 +5,9 @@
  */
 package Nam;
 
+import Dat_Le_2.uiHolding_2;
+import Tuyet_Duyen.Services_2;
+import Tuyet_Duyen.Theme_guest_2;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -26,11 +29,16 @@ public class MainControlInterface extends javax.swing.JFrame {
     ResultSet rs;
     String sql;
 
-    
-    //CollaboratorsManagement colmanage;
-    //GuestManagement guestmanega;
+    String continueAccount, type;
+
     //phan dat ten cac variable cho tung Frame
-    //uiHolding_2 objHolding;
+    Dat_Le_2.uiHolding_2 objUIHolding;
+    Dat_Le_2.uiContract_2 objUIContract;
+    Duy.QuanlyCTV_2 objCTV;
+    Duy.QuanlyOwner_2 objOwner;
+    Tuyet_Duyen.Services_2 objService;
+    Tuyet_Duyen.Theme_guest_2 objThemeGuest;
+    Ngoc_Duyen.Form1 objForm1;
 
     /**
      * Creates new form MainControlInterface
@@ -39,21 +47,18 @@ public class MainControlInterface extends javax.swing.JFrame {
      * @param connection
      * @param statement
      */
-
-
-    
-    public MainControlInterface(String account, Connection connection, Statement statement)
-    {
+    public MainControlInterface(String account, Connection connection, Statement statement) {
         initComponents();
         conn = connection;
         stmt = statement;
         setLocationRelativeTo(null);
+        continueAccount = account;
         txtAccount.setText(account);
         colTxtAccount.setText(account);
         guTxtAccount.setText(account);
+        load();
         pack();
     }
-
 
     private void load() {
         if (checkAccount().equals("ad")) {
@@ -71,13 +76,13 @@ public class MainControlInterface extends javax.swing.JFrame {
     }
 
     private String checkAccount() {
-        String type = null;
-        sql = "select * from Account where ID = " + "'" + txtAccount.getText() + "'";
+        type = "abc";
+        sql = "select * from Account where ID = '" + continueAccount + "'";
         try {
             rs = stmt.executeQuery(sql);
             rs.beforeFirst();
             while (rs.next()) {
-                type = rs.getString("Type");
+                type = rs.getString("Type").trim();
             }
         } catch (SQLException ex) {
             Logger.getLogger(MainControlInterface.class.getName()).log(Level.SEVERE, null, ex);
@@ -222,6 +227,11 @@ public class MainControlInterface extends javax.swing.JFrame {
         btnGuest.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         btnGuest.setForeground(new java.awt.Color(255, 255, 255));
         btnGuest.setText("Guest");
+        btnGuest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuestActionPerformed(evt);
+            }
+        });
 
         btnCreate.setBackground(new java.awt.Color(153, 0, 153));
         btnCreate.setFont(new java.awt.Font("Tahoma", 1, 33)); // NOI18N
@@ -237,6 +247,11 @@ public class MainControlInterface extends javax.swing.JFrame {
         btnServices.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         btnServices.setForeground(new java.awt.Color(255, 255, 255));
         btnServices.setText("Services");
+        btnServices.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnServicesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelAdminLayout = new javax.swing.GroupLayout(jPanelAdmin);
         jPanelAdmin.setLayout(jPanelAdminLayout);
@@ -456,19 +471,24 @@ public class MainControlInterface extends javax.swing.JFrame {
 
     private void btnCollaboratorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCollaboratorActionPerformed
         // TODO add your handling code here:
-//        colmanage = new CollaboratorsManagement(txtAccount.getText());
-//        colmanage.setVisible(true);
-//        dispose();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Duy.QuanlyCTV_2(conn, stmt).setVisible(true);
+            }
+        }
+        );
     }//GEN-LAST:event_btnCollaboratorActionPerformed
 
     private void btnHoldingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoldingActionPerformed
         // TODO add your handling code here:
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //objHolding = new uiHolding_2();
-                //objHolding.setVisible(true);
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                objUIHolding = new uiHolding_2(conn, stmt);
+                objUIHolding.setVisible(true);                
             }
-        }
+        }        
         );
 
     }//GEN-LAST:event_btnHoldingActionPerformed
@@ -487,6 +507,30 @@ public class MainControlInterface extends javax.swing.JFrame {
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCreateActionPerformed
+
+    private void btnServicesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServicesActionPerformed
+        // TODO add your handling code here:
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                //new Tuyet_Duyen.Services_2(con, stmt).setVisible(true);
+                objService = new Services_2(conn, stmt);
+                objService.setVisible(true);
+            }
+        }
+        );
+    }//GEN-LAST:event_btnServicesActionPerformed
+
+    private void btnGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuestActionPerformed
+        // TODO add your handling code here:
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                //new Tuyet_Duyen.Theme_guest_2(con, stmt).setVisible(true);
+                objThemeGuest = new Theme_guest_2(conn, stmt);
+                objThemeGuest.setVisible(true);
+            }
+        }
+        );
+    }//GEN-LAST:event_btnGuestActionPerformed
 
     /**
      * @param args the command line arguments
