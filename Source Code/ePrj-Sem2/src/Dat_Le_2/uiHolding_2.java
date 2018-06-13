@@ -24,7 +24,9 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import Library.DateChooser;
+import Library.G2Panel;
 import java.awt.HeadlessException;
+import java.awt.Panel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -84,7 +86,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
         
     }
     
-    public void attachRegex(JPanel panel)
+    public void attachRegex(Library.G2Panel panel)
     {
         regexMap = new HashMap<JTextField, String>();
         Component[] listComponent = panel.getComponents();
@@ -118,11 +120,14 @@ public class uiHolding_2 extends javax.swing.JFrame {
     
     public void initData()
     {
-        manageTextField(pHolding);
+        manageTextField(pHolding, "test");
         manageTextField(pGuest);
         manageTextField(pCollaborator);
         IDCo = "";
         IDGu = "";
+        pHolding.attachButton(pHolding);
+        pHolding.setMainRight("ad");
+        
         
     }
     
@@ -141,6 +146,17 @@ public class uiHolding_2 extends javax.swing.JFrame {
     }
 
     public void manageTextField(JPanel targetPanel)
+    {
+        Component[] objComponent = targetPanel.getComponents();
+        for (Component comp : objComponent) {
+            if (comp instanceof JTextField)
+            {
+                ((JTextField) comp).setText("");
+            }
+        }
+    }
+    
+    public void manageTextField(G2Panel targetPanel, String test)
     {
         Component[] objComponent = targetPanel.getComponents();
         for (Component comp : objComponent) {
@@ -336,7 +352,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
         txtEmailGu2 = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
-        pHolding = new javax.swing.JPanel();
+        pHolding = new Library.G2Panel();
         txtIDHo = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -1134,7 +1150,10 @@ public class uiHolding_2 extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pCollaborator;
     private javax.swing.JPanel pGuest;
+    /*
     private javax.swing.JPanel pHolding;
+    */
+    private Library.G2Panel pHolding;
     private javax.swing.JPanel pTblHo;
     private javax.swing.JTable tblHo;
     private javax.swing.JTextField txtCommissionHo;
