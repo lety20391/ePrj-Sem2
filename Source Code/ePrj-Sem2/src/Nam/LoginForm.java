@@ -11,21 +11,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.sql.Connection;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import DatabaseConnection.*;
-import java.sql.Connection;
 
 /**
  *
  * @author Namcham
  */
 public class LoginForm extends javax.swing.JFrame {
-    Connection connection;
-    connectionContainer conn;
-    String dbAccount = "sa";
-    String dbPassword = "abc123";
-    String dbName = "Sem2_Project_Group2";
+
+    Connection conn;
     Statement stmt;
     ResultSet rs;
     String sql;
@@ -39,40 +35,26 @@ public class LoginForm extends javax.swing.JFrame {
 
     /**
      * Creates new form LoginForm
+     * @param connection
+     * @param statement
      */
-    public LoginForm() {
+    public LoginForm(Connection connection, Statement statement) {
         initComponents();
-        this.setLocationRelativeTo(null);
-//        try {
-//            connection = DBConnection.getDBConnection(dbName, dbAccount, dbPassword);
-//            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        loadAccountList();
-        pnelConfig.setVisible(false);
-        configOnOff(false);
-        pack();
-    }
-
-    public LoginForm(String account, String dbName, String dbAccount, String dbPass, String dbPort) {
-        initComponents();
+        conn = connection;
+        stmt = statement;
         setLocationRelativeTo(null);
-        
         loadAccountList();
-        configOnOff(false);
         pack();
-        txtUsername.setText(account);
     }
-    
-    public void connectSQL()
-    {
-        DatabaseConnect objDBConnect;
-        objDBConnect = new DatabaseConnect();
-        connectionContainer connectContainer = objDBConnect.DBConnect(txtDBName.getText(), txtDBAccount.getText(), txtDBPass.getText(), txtDBPort.getText());
-        
-        connection = connectContainer.getObjCon();
-        stmt = connectContainer.getStatement();
+    public LoginForm(String account,Connection connection, Statement statement) {
+        initComponents();
+        conn = connection;
+        stmt = statement;
+        setLocationRelativeTo(null);
+        loadAccountList();
+        txtUsername.setText(account);
+        txtPassword.grabFocus();
+        pack();
     }
 
     /**
@@ -100,22 +82,6 @@ public class LoginForm extends javax.swing.JFrame {
         txtUsername.grabFocus();
     }
 
-    private void sqlConnectionClose() {
-        try {
-            stmt.close();
-            connection.close();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-    }
-
-    private void configOnOff(boolean check) {
-        txtDBName.setEditable(check);
-        txtDBPort.setEditable(check);
-        txtDBAccount.setEditable(check);
-        txtDBPass.setEditable(check);
-    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -133,18 +99,6 @@ public class LoginForm extends javax.swing.JFrame {
         btnLogin = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
         lbForgotpassword = new javax.swing.JLabel();
-        pnelConfig = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        txtDBName = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        txtDBPort = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txtDBAccount = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        txtDBPass = new javax.swing.JPasswordField();
-        btnEdit = new javax.swing.JToggleButton();
-        btnConfigReset = new javax.swing.JButton();
-        txtConfigOK = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -219,7 +173,7 @@ public class LoginForm extends javax.swing.JFrame {
         btnLogin.setBackground(new java.awt.Color(102, 153, 255));
         btnLogin.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(255, 255, 255));
-        btnLogin.setText("Config");
+        btnLogin.setText("Login");
         btnLogin.setBorder(null);
         btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -259,23 +213,21 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbForgotpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
+                        .addComponent(lbForgotpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(lbPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(lbUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtUsername)))))
+                                .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtPassword)
+                            .addComponent(txtUsername))))
                 .addGap(63, 63, 63))
         );
         jPanel3Layout.setVerticalGroup(
@@ -293,127 +245,29 @@ public class LoginForm extends javax.swing.JFrame {
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
                 .addComponent(lbForgotpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        pnelConfig.setBackground(new java.awt.Color(102, 102, 102));
-
-        jLabel1.setText("jLabel1");
-
-        txtDBName.setText("Sem2_Project_Group2");
-
-        jLabel2.setText("jLabel2");
-
-        txtDBPort.setText("1433");
-
-        jLabel3.setText("jLabel3");
-
-        txtDBAccount.setText("sa");
-
-        jLabel4.setText("jLabel4");
-
-        txtDBPass.setText("abc123");
-
-        btnEdit.setText("Edit");
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditActionPerformed(evt);
-            }
-        });
-
-        btnConfigReset.setText("reset");
-
-        txtConfigOK.setText("OK");
-        txtConfigOK.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtConfigOKActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnelConfigLayout = new javax.swing.GroupLayout(pnelConfig);
-        pnelConfig.setLayout(pnelConfigLayout);
-        pnelConfigLayout.setHorizontalGroup(
-            pnelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnelConfigLayout.createSequentialGroup()
-                .addGap(93, 93, 93)
-                .addGroup(pnelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(pnelConfigLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtDBAccount))
-                    .addGroup(pnelConfigLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtDBPort))
-                    .addGroup(pnelConfigLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtDBName, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnelConfigLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addGroup(pnelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDBPass)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnelConfigLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(txtConfigOK)
-                                .addGap(38, 38, 38)
-                                .addComponent(btnEdit)
-                                .addGap(35, 35, 35)
-                                .addComponent(btnConfigReset)
-                                .addGap(11, 11, 11)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        pnelConfigLayout.setVerticalGroup(
-            pnelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnelConfigLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtDBName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtDBPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtDBAccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtDBPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addGroup(pnelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEdit)
-                    .addComponent(btnConfigReset)
-                    .addComponent(txtConfigOK))
-                .addContainerGap(73, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnelConfig, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnelConfig, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -438,146 +292,113 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnResetMouseClicked
 
     private void lbForgotpasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbForgotpasswordMouseClicked
-        ForgotPassword fgp = new ForgotPassword();
-        fgp.setVisible(true);
-        fgp.pack();
-        this.dispose();
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                fgp = new ForgotPassword(conn, stmt);
+                fgp.setVisible(true);
+            }
+        }
+        );
+        dispose();
     }//GEN-LAST:event_lbForgotpasswordMouseClicked
 
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        String str = btnLogin.getText();
-        if (str.equalsIgnoreCase("config")) 
-        {
-            //System.out.println("test");
-            pnelConfig.setVisible(true);
-            btnLogin.disable();
-            btnReset.disable();
-            pack();
-        } else {
-            try {
-                connectSQL();
-                loadAccountList();
-            } catch (Exception e) {
-            }
-            if (txtUsername.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Username cannot be blank.");
-                txtUsername.grabFocus();
-                return;
-            }
-            if (txtPassword.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Password cannot be blank.");
-                txtPassword.grabFocus();
-                return;
-            }
-            boolean check = false;
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {
 
-            for (String id : listID) {
-                if (id.equals(txtUsername.getText())) {
-                    sql = "select * from Account where ID = " + "'" + txtUsername.getText() + "'";
-                    try {
-                        rs = stmt.executeQuery(sql);
-                        rs.beforeFirst();
-                        while (rs.next()) {
-                            password = rs.getString("Password");
-                            active = rs.getBoolean("Active");
-                        }
-                        break;
-                    } catch (SQLException ex) {
-                        Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+        if (txtUsername.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Username cannot be blank.");
+            txtUsername.grabFocus();
+            return;
+        }
+
+        if (txtPassword.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Password cannot be blank.");
+            txtPassword.grabFocus();
+            return;
+        }
+
+        boolean check = false;
+        for (String id : listID) {
+            if (id.equals(txtUsername.getText())) {
+                sql = "select * from Account where ID = " + "'" + id + "'";
+                try {
+                    rs = stmt.executeQuery(sql);
+                    rs.beforeFirst();
+                    while (rs.next()) {
+                        password = rs.getString("Password");
+                        active = rs.getBoolean("Active");
                     }
-
+                    break;
+                } catch (SQLException ex) {
+                    Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+
             if (txtPassword.getText().equals(password)) {
                 check = true;
             }
 
             if (check == true) {
-                //sqlConnectionClose();
                 java.awt.EventQueue.invokeLater(new Runnable() {
                     public void run() {
-                        mcf = new MainControlInterface(txtUsername.getText(), connection, stmt);
+                        mcf = new MainControlInterface(txtUsername.getText(), conn, stmt);
                         mcf.setVisible(true);
                     }
                 }
                 );
-
                 dispose();
             }
+
             if (check == true && !active) {
                 JOptionPane.showMessageDialog(this, "This username is blocked.");
                 textReset();
             }
+
             if (check == false) {
                 JOptionPane.showMessageDialog(this, "Username or Password is incorrect.");
                 textReset();
             }
         }
-
     }
-
-    private void lbForgotPassMouseClicked(java.awt.event.MouseEvent evt) {
-        fgp = new ForgotPassword();
-        fgp.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnLoginActionPerformed
-
-    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        // TODO add your handling code here:
-        configOnOff(true);
-    }//GEN-LAST:event_btnEditActionPerformed
-
-    private void txtConfigOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConfigOKActionPerformed
-        // TODO add your handling code here:
-        pnelConfig.setVisible(false);
-        btnLogin.setText("Login");
-        pack();
-    }//GEN-LAST:event_txtConfigOKActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginForm().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new LoginForm().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnConfigReset;
-    private javax.swing.JToggleButton btnEdit;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnReset;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lbClose;
@@ -586,12 +407,6 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JLabel lbMin;
     private javax.swing.JLabel lbPassword;
     private javax.swing.JLabel lbUsername;
-    private javax.swing.JPanel pnelConfig;
-    private javax.swing.JButton txtConfigOK;
-    private javax.swing.JTextField txtDBAccount;
-    private javax.swing.JTextField txtDBName;
-    private javax.swing.JPasswordField txtDBPass;
-    private javax.swing.JTextField txtDBPort;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables

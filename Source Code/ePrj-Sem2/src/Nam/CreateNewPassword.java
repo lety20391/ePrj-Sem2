@@ -20,35 +20,37 @@ import javax.swing.JOptionPane;
  */
 public class CreateNewPassword extends javax.swing.JFrame {
 
-    LoginForm login;
-
-    Connection connection = null;
-    String dbAccount = "sa";
-    String dbPassword = "123";
-    String dbName = "Sem2_Project_Group2";
+    Connection conn;
     Statement stmt;
     ResultSet rs;
     String sql;
+
+    LoginForm login;
+
+//    private void sqlConnectionClose() {
+//        try {
+//            stmt.close();
+//            connection.close();
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+//    }
     /**
      * Creates new form CreateNewPassword
+     *
      * @param acccount
+     * @param connection
+     * @param statement
+     *
      */
-   public CreateNewPassword(String acccount) {
+    public CreateNewPassword(String acccount, Connection connection, Statement statement) {
         initComponents();
+        conn = connection;
+        stmt = statement;
         setLocationRelativeTo(null);
-        try {
-            connection = DBConnection.getDBConnection(dbName, dbAccount, dbPassword);
-            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         txtUsername.setText(acccount);
         txtUsername.disable();
         pack();
-    }
-
-    public void SettxtUsername(String a) {
-        txtUsername.setText(a);
     }
 
     /**
@@ -161,9 +163,9 @@ public class CreateNewPassword extends javax.swing.JFrame {
         btnReset.setText("Reset");
         btnReset.setBorder(null);
         btnReset.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnReset.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnResetMouseClicked(evt);
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
             }
         });
 
@@ -252,12 +254,6 @@ public class CreateNewPassword extends javax.swing.JFrame {
         this.setState(JFrame.ICONIFIED);
     }//GEN-LAST:event_lbMinMouseClicked
 
-    private void btnResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseClicked
-        txtPassword.setText("");
-        txtPassword.requestFocus();
-        txtReEnterPass.setText("");
-    }//GEN-LAST:event_btnResetMouseClicked
-
     private void btnContinueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinueActionPerformed
         // TODO add your handling code here:
         if (txtPassword.getText().isEmpty()) {
@@ -277,8 +273,14 @@ public class CreateNewPassword extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(CreateNewPassword.class.getName()).log(Level.SEVERE, null, ex);
             }
-            login = new LoginForm(txtUsername.getText());
-            login.setVisible(true);
+            JOptionPane.showMessageDialog(this, "Create new password sucessfully.");
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    login = new LoginForm(txtUsername.getText(), conn, stmt);
+                    login.setVisible(true);
+                }
+            }
+            );
             dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Re-enter password is not correct.");
@@ -287,6 +289,13 @@ public class CreateNewPassword extends javax.swing.JFrame {
             txtPassword.grabFocus();
         }
     }//GEN-LAST:event_btnContinueActionPerformed
+
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        // TODO add your handling code here:
+        txtPassword.setText("");
+        txtPassword.grabFocus();
+        txtReEnterPass.setText("");
+    }//GEN-LAST:event_btnResetActionPerformed
 
     /**
      * @param args the command line arguments

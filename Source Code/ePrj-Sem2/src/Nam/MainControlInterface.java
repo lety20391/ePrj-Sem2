@@ -21,17 +21,14 @@ import javax.swing.JOptionPane;
  */
 public class MainControlInterface extends javax.swing.JFrame {
 
-    Connection connection = null;
-    String dbAccount = "sa";
-    String dbPassword = "abc123";
-    String dbName = "Sem2_Project_Group2";
+    Connection conn;
     Statement stmt;
     ResultSet rs;
     String sql;
 
     
-    CollaboratorsManagement colmanage;
-    GuestManagement guestmanega;
+    //CollaboratorsManagement colmanage;
+    //GuestManagement guestmanega;
     //phan dat ten cac variable cho tung Frame
     //uiHolding_2 objHolding;
 
@@ -39,59 +36,24 @@ public class MainControlInterface extends javax.swing.JFrame {
      * Creates new form MainControlInterface
      *
      * @param account
+     * @param connection
+     * @param statement
      */
 
 
     
-    public MainControlInterface(String account, Connection connection, Statement stmt)
+    public MainControlInterface(String account, Connection connection, Statement statement)
     {
         initComponents();
-        //------------------------------------------------------
-        //tui gán 2 cái connection và statement vào hàm dựng này để dùng luôn
-        //----------------------------------------------------------
-        //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-
-        this.connection = connection;
-        this.stmt = stmt;
-
-        //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        //------------------------------------------------------
-        //tui gán 2 cái connection và statement vào hàm dựng này để dùng luôn
-        //----------------------------------------------------------
+        conn = connection;
+        stmt = statement;
         setLocationRelativeTo(null);
         txtAccount.setText(account);
         colTxtAccount.setText(account);
         guTxtAccount.setText(account);
-        load();
         pack();
     }
 
-    public MainControlInterface(String account) {
-        initComponents();
-        setLocationRelativeTo(null);
-        //------------------------------------------
-        //Phần connect Database này tui ẩn đi, sẽ sử dụng connection và statemnt
-        //đã khởi tạo trong LoginForm để tránh lỗi reset connection
-        //-----------------------------------------
-        //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-
-//        try {
-//            connection = DBConnection.getDBConnection(dbName, dbAccount, dbPassword);
-//            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-        //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        //------------------------------------------
-        //Phần connect Database này tui ẩn đi, sẽ sử dụng connection và statemnt
-        //đã khởi tạo trong LoginForm để tránh lỗi reset connection
-        //-----------------------------------------
-        txtAccount.setText(account);
-        colTxtAccount.setText(account);
-        guTxtAccount.setText(account);
-        load();
-        pack();
-    }
 
     private void load() {
         if (checkAccount().equals("ad")) {
@@ -265,6 +227,11 @@ public class MainControlInterface extends javax.swing.JFrame {
         btnCreate.setFont(new java.awt.Font("Tahoma", 1, 33)); // NOI18N
         btnCreate.setForeground(new java.awt.Color(255, 255, 255));
         btnCreate.setText("Create new Account");
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateActionPerformed(evt);
+            }
+        });
 
         btnServices.setBackground(new java.awt.Color(0, 255, 255));
         btnServices.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
@@ -489,9 +456,9 @@ public class MainControlInterface extends javax.swing.JFrame {
 
     private void btnCollaboratorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCollaboratorActionPerformed
         // TODO add your handling code here:
-        colmanage = new CollaboratorsManagement(txtAccount.getText());
-        colmanage.setVisible(true);
-        dispose();
+//        colmanage = new CollaboratorsManagement(txtAccount.getText());
+//        colmanage.setVisible(true);
+//        dispose();
     }//GEN-LAST:event_btnCollaboratorActionPerformed
 
     private void btnHoldingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoldingActionPerformed
@@ -516,6 +483,10 @@ public class MainControlInterface extends javax.swing.JFrame {
         }
         );
     }//GEN-LAST:event_colBtnHoldingActionPerformed
+
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCreateActionPerformed
 
     /**
      * @param args the command line arguments

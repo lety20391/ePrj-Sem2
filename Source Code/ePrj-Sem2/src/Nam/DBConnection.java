@@ -16,11 +16,11 @@ public class DBConnection {
 
     static Connection connection;
 
-    public static Connection getDBConnection(String db, String acc, String pass) {
+    public static Connection getDBConnection(String db, String acc, String pass, String port) {
         try {
             String url = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
             Class.forName(url);
-            String dbUrl = "jdbc:sqlserver://localhost:1434;databaseName=" + db;
+            String dbUrl = "jdbc:sqlserver://localhost:"+port+";databaseName=" + db;
             //String dbUrl = "jdbc:mysql://localhost:3306"+db;
             connection = DriverManager.getConnection(dbUrl, acc, pass);
         } catch (Exception e) {
