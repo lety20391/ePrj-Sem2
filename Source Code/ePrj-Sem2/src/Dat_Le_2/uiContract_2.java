@@ -54,7 +54,7 @@ public class uiContract_2 extends javax.swing.JFrame {
         initData();
         initDateChooser();
         showTable("Select * from Contract");
-        manageBtn(true, true, false, false);
+        //manageBtn(true, true, false, false);
     }
     
     public void initData()
@@ -67,7 +67,8 @@ public class uiContract_2 extends javax.swing.JFrame {
         dataMap.put("StatusCon", "Waiting");
         btnConfirm.setEnabled(false);
         
-        txtMap = new HashMap<String, JTextField>();  
+        txtMap = new HashMap<String, JTextField>(); 
+        pContract.attachButtonAndSetMainRight(pContract, "ad");
     }
     
     public void initDateChooser()
@@ -211,7 +212,7 @@ public class uiContract_2 extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        pContract = new javax.swing.JPanel();
+        pContract = new Library.G2Panel();
         jLabel14 = new javax.swing.JLabel();
         txtIDCon = new javax.swing.JTextField();
         txtIDHo = new javax.swing.JTextField();
@@ -677,7 +678,10 @@ public class uiContract_2 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    /*
     private javax.swing.JPanel pContract;
+    */
+    private Library.G2Panel pContract;
     private javax.swing.JTable tblCon;
     private javax.swing.JTextField txtDateCon;
     private javax.swing.JTextField txtIDCon;
