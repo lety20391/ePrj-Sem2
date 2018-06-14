@@ -54,6 +54,21 @@ public class uiHolding_2 extends javax.swing.JFrame {
     String patStr;
     
     DateChooser diaDateChooser;
+    
+    String searchType;
+    String searchValue;
+    
+    SearchHolding objSearch;
+    
+    public void setSearchType(String searchType)
+    {
+        this.searchType = searchType;
+    }
+    
+    public void setSearchValue(String searchValue)
+    {
+        this.searchValue = searchValue;
+    }
 
     public uiHolding_2() throws HeadlessException 
     {
@@ -741,6 +756,11 @@ public class uiHolding_2 extends javax.swing.JFrame {
         });
 
         btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -1073,6 +1093,25 @@ public class uiHolding_2 extends javax.swing.JFrame {
         diaDateChooser.addListener(txtToDateHo);
         diaDateChooser.setVisible(true); 
     }//GEN-LAST:event_txtToDateHoMouseClicked
+
+    public boolean validateStringSearch()
+    {
+        return true;
+    }
+    
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+        objSearch = new SearchHolding(this, true);
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                objSearch.showGUI();
+            }
+        }        
+        );
+        
+    }//GEN-LAST:event_btnSearchActionPerformed
 
     /**
      * @param args the command line arguments
