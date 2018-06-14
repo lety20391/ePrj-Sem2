@@ -27,6 +27,7 @@ import Library.DateChooser;
 import Library.G2Panel;
 import java.awt.HeadlessException;
 import java.awt.Panel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -55,21 +56,9 @@ public class uiHolding_2 extends javax.swing.JFrame {
     
     DateChooser diaDateChooser;
     
-    String searchType;
-    String searchValue;
-    
     SearchHolding objSearch;
     
-    public void setSearchType(String searchType)
-    {
-        this.searchType = searchType;
-    }
     
-    public void setSearchValue(String searchValue)
-    {
-        this.searchValue = searchValue;
-    }
-
     public uiHolding_2() throws HeadlessException 
     {
         
@@ -287,8 +276,13 @@ public class uiHolding_2 extends javax.swing.JFrame {
             //select * from Services
             if (sql.isEmpty())                
                 sql = "select * from Holding";
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery(sql);            
             
+            if (!rs.isBeforeFirst())
+            {
+                JOptionPane.showMessageDialog(this, "Sorry we cant find anything here", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             rs.beforeFirst();
             while(rs.next())
             {
@@ -1094,11 +1088,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
         diaDateChooser.setVisible(true); 
     }//GEN-LAST:event_txtToDateHoMouseClicked
 
-    public boolean validateStringSearch()
-    {
-        return true;
-    }
-    
+        
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
         objSearch = new SearchHolding(this, true);
@@ -1107,6 +1097,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
             public void run()
             {
                 objSearch.showGUI();
+                objSearch.setVisible(true);
             }
         }        
         );

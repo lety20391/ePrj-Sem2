@@ -47,7 +47,7 @@ public class SearchHolding extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         cbSearch.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        cbSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "IDHo", "IDGu", "IDApa", "IDCo", "DateHo", "FromDateHo", "ToDateHo", "PayStatusHo", "TotalHo", "CommissionHo", "IDSer" }));
+        cbSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "IDHo", "IDGu", "IDApa", "IDCo", "DateHo", "FromDateHo", "ToDateHo", "PayStatusHo", "IDSer" }));
 
         txtSearch.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
@@ -90,10 +90,10 @@ public class SearchHolding extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        ((uiHolding_2)parent).setSearchType(cbSearch.getSelectedItem().toString());
-        ((uiHolding_2)parent).setSearchValue(txtSearch.getText());
-        if(((uiHolding_2)parent).validateStringSearch())
-            return;
+        String searchType = cbSearch.getSelectedItem().toString();
+        String searchValue = txtSearch.getText();
+        ((uiHolding_2)parent).showTable("select * from Holding where "+ searchType +" like '%"+searchValue+"%'");
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
