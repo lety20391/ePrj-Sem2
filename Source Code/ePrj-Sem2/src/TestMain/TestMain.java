@@ -10,7 +10,7 @@ import Dat_Le_2.uiHolding_2;
 import DatabaseConnection.DatabaseConnect;
 import DatabaseConnection.connectionContainer;
 import Duy.QuanlyCTV_2;
-import Ngoc_Duyen.Form1;
+import Ngoc_Duyen.newpackage.QLCH;
 import Tuyet_Duyen.Services_2;
 import Tuyet_Duyen.Theme_guest_2;
 import java.sql.Connection;
@@ -30,7 +30,7 @@ public class TestMain extends javax.swing.JFrame {
     Duy.QuanlyOwner_2 objOwner;
     Tuyet_Duyen.Services_2 objService;
     Tuyet_Duyen.Theme_guest_2 objThemeGuest;
-    Ngoc_Duyen.Form1 objForm1;
+    Ngoc_Duyen.newpackage.QLCH objQLCH;
     String account,type;
 
     /**
@@ -357,13 +357,13 @@ public class TestMain extends javax.swing.JFrame {
 
     private void btnDuyenForm1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuyenForm1ActionPerformed
         // TODO add your handling code here:
-//        SwingUtilities.invokeLater(new Runnable() {
-//            @Override
-//            public void run() {
-//                objForm1 = new Form1(con, stmt);
-//                objForm1.setVisible(true);
-//            }
-//        });
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                objQLCH = new QLCH(con, stmt);
+                objQLCH.setVisible(true);
+            }
+        });
     }//GEN-LAST:event_btnDuyenForm1ActionPerformed
 
     /**
