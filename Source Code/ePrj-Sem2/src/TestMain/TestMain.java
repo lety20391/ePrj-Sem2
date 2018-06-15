@@ -39,8 +39,8 @@ public class TestMain extends javax.swing.JFrame {
     public TestMain() {
         initComponents();
         //connectSQL();
-        account = "Gu01";
-        type = "gu";
+        account = "Ad01";
+        type = "ad";
     }
     
     public void connectSQL()

@@ -87,7 +87,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
         pHolding.attachButtonAndSetMainRight(pHolding,type); 
         attachRegexAndErrorInform(pHolding);
         initData();
-        initDateChooser();
+        //initDateChooser();
         showTable("Select * from Holding");        
         //pImageGuest.setSize(300, 400);
         pImageGuest.inputImage("\\src\\Image\\Guest\\Gu01.jpg");

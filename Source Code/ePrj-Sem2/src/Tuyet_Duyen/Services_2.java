@@ -7,6 +7,9 @@ package Tuyet_Duyen;
 
 import DatabaseConnection.DatabaseConnect;
 import DatabaseConnection.connectionContainer;
+import Library.G2Panel;
+import Library.G2TextField;
+import java.awt.Component;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -35,10 +38,90 @@ public class Services_2 extends javax.swing.JFrame {
         initComponents();      
         //connectSQL();
         pButton.attachButtonAndSetMainRight(pButton, type);
+        attachRegexAndErrorInform(pService);
         showTable();
 //        manageButton(true,false,false);
         manageTextField(false, false, false);
+        //clearAllTextField(pService);
     }
+    
+    //-------------------------------------------------------
+    //cái này dùng để lấy giá trị (gồm Pattern và Thông báo lỗi)
+    //mà mình thêm vào TextField ở trong phần Design
+    //sau đó nhét vào trong tính năng kiểm tra của
+    //G2TextField
+    //--------------------------------------------------------
+    //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+    
+    public void attachRegexAndErrorInform(Library.G2Panel panel)
+    {
+        //regexMap = new HashMap<JTextField, String>();
+        Component[] listComponent = panel.getComponents();
+        for (Component component : listComponent) {
+            if (component instanceof Library.G2TextField)
+            {
+                G2TextField tempTextField = (G2TextField)component;
+                //regexMap.put(tempTextField, tempTextField.getText() );
+                String data = tempTextField.getText();
+                tempTextField.setPatStr(data.substring(0, data.indexOf("err")));
+                String tempErr = "' Must change to type of: ";
+                tempTextField.setError(tempErr + data.substring(data.indexOf("err") + 3, data.length()));
+                //tempTextField.setText("");
+            }
+        }
+    }
+    
+    public void clearAllTextField(G2Panel panel)
+    {
+        Component[] objListComp = panel.getComponents();
+        for (Component objComp : objListComp) {
+            if (objComp instanceof G2TextField)
+                ((G2TextField) objComp).setText("");
+        }
+    }
+    
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //-------------------------------------------------------
+    //cái này dùng để lấy giá trị (gồm Pattern và Thông báo lỗi)
+    //mà mình thêm vào TextField ở trong phần Design
+    //sau đó nhét vào trong tính năng kiểm tra của
+    //G2TextField
+    //--------------------------------------------------------
+    
+    //--------------------------------------------------------
+    //Cái này dùng để kiểm tra coi các TextField được nhập vào
+    //có bị lỗi gì không dựa trên các Pattern mình nhập ở Design
+    //--------------------------------------------------------
+    //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+    public boolean validateAllTextField(G2Panel panel)
+    {
+        Component[] objListComp = panel.getComponents();
+        String allError = "";
+        boolean error = false;
+        for (Component objComp : objListComp) {
+            if (objComp instanceof G2TextField)
+            {
+                String temp = ((G2TextField) objComp).allValidate();
+                if (!temp.isEmpty())
+                {
+                    error = true;
+                    allError += temp+ "\n";
+                }
+            }
+        }
+        if (error == true)
+        {
+            JOptionPane.showMessageDialog(this, allError, "Bi loi", JOptionPane.ERROR_MESSAGE);
+            return true;
+        }else
+            return false;
+    }
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //--------------------------------------------------------
+    //Cái này dùng để kiểm tra coi các TextField được nhập vào
+    //có bị lỗi gì không dựa trên các Pattern mình nhập ở Design
+    //--------------------------------------------------------
+    
     //------------------------------------------------------
     //tui tạo lại method mới để connect nên tui ẩn cái này đi
     //------------------------------------------------------
@@ -145,13 +228,13 @@ public class Services_2 extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        pService = new Library.G2Panel();
         jLabel2 = new javax.swing.JLabel();
-        txtID = new javax.swing.JTextField();
+        txtID = new Library.G2TextField();
         jLabel3 = new javax.swing.JLabel();
-        txtName = new javax.swing.JTextField();
+        txtName = new Library.G2TextField();
         jLabel4 = new javax.swing.JLabel();
-        txtPrice = new javax.swing.JTextField();
+        txtPrice = new Library.G2TextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblService = new javax.swing.JTable();
@@ -167,12 +250,15 @@ public class Services_2 extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(204, 102, 0));
         jLabel1.setText("Services");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pService.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel2.setText("ID Service");
 
+        txtID.setText("^(Se)\\d+errSexx with x is number");
+
         jLabel3.setText("Name");
 
+        txtName.setText("\\w+(.)*\\werrnormal paragraph");
         txtName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNameActionPerformed(evt);
@@ -181,39 +267,50 @@ public class Services_2 extends javax.swing.JFrame {
 
         jLabel4.setText("Price");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        txtPrice.setText("\\d+(.)*(\\d)+errxxx.xx with x is number");
+
+        javax.swing.GroupLayout pServiceLayout = new javax.swing.GroupLayout(pService);
+        pService.setLayout(pServiceLayout);
+        pServiceLayout.setHorizontalGroup(
+            pServiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pServiceLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4))
-                .addGap(33, 33, 33)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtPrice)
-                    .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtID, javax.swing.GroupLayout.Alignment.LEADING))
-                .addGap(22, 22, 22))
+                .addGroup(pServiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pServiceLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                        .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(pServiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pServiceLayout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addGap(33, 33, 33)
+                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pServiceLayout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addGap(55, 55, 55)
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+        pServiceLayout.setVerticalGroup(
+            pServiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pServiceLayout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addGroup(pServiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pServiceLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel2))
                     .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                .addGap(11, 11, 11)
+                .addGroup(pServiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pServiceLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel3))
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(18, 18, 18)
+                .addGroup(pServiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -243,15 +340,15 @@ public class Services_2 extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pButton.setBackground(new java.awt.Color(102, 0, 102));
@@ -279,6 +376,11 @@ public class Services_2 extends javax.swing.JFrame {
         btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnDeleteMouseClicked(evt);
+            }
+        });
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
             }
         });
 
@@ -311,32 +413,30 @@ public class Services_2 extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(108, 108, 108)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(108, 108, 108)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pService, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(pButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(11, 11, 11)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(2, 2, 2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(pService, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(pButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -416,14 +516,18 @@ public class Services_2 extends javax.swing.JFrame {
         if( labelBtn.equalsIgnoreCase("Update"))
         {
             btnUpdate.setText("Save");            
-            manageTextField(false, true, true);
+            manageTextField(true, true, true);
             //dat lai trang thai cac Button
             manageButton(false, true, false);
            
             
         }else
         {
-            //kiem tra cac textField co thoa man khong
+            //kiem tra cac textField co thoa man khong 
+            //nếu có lỗi thì thoát ra khỏi lệnh update
+            if(validateAllTextField(pService))
+                return;
+            
             String ID = txtID.getText();
             String Name = txtName.getText();
             String Price = txtPrice.getText();
@@ -451,6 +555,8 @@ public class Services_2 extends javax.swing.JFrame {
 
     private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
         // TODO add your handling code here:
+        //manageTextField(true, true, true);
+        
         try {
             int check = JOptionPane.showConfirmDialog(this, "Are you sure for deleting?");
             if (check == JOptionPane.OK_OPTION)
@@ -471,6 +577,11 @@ public class Services_2 extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_btnDeleteMouseClicked
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -516,16 +627,28 @@ public class Services_2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     /*
     private javax.swing.JPanel pButton;
     */
     private Library.G2Panel pButton;
+    /*
+    private javax.swing.JPanel pService;
+    */
+    private Library.G2Panel pService;
     private javax.swing.JTable tblService;
+    /*
     private javax.swing.JTextField txtID;
+    */
+    private Library.G2TextField txtID;
+    /*
     private javax.swing.JTextField txtName;
+    */
+    private Library.G2TextField txtName;
+    /*
     private javax.swing.JTextField txtPrice;
+    */
+    private Library.G2TextField txtPrice;
     // End of variables declaration//GEN-END:variables
 }
