@@ -84,7 +84,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
         this.stmt = stmt;
         initComponents();   
         //patStr = txtIDHo.getText();
-        attachRegex(pHolding);
+        attachRegexAndErrorInform(pHolding);
         initData();
         initDateChooser();
         showTable("Select * from Holding");        
@@ -93,7 +93,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
         pImageCollaborator.inputImage("\\src\\Image\\Collaborator\\Co01.jpg");
     }
     
-    public void attachRegex(Library.G2Panel panel)
+    public void attachRegexAndErrorInform(Library.G2Panel panel)
     {
         //regexMap = new HashMap<JTextField, String>();
         Component[] listComponent = panel.getComponents();
@@ -102,7 +102,10 @@ public class uiHolding_2 extends javax.swing.JFrame {
             {
                 G2TextField tempTextField = (G2TextField)component;
                 //regexMap.put(tempTextField, tempTextField.getText() );
-                tempTextField.setPatStr(tempTextField.getText());
+                String data = tempTextField.getText();
+                tempTextField.setPatStr(data.substring(0, data.indexOf("err")));
+                String tempErr = "' Must change to type of: ";
+                tempTextField.setError(tempErr + data.substring(data.indexOf("err") + 3, data.length()));                
             }
         }
     }
@@ -166,9 +169,11 @@ public class uiHolding_2 extends javax.swing.JFrame {
     {
         Component[] objComponent = targetPanel.getComponents();
         for (Component comp : objComponent) {
-            if (comp instanceof JTextField)
+            if (comp instanceof G2TextField)
             {
-                ((JTextField) comp).setText("");
+                G2TextField objTxt = (G2TextField)comp;
+                //objTxt.setText(objTxt.getPatStr());
+                objTxt.setText("");
             }
         }
     }
@@ -698,7 +703,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
         pHolding.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         txtIDHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtIDHo.setText("^(Ho)\\d+");
+        txtIDHo.setText("^(Ho)\\d+errHoxx with x is number");
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel16.setText("ID");
@@ -707,25 +712,25 @@ public class uiHolding_2 extends javax.swing.JFrame {
         jLabel17.setText("ID Guest");
 
         txtIDGu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtIDGu.setText("^(Gu)\\d+");
+        txtIDGu.setText("^(Gu)\\d+errGuxx with x is number");
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel18.setText("ID Collaborator");
 
         txtIDCo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtIDCo.setText("^(Co)\\d+");
+        txtIDCo.setText("^(Co)\\d+errCoxx with x is number");
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel19.setText("ID Apartment");
 
         txtIDApa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtIDApa.setText("^(Ap)\\d+");
+        txtIDApa.setText("^(Ap)\\d+errApxx with x is number");
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel20.setText("Date");
 
         txtDateHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtDateHo.setText("^\\d{4}(-)\\d{2}(-)\\d{2}");
+        txtDateHo.setText("^\\d{4}(-)\\d{2}(-)\\d{2}erryyyy-MM-dd");
         txtDateHo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtDateHoMouseClicked(evt);
@@ -736,7 +741,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
         jLabel21.setText("From Date");
 
         txtFromDateHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtFromDateHo.setText("^\\d{4}(-)\\d{2}(-)\\d{2}");
+        txtFromDateHo.setText("^\\d{4}(-)\\d{2}(-)\\d{2}erryyyy-MM-dd");
         txtFromDateHo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtFromDateHoMouseClicked(evt);
@@ -747,10 +752,15 @@ public class uiHolding_2 extends javax.swing.JFrame {
         jLabel22.setText("To Date");
 
         txtToDateHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtToDateHo.setText("^\\d{4}(-)\\d{2}(-)\\d{2}");
+        txtToDateHo.setText("^\\d{4}(-)\\d{2}(-)\\d{2}erryyyy-MM-dd");
         txtToDateHo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtToDateHoMouseClicked(evt);
+            }
+        });
+        txtToDateHo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtToDateHoActionPerformed(evt);
             }
         });
 
@@ -758,7 +768,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
         jLabel23.setText("Status");
 
         txtPayStatusHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtPayStatusHo.setText("\\w+(.)*\\w");
+        txtPayStatusHo.setText("\\w+(.)*\\werrnormal paragraph");
         txtPayStatusHo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPayStatusHoActionPerformed(evt);
@@ -769,13 +779,13 @@ public class uiHolding_2 extends javax.swing.JFrame {
         jLabel24.setText("Commission");
 
         txtCommissionHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtCommissionHo.setText("\\d+(.)*(\\d)+");
+        txtCommissionHo.setText("\\d+(.)*(\\d)+errxxx.xx with x is number");
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel25.setText("Total");
 
         txtTotalHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtTotalHo.setText("\\d+(.)*(\\d)+");
+        txtTotalHo.setText("\\d+(.)*(\\d)+errxxx.xx with x is number");
         txtTotalHo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTotalHoActionPerformed(evt);
@@ -822,7 +832,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
         jLabel26.setText("Services");
 
         txtIDSer.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtIDSer.setText("^(Se)\\d+");
+        txtIDSer.setText("^(Se)\\d+errSexx with x is number");
 
         javax.swing.GroupLayout pHoldingLayout = new javax.swing.GroupLayout(pHolding);
         pHolding.setLayout(pHoldingLayout);
@@ -1092,6 +1102,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
     private void btnMakeContractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMakeContractActionPerformed
         // TODO add your handling code here:
         //validateTextField();
+        validateAllTextField();
     }//GEN-LAST:event_btnMakeContractActionPerformed
 
     private void txtTotalHoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalHoActionPerformed
@@ -1135,6 +1146,10 @@ public class uiHolding_2 extends javax.swing.JFrame {
         );
         
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void txtToDateHoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtToDateHoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtToDateHoActionPerformed
 
     /**
      * @param args the command line arguments

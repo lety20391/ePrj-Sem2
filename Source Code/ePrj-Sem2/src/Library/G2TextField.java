@@ -88,6 +88,7 @@ public class G2TextField extends JTextField {
         {
             checkError = true;
             this.setBackground(Color.red);
+            error = "Your input: '" + this.getText() + error;
             return error;
         }else
         {
