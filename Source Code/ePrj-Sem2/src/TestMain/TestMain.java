@@ -10,7 +10,7 @@ import Dat_Le_2.uiHolding_2;
 import DatabaseConnection.DatabaseConnect;
 import DatabaseConnection.connectionContainer;
 import Duy.QuanlyCTV_2;
-import Ngoc_Duyen.Form1;
+//import Ngoc_Duyen.Form1;
 import Tuyet_Duyen.Services_2;
 import Tuyet_Duyen.Theme_guest_2;
 import java.sql.Connection;
@@ -30,7 +30,7 @@ public class TestMain extends javax.swing.JFrame {
     Duy.QuanlyOwner_2 objOwner;
     Tuyet_Duyen.Services_2 objService;
     Tuyet_Duyen.Theme_guest_2 objThemeGuest;
-    Ngoc_Duyen.Form1 objForm1;
+    //Ngoc_Duyen.Form1 objForm1;
     String account,type;
 
     /**
