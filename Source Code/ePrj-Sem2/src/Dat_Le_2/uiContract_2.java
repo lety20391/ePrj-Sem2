@@ -46,10 +46,11 @@ public class uiContract_2 extends javax.swing.JFrame {
     /**
      * Creates new form uiContract
      */
-    public uiContract_2(Connection objConnection, Statement stmt) {
+    public uiContract_2(String Account, String type, Connection objConnection, Statement stmt) {
         initComponents();
         this.objConnection = objConnection;
         this.stmt = stmt;
+        pContract.attachButtonAndSetMainRight(pContract, type);
         //connectToDatabase();
         initData();
         initDateChooser();
@@ -68,7 +69,6 @@ public class uiContract_2 extends javax.swing.JFrame {
         btnConfirm.setEnabled(false);
         
         txtMap = new HashMap<String, JTextField>(); 
-        pContract.attachButtonAndSetMainRight(pContract, "ad");
     }
     
     public void initDateChooser()

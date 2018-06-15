@@ -78,12 +78,13 @@ public class uiHolding_2 extends javax.swing.JFrame {
 //        showTable("Select * from Holding");
 //    }
     
-    public uiHolding_2(Connection objConnection, Statement stmt)
+    public uiHolding_2(String Account, String type, Connection objConnection, Statement stmt)
     {
         this.objConnection = objConnection;
         this.stmt = stmt;
         initComponents();   
         //patStr = txtIDHo.getText();
+        pHolding.attachButtonAndSetMainRight(pHolding,type); 
         attachRegexAndErrorInform(pHolding);
         initData();
         initDateChooser();
@@ -136,8 +137,6 @@ public class uiHolding_2 extends javax.swing.JFrame {
         manageTextField(pCollaborator);
         IDCo = "";
         IDGu = "";
-        pHolding.attachButtonAndSetMainRight(pHolding,"gu");       
-        
     }
     
     public void initDateChooser()
