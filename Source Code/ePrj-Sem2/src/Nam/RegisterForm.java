@@ -5,11 +5,18 @@
  */
 package Nam;
 
+import Duy.QuanlyCTV_2;
 import java.awt.Image;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -20,16 +27,20 @@ import javax.swing.JOptionPane;
  * @author Namcham
  */
 public class RegisterForm extends javax.swing.JFrame {
-    
+
     Connection conn;
     Statement stmt;
     ResultSet rs;
     String sql;
 
     String continueAccount, continueType;
+    ArrayList<String> listID;
+    
+    QuanlyCTV_2 qlyCTV;
 
     /**
      * Creates new form RegisterForm
+     *
      * @param account
      * @param type
      * @param statement
@@ -44,6 +55,9 @@ public class RegisterForm extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         txtPathImageCo.setEditable(false);
         txtPathImageGU.setEditable(false);
+        load();
+        loadAccountList();
+        dateChooserDOBCo.setDateFormatString("yyyy-MM-dd");
     }
 
     private void coResetText() {
@@ -70,104 +84,118 @@ public class RegisterForm extends javax.swing.JFrame {
         txtBelongCoGU.setText("");
         txtPathImageGU.setText("");
     }
-    
+
+    private void loadAccountList() {
+        listID = new ArrayList();
+        sql = "select * from Account";
+        try {
+            rs = stmt.executeQuery(sql);
+            rs.beforeFirst();
+            while (rs.next()) {
+                listID.add(rs.getString("ID"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     private void load() {
         if (continueType.equals("co")) {
             jTabblePane.remove(pnelCol);
         }
     }
-    
-    private void checkBlankCo(){
+
+    private void checkBlankCo() {
         if (txtIDCo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "ID cannot be blank. Re-Enter.");
             txtIDCo.grabFocus();
-            return ;
+            return;
         }
         if (txtPhoneCo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Phone cannot be blank. Re-Enter.");
             txtPhoneCo.grabFocus();
-            return ;
+            return;
         }
         if (txtNameCo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Name cannot be blank. Re-Enter.");
             txtNameCo.grabFocus();
-            return ;
+            return;
         }
         if (txtEmailCo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Email cannot be blank. Re-Enter.");
             txtEmailCo.grabFocus();
-            return ;
+            return;
         }
         if (txtIdentifyCo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Identified number cannot be blank. Re-Enter.");
             txtIdentifyCo.grabFocus();
-            return ;
+            return;
         }
         if (txtGradeCo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Grade cannot be blank. Re-Enter.");
             txtGradeCo.grabFocus();
-            return ;
+            return;
         }
         if (dateChooserDOBCo.getDate() == null) {
             JOptionPane.showMessageDialog(this, "DOB cannot be blank. Re-Enter.");
             dateChooserDOBCo.grabFocus();
-            return ;
+            return;
         }
         if (txtDepositCo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Deposit cannot be blank. Re-Enter.");
             txtDepositCo.grabFocus();
-            return ;
+            return;
         }
         if (txtAddressCo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Address cannot be blank. Re-Enter.");
             txtAddressCo.grabFocus();
-            return ;
+            return;
         }
     }
-    
-    private void checkBlankGu(){
+
+    private void checkBlankGu() {
         if (txtIDGU.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "ID cannot be blank. Re-Enter.");
             txtIDGU.grabFocus();
-            return ;
+            return;
         }
         if (txtNameGU.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Name cannot be blank. Re-Enter.");
             txtNameGU.grabFocus();
-            return ;
+            return;
         }
         if (txtDOBGU.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "DOB cannot be blank. Re-Enter.");
             txtDOBGU.grabFocus();
-            return ;
+            return;
         }
         if (txtIdentifyGU.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Identified number cannot be blank. Re-Enter.");
             txtIdentifyGU.grabFocus();
-            return ;
+            return;
         }
         if (txtPhoneGU.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Phone cannot be blank. Re-Enter.");
             txtPhoneGU.grabFocus();
-            return ;
+            return;
         }
         if (txtEmailGU.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Email cannot be blank. Re-Enter.");
             txtEmailGU.grabFocus();
-            return ;
+            return;
         }
         if (txtStatusGU.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Status cannot be blank. Re-Enter.");
             txtStatusGU.grabFocus();
-            return ;
+            return;
         }
         if (txtBelongCoGU.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Belonging to Collaborator cannot be blank. Re-Enter.");
             txtBelongCoGU.grabFocus();
-            return ;
+            return;
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -208,6 +236,12 @@ public class RegisterForm extends javax.swing.JFrame {
         btnResetCo = new javax.swing.JButton();
         btnBackCo = new javax.swing.JButton();
         dateChooserDOBCo = new com.toedter.calendar.JDateChooser();
+        lbPasswordCo = new javax.swing.JLabel();
+        txtPasswordCo = new javax.swing.JPasswordField();
+        lbPasswordCo1 = new javax.swing.JLabel();
+        cbQuestionCo = new javax.swing.JComboBox<>();
+        lbAnswerCo = new javax.swing.JLabel();
+        txtAnswerCo = new javax.swing.JPasswordField();
         pnelGuest = new javax.swing.JPanel();
         lbAttachImageGuest = new javax.swing.JLabel();
         lbIDGU = new javax.swing.JLabel();
@@ -416,72 +450,115 @@ public class RegisterForm extends javax.swing.JFrame {
         btnBackCo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnBackCo.setForeground(new java.awt.Color(255, 255, 255));
         btnBackCo.setText("Back");
+        btnBackCo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackCoActionPerformed(evt);
+            }
+        });
+
+        dateChooserDOBCo.setDateFormatString("yyyy-m-d");
+
+        lbPasswordCo.setBackground(new java.awt.Color(153, 153, 153));
+        lbPasswordCo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbPasswordCo.setForeground(new java.awt.Color(255, 255, 255));
+        lbPasswordCo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbPasswordCo.setText("Password");
+
+        txtPasswordCo.setBackground(new java.awt.Color(153, 153, 153));
+        txtPasswordCo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtPasswordCo.setForeground(new java.awt.Color(255, 255, 255));
+
+        lbPasswordCo1.setBackground(new java.awt.Color(153, 153, 153));
+        lbPasswordCo1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbPasswordCo1.setForeground(new java.awt.Color(255, 255, 255));
+        lbPasswordCo1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbPasswordCo1.setText("Question");
+
+        cbQuestionCo.setBackground(new java.awt.Color(153, 153, 153));
+        cbQuestionCo.setForeground(new java.awt.Color(255, 255, 255));
+        cbQuestionCo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is name of your best friend ?", "What is name of your pet ?", "What is name of your favorite film ?" }));
+
+        lbAnswerCo.setBackground(new java.awt.Color(153, 153, 153));
+        lbAnswerCo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbAnswerCo.setForeground(new java.awt.Color(255, 255, 255));
+        lbAnswerCo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbAnswerCo.setText("Answer");
+
+        txtAnswerCo.setBackground(new java.awt.Color(153, 153, 153));
+        txtAnswerCo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtAnswerCo.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout pnelColLayout = new javax.swing.GroupLayout(pnelCol);
         pnelCol.setLayout(pnelColLayout);
         pnelColLayout.setHorizontalGroup(
             pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnelColLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnelColLayout.createSequentialGroup()
-                        .addContainerGap()
+                        .addComponent(lbIDCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtIDCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lbPhoneCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnelColLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
                         .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(pnelColLayout.createSequentialGroup()
-                                    .addComponent(lbDOBCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(dateChooserDOBCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(lbDepositCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnelColLayout.createSequentialGroup()
-                                    .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(btnCreateCo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnBackCo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(pnelColLayout.createSequentialGroup()
-                                            .addComponent(btnResetCo, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(114, 114, 114)
-                                            .addComponent(btnAttachCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(txtPathImageCo, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(10, 10, 10)))
+                            .addComponent(btnCreateCo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBackCo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnelColLayout.createSequentialGroup()
+                                .addComponent(btnResetCo, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(114, 114, 114)
+                                .addComponent(btnAttachCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtPathImageCo, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnelColLayout.createSequentialGroup()
+                        .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnelColLayout.createSequentialGroup()
                                 .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnelColLayout.createSequentialGroup()
-                                        .addComponent(lbIDCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtIDCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(lbPhoneCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(pnelColLayout.createSequentialGroup()
-                                        .addComponent(lbNameCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtNameCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(lbEmailCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(pnelColLayout.createSequentialGroup()
-                                        .addComponent(lbIdentifyCo2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtIdentifyCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(lbGradeCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                    .addComponent(lbPasswordCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbPasswordCo1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtPasswordCo)
+                                    .addComponent(cbQuestionCo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(pnelColLayout.createSequentialGroup()
+                                .addComponent(lbAnswerCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtAnswerCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
                         .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPhoneCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEmailCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtGradeCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDepositCo, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
-                            .addComponent(lbImageCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lbDepositCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbEmailCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbGradeCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pnelColLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                        .addComponent(lbDOBCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dateChooserDOBCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnelColLayout.createSequentialGroup()
+                        .addComponent(lbNameCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNameCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnelColLayout.createSequentialGroup()
+                        .addComponent(lbIdentifyCo2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtIdentifyCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnelColLayout.createSequentialGroup()
                         .addComponent(lbAddressCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtPhoneCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEmailCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtGradeCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDepositCo, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                    .addComponent(lbImageCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        pnelColLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtDepositCo, txtEmailCo, txtGradeCo, txtIDCo, txtPhoneCo});
+        pnelColLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtAnswerCo, txtDepositCo, txtEmailCo, txtGradeCo, txtIDCo, txtPasswordCo, txtPhoneCo});
 
         pnelColLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnBackCo, btnCreateCo, btnResetCo});
 
@@ -496,29 +573,41 @@ public class RegisterForm extends javax.swing.JFrame {
                         .addComponent(lbPhoneCo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtPhoneCo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbNameCo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtNameCo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lbEmailCo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtEmailCo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbEmailCo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEmailCo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPasswordCo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbPasswordCo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbGradeCo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtGradeCo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbPasswordCo1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbQuestionCo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbDepositCo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDepositCo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbAnswerCo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtAnswerCo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbIdentifyCo2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtIdentifyCo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lbGradeCo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtGradeCo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lbDOBCo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbDepositCo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtDepositCo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(dateChooserDOBCo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pnelColLayout.createSequentialGroup()
+                        .addComponent(lbImageCo, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(pnelColLayout.createSequentialGroup()
+                        .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbNameCo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNameCo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbIdentifyCo2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtIdentifyCo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbDOBCo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dateChooserDOBCo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbAddressCo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -530,12 +619,10 @@ public class RegisterForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtPathImageCo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBackCo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(lbImageCo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                            .addComponent(btnBackCo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
 
-        pnelColLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lbIDCo, txtDepositCo, txtEmailCo, txtGradeCo, txtIDCo, txtIdentifyCo, txtNameCo, txtPhoneCo});
+        pnelColLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cbQuestionCo, dateChooserDOBCo, lbIDCo, txtAnswerCo, txtDepositCo, txtEmailCo, txtGradeCo, txtIDCo, txtIdentifyCo, txtNameCo, txtPasswordCo, txtPhoneCo});
 
         jTabblePane.addTab("Collaborators", pnelCol);
 
@@ -836,8 +923,48 @@ public class RegisterForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "ID format is Co[xxx] with xxx is 1-3 digits");
             txtIDCo.setText("");
             txtIDCo.grabFocus();
+            return;
         }
+        for (String str : listID) {
+            if (str.equals(txtIDCo.getText())) {
+                JOptionPane.showMessageDialog(this, "ID format is Co[xxx] with xxx is 1-3 digits");
+                txtIDCo.setText("");
+                txtIDCo.grabFocus();
+                return;
+            }
+        }
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String dob = df.format(dateChooserDOBCo.getDate());
+        sql = "insert into Account(ID, Password, Type, Question, Answer, Active) values\n"
+                + "('" + txtIDCo.getText() + "'," + "'" + txtPasswordCo.getText() + "'," + "'co'," + "'" + cbQuestionCo.getSelectedItem() + "'," + "'" + txtAnswerCo.getText() + "'," + "1)";
+        try {
+            stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        sql = "insert into Collaborator(IDCo, NameCo, AddressCo, DOBCo, IdentificationNumberCo, DepositCo, PhoneCo, EmailCo, ImageCo, GradeCo, NumberOfGuest) values\n"
+                + "('" + txtIDCo.getText() + "'," + "'" + txtNameCo.getText() + "'," + "'" + txtAddressCo.getText() + "'," + "'" + dob + "'," + "'" + txtIdentifyCo.getText() + "'," + txtDepositCo.getText() + "," + "'" + txtPhoneCo.getText() + "'," + "'" + txtEmailCo.getText() + "'," + "'" + txtPathImageCo.getText() + "'," + "'" + txtGradeCo.getText() + "'," + "0" + ")";
+
+        try {
+            stmt.executeUpdate(sql);
+            JOptionPane.showMessageDialog(this, "Create new Collaborator sucessfully");
+            qlyCTV = new QuanlyCTV_2(continueAccount, continueType, conn, stmt);
+            qlyCTV.setVisible(true);
+            dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }//GEN-LAST:event_btnCreateCoActionPerformed
+
+    private void btnBackCoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackCoActionPerformed
+        // TODO add your handling code here:
+        QuanlyCTV_2 qlyCTV = new QuanlyCTV_2(continueAccount, continueType, conn, stmt);
+        qlyCTV.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnBackCoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -883,11 +1010,13 @@ public class RegisterForm extends javax.swing.JFrame {
     private javax.swing.JButton btnCreateGU;
     private javax.swing.JButton btnResetCo;
     private javax.swing.JButton btnResetGU;
+    private javax.swing.JComboBox<String> cbQuestionCo;
     private com.toedter.calendar.JDateChooser dateChooserDOBCo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JTabbedPane jTabblePane;
     private javax.swing.JLabel lbAddressCo;
+    private javax.swing.JLabel lbAnswerCo;
     private javax.swing.JLabel lbAttachImageGuest;
     private javax.swing.JLabel lbClose;
     private javax.swing.JLabel lbCoIDGU;
@@ -906,12 +1035,15 @@ public class RegisterForm extends javax.swing.JFrame {
     private javax.swing.JLabel lbMin;
     private javax.swing.JLabel lbNameCo;
     private javax.swing.JLabel lbNameGU;
+    private javax.swing.JLabel lbPasswordCo;
+    private javax.swing.JLabel lbPasswordCo1;
     private javax.swing.JLabel lbPhoneCo;
     private javax.swing.JLabel lbRegister;
     private javax.swing.JLabel lbStatusGU;
     private javax.swing.JPanel pnelCol;
     private javax.swing.JPanel pnelGuest;
     private javax.swing.JTextArea txtAddressCo;
+    private javax.swing.JPasswordField txtAnswerCo;
     private javax.swing.JTextField txtBelongCoGU;
     private javax.swing.JTextField txtDOBGU;
     private javax.swing.JTextField txtDepositCo;
@@ -924,6 +1056,7 @@ public class RegisterForm extends javax.swing.JFrame {
     private javax.swing.JTextField txtIdentifyGU;
     private javax.swing.JTextField txtNameCo;
     private javax.swing.JTextField txtNameGU;
+    private javax.swing.JPasswordField txtPasswordCo;
     private javax.swing.JTextField txtPathImageCo;
     private javax.swing.JTextField txtPathImageGU;
     private javax.swing.JTextField txtPhoneCo;

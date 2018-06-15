@@ -469,7 +469,7 @@ public class MainControlInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                objUIHolding = new uiHolding_2(conn, stmt);
+                objUIHolding = new uiHolding_2(continueAccount, continueType,conn, stmt);
                 objUIHolding.setVisible(true);
             }
         }
@@ -498,7 +498,7 @@ public class MainControlInterface extends javax.swing.JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 //new Tuyet_Duyen.Services_2(con, stmt).setVisible(true);
-                objService = new Services_2(conn, stmt);
+                objService = new Services_2(continueAccount, continueType,conn, stmt);
                 objService.setVisible(true);
             }
         }
@@ -511,7 +511,7 @@ public class MainControlInterface extends javax.swing.JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 //new Tuyet_Duyen.Theme_guest_2(con, stmt).setVisible(true);
-                objThemeGuest = new Theme_guest_2(continueAccount, conn, stmt);
+                objThemeGuest = new Theme_guest_2(continueAccount, continueType, conn, stmt);
                 objThemeGuest.setVisible(true);
             }
         }

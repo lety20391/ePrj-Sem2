@@ -53,6 +53,7 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
         btnEdit.setEnabled(btnEditStatus);
         btnDelete.setEnabled(btnDeleteStatus);
         btnClose.setEnabled(btnSearchStatus);
+        setLocationRelativeTo(null);
     }
 
     public void manageTextfield(boolean txtIDStatus, boolean txtNameStatus, boolean txtAddressStatus, boolean txtPhoneStatus, boolean txtEmailStatus, boolean txtDOBStatus, boolean txtIDNoStatus, boolean txtImageStatus, boolean txtStatusStatus, boolean txtDepositStatus, boolean txtPassStatus, boolean txtTypeStatus, boolean txtQuesStatus, boolean txtAnsStatus) {
@@ -242,7 +243,7 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
             }
         });
 
-        jRadioButton1.setText("Unlocked");
+        jRadioButton1.setText("Active");
 
         jRadioButton2.setText("Locked");
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -590,6 +591,7 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
                 new RegisterForm(continueAccount, continueType, objConnection, stmt).setVisible(true);
             }
         });
+        dispose();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void tblCoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCoMouseClicked
