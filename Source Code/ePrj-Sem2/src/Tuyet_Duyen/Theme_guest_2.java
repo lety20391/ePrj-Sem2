@@ -23,32 +23,32 @@ public class Theme_guest_2 extends javax.swing.JFrame {
      * Creates new form Theme_guest
      */
     DefaultTableModel CusModel;
-    Vector header,data,row;
+    Vector header, data, row;
     String sql;
     ResultSet rs;
     Statement stmt;
     Connection objConnection;
-    
+
     /**/
-    String continueAccount;
+    String continueAccount, type;
+
     public Theme_guest_2(String account, String type, Connection objConnection, Statement stmt) {
         initComponents();
         this.objConnection = objConnection;
         this.stmt = stmt;
         continueAccount = account;
+        this.type = type;
         pButton.attachButtonAndSetMainRight(pButton, type);
         //connectSQL();
         showTable();
         //manageButton(true,false,false);
-        manageTextField(false, false, false,false, false, false,false, false);
+        manageTextField(false, false, false, false, false, false, false, false);
     }
-    
+
     //------------------------------------------------------
     //tui tạo lại method mới để connect nên tui ẩn cái này đi
     //------------------------------------------------------
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-    
-    
 //    public void connectSQL(){
 //        DatabaseConnect objDBConnect;
 //        objDBConnect = new DatabaseConnect();
@@ -60,14 +60,10 @@ public class Theme_guest_2 extends javax.swing.JFrame {
 //            System.out.println(e.getMessage());
 //        }
 //    }
-    
-    
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     //------------------------------------------------------
     //tui tạo lại method mới để connect nên tui ẩn cái này đi
     //------------------------------------------------------
-    
-    
     //------------------------------------------------------
     //đây là cái method mới để kết nối
     //------------------------------------------------------
@@ -81,15 +77,11 @@ public class Theme_guest_2 extends javax.swing.JFrame {
 //        objConnection = connectContainer.getObjCon();
 //        stmt = connectContainer.getStatement();
 //    }
-    
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     //------------------------------------------------------
     //đây là method mới để kết nối
     //------------------------------------------------------
-    
-    
-    public void showTable()
-    {
+    public void showTable() {
         CusModel = new DefaultTableModel();
         header = new Vector();
         header.add("Service ID");
@@ -100,17 +92,16 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         header.add("Service Email");
         header.add("Service Status");
         header.add("Service Collaborator ID");
-      
+
         data = new Vector();
         CusModel.setRowCount(0);
-        
-        try {            
+
+        try {
             //select * from Guest
             sql = "select * from Guest";
             rs = stmt.executeQuery(sql);
             rs.beforeFirst();
-            while(rs.next())
-            {
+            while (rs.next()) {
                 row = new Vector();
                 row.add(rs.getString("IDGu"));
                 row.add(rs.getString("NameGu"));
@@ -125,20 +116,19 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         CusModel.setDataVector(data, header);
         tblCustomer.setModel(CusModel);
         //tblBook.setModel(bookModel);
     }
 
-    public void manageButton(boolean BtnAddStatus, boolean BtnUpdateStatus, boolean BtnDeleteStatus)
-    {
+    public void manageButton(boolean BtnAddStatus, boolean BtnUpdateStatus, boolean BtnDeleteStatus) {
         btnAdd.setEnabled(BtnAddStatus);
         btnUpdate.setEnabled(BtnUpdateStatus);
         btnDelete.setEnabled(BtnDeleteStatus);
     }
-    public void manageTextField(boolean txtIDStatus, boolean txtNameStatus, boolean txtBirthStatus, boolean txtIDNoStatus, boolean txtPhoneStatus, boolean txtEmailStatus,boolean txtStatusStatus, boolean txtCoIDStatus)
-    {
+
+    public void manageTextField(boolean txtIDStatus, boolean txtNameStatus, boolean txtBirthStatus, boolean txtIDNoStatus, boolean txtPhoneStatus, boolean txtEmailStatus, boolean txtStatusStatus, boolean txtCoIDStatus) {
         txtID.setEditable(txtIDStatus);
         txtName.setEditable(txtNameStatus);
         txtBirth.setEditable(txtBirthStatus);
@@ -148,8 +138,8 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         txtStatus.setEditable(txtStatusStatus);
         txtCoID.setEditable(txtCoIDStatus);
     }
-    public void clearTxt()
-    {
+
+    public void clearTxt() {
         txtID.setText("");
         txtName.setText("");
         txtBirth.setText("");
@@ -159,6 +149,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         txtStatus.setText("");
         txtCoID.setText("");
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -417,20 +408,19 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         manageButton(true, true, true);
         int row;
         String IDGu;
-        String NameGu,DOBGu,IdentificationNumberGu,PhoneGu,EmailGu,StatusGu,IDCo;
-        
-        
+        String NameGu, DOBGu, IdentificationNumberGu, PhoneGu, EmailGu, StatusGu, IDCo;
+
         row = tblCustomer.getSelectedRow();
-        
-        IDGu = (String) tblCustomer.getValueAt(row, 0);        
-        NameGu = (String)tblCustomer.getValueAt(row, 1);
-        DOBGu = (String)tblCustomer.getValueAt(row, 2);
-        IdentificationNumberGu = (String)tblCustomer.getValueAt(row, 3);
-        PhoneGu = (String)tblCustomer.getValueAt(row, 4);
-        EmailGu = (String)tblCustomer.getValueAt(row, 5);
-        StatusGu = (String)tblCustomer.getValueAt(row, 6);
-        IDCo = (String)tblCustomer.getValueAt(row, 7);
-        
+
+        IDGu = (String) tblCustomer.getValueAt(row, 0);
+        NameGu = (String) tblCustomer.getValueAt(row, 1);
+        DOBGu = (String) tblCustomer.getValueAt(row, 2);
+        IdentificationNumberGu = (String) tblCustomer.getValueAt(row, 3);
+        PhoneGu = (String) tblCustomer.getValueAt(row, 4);
+        EmailGu = (String) tblCustomer.getValueAt(row, 5);
+        StatusGu = (String) tblCustomer.getValueAt(row, 6);
+        IDCo = (String) tblCustomer.getValueAt(row, 7);
+
         txtID.setText(IDGu);
         txtName.setText(NameGu);
         txtBirth.setText(DOBGu);
@@ -444,18 +434,15 @@ public class Theme_guest_2 extends javax.swing.JFrame {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
         String labelBtn = btnUpdate.getText();
-        if( labelBtn.equalsIgnoreCase("Update"))
-        {
-            btnUpdate.setText("Save");            
-            manageTextField(false, true, true,true,true,true,true,true);
+        if (labelBtn.equalsIgnoreCase("Update")) {
+            btnUpdate.setText("Save");
+            manageTextField(false, true, true, true, true, true, true, true);
             //dat lai trang thai cac Button
             manageButton(false, true, false);
-           
-            
-        }else
-        {
+
+        } else {
             //kiem tra cac textField co thoa man khong
-             String ID = txtID.getText();
+            String ID = txtID.getText();
             String Name = txtName.getText();
             String DOB = txtBirth.getText();
             String IDentiNo = txtIDNo.getText();
@@ -469,7 +456,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
                 //update Guest set  NameSer = 'Ban nha', Price = 100 where IDSer = 'S06'
                 sql = "update Guest set  NameGu = '" + Name + "',DOBGu = '" + DOB + "',IdentificationNumberGu = '" + IDentiNo + "',PhoneGu = '" + Phone + "',EmailGu  = '" + Email + "',StatusGu = '" + Status + "', IDCo = " + CoID + " where IDGu = '" + ID + "'";
                 stmt.executeUpdate(sql);
-                
+
                 //chay xong thi doi ten Button lai thanh Update
                 btnUpdate.setText("Update");
                 //xoa trang cac textField
@@ -478,23 +465,21 @@ public class Theme_guest_2 extends javax.swing.JFrame {
                 manageButton(true, true, true);
                 //cap nhat lai Table
                 showTable();
-                
+
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-            
+
         }
-        
-        
-         
+
+
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         try {
             int check = JOptionPane.showConfirmDialog(this, "Are you sure for deleting?");
-            if (check == JOptionPane.OK_OPTION)
-            {
+            if (check == JOptionPane.OK_OPTION) {
                 String ID = txtID.getText();
                 //cau lenh SQL mau da kiem tra thu tren SQl
                 //delete from Guest where IDGu = 'S06'
@@ -504,7 +489,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
                 showTable();
                 //xoa cac textField
                 clearTxt();
-            }else{
+            } else {
                 return;
             }
         } catch (Exception e) {
@@ -516,12 +501,12 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         // TODO add your handling code here:
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegisterForm(continueAccount,"gu", objConnection, stmt).setVisible(true);
+                new RegisterForm(continueAccount, type, objConnection, stmt).setVisible(true);
             }
         });
+        dispose();
     }//GEN-LAST:event_btnAddActionPerformed
 
-    
     /**
      * @param args the command line arguments
      */
