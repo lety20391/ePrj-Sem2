@@ -21,14 +21,14 @@ public class QLCH extends javax.swing.JFrame {
     Vector header , data , row ;
     String sql ;
     ResultSet rs;
-    Statement stmt = null;
-    Connection con = null;
+    Statement stmt;
+    Connection con ;
     public QLCH() {
         initComponents();
         connectSQL();
         showTable();
-//        manageButton(true,false,false);
-//        manageTextField(false, false, false, false, false, false, false, false);
+        manageButton(true,false,false);
+        manageTextField(false, false, false, false, false, false, false, false);
         this.setTitle("Apartment Management");
     }
     public void connectSQL()
@@ -54,7 +54,7 @@ public class QLCH extends javax.swing.JFrame {
         header.add("Service IDSup");
         
         data = new Vector();
-//        ApartModel.setRowCount(0);
+        ApartModel.setRowCount(0);
         
         try {            
             sql = "select * from Apartment";
@@ -84,19 +84,21 @@ public class QLCH extends javax.swing.JFrame {
     public void manageButton(boolean BtnAddStatus, boolean BtnUpdateStatus, boolean BtnDeleteStatus)
     {
         
-//        btnAdd.setEnabled(BtnAddStatus);
-//        btnUpdate.setEnabled(BtnUpdateStatus);
-//        btnDelete.setEnabled(BtnDeleteStatus);
+        btnAdd.setEnabled(BtnAddStatus);
+        btnUpdate.setEnabled(BtnUpdateStatus);
+        btnDelete.setEnabled(BtnDeleteStatus);
         
     }
     public void manageTextField(boolean txtIDStatus, boolean txtNameStatus, boolean txtAddressStatus,boolean txtImageStatus, boolean txtInfoStatus, boolean txtStatusStatus,  boolean txtPriceStatus, boolean txtIDSupStatus)
     {
-//        txtName.setEditable(txtNameStatus);
-//        txtID.setEditable(txtIDStatus);
-//        txtArea.setEditable(txtAreaStatus);
-//        txtLocation.setEditable(txtLocationStatus);
-//        txtOwner.setEditable(txtOwnerStatus);
-//        txtPrice.setEditable(txtPriceStatus);
+        txtID.setEditable(txtIDStatus);
+        txtName.setEditable(txtNameStatus);
+        txtAddress.setEditable(txtAddressStatus);
+        txtImage.setEditable(txtImageStatus);
+        txtInfo.setEditable(txtInfoStatus);
+        txtStatus.setEditable(txtStatusStatus);
+        txtPrice.setEditable(txtPriceStatus);
+        txtIDSup.setEditable(txtIDSupStatus);
     }
     public void clearTxt()
     {
@@ -362,97 +364,97 @@ public class QLCH extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-//        String labelButton = btnAdd.getText();
-//            if (labelButton.equalsIgnoreCase("Add"))
-//            {
-//                //clearTxt();               
-//                manageTextField(true, true, true,true, true, true, true, true);
-//                btnAdd.setText("Save");            
-//            }
-//            else{
-//                try {    
-//                    String ID = txtName.getText();
-//                    String Name = txtID.getText();
-//                    String Address = txtArea.getText();
-//                    String Image = txtLocation.getText();
-//                    String Info = txtOwner.getText();
-//                    String Status = txtPrice.getText();
-//                    String Price = txtPrice.getText();
-//                    String IDSup = txtPrice.getText();
-//                    
-//                    if (ID.isEmpty())
-//                    {
-//                        JOptionPane.showMessageDialog(this, "ID cannot be blank. Pls re-enter");
-//                        txtID.grabFocus();
-//                        return;
-//                    }
+        String labelButton = btnAdd.getText();
+            if (labelButton.equalsIgnoreCase("Add"))
+            {
+                //clearTxt();               
+                manageTextField(true, true, true,true, true, true, true, true);
+                btnAdd.setText("Save");            
+            }
+            else{
+                try {    
+                    String ID = txtName.getText();
+                    String Name = txtID.getText();
+                    String Address = txtAddress.getText();
+                    String Image = txtImage.getText();
+                    String Info = txtInfo.getText();
+                    String Status = txtPrice.getText();
+                    String Price = txtPrice.getText();
+                    String IDSup = txtPrice.getText();
                     
-//                    sql="insert into Apartment values ('"+ ID +"', '"+ Name +"', '"+ Address +"', '"+ Image +"', '"+ Info +"','"+ Status +"'  ,'"+ Price +"','"+ IDSup +"')";
-//                    stmt.executeUpdate(sql);
-//                    showTable();
-//                    btnAdd.setText("Add");
-//                    clearTxt(); 
-//                    manageTextField(false, false, false,false, false, false, false, false);
-//                    } catch (Exception e) {
-//                    System.out.println(e.getMessage());
-//                }
- //   }                 
+                    if (ID.isEmpty())
+                    {
+                        JOptionPane.showMessageDialog(this, "ID cannot be blank. Pls re-enter");
+                        txtID.grabFocus();
+                        return;
+                    }
+                    
+                    sql="insert into Apartment values ('"+ ID +"', '"+ Name +"', '"+ Address +"', '"+ Image +"', '"+ Info +"','"+ Status +"'  ,'"+ Price +"','"+ IDSup +"')";
+                    stmt.executeUpdate(sql);
+                    showTable();
+                    btnAdd.setText("Add");
+                    clearTxt(); 
+                    manageTextField(false, false, false,false, false, false, false, false);
+                    } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+    }                 
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-//        UpdateApartment objUA = new UpdateApartment();
-//        objUA.setVisible(true);
-//        
-//        String labelBtn = btnUpdate.getText();
-//        if( labelBtn.equalsIgnoreCase("Update"))
-//        {
-//            btnUpdate.setText("Save");            
-//            manageTextField(false, true, true,true,true,true,true,true);
-//            manageButton(false, true, false);
-//           
-//            
-//        }else
-//        {
-//            String Name = txtID.getText();
-//            String ID = txtName.getText();
-//            String Address = txtAddress.getText();
-//            String Image = txtImage.getText();
-//            String Info = txtInfo.getText();
-//            String Status = txtStatus.getText();
-//            String Price = txtPrice.getText();
-//            String IDSup = txtIDSup.getText();
-//            try {
-//                sql = "update Apartment set  NameApa = '" + Name + "',AddressApa = '" + Address + "',ImageApa = '" + Image + "',InfoApa = '" + Info + "',StatusApa  = '" + Status+"',PriceApa  = '" + Price+"',IDSupApa  = '" + IDSup+ " where IDApa = '" + ID + "'";
-//                stmt.executeUpdate(sql);
-//                
-//               btnUpdate.setText("Update");
-//                clearTxt();
-//                manageButton(true, true, true);
-//                showTable();
-//                 } catch (Exception e) {
-//                System.out.println(e.getMessage());
-//            }
-//        }
+        UpdateApartment objUA = new UpdateApartment();
+        objUA.setVisible(true);
+        
+        String labelBtn = btnUpdate.getText();
+        if( labelBtn.equalsIgnoreCase("Update"))
+        {
+            btnUpdate.setText("Save");            
+            manageTextField(false, true, true,true,true,true,true,true);
+            manageButton(false, true, false);
+           
+            
+        }else
+        {
+            String Name = txtID.getText();
+            String ID = txtName.getText();
+            String Address = txtAddress.getText();
+            String Image = txtImage.getText();
+            String Info = txtInfo.getText();
+            String Status = txtStatus.getText();
+            String Price = txtPrice.getText();
+            String IDSup = txtIDSup.getText();
+            try {
+                sql = "update Apartment set  NameApa = '" + Name + "',AddressApa = '" + Address + "',ImageApa = '" + Image + "',InfoApa = '" + Info + "',StatusApa  = '" + Status+"',PriceApa  = '" + Price+"',IDSupApa  = '" + IDSup+ " where IDApa = '" + ID + "'";
+                stmt.executeUpdate(sql);
+                
+               btnUpdate.setText("Update");
+                clearTxt();
+                manageButton(true, true, true);
+                showTable();
+                 } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
 //        // TODO add your handling code here:
-//        try {
-//            int check = JOptionPane.showConfirmDialog(this, "Are you sure for deleting?");
-//            if (check == JOptionPane.OK_OPTION)
-//            {
-//                String ID = txtName.getText();
-//                sql = "delete from Apartment where IDApart = '" + ID + "'";
-//                stmt.executeUpdate(sql);
-//                showTable();
-//                clearTxt();
-//            }else{
-//                return;
-//            }
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
+        try {
+            int check = JOptionPane.showConfirmDialog(this, "Are you sure for deleting?");
+            if (check == JOptionPane.OK_OPTION)
+            {
+                String ID = txtName.getText();
+                sql = "delete from Apartment where IDApart = '" + ID + "'";
+                stmt.executeUpdate(sql);
+                showTable();
+                clearTxt();
+            }else{
+                return;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
@@ -479,27 +481,31 @@ public class QLCH extends javax.swing.JFrame {
     
      private void tblApartmentMouseClicked(java.awt.event.MouseEvent evt) {                                         
         // TODO add your handling code here:
-//        manageButton(true, true, true);
-//        int row;
-//        String IDApaString , AreaApaString, LocationApaString ;
-//        String NameApaString,OwnerApaString,PriceApaString;
-//        
-//        
-//        row = tblApartment.getSelectedRow();
-//        
-//        String NameApa = (String) tblApartment.getValueAt(row, 1);        
-//        String IDApa= (String) tblApartment.getValueAt(row, 2);
-//        String AreaApa = (String)tblApartment.getValueAt(row, 3);
-//        String LocationApa = (String)tblApartment.getValueAt(row, 4);
-//        String OwnerApa = (String)tblApartment.getValueAt(row, 5);
-//        String PriceApa = (String)tblApartment.getValueAt(row, 6);
-//        
-//        txtID.setText(NameApa);
-//        txtName.setText(IDApa);
-//        txtAddress.setText(AreaApa);
-//        txtImage.setText(LocationApa);
-//        txtInfo.setText(OwnerApa);
-//        txtStatus.setText(PriceApa);
+        manageButton(true, true, true);
+        int row;
+        String IDApaString , ImageApaString, StatusApaString, IDSupApaString ;
+        String NameApaString,OwnerApaString,PriceApaString,InfoApaString ;
+        
+        
+        row = tblApartment.getSelectedRow();
+        
+        String IDApa = (String) tblApartment.getValueAt(row, 1);        
+        String NameApa= (String) tblApartment.getValueAt(row, 2);
+        String AddressApa = (String)tblApartment.getValueAt(row, 3);
+        String ImageApa = (String)tblApartment.getValueAt(row, 4);
+        String InfoApa = (String)tblApartment.getValueAt(row, 5);
+        String StatusApa = (String)tblApartment.getValueAt(row, 6);
+        String PriceApa = (String)tblApartment.getValueAt(row, 7);
+        String IDSupApa = (String)tblApartment.getValueAt(row, 8);
+        
+        txtID.setText(IDApa);
+        txtName.setText(NameApa);
+        txtAddress.setText(AddressApa);
+        txtImage.setText(ImageApa);
+        txtInfo.setText(InfoApa);
+        txtStatus.setText(StatusApa);
+        txtPrice.setText(PriceApa);
+        txtIDSup.setText(IDSupApa);
     }      
     /**
      * @param args the command line arguments
