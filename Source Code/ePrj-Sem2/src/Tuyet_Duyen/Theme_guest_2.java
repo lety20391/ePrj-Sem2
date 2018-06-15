@@ -39,7 +39,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         pButton.attachButtonAndSetMainRight(pButton, type);
         //connectSQL();
         showTable();
-        manageButton(true,false,false);
+        //manageButton(true,false,false);
         manageTextField(false, false, false,false, false, false,false, false);
     }
     
@@ -194,7 +194,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("GUESTs");
 
         jLabel1.setBackground(new java.awt.Color(153, 0, 102));

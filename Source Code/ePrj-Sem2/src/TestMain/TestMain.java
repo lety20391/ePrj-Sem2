@@ -31,6 +31,7 @@ public class TestMain extends javax.swing.JFrame {
     Tuyet_Duyen.Services_2 objService;
     Tuyet_Duyen.Theme_guest_2 objThemeGuest;
     Ngoc_Duyen.Form1 objForm1;
+    String account,type;
 
     /**
      * Creates new form TestMain
@@ -38,6 +39,8 @@ public class TestMain extends javax.swing.JFrame {
     public TestMain() {
         initComponents();
         //connectSQL();
+        account = "Gu01";
+        type = "gu";
     }
     
     public void connectSQL()
@@ -276,7 +279,7 @@ public class TestMain extends javax.swing.JFrame {
                 public void run()
                 {
                     //new Tuyet_Duyen.Services_2(con, stmt).setVisible(true);
-                    objService = new Services_2(con, stmt);
+                    objService = new Services_2(account, type, con, stmt);
                     objService.setVisible(true);
                 }
             }
@@ -290,7 +293,7 @@ public class TestMain extends javax.swing.JFrame {
                 public void run()
                 {
                     //new Tuyet_Duyen.Theme_guest_2(con, stmt).setVisible(true);
-                    objThemeGuest = new Theme_guest_2(con, stmt);
+                    objThemeGuest = new Theme_guest_2(account, type,con, stmt);
                     objThemeGuest.setVisible(true);
                 }
             }
@@ -329,7 +332,7 @@ public class TestMain extends javax.swing.JFrame {
         {
             public void run()
             {
-                objUIHolding = new uiHolding_2(con, stmt);
+                objUIHolding = new uiHolding_2(account, type, con, stmt);
                 objUIHolding.setVisible(true);                
             }
         }        
@@ -346,7 +349,7 @@ public class TestMain extends javax.swing.JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                objUIContract = new uiContract_2(con, stmt);
+                objUIContract = new uiContract_2(account, type, con, stmt);
                 objUIContract.setVisible(true);
             }
         });
@@ -354,13 +357,13 @@ public class TestMain extends javax.swing.JFrame {
 
     private void btnDuyenForm1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuyenForm1ActionPerformed
         // TODO add your handling code here:
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                objForm1 = new Form1(con, stmt);
-                objForm1.setVisible(true);
-            }
-        });
+//        SwingUtilities.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                objForm1 = new Form1(con, stmt);
+//                objForm1.setVisible(true);
+//            }
+//        });
     }//GEN-LAST:event_btnDuyenForm1ActionPerformed
 
     /**
