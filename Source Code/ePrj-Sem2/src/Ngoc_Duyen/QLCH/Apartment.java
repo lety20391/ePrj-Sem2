@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Ngoc_Duyen.newpackage;
+package Ngoc_Duyen.QLCH;
 
 import Ngoc_Duyen.folder1.NewInterface;
 import java.io.Serializable;

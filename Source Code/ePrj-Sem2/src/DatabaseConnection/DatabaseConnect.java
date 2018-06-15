@@ -110,7 +110,7 @@ public class DatabaseConnect {
     }
 
     public connectionContainer DBConnect(String sem2_project_group2, String sa, String string) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated metthrowhods, choose Tools | Templates.
     }
     
 }

@@ -10,7 +10,7 @@ import DatabaseConnection.DatabaseConnect;
 import DatabaseConnection.connectionContainer;
 import Ngoc_Duyen.folder1.IOfile;
 import Ngoc_Duyen.folder1.NewInterface;// cai nay la de xem bang ne
-import Ngoc_Duyen.newpackage.Apartment; //cai nay la de control nha
+import Ngoc_Duyen.QLCH.Apartment; //cai nay la de control nha
 import java.sql.Connection;
 import java.sql.Statement;
 import java.util.ArrayList;

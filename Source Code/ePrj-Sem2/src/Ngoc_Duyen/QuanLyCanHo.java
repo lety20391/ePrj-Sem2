@@ -7,8 +7,9 @@ package Ngoc_Duyen;
 
 import DatabaseConnection.DatabaseConnect;
 import DatabaseConnection.connectionContainer;
-import Ngoc_Duyen.newpackage.UpdateApartment;
+import Ngoc_Duyen.QLCH.UpdateApartment;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Vector;
@@ -85,7 +86,30 @@ public class QuanLyCanHo extends javax.swing.JFrame {
         
         objConnection = connectContainer.getObjCon();
         stmt = connectContainer.getStatement();
+        
     }
+    
+    
+    /*
+    public connectionContainer DBConnect(String DatabaseName, String Account, String Password, String port)
+    {
+        try {
+            
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = "jdbc:sqlserver://localhost:"+port+";database="+DatabaseName;
+            objConnection = DriverManager.getConnection(url, Account, Password);
+            stmt = objConnection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            System.out.println("");
+            System.out.println("--------Connection established---------");
+            Statement statement = null;
+            connectionContainer objConContainer = new connectionContainer(objConnection, statement);
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        connectionContainer objConContainer = null;
+        return objConContainer;
+    } */
     public void manageButton(boolean BtnAddStatus, boolean BtnUpdateStatus, boolean BtnDeleteStatus)
     {
         jButton1.setEnabled(BtnAddStatus);
