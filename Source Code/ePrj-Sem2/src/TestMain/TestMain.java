@@ -299,28 +299,28 @@ public class TestMain extends javax.swing.JFrame {
 
     private void btnDuyCTVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuyCTVActionPerformed
         // TODO add your handling code here:
-        SwingUtilities.invokeLater(new Runnable()
-            {
-                public void run()
-                {
-                    new Duy.QuanlyCTV_2(con, stmt).setVisible(true);
-                }
-            }        
-        );
+//        SwingUtilities.invokeLater(new Runnable()
+//            {
+//                public void run()
+//                {
+//                    new Duy.QuanlyCTV_2(con, stmt).setVisible(true);
+//                }
+//            }        
+//        );
     }//GEN-LAST:event_btnDuyCTVActionPerformed
 
     private void btnDuyOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuyOwnerActionPerformed
         // TODO add your handling code here:
-        SwingUtilities.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-                //new Duy.QuanlyOwner_2(con, stmt).setVisible(true);
-                objCTV = new QuanlyCTV_2(con, stmt);
-                objCTV.setVisible(true);
-            }
-        }        
-        );
+//        SwingUtilities.invokeLater(new Runnable()
+//        {
+//            public void run()
+//            {
+//                //new Duy.QuanlyOwner_2(con, stmt).setVisible(true);
+//                objCTV = new QuanlyCTV_2(con, stmt);
+//                objCTV.setVisible(true);
+//            }
+//        }        
+//        );
     }//GEN-LAST:event_btnDuyOwnerActionPerformed
 
     private void btnDatHoldingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatHoldingActionPerformed

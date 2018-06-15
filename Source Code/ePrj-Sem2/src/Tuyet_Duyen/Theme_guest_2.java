@@ -31,11 +31,12 @@ public class Theme_guest_2 extends javax.swing.JFrame {
     
     /**/
     String continueAccount;
-    public Theme_guest_2(String account, Connection objConnection, Statement stmt) {
+    public Theme_guest_2(String account, String type, Connection objConnection, Statement stmt) {
         initComponents();
         this.objConnection = objConnection;
         this.stmt = stmt;
         continueAccount = account;
+        pButton.attachButtonAndSetMainRight(pButton, type);
         //connectSQL();
         showTable();
         manageButton(true,false,false);
@@ -188,7 +189,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         tblCustomer = new javax.swing.JTable();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        pButton = new Library.G2Panel();
         btnAdd = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
@@ -263,7 +264,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         jLabel11.setText("Customner Menagement");
         jLabel11.setToolTipText("");
 
-        jPanel1.setBackground(new java.awt.Color(102, 0, 102));
+        pButton.setBackground(new java.awt.Color(102, 0, 102));
 
         btnAdd.setBackground(new java.awt.Color(102, 0, 102));
         btnAdd.setText("Add");
@@ -289,11 +290,11 @@ public class Theme_guest_2 extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pButtonLayout = new javax.swing.GroupLayout(pButton);
+        pButton.setLayout(pButtonLayout);
+        pButtonLayout.setHorizontalGroup(
+            pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pButtonLayout.createSequentialGroup()
                 .addContainerGap(21, Short.MAX_VALUE)
                 .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -302,13 +303,13 @@ public class Theme_guest_2 extends javax.swing.JFrame {
                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        pButtonLayout.setVerticalGroup(
+            pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pButtonLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pButtonLayout.createSequentialGroup()
+                        .addGroup(pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 3, Short.MAX_VALUE))
@@ -351,7 +352,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
                             .addComponent(txtStatus)
                             .addComponent(txtCoID, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(44, 44, 44)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(pButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -400,7 +401,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtCoID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9)))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(117, Short.MAX_VALUE))
         );
 
@@ -515,7 +516,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         // TODO add your handling code here:
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegisterForm(continueAccount, objConnection, stmt).setVisible(true);
+                new RegisterForm(continueAccount,"gu", objConnection, stmt).setVisible(true);
             }
         });
     }//GEN-LAST:event_btnAddActionPerformed
@@ -572,8 +573,11 @@ public class Theme_guest_2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    /*
+    private javax.swing.JPanel pButton;
+    */
+    private Library.G2Panel pButton;
     private javax.swing.JTable tblCustomer;
     private javax.swing.JTextField txtBirth;
     private javax.swing.JTextField txtCoID;
