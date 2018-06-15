@@ -29,6 +29,7 @@ import java.awt.HeadlessException;
 import java.awt.Panel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import Library.G2TextField;
 
 /**
  *
@@ -44,7 +45,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
     
     HashMap<String, String> dataMap;
     HashMap<String, JTextField> txtMap;
-    HashMap<JTextField, String> regexMap;
+    //HashMap<JTextField, String> regexMap;
     
     DefaultTableModel hoModel;
     Vector header, row, data;
@@ -94,13 +95,14 @@ public class uiHolding_2 extends javax.swing.JFrame {
     
     public void attachRegex(Library.G2Panel panel)
     {
-        regexMap = new HashMap<JTextField, String>();
+        //regexMap = new HashMap<JTextField, String>();
         Component[] listComponent = panel.getComponents();
         for (Component component : listComponent) {
-            if (component instanceof JTextField)
+            if (component instanceof Library.G2TextField)
             {
-                JTextField tempTextField = (JTextField) component;
-                regexMap.put(tempTextField, tempTextField.getText() );
+                G2TextField tempTextField = (G2TextField)component;
+                //regexMap.put(tempTextField, tempTextField.getText() );
+                tempTextField.setPatStr(tempTextField.getText());
             }
         }
     }
@@ -170,27 +172,36 @@ public class uiHolding_2 extends javax.swing.JFrame {
             }
         }
     }
+    //UPDATE--------------------
+    //Su dung phuong thuc validate trong G2TextField
+    //----------------------------
+    //VVVVVVVVVVVVVVVVVVVVVVVVVVVV
     
-    public void validateTextField()
-    {
-        
-        Iterator iteEntry = regexMap.entrySet().iterator();
-        while (iteEntry.hasNext())
-        {
-            HashMap.Entry objEntry = (HashMap.Entry)iteEntry.next();
-            String patRegex = (String)objEntry.getValue();
-            JTextField objTextField = (JTextField)objEntry.getKey();
-            if (Pattern.matches(patRegex, objTextField.getText()))
-            {
-                System.out.println("Chuan com me nau");
-            }else
-            {
-                objTextField.setBackground(Color.red);
-            }
-            
-        }        
-        
-    }
+//    public void validateTextField()
+//    {
+//        
+//        Iterator iteEntry = regexMap.entrySet().iterator();
+//        while (iteEntry.hasNext())
+//        {
+//            HashMap.Entry objEntry = (HashMap.Entry)iteEntry.next();
+//            String patRegex = (String)objEntry.getValue();
+//            JTextField objTextField = (JTextField)objEntry.getKey();
+//            if (Pattern.matches(patRegex, objTextField.getText()))
+//            {
+//                System.out.println("Chuan com me nau");
+//            }else
+//            {
+//                objTextField.setBackground(Color.red);
+//            }
+//            
+//        }        
+//        
+//    }
+    
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //UPDATE--------------------
+    //Su dung phuong thuc validate trong G2TextField
+    //----------------------------
     
     public void manageBtn(boolean btnSearchStatus, boolean btnAddStatus, boolean btnUpdateStatus, boolean btnDeleteStatus)
     {
@@ -213,6 +224,26 @@ public class uiHolding_2 extends javax.swing.JFrame {
         TotalHo = Double.parseDouble(txtTotalHo.getText());
         CommissionHo = Double.parseDouble(txtCommissionHo.getText());
         IDSer = txtIDSer.getText();
+    }
+    
+    public void validateAllTextField()
+    {
+        Component[] objListComp = pHolding.getComponents();
+        String allError = "";
+        boolean error = false;
+        for (Component objComp : objListComp) {
+            if (objComp instanceof G2TextField)
+            {
+                String temp = ((G2TextField) objComp).allValidate();
+                if (!temp.isEmpty())
+                {
+                    error = true;
+                    allError += temp+ "\n";
+                }
+            }
+        }
+        if (error == true)
+            JOptionPane.showMessageDialog(this, allError, "Bi loi", JOptionPane.ERROR_MESSAGE);
     }
     
     public void setDataToGuestPanel()
@@ -362,33 +393,33 @@ public class uiHolding_2 extends javax.swing.JFrame {
         pImageCollaborator = new Library.G2ImagePanel();
         jLabel15 = new javax.swing.JLabel();
         pHolding = new Library.G2Panel();
-        txtIDHo = new javax.swing.JTextField();
+        txtIDHo = new Library.G2TextField();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        txtIDGu = new javax.swing.JTextField();
+        txtIDGu = new Library.G2TextField();
         jLabel18 = new javax.swing.JLabel();
-        txtIDCo = new javax.swing.JTextField();
+        txtIDCo = new Library.G2TextField();
         jLabel19 = new javax.swing.JLabel();
-        txtIDApa = new javax.swing.JTextField();
+        txtIDApa = new Library.G2TextField();
         jLabel20 = new javax.swing.JLabel();
-        txtDateHo = new javax.swing.JTextField();
+        txtDateHo = new Library.G2TextField();
         jLabel21 = new javax.swing.JLabel();
-        txtFromDateHo = new javax.swing.JTextField();
+        txtFromDateHo = new Library.G2TextField();
         jLabel22 = new javax.swing.JLabel();
-        txtToDateHo = new javax.swing.JTextField();
+        txtToDateHo = new Library.G2TextField();
         jLabel23 = new javax.swing.JLabel();
-        txtPayStatusHo = new javax.swing.JTextField();
+        txtPayStatusHo = new Library.G2TextField();
         jLabel24 = new javax.swing.JLabel();
-        txtCommissionHo = new javax.swing.JTextField();
+        txtCommissionHo = new Library.G2TextField();
         jLabel25 = new javax.swing.JLabel();
-        txtTotalHo = new javax.swing.JTextField();
+        txtTotalHo = new Library.G2TextField();
         btnSearch = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnMakeContract = new javax.swing.JButton();
         jLabel26 = new javax.swing.JLabel();
-        txtIDSer = new javax.swing.JTextField();
+        txtIDSer = new Library.G2TextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Holding");
@@ -1060,8 +1091,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
 
     private void btnMakeContractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMakeContractActionPerformed
         // TODO add your handling code here:
-        validateTextField();
-        //System.out.println(dateInput.getDate().toString());
+        //validateTextField();
     }//GEN-LAST:event_btnMakeContractActionPerformed
 
     private void txtTotalHoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalHoActionPerformed
@@ -1192,29 +1222,62 @@ public class uiHolding_2 extends javax.swing.JFrame {
     private Library.G2ImagePanel pImageGuest;
     private javax.swing.JPanel pTblHo;
     private javax.swing.JTable tblHo;
+    /*
     private javax.swing.JTextField txtCommissionHo;
+    */
+    private Library.G2TextField txtCommissionHo;
     private javax.swing.JTextField txtDOBCo2;
     private javax.swing.JTextField txtDOBGu2;
+    /*
     private javax.swing.JTextField txtDateHo;
+    */
+    private Library.G2TextField txtDateHo;
     private javax.swing.JTextField txtEmailCo2;
     private javax.swing.JTextField txtEmailGu2;
+    /*
     private javax.swing.JTextField txtFromDateHo;
+    */
+    private Library.G2TextField txtFromDateHo;
+    /*
     private javax.swing.JTextField txtIDApa;
+    */
+    private Library.G2TextField txtIDApa;
+    /*
     private javax.swing.JTextField txtIDCo;
+    */
+    private Library.G2TextField txtIDCo;
     private javax.swing.JTextField txtIDCo2;
+    /*
     private javax.swing.JTextField txtIDGu;
+    */
+    private Library.G2TextField txtIDGu;
     private javax.swing.JTextField txtIDGu2;
+    /*
     private javax.swing.JTextField txtIDHo;
+    */
+    private Library.G2TextField txtIDHo;
+    /*
     private javax.swing.JTextField txtIDSer;
+    */
+    private Library.G2TextField txtIDSer;
     private javax.swing.JTextField txtIdentificationNumberCo2;
     private javax.swing.JTextField txtIdentificationNumberGu2;
     private javax.swing.JTextField txtNameCo2;
     private javax.swing.JTextField txtNameGu2;
+    /*
     private javax.swing.JTextField txtPayStatusHo;
+    */
+    private Library.G2TextField txtPayStatusHo;
     private javax.swing.JTextField txtPhoneCo2;
     private javax.swing.JTextField txtPhoneGu2;
+    /*
     private javax.swing.JTextField txtToDateHo;
+    */
+    private Library.G2TextField txtToDateHo;
+    /*
     private javax.swing.JTextField txtTotalHo;
+    */
+    private Library.G2TextField txtTotalHo;
     // End of variables declaration//GEN-END:variables
 
    
