@@ -5,6 +5,7 @@
  */
 package Tuyet_Duyen;
 
+import Library.DateChooser;
 import Library.G2Panel;
 import Library.G2TextField;
 import java.sql.Connection;
@@ -15,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Nam.RegisterForm;
 import java.awt.Component;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -31,6 +33,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
     ResultSet rs;
     Statement stmt;
     Connection objConnection;
+    DateChooser objDateChooser;
     
     /**/
     String continueAccount;
@@ -42,6 +45,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         pButton.attachButtonAndSetMainRight(pButton, type);
         attachRegexAndErrorInform(pGuest);
         //connectSQL();
+        //initDateChooser();
         showTable();
         //manageButton(true,false,false);
         manageTextField(false, false, false,false, false, false,false, false);
@@ -231,6 +235,20 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         txtStatus.setText("");
         txtCoID.setText("");
     }
+    public void initDateChooser()
+    {
+        objDateChooser = new DateChooser(this, true);
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                objDateChooser.showGUI();
+            }
+        }        
+        );
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -392,6 +410,11 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         jLabel4.setText("Birthday");
 
         txtBirth.setText("^\\d{4}(-)\\d{2}(-)\\d{2}erryyyy-MM-dd");
+        txtBirth.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtBirthMouseClicked(evt);
+            }
+        });
 
         jLabel5.setText("Identi No");
 
@@ -633,6 +656,13 @@ public class Theme_guest_2 extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void txtBirthMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBirthMouseClicked
+        // TODO add your handling code here:
+        initDateChooser();
+        objDateChooser.addListener(txtBirth);
+        objDateChooser.setVisible(true);
+    }//GEN-LAST:event_txtBirthMouseClicked
 
     
     /**
