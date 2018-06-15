@@ -5,8 +5,6 @@
  */
 package Tuyet_Duyen;
 
-import DatabaseConnection.DatabaseConnect;
-import DatabaseConnection.connectionContainer;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -31,11 +29,13 @@ public class Theme_guest_2 extends javax.swing.JFrame {
     Statement stmt;
     Connection objConnection;
     
-    public Theme_guest_2(Connection objConnection, Statement stmt) {
+    /**/
+    String continueAccount;
+    public Theme_guest_2(String account, Connection objConnection, Statement stmt) {
+        initComponents();
         this.objConnection = objConnection;
         this.stmt = stmt;
-        initComponents();
-        
+        continueAccount = account;
         //connectSQL();
         showTable();
         manageButton(true,false,false);
@@ -411,58 +411,6 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIDActionPerformed
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
-        RegisterForm objRF = new RegisterForm();
-        objRF.setVisible(true);
-        
-        String labelButton = btnAdd.getText();
-            if (labelButton.equalsIgnoreCase("Add"))
-            {
-                //clearTxt();               
-                manageTextField(true, true, true,true, true, true,true, true);
-                btnAdd.setText("Save");            
-            }else{
-                try {    
-                    String ID = txtID.getText();
-                    String Name = txtName.getText();
-                    String DOB = txtBirth.getText();
-                    String IDentiNo = txtIDNo.getText();
-                    String Phone = txtPhone.getText();
-                    String Email = txtEmail.getText();
-                    String Status = txtStatus.getText();
-                    String CoID = txtCoID.getText();
-                    
-                    //bat loi empty voi ID
-                    if (ID.isEmpty())
-                    {
-                        JOptionPane.showMessageDialog(this, "ID cannot be blank. Pls re-enter");
-                        txtID.grabFocus();
-                        return;
-                    }
-                    
-                    //insert into Services(IDSer, NameSer, Price) values ('S02', 'Lau nha', 200)
-                 
-                    //sql = "insert into Services(IDSer, NameSer, Price) values ('" + ID + "', '" + Name + "', " + Price +")";
-                    
-                    //insert into Guest values ('Gu01', 'Dat le', '1995-5-5', '1234456', '012345', 'datle@hetle.com', 'Normal', 'Co01')
-                    sql="insert into Guest values ('"+ ID +"', '"+ Name +"', '"+ DOB +"', '"+ IDentiNo +"', '"+ Phone +"', '"+ Email +"', '"+ Status +"', '"+ CoID +"')";
-                    stmt.executeUpdate(sql);
-                    //hien thi thong tin trong Table
-                    showTable();
-                    //doi ten button lai thanh Add
-                    btnAdd.setText("Add");
-                    //xoa trang cac textfield
-                    clearTxt(); 
-                    //disable cac textfield
-                    manageTextField(false, false, false,false, false, false,false, false);
-
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
-        }
-    }//GEN-LAST:event_btnAddActionPerformed
-
     private void tblCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustomerMouseClicked
         // TODO add your handling code here:
         manageButton(true, true, true);
@@ -535,6 +483,9 @@ public class Theme_guest_2 extends javax.swing.JFrame {
             }
             
         }
+        
+        
+         
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -559,6 +510,15 @@ public class Theme_guest_2 extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new RegisterForm(continueAccount, objConnection, stmt).setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_btnAddActionPerformed
 
     
     /**

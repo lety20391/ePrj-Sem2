@@ -10,10 +10,7 @@ import Tuyet_Duyen.Services_2;
 import Tuyet_Duyen.Theme_guest_2;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -29,7 +26,7 @@ public class MainControlInterface extends javax.swing.JFrame {
     ResultSet rs;
     String sql;
 
-    String continueAccount, type;
+    String continueAccount, continueType;
 
     //phan dat ten cac variable cho tung Frame
     Dat_Le_2.uiHolding_2 objUIHolding;
@@ -44,51 +41,39 @@ public class MainControlInterface extends javax.swing.JFrame {
      * Creates new form MainControlInterface
      *
      * @param account
+     * @param type
      * @param connection
      * @param statement
      */
-    public MainControlInterface(String account, Connection connection, Statement statement) {
+    public MainControlInterface(String account,String type, Connection connection, Statement statement) {
         initComponents();
         conn = connection;
         stmt = statement;
-        setLocationRelativeTo(null);
         continueAccount = account;
+        continueType = type;
         txtAccount.setText(account);
         colTxtAccount.setText(account);
         guTxtAccount.setText(account);
+        setLocationRelativeTo(null);
         load();
         pack();
     }
 
     private void load() {
-        if (checkAccount().equals("ad")) {
+        if (continueType.equals("ad")) {
             jTabbedPane.remove(jPanelCol);
             jTabbedPane.remove(jPanelGuest);
         }
-        if (checkAccount().equals("co")) {
+        if (continueType.equals("co")) {
             jTabbedPane.remove(jPanelAdmin);
             jTabbedPane.remove(jPanelGuest);
         }
-        if (checkAccount().equals("gu")) {
+        if (continueType.equals("gu")) {
             jTabbedPane.remove(jPanelAdmin);
             jTabbedPane.remove(jPanelCol);
         }
     }
 
-    private String checkAccount() {
-        type = "abc";
-        sql = "select * from Account where ID = '" + continueAccount + "'";
-        try {
-            rs = stmt.executeQuery(sql);
-            rs.beforeFirst();
-            while (rs.next()) {
-                type = rs.getString("Type").trim();
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(MainControlInterface.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return type;
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -473,24 +458,23 @@ public class MainControlInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new Duy.QuanlyCTV_2(conn, stmt).setVisible(true);
+                new Duy.QuanlyCTV_2(continueAccount,continueType, conn, stmt).setVisible(true);
             }
         }
         );
+        dispose();
     }//GEN-LAST:event_btnCollaboratorActionPerformed
 
     private void btnHoldingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoldingActionPerformed
         // TODO add your handling code here:
-        SwingUtilities.invokeLater(new Runnable()
-        {
-            public void run()
-            {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
                 objUIHolding = new uiHolding_2(conn, stmt);
-                objUIHolding.setVisible(true);                
+                objUIHolding.setVisible(true);
             }
-        }        
+        }
         );
-
+        dispose();
     }//GEN-LAST:event_btnHoldingActionPerformed
 
     private void colBtnHoldingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colBtnHoldingActionPerformed
@@ -502,6 +486,7 @@ public class MainControlInterface extends javax.swing.JFrame {
             }
         }
         );
+        dispose();
     }//GEN-LAST:event_colBtnHoldingActionPerformed
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
@@ -518,6 +503,7 @@ public class MainControlInterface extends javax.swing.JFrame {
             }
         }
         );
+        dispose();
     }//GEN-LAST:event_btnServicesActionPerformed
 
     private void btnGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuestActionPerformed
@@ -525,11 +511,12 @@ public class MainControlInterface extends javax.swing.JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 //new Tuyet_Duyen.Theme_guest_2(con, stmt).setVisible(true);
-                objThemeGuest = new Theme_guest_2(conn, stmt);
+                objThemeGuest = new Theme_guest_2(continueAccount, conn, stmt);
                 objThemeGuest.setVisible(true);
             }
         }
         );
+        dispose();
     }//GEN-LAST:event_btnGuestActionPerformed
 
     /**

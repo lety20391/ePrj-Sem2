@@ -5,8 +5,7 @@
  */
 package Duy;
 
-import DatabaseConnection.DatabaseConnect;
-import DatabaseConnection.connectionContainer;
+import Nam.RegisterForm;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -14,35 +13,83 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 /**
  *
  * @author DuDu
  */
 public class QuanlyCTV_2 extends javax.swing.JFrame {
+
     Statement stmt;
     DefaultTableModel coModel;
     Vector header, row, data;
     String sql;
     ResultSet rs;
-   
+
     Connection objConnection;
-    
+
+    String continueAccount, continueType;
+
     /**
      * Creates new form QuanlyCTV
+     *
+     * @param account
+     * @param type
+     * @param objConnection
+     * @param stmt
      */
-    public QuanlyCTV_2(Connection objConnection, Statement stmt) {
+    public QuanlyCTV_2(String account, String type, Connection objConnection, Statement stmt) {
         this.objConnection = objConnection;
         this.stmt = stmt;
+        continueAccount = account;
+        continueType = type;
         initComponents();
-        //connect();
         showTable();
-        manageButton(true,true,true,true);
-        manageTextfield(false,false,false,false,false,false,false,false,false,false,false,false,false,false);
+        manageButton(true, true, true, true);
+        manageTextfield(false, false, false, false, false, false, false, false, false, false, false, false, false, false);
     }
-   
 
-    
+    public void manageButton(boolean btnAddStatus, boolean btnEditStatus, boolean btnDeleteStatus, boolean btnSearchStatus) {
+        btnAdd.setEnabled(btnAddStatus);
+        btnEdit.setEnabled(btnEditStatus);
+        btnDelete.setEnabled(btnDeleteStatus);
+        btnClose.setEnabled(btnSearchStatus);
+    }
+
+    public void manageTextfield(boolean txtIDStatus, boolean txtNameStatus, boolean txtAddressStatus, boolean txtPhoneStatus, boolean txtEmailStatus, boolean txtDOBStatus, boolean txtIDNoStatus, boolean txtImageStatus, boolean txtStatusStatus, boolean txtDepositStatus, boolean txtPassStatus, boolean txtTypeStatus, boolean txtQuesStatus, boolean txtAnsStatus) {
+        txtID.setEditable(txtIDStatus);
+        txtName.setEditable(txtNameStatus);
+        txtAddress.setEditable(txtAddressStatus);
+        txtPhone.setEditable(txtPhoneStatus);
+        txtEmail.setEditable(txtEmailStatus);
+        txtDOB.setEditable(txtDOBStatus);
+        txtIDNo.setEditable(txtIDNoStatus);
+        txtImage.setEditable(txtImageStatus);
+        txtStatus.setEditable(txtStatusStatus);
+        txtDeposit.setEditable(txtDepositStatus);
+        txtPass.setEditable(txtPassStatus);
+        txtType.setEditable(txtTypeStatus);
+        txtQues.setEditable(txtQuesStatus);
+        txtAns.setEditable(txtAnsStatus);
+    }
+
+    public void clearTxt() {
+        txtID.setText("");
+        txtName.setText("");
+        txtAddress.setText("");
+        txtPhone.setText("");
+        txtEmail.setText("");
+        txtDOB.setText("");
+        txtIDNo.setText("");
+        txtImage.setText("");
+        txtStatus.setText("");
+        txtDeposit.setText("");
+        txtPass.setText("");
+        txtType.setText("");
+        txtQues.setText("");
+        txtAns.setText("");
+
+    }
+
 //    public void connect()
 //    {
 //        
@@ -54,11 +101,9 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
 //        objConnection = connectContainer.getObjCon();
 //        stmt = connectContainer.getStatement();
 //    }
-
-    public void showTable()
-    {
+    public void showTable() {
         coModel = new DefaultTableModel();
-        
+
         header = new Vector();
         header.add("ID");
         header.add("Name");
@@ -70,21 +115,20 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
         header.add("Email");
 
         header.add("Image");
-        
+
         data = new Vector();
-        
+
         coModel.setRowCount(0);
-        
-        try {            
+
+        try {
             //select * from Services
             sql = "select * from Collaborator";
             rs = stmt.executeQuery(sql);
-            
+
             rs.beforeFirst();
-            while(rs.next())
-            {
-                row = new Vector();                
-                row.add( rs.getString("IDCo"));
+            while (rs.next()) {
+                row = new Vector();
+                row.add(rs.getString("IDCo"));
                 row.add(rs.getString("NameCo"));
                 row.add(rs.getString("AddressCo"));
                 row.add(rs.getString("DOBCo"));
@@ -94,18 +138,17 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
                 row.add(rs.getString("EmailCo"));
 
                 row.add(rs.getString("ImageCo"));
-                
-                
+
                 data.add(row);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         coModel.setDataVector(data, header);
         tblCo.setModel(coModel);
-        //tblBook.setModel(bookModel);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -491,6 +534,7 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
+        /*
         String IDCo;
         String NameCo, AddressCo, DOBCo, IDNoCo, PhoneCo, EmailCo, StatusCo, ImageCo, Pass, Type, Ques, Ans;
         String DepositCo;
@@ -539,72 +583,36 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
             manageButton(true, true, true, true);
             manageTextfield(false, false,false,false,false,false,false,false,false,false,false,false,false,false);
         }
+         */
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new RegisterForm(continueAccount, continueType, objConnection, stmt).setVisible(true);
+            }
+        });
     }//GEN-LAST:event_btnAddActionPerformed
-    public void manageButton(boolean btnAddStatus, boolean btnEditStatus, boolean btnDeleteStatus, boolean btnSearchStatus)
-    {
-        btnAdd.setEnabled(btnAddStatus);
-        btnEdit.setEnabled(btnEditStatus);
-        btnDelete.setEnabled(btnDeleteStatus);
-        btnClose.setEnabled(btnSearchStatus);
-    }
-    public void manageTextfield (boolean txtIDStatus, boolean txtNameStatus, boolean txtAddressStatus, boolean txtPhoneStatus, boolean txtEmailStatus, boolean txtDOBStatus, boolean txtIDNoStatus, boolean txtImageStatus, boolean txtStatusStatus, boolean txtDepositStatus, boolean txtPassStatus, boolean txtTypeStatus, boolean txtQuesStatus, boolean txtAnsStatus)
-    {
-        txtID.setEditable(txtIDStatus);
-        txtName.setEditable(txtNameStatus);
-        txtAddress.setEditable(txtAddressStatus);
-        txtPhone.setEditable(txtPhoneStatus);
-        txtEmail.setEditable(txtEmailStatus);
-        txtDOB.setEditable(txtDOBStatus);
-        txtIDNo.setEditable(txtIDNoStatus);
-        txtImage.setEditable(txtImageStatus);
-        txtStatus.setEditable(txtStatusStatus);
-        txtDeposit.setEditable(txtDepositStatus);
-        txtPass.setEditable(txtPassStatus);
-        txtType.setEditable(txtTypeStatus);
-        txtQues.setEditable(txtQuesStatus);
-        txtAns.setEditable(txtAnsStatus);                
-    }
-    public void clearTxt()
-    {
-        txtID.setText("");
-        txtName.setText("");
-        txtAddress.setText("");
-        txtPhone.setText("");
-        txtEmail.setText("");
-        txtDOB.setText("");
-        txtIDNo.setText("");
-        txtImage.setText("");
-        txtStatus.setText("");
-        txtDeposit.setText("");
-        txtPass.setText("");
-        txtType.setText("");
-        txtQues.setText("");
-        txtAns.setText("");
-        
-    }
+
     private void tblCoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCoMouseClicked
         // TODO add your handling code here:
-        
+
         int row;
         String IDCo;
         String NameCo, AddressCo, DOBCo, IDNoCo, PhoneCo, EmailCo, StatusCo, ImageCo;
         Double DepositCo;
-        
-        
-        
+
         row = tblCo.getSelectedRow();
-        
-        IDCo = (String) tblCo.getValueAt(row, 0);       
-        NameCo = (String)tblCo.getValueAt(row, 1);
-        AddressCo = (String)tblCo.getValueAt(row, 2);
-        DOBCo = (String)tblCo.getValueAt(row, 3);
-        IDNoCo = (String)tblCo.getValueAt(row, 4);
-        DepositCo = (Double)tblCo.getValueAt(row, 5);
-        PhoneCo = (String)tblCo.getValueAt(row, 6);
-        EmailCo = (String)tblCo.getValueAt(row, 7);
-        StatusCo = (String)tblCo.getValueAt(row, 8);
-        ImageCo = (String)tblCo.getValueAt(row, 9);        
-        
+
+        IDCo = (String) tblCo.getValueAt(row, 0);
+        NameCo = (String) tblCo.getValueAt(row, 1);
+        AddressCo = (String) tblCo.getValueAt(row, 2);
+        DOBCo = (String) tblCo.getValueAt(row, 3);
+        IDNoCo = (String) tblCo.getValueAt(row, 4);
+        DepositCo = (Double) tblCo.getValueAt(row, 5);
+        PhoneCo = (String) tblCo.getValueAt(row, 6);
+        EmailCo = (String) tblCo.getValueAt(row, 7);
+        StatusCo = (String) tblCo.getValueAt(row, 8);
+        ImageCo = (String) tblCo.getValueAt(row, 9);
+
         txtID.setText(IDCo);
         txtName.setText(NameCo);
         txtAddress.setText(AddressCo);
@@ -619,35 +627,32 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
     }//GEN-LAST:event_tblCoMouseClicked
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-    
+
         String labelBtn = btnEdit.getText();
-        if( labelBtn.equalsIgnoreCase("Edit"))
-        {
+        if (labelBtn.equalsIgnoreCase("Edit")) {
             btnEdit.setText("Save");
-            manageTextfield(false,true,true,true,true,true,true,true,true,true,true,true,true,true);
-            manageButton(false,true,false,false);
-        }
-        else
-        {
+            manageTextfield(false, true, true, true, true, true, true, true, true, true, true, true, true, true);
+            manageButton(false, true, false, false);
+        } else {
             String ID = txtID.getText();
             String Name = txtName.getText();
             String Address = txtAddress.getText();
-            String Phone =   txtPhone.getText();
-            String Email =   txtEmail.getText();
-            String DOB =   txtDOB.getText();
-            String IDNo =    txtIDNo.getText();
-            String Image =   txtImage.getText();
-            String Status =  txtStatus.getText();
-            String Deposit =    txtDeposit.getText();
+            String Phone = txtPhone.getText();
+            String Email = txtEmail.getText();
+            String DOB = txtDOB.getText();
+            String IDNo = txtIDNo.getText();
+            String Image = txtImage.getText();
+            String Status = txtStatus.getText();
+            String Deposit = txtDeposit.getText();
 
             try {
                 //update Guest set  NameSer = 'Ban nha', Price = 100 where IDSer = 'S06'
-                    sql = "update Collaborator set  NameCo = '"+Name+"', AddressCo = '"+Address+"', PhoneCo = '"+Phone+"',EmailCo = '"+Email+"', DOBCo = '"+DOB+"', IdentificationNumberCo = '"+IDNo+"', ImageCo = '"+Image+"', StatusCo = '"+Status+"', DepositCo = '"+Deposit+"' where IDCo = '"+ID+"'";
-                    stmt.executeUpdate(sql);
-                    btnEdit.setText("Edit");
-                    clearTxt();
-                    manageButton(true,true,true,true);
-                    showTable();
+                sql = "update Collaborator set  NameCo = '" + Name + "', AddressCo = '" + Address + "', PhoneCo = '" + Phone + "',EmailCo = '" + Email + "', DOBCo = '" + DOB + "', IdentificationNumberCo = '" + IDNo + "', ImageCo = '" + Image + "', StatusCo = '" + Status + "', DepositCo = '" + Deposit + "' where IDCo = '" + ID + "'";
+                stmt.executeUpdate(sql);
+                btnEdit.setText("Edit");
+                clearTxt();
+                manageButton(true, true, true, true);
+                showTable();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -657,8 +662,7 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         try {
             int check = JOptionPane.showConfirmDialog(this, "You want to delete,sure?");
-            if (check == JOptionPane.OK_OPTION)
-            {
+            if (check == JOptionPane.OK_OPTION) {
                 String ID = txtID.getText();
                 //cau lenh SQL mau da kiem tra thu tren SQl
                 //delete from Guest where IDGu = 'S06'
@@ -668,7 +672,7 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
                 showTable();
                 //xoa cac textField
                 clearTxt();
-            }else{
+            } else {
                 return;
             }
         } catch (Exception e) {
@@ -714,7 +718,6 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
 //                new QuanlyCTV_2().setVisible(true);
 //            }
 //        });
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
