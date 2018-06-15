@@ -7,6 +7,9 @@ package Nam;
 
 import java.awt.Image;
 import java.io.File;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -17,12 +20,27 @@ import javax.swing.JOptionPane;
  * @author Namcham
  */
 public class RegisterForm extends javax.swing.JFrame {
+    
+    Connection conn;
+    Statement stmt;
+    ResultSet rs;
+    String sql;
+
+    String continueAccount, continueType;
 
     /**
      * Creates new form RegisterForm
+     * @param account
+     * @param type
+     * @param statement
+     * @param connection
      */
-    public RegisterForm() {
+    public RegisterForm(String account, String type, Connection connection, Statement statement) {
         initComponents();
+        continueAccount = account;
+        continueType = type;
+        conn = connection;
+        stmt = statement;
         this.setLocationRelativeTo(null);
         txtPathImageCo.setEditable(false);
         txtPathImageGU.setEditable(false);
@@ -32,7 +50,7 @@ public class RegisterForm extends javax.swing.JFrame {
         txtAddressCo.setText("");
         txtIDCo.setText("");
         txtNameCo.setText("");
-        txtDOBCo.setText("");
+        dateChooserDOBCo.setDate(null);
         txtDepositCo.setText("");
         txtEmailCo.setText("");
         txtGradeCo.setText("");
@@ -52,7 +70,104 @@ public class RegisterForm extends javax.swing.JFrame {
         txtBelongCoGU.setText("");
         txtPathImageGU.setText("");
     }
-
+    
+    private void load() {
+        if (continueType.equals("co")) {
+            jTabblePane.remove(pnelCol);
+        }
+    }
+    
+    private void checkBlankCo(){
+        if (txtIDCo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "ID cannot be blank. Re-Enter.");
+            txtIDCo.grabFocus();
+            return ;
+        }
+        if (txtPhoneCo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Phone cannot be blank. Re-Enter.");
+            txtPhoneCo.grabFocus();
+            return ;
+        }
+        if (txtNameCo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Name cannot be blank. Re-Enter.");
+            txtNameCo.grabFocus();
+            return ;
+        }
+        if (txtEmailCo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Email cannot be blank. Re-Enter.");
+            txtEmailCo.grabFocus();
+            return ;
+        }
+        if (txtIdentifyCo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Identified number cannot be blank. Re-Enter.");
+            txtIdentifyCo.grabFocus();
+            return ;
+        }
+        if (txtGradeCo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Grade cannot be blank. Re-Enter.");
+            txtGradeCo.grabFocus();
+            return ;
+        }
+        if (dateChooserDOBCo.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "DOB cannot be blank. Re-Enter.");
+            dateChooserDOBCo.grabFocus();
+            return ;
+        }
+        if (txtDepositCo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Deposit cannot be blank. Re-Enter.");
+            txtDepositCo.grabFocus();
+            return ;
+        }
+        if (txtAddressCo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Address cannot be blank. Re-Enter.");
+            txtAddressCo.grabFocus();
+            return ;
+        }
+    }
+    
+    private void checkBlankGu(){
+        if (txtIDGU.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "ID cannot be blank. Re-Enter.");
+            txtIDGU.grabFocus();
+            return ;
+        }
+        if (txtNameGU.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Name cannot be blank. Re-Enter.");
+            txtNameGU.grabFocus();
+            return ;
+        }
+        if (txtDOBGU.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "DOB cannot be blank. Re-Enter.");
+            txtDOBGU.grabFocus();
+            return ;
+        }
+        if (txtIdentifyGU.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Identified number cannot be blank. Re-Enter.");
+            txtIdentifyGU.grabFocus();
+            return ;
+        }
+        if (txtPhoneGU.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Phone cannot be blank. Re-Enter.");
+            txtPhoneGU.grabFocus();
+            return ;
+        }
+        if (txtEmailGU.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Email cannot be blank. Re-Enter.");
+            txtEmailGU.grabFocus();
+            return ;
+        }
+        if (txtStatusGU.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Status cannot be blank. Re-Enter.");
+            txtStatusGU.grabFocus();
+            return ;
+        }
+        if (txtBelongCoGU.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Belonging to Collaborator cannot be blank. Re-Enter.");
+            txtBelongCoGU.grabFocus();
+            return ;
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -77,7 +192,6 @@ public class RegisterForm extends javax.swing.JFrame {
         txtIDCo = new javax.swing.JTextField();
         txtNameCo = new javax.swing.JTextField();
         txtIdentifyCo = new javax.swing.JTextField();
-        txtDOBCo = new javax.swing.JTextField();
         lbPhoneCo = new javax.swing.JLabel();
         txtPhoneCo = new javax.swing.JTextField();
         lbEmailCo = new javax.swing.JLabel();
@@ -93,6 +207,7 @@ public class RegisterForm extends javax.swing.JFrame {
         btnCreateCo = new javax.swing.JButton();
         btnResetCo = new javax.swing.JButton();
         btnBackCo = new javax.swing.JButton();
+        dateChooserDOBCo = new com.toedter.calendar.JDateChooser();
         pnelGuest = new javax.swing.JPanel();
         lbAttachImageGuest = new javax.swing.JLabel();
         lbIDGU = new javax.swing.JLabel();
@@ -219,10 +334,6 @@ public class RegisterForm extends javax.swing.JFrame {
         txtIdentifyCo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtIdentifyCo.setForeground(new java.awt.Color(255, 255, 255));
 
-        txtDOBCo.setBackground(new java.awt.Color(153, 153, 153));
-        txtDOBCo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txtDOBCo.setForeground(new java.awt.Color(255, 255, 255));
-
         lbPhoneCo.setBackground(new java.awt.Color(153, 153, 153));
         lbPhoneCo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lbPhoneCo.setForeground(new java.awt.Color(255, 255, 255));
@@ -285,6 +396,11 @@ public class RegisterForm extends javax.swing.JFrame {
         btnCreateCo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnCreateCo.setForeground(new java.awt.Color(255, 255, 255));
         btnCreateCo.setText("Create");
+        btnCreateCo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateCoActionPerformed(evt);
+            }
+        });
 
         btnResetCo.setBackground(new java.awt.Color(255, 51, 51));
         btnResetCo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -314,7 +430,7 @@ public class RegisterForm extends javax.swing.JFrame {
                                 .addGroup(pnelColLayout.createSequentialGroup()
                                     .addComponent(lbDOBCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtDOBCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(dateChooserDOBCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
                                     .addComponent(lbDepositCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
@@ -394,12 +510,12 @@ public class RegisterForm extends javax.swing.JFrame {
                         .addComponent(lbGradeCo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtGradeCo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbDOBCo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lbDOBCo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtDOBCo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lbDepositCo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtDepositCo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtDepositCo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dateChooserDOBCo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pnelColLayout.createSequentialGroup()
@@ -419,7 +535,7 @@ public class RegisterForm extends javax.swing.JFrame {
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
-        pnelColLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lbIDCo, txtDOBCo, txtDepositCo, txtEmailCo, txtGradeCo, txtIDCo, txtIdentifyCo, txtNameCo, txtPhoneCo});
+        pnelColLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lbIDCo, txtDepositCo, txtEmailCo, txtGradeCo, txtIDCo, txtIdentifyCo, txtNameCo, txtPhoneCo});
 
         jTabblePane.addTab("Collaborators", pnelCol);
 
@@ -713,40 +829,50 @@ public class RegisterForm extends javax.swing.JFrame {
         lbAttachImageGuest.setIcon(new ImageIcon(image));
     }//GEN-LAST:event_btnAttachGUActionPerformed
 
+    private void btnCreateCoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateCoActionPerformed
+        // TODO add your handling code here:
+        checkBlankCo();
+        if (!txtIDCo.getText().matches("^Co[0-9]{1,3}$")) {
+            JOptionPane.showMessageDialog(this, "ID format is Co[xxx] with xxx is 1-3 digits");
+            txtIDCo.setText("");
+            txtIDCo.grabFocus();
+        }
+    }//GEN-LAST:event_btnCreateCoActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegisterForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegisterForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegisterForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegisterForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RegisterForm().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(RegisterForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(RegisterForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(RegisterForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(RegisterForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new RegisterForm().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAttachCo;
@@ -757,6 +883,7 @@ public class RegisterForm extends javax.swing.JFrame {
     private javax.swing.JButton btnCreateGU;
     private javax.swing.JButton btnResetCo;
     private javax.swing.JButton btnResetGU;
+    private com.toedter.calendar.JDateChooser dateChooserDOBCo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JTabbedPane jTabblePane;
@@ -786,7 +913,6 @@ public class RegisterForm extends javax.swing.JFrame {
     private javax.swing.JPanel pnelGuest;
     private javax.swing.JTextArea txtAddressCo;
     private javax.swing.JTextField txtBelongCoGU;
-    private javax.swing.JTextField txtDOBCo;
     private javax.swing.JTextField txtDOBGU;
     private javax.swing.JTextField txtDepositCo;
     private javax.swing.JTextField txtEmailCo;

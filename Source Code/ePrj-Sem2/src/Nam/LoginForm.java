@@ -29,6 +29,7 @@ public class LoginForm extends javax.swing.JFrame {
     ArrayList<String> listID;
     String password;
     int active;
+    String type;
 
     MainControlInterface mcf;
     ForgotPassword fgp;
@@ -76,6 +77,22 @@ public class LoginForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+
+    private String checkAccount() {
+        type = "abc";
+        sql = "select * from Account where ID = '" + txtUsername.getText() + "'";
+        try {
+            rs = stmt.executeQuery(sql);
+            rs.beforeFirst();
+            while (rs.next()) {
+                type = rs.getString("Type").trim();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainControlInterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return type;
     }
 
     private void textReset() {
@@ -344,7 +361,7 @@ public class LoginForm extends javax.swing.JFrame {
         if (check == true && active == 1) {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    mcf = new MainControlInterface(txtUsername.getText(), conn, stmt);
+                    mcf = new MainControlInterface(txtUsername.getText(),checkAccount(), conn, stmt);
                     mcf.setVisible(true);
                 }
             }
