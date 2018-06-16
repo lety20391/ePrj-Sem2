@@ -463,8 +463,8 @@ public class QLCH1 extends javax.swing.JFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-        UpdateApartment objUA = new UpdateApartment();
-        objUA.setVisible(true);
+//        UpdateApartment objUA = new UpdateApartment();
+//        objUA.setVisible(true);
         
         String labelBtn = btnUpdate.getText();
         if( labelBtn.equalsIgnoreCase("Update"))
