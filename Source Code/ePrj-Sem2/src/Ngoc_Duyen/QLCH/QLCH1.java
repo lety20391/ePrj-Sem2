@@ -29,21 +29,36 @@ public class QLCH1 extends javax.swing.JFrame {
     Connection con ;
     public QLCH1() {
         initComponents();
-        initComponents();
         connectSQL();
         showTable();
         manageButton(true,false,false);
         manageTextField(false, false, false, false, false, false, false, false);
         this.setTitle("Apartment Management");
     }
+    
     public void connectSQL()
+    {
+//        Connection con;
+//        Statement stmt;
+//        
+//        DatabaseConnect objDBConnect;
+//        objDBConnect = new DatabaseConnect();
+//        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "123456789", "1433");
+//        
+//        con = connectContainer.getObjCon();
+//        stmt = connectContainer.getStatement();
+//        
+//    
+//        objDBConnect.ListTable();
+//        objDBConnect.Close();
+        
         {
             try {
                 con = DBConnection.getDBConnection(DBConnection.database,DBConnection.account,DBConnection.password);
             } catch (Exception e) {
                 e.printStackTrace();
             }        
-    }
+    }}
     public void showTable()
     {
          ApartModel = new DefaultTableModel();
@@ -498,6 +513,20 @@ public class QLCH1 extends javax.swing.JFrame {
         txtIDSup.setText(IDSupApa);
     }   
     public static void main(String args[]) {
+//        Connection con;
+//        Statement stmt;
+//        
+//        DatabaseConnect objDBConnect;
+//        objDBConnect = new DatabaseConnect();
+//        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "123456789", "1433");
+//        
+//        con = connectContainer.getObjCon();
+//        stmt = connectContainer.getStatement();
+//        
+//  
+//        objDBConnect.ListTable();
+//        objDBConnect.Close();
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
