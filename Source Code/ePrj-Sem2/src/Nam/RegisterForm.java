@@ -6,6 +6,7 @@
 package Nam;
 
 import Duy.QuanlyCTV_2;
+import Library.G2FileBrowserExtend;
 import java.awt.Image;
 import java.io.File;
 import java.sql.Connection;
@@ -21,6 +22,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -894,13 +896,55 @@ public class RegisterForm extends javax.swing.JFrame {
 
     private void btnAttachCoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAttachCoActionPerformed
         // TODO add your handling code here:
-        JFileChooser chooser = new JFileChooser();
-        chooser.showOpenDialog(null);
-        File file = chooser.getSelectedFile();
-        String fileName = file.getAbsolutePath();
+        String fileName="";
+//        JFileChooser chooser = new JFileChooser();
+//        chooser.showOpenDialog(null);
+//        File file = chooser.getSelectedFile();
+
+        //-----------------------------------
+        //Gọi G2FileBrowserExtend để load ảnh
+        //-----------------------------------
+        //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+        G2FileBrowserExtend objFileChooser = new G2FileBrowserExtend();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+            "JPG & PNG Images", "jpg", "png");
+        objFileChooser.setFileFilter(filter);
+        int returnVal = objFileChooser.showOpenDialog(null);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+           fileName = objFileChooser.getSelectedFile().getPath();
+        }
+        
+        //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        //-----------------------------------
+        //Gọi G2FileBrowserExtend để load ảnh
+        //-----------------------------------
+        //String fileName = file.getAbsolutePath();
+        if(fileName.isEmpty())
+            return;
         txtPathImageCo.setText(fileName);
         ImageIcon icon = new ImageIcon(fileName);
-        Image image = icon.getImage().getScaledInstance(lbImageCo.getWidth(), lbImageCo.getHeight(), Image.SCALE_SMOOTH);
+//        Image image = icon.getImage().getScaledInstance(lbImageCo.getWidth(), lbImageCo.getHeight(), Image.SCALE_SMOOTH);
+        
+        //tui set lại tỉ lệ hình cho phù hợp
+        //__________________________________
+        //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+        int width = lbImageCo.getWidth();
+        int height = lbImageCo.getHeight();
+        int icoWidth = icon.getIconWidth();
+        int icoHeight = icon.getIconHeight();
+        Image image;
+        if (icoWidth/icoHeight > width/height)
+        {
+            image = icon.getImage().getScaledInstance(width, icoHeight*width/icoWidth, Image.SCALE_SMOOTH);    
+        }else
+        {
+            image = icon.getImage().getScaledInstance(icoWidth*height/icoHeight, height, Image.SCALE_SMOOTH);
+        }
+        //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        //-----------------------------
+        //tui set lại tỉ lệ hình cho phù hợp
+        //--------------------------------
+        
         lbImageCo.setIcon(new ImageIcon(image));
     }//GEN-LAST:event_btnAttachCoActionPerformed
 
