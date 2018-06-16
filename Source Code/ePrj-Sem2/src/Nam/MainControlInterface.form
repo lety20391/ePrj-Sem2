@@ -228,6 +228,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Notification"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNotificationActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txtAccount">
               <Properties>
@@ -454,6 +457,9 @@
                   <Font name="Tahoma" size="18" style="1"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="colTxtAccountMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="colBtnDiscount">
               <Properties>

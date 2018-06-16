@@ -8,11 +8,14 @@ package Nam;
 import Dat_Le_2.uiHolding_2;
 import Tuyet_Duyen.Services_2;
 import Tuyet_Duyen.Theme_guest_2;
+import java.awt.Point;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Date;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
@@ -36,7 +39,8 @@ public class MainControlInterface extends javax.swing.JFrame {
     Duy.QuanlyOwner_2 objOwner;
     Tuyet_Duyen.Services_2 objService;
     Tuyet_Duyen.Theme_guest_2 objThemeGuest;
-    
+    Account accDialog;
+    NotificationAdmin notiAd;
 
     /**
      * Creates new form MainControlInterface
@@ -46,7 +50,7 @@ public class MainControlInterface extends javax.swing.JFrame {
      * @param connection
      * @param statement
      */
-    public MainControlInterface(String account,String type, Connection connection, Statement statement) {
+    public MainControlInterface(String account, String type, Connection connection, Statement statement) {
         initComponents();
         conn = connection;
         stmt = statement;
@@ -74,7 +78,6 @@ public class MainControlInterface extends javax.swing.JFrame {
             jTabbedPane.remove(jPanelCol);
         }
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -112,6 +115,7 @@ public class MainControlInterface extends javax.swing.JFrame {
         guBtnDiscount = new javax.swing.JButton();
         guBtnNotification = new javax.swing.JButton();
         guBtnViewAllRoom = new javax.swing.JButton();
+        guBtnFeedback = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -176,6 +180,11 @@ public class MainControlInterface extends javax.swing.JFrame {
         btnNotification.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         btnNotification.setForeground(new java.awt.Color(255, 255, 255));
         btnNotification.setText("Notification");
+        btnNotification.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNotificationActionPerformed(evt);
+            }
+        });
 
         txtAccount.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
@@ -313,6 +322,11 @@ public class MainControlInterface extends javax.swing.JFrame {
         colBtnGuest.setText("Guest");
 
         colTxtAccount.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        colTxtAccount.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                colTxtAccountMouseClicked(evt);
+            }
+        });
 
         colBtnDiscount.setBackground(new java.awt.Color(51, 255, 51));
         colBtnDiscount.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
@@ -328,6 +342,11 @@ public class MainControlInterface extends javax.swing.JFrame {
         colBtnCreate.setFont(new java.awt.Font("Tahoma", 1, 33)); // NOI18N
         colBtnCreate.setForeground(new java.awt.Color(255, 255, 255));
         colBtnCreate.setText("Create new Account");
+        colBtnCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colBtnCreateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelColLayout = new javax.swing.GroupLayout(jPanelCol);
         jPanelCol.setLayout(jPanelColLayout);
@@ -387,10 +406,15 @@ public class MainControlInterface extends javax.swing.JFrame {
         guBtnNotification.setForeground(new java.awt.Color(255, 255, 255));
         guBtnNotification.setText("Notification");
 
-        guBtnViewAllRoom.setBackground(new java.awt.Color(255, 51, 102));
+        guBtnViewAllRoom.setBackground(new java.awt.Color(51, 102, 255));
         guBtnViewAllRoom.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         guBtnViewAllRoom.setForeground(new java.awt.Color(255, 255, 255));
         guBtnViewAllRoom.setText("View all apartment");
+
+        guBtnFeedback.setBackground(new java.awt.Color(0, 204, 204));
+        guBtnFeedback.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        guBtnFeedback.setForeground(new java.awt.Color(255, 255, 255));
+        guBtnFeedback.setText("Feedback");
 
         javax.swing.GroupLayout jPanelGuestLayout = new javax.swing.GroupLayout(jPanelGuest);
         jPanelGuest.setLayout(jPanelGuestLayout);
@@ -398,16 +422,18 @@ public class MainControlInterface extends javax.swing.JFrame {
             jPanelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelGuestLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(guBtnDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(guBtnNotification, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(guTxtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(guBtnFeedback, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanelGuestLayout.createSequentialGroup()
+                        .addGroup(jPanelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(guBtnViewAllRoom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanelGuestLayout.createSequentialGroup()
+                                .addComponent(guBtnDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(guBtnNotification, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(guTxtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(jPanelGuestLayout.createSequentialGroup()
-                .addGap(105, 105, 105)
-                .addComponent(guBtnViewAllRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelGuestLayout.setVerticalGroup(
             jPanelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -418,9 +444,11 @@ public class MainControlInterface extends javax.swing.JFrame {
                         .addComponent(guBtnDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(guBtnNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(guTxtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(guBtnViewAllRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(143, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(guBtnFeedback, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jTabbedPane.addTab("Guest", jPanelGuest);
@@ -459,7 +487,7 @@ public class MainControlInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new Duy.QuanlyCTV_2(continueAccount,continueType, conn, stmt).setVisible(true);
+                new Duy.QuanlyCTV_2(continueAccount, continueType, conn, stmt).setVisible(true);
             }
         }
         );
@@ -470,7 +498,7 @@ public class MainControlInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                objUIHolding = new uiHolding_2(continueAccount, continueType,conn, stmt);
+                objUIHolding = new uiHolding_2(continueAccount, continueType, conn, stmt);
                 objUIHolding.setVisible(true);
             }
         }
@@ -492,6 +520,7 @@ public class MainControlInterface extends javax.swing.JFrame {
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnServicesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServicesActionPerformed
@@ -499,7 +528,7 @@ public class MainControlInterface extends javax.swing.JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 //new Tuyet_Duyen.Services_2(con, stmt).setVisible(true);
-                objService = new Services_2(continueAccount, continueType,conn, stmt);
+                objService = new Services_2(continueAccount, continueType, conn, stmt);
                 objService.setVisible(true);
             }
         }
@@ -519,6 +548,46 @@ public class MainControlInterface extends javax.swing.JFrame {
         );
         dispose();
     }//GEN-LAST:event_btnGuestActionPerformed
+
+    private void colTxtAccountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_colTxtAccountMouseClicked
+        // TODO add your handling code here:
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                accDialog = new Account(new javax.swing.JFrame(), true, continueAccount, continueType, conn, stmt);
+                accDialog.setVisible(true);
+                accDialog.getContentPane().add(new JLabel(new Date().toString()));
+                accDialog.pack();
+                Point point = colTxtAccount.getLocationOnScreen();
+                accDialog.setLocation(new Point(point.x, point.y + colTxtAccount.getHeight()));
+                accDialog.setVisible(true);
+                accDialog.setSize(colTxtAccount.getWidth(), 222);
+            }
+        });
+    }//GEN-LAST:event_colTxtAccountMouseClicked
+
+    private void colBtnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colBtnCreateActionPerformed
+        // TODO add your handling code here:
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new RegisterForm(continueAccount, continueType, conn, stmt, "main").setVisible(true);
+            }
+        }
+        );
+        dispose();
+    }//GEN-LAST:event_colBtnCreateActionPerformed
+
+    private void btnNotificationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNotificationActionPerformed
+        // TODO add your handling code here:
+        notiAd = new NotificationAdmin(this, true, continueAccount, continueType, conn, stmt);
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                notiAd.show();
+            }
+        }        
+        );
+    }//GEN-LAST:event_btnNotificationActionPerformed
 
     /**
      * @param args the command line arguments
@@ -571,6 +640,7 @@ public class MainControlInterface extends javax.swing.JFrame {
     private javax.swing.JButton colLbNotification;
     private javax.swing.JTextField colTxtAccount;
     private javax.swing.JButton guBtnDiscount;
+    private javax.swing.JButton guBtnFeedback;
     private javax.swing.JButton guBtnNotification;
     private javax.swing.JButton guBtnViewAllRoom;
     private javax.swing.JTextField guTxtAccount;
