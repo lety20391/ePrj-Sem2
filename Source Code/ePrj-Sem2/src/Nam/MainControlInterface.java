@@ -8,6 +8,7 @@ package Nam;
 import Dat_Le_2.uiHolding_2;
 import Tuyet_Duyen.Services_2;
 import Tuyet_Duyen.Theme_guest_2;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -35,7 +36,7 @@ public class MainControlInterface extends javax.swing.JFrame {
     Duy.QuanlyOwner_2 objOwner;
     Tuyet_Duyen.Services_2 objService;
     Tuyet_Duyen.Theme_guest_2 objThemeGuest;
-    Ngoc_Duyen.Form1 objForm1;
+    
 
     /**
      * Creates new form MainControlInterface

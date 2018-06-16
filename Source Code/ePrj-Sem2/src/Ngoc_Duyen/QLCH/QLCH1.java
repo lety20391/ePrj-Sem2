@@ -31,24 +31,22 @@ public class QLCH1 extends javax.swing.JFrame {
         this.con = con;
         this.stmt = stmt;
         initComponents();
-<<<<<<< HEAD
+
         connectSQL();
         //connectSQL();
-=======
+
 
         //connectSQL();
 
->>>>>>> 370b44fd891fe2c0028a15e0cdc5f51368f2db7a
+
         showTable();
         manageButton(true,false,false);
         manageTextField(false, false, false, false, false, false, false, false);
         this.setTitle("Apartment Management");
     }
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> 370b44fd891fe2c0028a15e0cdc5f51368f2db7a
+    
+
     public void connectSQL()
     {
         Connection con;
@@ -81,10 +79,7 @@ public class QLCH1 extends javax.swing.JFrame {
 //                e.printStackTrace();
 //            }        
 //    }
-<<<<<<< HEAD
-=======
 
->>>>>>> 370b44fd891fe2c0028a15e0cdc5f51368f2db7a
     public void showTable()
     {
 //         ApartModel = new DefaultTableModel();

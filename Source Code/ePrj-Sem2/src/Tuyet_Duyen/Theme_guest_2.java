@@ -1,14 +1,11 @@
-﻿/*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package Tuyet_Duyen;
 
-
-import Library.DateChooser;
 import Library.G2FileBrowserExtend;
-
 import Library.G2Panel;
 import Library.G2TextField;
 import java.sql.Connection;
@@ -19,13 +16,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Nam.RegisterForm;
 import java.awt.Component;
-
-import javax.swing.SwingUtilities;
-
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.TableModel;
-
 
 /**
  *
@@ -42,18 +35,10 @@ public class Theme_guest_2 extends javax.swing.JFrame {
     ResultSet rs;
     Statement stmt;
     Connection objConnection;
-
-
-
-    DateChooser objDateChooser;
-    
-
-
     
     String IDGu;
     String NameGu,DOBGu,IdentificationNumberGu,PhoneGu,EmailGu,ImageGu,StatusGu,IDCo;
     
-
     /**/
     String continueAccount;
     public Theme_guest_2(String account, String type, Connection objConnection, Statement stmt) {
@@ -64,15 +49,11 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         pButton.attachButtonAndSetMainRight(pButton, type);
         attachRegexAndErrorInform(pGuest);
         //connectSQL();
-        //initDateChooser();
         showTable();
         //modifyTable();
         //manageButton(true,false,false);
         manageTextField(false, false, false,false, false, false,false, false);
     }
-
-
-
     
     //---------------------------------------------
     //Phần này dùng để bỏ bớt mấy cột không cần thiết trong bảng đi
@@ -93,7 +74,6 @@ public class Theme_guest_2 extends javax.swing.JFrame {
     //dữ liệu của Table vẫn được lưu trong modal
     //cột loại bỏ chỉ là view
     //----------------------------------------------
-
     
     //-------------------------------------------------------
     //cái này dùng để lấy giá trị (gồm Pattern và Thông báo lỗi)
@@ -163,7 +143,6 @@ public class Theme_guest_2 extends javax.swing.JFrame {
     //có bị lỗi gì không dựa trên các Pattern mình nhập ở Design
     //--------------------------------------------------------
     
-
     //------------------------------------------------------
     //tui tạo lại method mới để connect nên tui ẩn cái này đi
     //------------------------------------------------------
@@ -283,24 +262,6 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         txtStatus.setText("");
         txtCoID.setText("");
     }
-
-
-
-    public void initDateChooser()
-    {
-        objDateChooser = new DateChooser(this, true);
-        SwingUtilities.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-                objDateChooser.showGUI();
-            }
-        }        
-        );
-        
-    }
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -337,17 +298,11 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         txtCoID = new Library.G2TextField();
         jLabel1 = new javax.swing.JLabel();
-
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("GUESTs");
-
         pGuestImage = new Library.G2ImagePanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("GUESTs");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(153, 0, 51));
@@ -470,78 +425,11 @@ public class Theme_guest_2 extends javax.swing.JFrame {
 
         jLabel3.setText("Name");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        tblCustomer.setBackground(new java.awt.Color(255, 204, 255));
-        tblCustomer.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        tblCustomer.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "ID", "Name", "Status", "Collaborator ID"
-            }
-        ));
-        tblCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblCustomerMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblCustomer);
-
-        jLabel10.setText("Customer List");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(71, Short.MAX_VALUE))
-        );
-
-        pGuest.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel2.setText("ID");
-
-        txtID.setText("^(Gu)\\d+errGuxx with x is number");
-        txtID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIDActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setText("Name");
-
-
         txtName.setText("\\w+(.)*\\w*errnormal paragraph");
 
         jLabel4.setText("Birthday");
 
         txtBirth.setText("^\\d{4}(-)\\d{2}(-)\\d{2}erryyyy-MM-dd");
-
-        txtBirth.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtBirthMouseClicked(evt);
-            }
-        });
-
-
 
         jLabel5.setText("Identi No");
 
@@ -599,11 +487,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         pGuestLayout.setVerticalGroup(
             pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pGuestLayout.createSequentialGroup()
-
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-
                 .addContainerGap(22, Short.MAX_VALUE)
-
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -638,48 +522,6 @@ public class Theme_guest_2 extends javax.swing.JFrame {
                     .addComponent(txtCoID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addGap(61, 61, 61))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(pGuest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 14, Short.MAX_VALUE)
-                .addComponent(jLabel11)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(pButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(pGuest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22))
-
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCoID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addGap(61, 61, 61))
-
         );
 
         getContentPane().add(pGuest, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
@@ -752,21 +594,12 @@ public class Theme_guest_2 extends javax.swing.JFrame {
             manageTextField(false, true, true,true,true,true,true,true);
             //dat lai trang thai cac Button
             manageButton(false, true, false);
-
-
-        } else {
-            //kiem tra cac textField co thoa man khong
-
-
         }else
         {
             //kiem tra cac textField co thoa man khong 
             //nếu có lỗi thì thoát ra khỏi lệnh update
             if(validateAllTextField(pGuest))
                 return;
-
-
-
             String ID = txtID.getText();
             String Name = txtName.getText();
             String DOB = txtBirth.getText();
@@ -835,16 +668,6 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_btnAddActionPerformed
 
-
-    private void txtBirthMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBirthMouseClicked
-        // TODO add your handling code here:
-        initDateChooser();
-        objDateChooser.addListener(txtBirth);
-        objDateChooser.setVisible(true);
-    }//GEN-LAST:event_txtBirthMouseClicked
-
-    
-
     private void pGuestImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pGuestImageMouseClicked
         // TODO add your handling code here:
         G2FileBrowserExtend objFileChooser = new G2FileBrowserExtend();
@@ -859,7 +682,6 @@ public class Theme_guest_2 extends javax.swing.JFrame {
     }//GEN-LAST:event_pGuestImageMouseClicked
 
     
-
     /**
      * @param args the command line arguments
      */
@@ -921,7 +743,6 @@ public class Theme_guest_2 extends javax.swing.JFrame {
     private javax.swing.JPanel pGuest;
     */
     private Library.G2Panel pGuest;
-
     /*
     private javax.swing.JPanel pGuestImage;
     */
