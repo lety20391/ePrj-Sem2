@@ -50,7 +50,7 @@ public class G2ImagePanel extends JPanel{
                 int height = objBufImg.getHeight();
                 if (objBufImg != null)
                     //nếu hình có kích thước lớn về chiều dài thì scale theo chiều dài
-                    if (width/height < (3/4))
+                    if (width/height <= panelWidth/panelHeight)
                     {
                     objResizedIamge = objBufImg.getScaledInstance(width*panelHeight/height, panelHeight, Image.SCALE_SMOOTH);
                     }else

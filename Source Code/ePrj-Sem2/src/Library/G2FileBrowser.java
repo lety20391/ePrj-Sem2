@@ -30,7 +30,7 @@ public class G2FileBrowser extends javax.swing.JDialog {
     {
         G2FileBrowserExtend objFileChooser = new G2FileBrowserExtend();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-            "JPG & GIF Images", "jpg", "gif");
+            "JPG & PNG Images", "jpg", "png");
         objFileChooser.setFileFilter(filter);
         int returnVal = objFileChooser.showOpenDialog(parent);
         if(returnVal == JFileChooser.APPROVE_OPTION) {

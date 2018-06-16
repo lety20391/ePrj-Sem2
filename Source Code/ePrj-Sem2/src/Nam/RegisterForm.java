@@ -933,7 +933,7 @@ public class RegisterForm extends javax.swing.JFrame {
         int icoWidth = icon.getIconWidth();
         int icoHeight = icon.getIconHeight();
         Image image;
-        if (icoWidth/icoHeight > width/height)
+        if (icoWidth/icoHeight >= width/height)
         {
             image = icon.getImage().getScaledInstance(width, icoHeight*width/icoWidth, Image.SCALE_SMOOTH);    
         }else
