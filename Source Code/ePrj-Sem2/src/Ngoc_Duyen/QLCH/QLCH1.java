@@ -35,12 +35,22 @@ public class QLCH1 extends javax.swing.JFrame {
         //connectSQL();
 
         //connectSQL()
+
+        connectSQL();
+        //connectSQL();
+
+
+        //connectSQL();
+
+
         showTable();
         manageButton(true,false,false);
         manageTextField(false, false, false, false, false, false, false, false);
         this.setTitle("Apartment Management");
     }
+
     
+
     public void connectSQL()
     {
         Connection con;
