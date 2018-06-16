@@ -69,7 +69,7 @@ public class TestFileBrowser extends javax.swing.JDialog {
         {
             public void run()
             {
-                new G2FileBrowser(parent).setVisible(true);
+                new G2FileBrowser(parent, true).setVisible(true);
             }
         }
         );
