@@ -64,6 +64,7 @@ public class G2ImagePanel extends JPanel{
         System.out.println("lib");
         System.out.println(path);
         prepareImage();
+        repaint();
     }
     
     protected void paintComponent(Graphics g)
