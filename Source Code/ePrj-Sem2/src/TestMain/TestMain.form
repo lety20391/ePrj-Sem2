@@ -44,7 +44,7 @@
                           <Component id="btnDatContract" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnDuyenForm1" min="-2" pref="98" max="-2" attributes="0"/>
+                      <Component id="btnDuyenQLCH" min="-2" pref="98" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
@@ -67,7 +67,7 @@
                   <Component id="btnDuyenService" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnDuyCTV" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnDatHolding" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnDuyenForm1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnDuyenQLCH" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -260,12 +260,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDatContractActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnDuyenForm1">
+    <Component class="javax.swing.JButton" name="btnDuyenQLCH">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Duyen Form1"/>
+        <Property name="text" type="java.lang.String" value="Duyen QLCH"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDuyenForm1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDuyenQLCHActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

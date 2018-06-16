@@ -10,7 +10,7 @@ import Dat_Le_2.uiHolding_2;
 import DatabaseConnection.DatabaseConnect;
 import DatabaseConnection.connectionContainer;
 import Duy.QuanlyCTV_2;
-//import Ngoc_Duyen.newpackage.QLCH;
+import Ngoc_Duyen.QLCH.QLCH1;
 import Tuyet_Duyen.Services_2;
 import Tuyet_Duyen.Theme_guest_2;
 import java.sql.Connection;
@@ -30,7 +30,7 @@ public class TestMain extends javax.swing.JFrame {
     Duy.QuanlyOwner_2 objOwner;
     Tuyet_Duyen.Services_2 objService;
     Tuyet_Duyen.Theme_guest_2 objThemeGuest;
-    //Ngoc_Duyen.newpackage.QLCH objQLCH;
+    Ngoc_Duyen.QLCH.QLCH1 objQLCH;
     String account,type;
 
     /**
@@ -82,7 +82,7 @@ public class TestMain extends javax.swing.JFrame {
         btnConnect = new javax.swing.JButton();
         lbStatus = new javax.swing.JLabel();
         btnDatContract = new javax.swing.JButton();
-        btnDuyenForm1 = new javax.swing.JButton();
+        btnDuyenQLCH = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -207,10 +207,10 @@ public class TestMain extends javax.swing.JFrame {
             }
         });
 
-        btnDuyenForm1.setText("Duyen Form1");
-        btnDuyenForm1.addActionListener(new java.awt.event.ActionListener() {
+        btnDuyenQLCH.setText("Duyen QLCH");
+        btnDuyenQLCH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDuyenForm1ActionPerformed(evt);
+                btnDuyenQLCHActionPerformed(evt);
             }
         });
 
@@ -236,7 +236,7 @@ public class TestMain extends javax.swing.JFrame {
                             .addComponent(btnDatHolding, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                             .addComponent(btnDatContract, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addComponent(btnDuyenForm1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnDuyenQLCH, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -254,7 +254,7 @@ public class TestMain extends javax.swing.JFrame {
                     .addComponent(btnDuyenService)
                     .addComponent(btnDuyCTV)
                     .addComponent(btnDatHolding)
-                    .addComponent(btnDuyenForm1))
+                    .addComponent(btnDuyenQLCH))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDuyenGuest)
@@ -302,14 +302,14 @@ public class TestMain extends javax.swing.JFrame {
 
     private void btnDuyCTVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuyCTVActionPerformed
         // TODO add your handling code here:
-//        SwingUtilities.invokeLater(new Runnable()
-//            {
-//                public void run()
-//                {
-//                    new Duy.QuanlyCTV_2(con, stmt).setVisible(true);
-//                }
-//            }        
-//        );
+        SwingUtilities.invokeLater(new Runnable()
+            {
+                public void run()
+                {
+                    new Duy.QuanlyCTV_2(account, type, con, stmt).setVisible(true);
+                }
+            }        
+        );
     }//GEN-LAST:event_btnDuyCTVActionPerformed
 
     private void btnDuyOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuyOwnerActionPerformed
@@ -355,16 +355,16 @@ public class TestMain extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_btnDatContractActionPerformed
 
-    private void btnDuyenForm1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuyenForm1ActionPerformed
+    private void btnDuyenQLCHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuyenQLCHActionPerformed
         // TODO add your handling code here:
-//        SwingUtilities.invokeLater(new Runnable() {
-//            @Override
-//            public void run() {
-//                objQLCH = new QLCH(con, stmt);
-//                objQLCH.setVisible(true);
-//            }
-//        });
-    }//GEN-LAST:event_btnDuyenForm1ActionPerformed
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                objQLCH = new QLCH1(account, type, con, stmt);
+                objQLCH.setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_btnDuyenQLCHActionPerformed
 
     /**
      * @param args the command line arguments
@@ -407,8 +407,8 @@ public class TestMain extends javax.swing.JFrame {
     private javax.swing.JButton btnDatHolding;
     private javax.swing.JButton btnDuyCTV;
     private javax.swing.JButton btnDuyOwner;
-    private javax.swing.JButton btnDuyenForm1;
     private javax.swing.JButton btnDuyenGuest;
+    private javax.swing.JButton btnDuyenQLCH;
     private javax.swing.JButton btnDuyenService;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

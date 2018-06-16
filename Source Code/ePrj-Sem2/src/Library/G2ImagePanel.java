@@ -70,6 +70,13 @@ public class G2ImagePanel extends JPanel{
     public void inputImage(String relativePath)
     {
         path = absolutePath + relativePath;
+        if (path.isEmpty() || !(path.contains(".") && path.contains("\\")) )
+        {
+            absolutePath = System.getProperty("user.dir");
+            path = absolutePath + "\\src\\Image\\sample.png";
+            absolutePath = "";
+        }
+        System.out.println(path);
         prepareImage();
         //this.setBackground(Color.white);
         repaint();

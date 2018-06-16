@@ -27,14 +27,21 @@ public class QLCH1 extends javax.swing.JFrame {
     ResultSet rs;
     Statement stmt;
     Connection con ;
-    public QLCH1() {
+    public QLCH1(String account, String type, Connection con, Statement stmt) {
+        this.con = con;
+        this.stmt = stmt;
         initComponents();
+<<<<<<< HEAD
         connectSQL();
+=======
+        //connectSQL();
+>>>>>>> 75bb6bc861f022e9fb3ba0d0e1a1542688611d45
         showTable();
         manageButton(true,false,false);
         manageTextField(false, false, false, false, false, false, false, false);
         this.setTitle("Apartment Management");
     }
+<<<<<<< HEAD
     
     public void connectSQL()
     {
@@ -59,6 +66,16 @@ public class QLCH1 extends javax.swing.JFrame {
                 e.printStackTrace();
             }        
     }}
+=======
+//    public void connectSQL()
+//        {
+//            try {
+//                con = DBConnection.getDBConnection(DBConnection.database,DBConnection.account,DBConnection.password);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }        
+//    }
+>>>>>>> 75bb6bc861f022e9fb3ba0d0e1a1542688611d45
     public void showTable()
     {
          ApartModel = new DefaultTableModel();
@@ -551,11 +568,11 @@ public class QLCH1 extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new QLCH1().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new QLCH1().setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

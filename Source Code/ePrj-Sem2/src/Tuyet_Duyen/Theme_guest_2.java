@@ -5,6 +5,7 @@
  */
 package Tuyet_Duyen;
 
+import Library.G2FileBrowserExtend;
 import Library.G2Panel;
 import Library.G2TextField;
 import java.sql.Connection;
@@ -15,6 +16,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Nam.RegisterForm;
 import java.awt.Component;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -32,6 +36,9 @@ public class Theme_guest_2 extends javax.swing.JFrame {
     Statement stmt;
     Connection objConnection;
     
+    String IDGu;
+    String NameGu,DOBGu,IdentificationNumberGu,PhoneGu,EmailGu,ImageGu,StatusGu,IDCo;
+    
     /**/
     String continueAccount;
     public Theme_guest_2(String account, String type, Connection objConnection, Statement stmt) {
@@ -43,9 +50,30 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         attachRegexAndErrorInform(pGuest);
         //connectSQL();
         showTable();
+        //modifyTable();
         //manageButton(true,false,false);
         manageTextField(false, false, false,false, false, false,false, false);
     }
+    
+    //---------------------------------------------
+    //Phần này dùng để bỏ bớt mấy cột không cần thiết trong bảng đi
+    //dữ liệu của Table vẫn được lưu trong modal
+    //cột loại bỏ chỉ là view
+    //----------------------------------------------
+    //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+    public void modifyTable()
+    {
+        tblCustomer.removeColumn(tblCustomer.getColumn("Identi No"));
+        tblCustomer.removeColumn(tblCustomer.getColumn("Email"));
+        tblCustomer.removeColumn(tblCustomer.getColumn("Image"));
+        tblCustomer.removeColumn(tblCustomer.getColumn("Collaborator ID"));
+    }
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //---------------------------------------------
+    //Phần này dùng để bỏ bớt mấy cột không cần thiết trong bảng đi
+    //dữ liệu của Table vẫn được lưu trong modal
+    //cột loại bỏ chỉ là view
+    //----------------------------------------------
     
     //-------------------------------------------------------
     //cái này dùng để lấy giá trị (gồm Pattern và Thông báo lỗi)
@@ -170,6 +198,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         header.add("Identi No");
         header.add("Phone");
         header.add("Email");
+        header.add("Image");
         header.add("Status");
         header.add("Collaborator ID");
       
@@ -190,6 +219,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
                 row.add(rs.getString("IdentificationNumberGu"));
                 row.add(rs.getString("PhoneGu"));
                 row.add(rs.getString("EmailGu"));
+                row.add(rs.getString("ImageGu"));
                 row.add(rs.getString("StatusGu"));
                 row.add(rs.getString("IDCo"));
                 data.add(row);
@@ -201,6 +231,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         CusModel.setDataVector(data, header);
         tblCustomer.setModel(CusModel);
         //tblBook.setModel(bookModel);
+        modifyTable();
     }
 
     public void manageButton(boolean BtnAddStatus, boolean BtnUpdateStatus, boolean BtnDeleteStatus)
@@ -271,11 +302,13 @@ public class Theme_guest_2 extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("GUESTs");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(153, 0, 51));
         jLabel11.setText("Customner Management");
         jLabel11.setToolTipText("");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 14, 549, -1));
 
         pButton.setBackground(new java.awt.Color(102, 0, 102));
 
@@ -308,7 +341,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         pButtonLayout.setHorizontalGroup(
             pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pButtonLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(37, Short.MAX_VALUE)
                 .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,6 +360,8 @@ public class Theme_guest_2 extends javax.swing.JFrame {
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
+
+        getContentPane().add(pButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(506, 264, -1, 152));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -359,19 +394,23 @@ public class Theme_guest_2 extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(376, 60, 341, -1));
 
         pGuest.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -448,7 +487,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         pGuestLayout.setVerticalGroup(
             pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pGuestLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -485,54 +524,27 @@ public class Theme_guest_2 extends javax.swing.JFrame {
                 .addGap(61, 61, 61))
         );
 
+        getContentPane().add(pGuest, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+
         pGuestImage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pGuestImage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pGuestImageMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pGuestImageLayout = new javax.swing.GroupLayout(pGuestImage);
         pGuestImage.setLayout(pGuestImageLayout);
         pGuestImageLayout.setHorizontalGroup(
             pGuestImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 116, Short.MAX_VALUE)
         );
         pGuestImageLayout.setVerticalGroup(
             pGuestImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(pGuest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(pGuestImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(pButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 14, Short.MAX_VALUE)
-                .addComponent(jLabel11)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pGuestImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(pGuest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22))
-        );
+        getContentPane().add(pGuestImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(376, 264, -1, 152));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -545,20 +557,21 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         // TODO add your handling code here:
         manageButton(true, true, true);
         int row;
-        String IDGu;
-        String NameGu,DOBGu,IdentificationNumberGu,PhoneGu,EmailGu,StatusGu,IDCo;
+        
         
         
         row = tblCustomer.getSelectedRow();
+        TableModel tblModel = tblCustomer.getModel();
         
-        IDGu = (String) tblCustomer.getValueAt(row, 0);        
-        NameGu = (String)tblCustomer.getValueAt(row, 1);
-        DOBGu = (String)tblCustomer.getValueAt(row, 2);
-        IdentificationNumberGu = (String)tblCustomer.getValueAt(row, 3);
-        PhoneGu = (String)tblCustomer.getValueAt(row, 4);
-        EmailGu = (String)tblCustomer.getValueAt(row, 5);
-        StatusGu = (String)tblCustomer.getValueAt(row, 6);
-        IDCo = (String)tblCustomer.getValueAt(row, 7);
+        IDGu = (String) tblModel.getValueAt(row, 0);        
+        NameGu = (String)tblModel.getValueAt(row, 1);
+        DOBGu = (String)tblModel.getValueAt(row, 2);
+        IdentificationNumberGu = (String)tblModel.getValueAt(row, 3);
+        PhoneGu = (String)tblModel.getValueAt(row, 4);
+        EmailGu = (String)tblModel.getValueAt(row, 5);
+        ImageGu = (String)tblModel.getValueAt(row, 6);
+        StatusGu = (String)tblModel.getValueAt(row, 7);
+        IDCo = (String)tblModel.getValueAt(row, 8);
         
         txtID.setText(IDGu);
         txtName.setText(NameGu);
@@ -568,6 +581,8 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         txtEmail.setText(EmailGu);
         txtStatus.setText(StatusGu);
         txtCoID.setText(IDCo);
+        //show Guest Image
+        pGuestImage.inputImage(ImageGu);
     }//GEN-LAST:event_tblCustomerMouseClicked
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -591,13 +606,15 @@ public class Theme_guest_2 extends javax.swing.JFrame {
             String IDentiNo = txtIDNo.getText();
             String Phone = txtPhone.getText();
             String Email = txtEmail.getText();
+            //String Image = 
             String Status = txtStatus.getText();
             String CoID = txtCoID.getText();
             try {
                 //tien hanh update thong tin len database
                 //cau lenh sql mau da kiem tra thu tren SQL
                 //update Guest set  NameSer = 'Ban nha', Price = 100 where IDSer = 'S06'
-                sql = "update Guest set  NameGu = '" + Name + "',DOBGu = '" + DOB + "',IdentificationNumberGu = '" + IDentiNo + "',PhoneGu = '" + Phone + "',EmailGu  = '" + Email + "',StatusGu = '" + Status + "', IDCo = " + CoID + " where IDGu = '" + ID + "'";
+                sql = "update Guest set  NameGu = '" + Name + "',DOBGu = '" + DOB + "',IdentificationNumberGu = '" + IDentiNo + "',PhoneGu = '" + Phone + "',EmailGu  = '" + Email + "', ImageGu = '"+ ImageGu +"' ,StatusGu = '" + Status + "', IDCo = '" + CoID + "' where IDGu = '" + ID + "'";
+                
                 stmt.executeUpdate(sql);
                 
                 //chay xong thi doi ten Button lai thanh Update
@@ -650,6 +667,19 @@ public class Theme_guest_2 extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void pGuestImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pGuestImageMouseClicked
+        // TODO add your handling code here:
+        G2FileBrowserExtend objFileChooser = new G2FileBrowserExtend();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+            "JPG & PNG Images", "jpg", "png");
+        objFileChooser.setFileFilter(filter);
+        int returnVal = objFileChooser.showOpenDialog(null);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+           this.ImageGu = objFileChooser.getSelectedFile().getPath();
+           pGuestImage.inputImage(ImageGu);
+        }
+    }//GEN-LAST:event_pGuestImageMouseClicked
 
     
     /**
