@@ -45,7 +45,7 @@ public class testQLCH1 extends javax.swing.JFrame {
         this.setTitle("Apartment Management");
     }
 
-    public testQLCH1() {
+    private testQLCH1() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
