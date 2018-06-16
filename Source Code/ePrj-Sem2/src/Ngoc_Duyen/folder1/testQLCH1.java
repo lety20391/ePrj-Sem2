@@ -3,20 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Ngoc_Duyen.QLCH;
+package Ngoc_Duyen.folder1;
 
 /**
  *
  * @author Dell
  */
 import DatabaseConnection.*;
+import Ngoc_Duyen.QLCH.UpdateApartment;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-public class QLCH1 extends javax.swing.JFrame {
+public class testQLCH1 extends javax.swing.JFrame {
 
     /**
      * Creates new form QLCH1
@@ -27,7 +28,7 @@ public class QLCH1 extends javax.swing.JFrame {
     ResultSet rs;
     Statement stmt;
     Connection con ;
-    public QLCH1(String account, String type, Connection con, Statement stmt) {
+    public testQLCH1(String account, String type, Connection con, Statement stmt) {
         this.con = con;
         this.stmt = stmt;
         initComponents();
@@ -48,19 +49,19 @@ public class QLCH1 extends javax.swing.JFrame {
 
     public void connectSQL()
     {
-        Connection con;
-        Statement stmt;
-        
-        DatabaseConnect objDBConnect;
-        objDBConnect = new DatabaseConnect();
-        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "123456789", "1433");
-        
-        con = connectContainer.getObjCon();
-        stmt = connectContainer.getStatement();
-        
-    
-        objDBConnect.ListTable();
-        objDBConnect.Close();
+//        Connection con;
+//        Statement stmt;
+//        
+//        DatabaseConnect objDBConnect;
+//        objDBConnect = new DatabaseConnect();
+//        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "123456789", "1433");
+//        
+//        con = connectContainer.getObjCon();
+//        stmt = connectContainer.getStatement();
+//        
+//    
+//        objDBConnect.ListTable();
+//        objDBConnect.Close();
         
         {
             try {
@@ -81,42 +82,42 @@ public class QLCH1 extends javax.swing.JFrame {
 
     public void showTable()
     {
-         ApartModel = new DefaultTableModel();
-        header = new Vector();
-        header.add("Service ID");
-        header.add("Service Name");
-        header.add("Service Address");
-        header.add("Service Image");
-        header.add("Service Info");
-        header.add("Service Status");
-        header.add("Service Price");
-        header.add("Service IDSup");
-        
-        data = new Vector();
-        ApartModel.setRowCount(0);
-        try {            
-            sql = "select * from Apartment";
-            rs = stmt.executeQuery(sql);
-            rs.beforeFirst();
-            while(rs.next())
-            {
-                row = new Vector();
-                row.add(rs.getString("IDApa"));
-                row.add(rs.getString("NameApa"));
-                row.add(rs.getString("AddressApa"));
-                row.add(rs.getString("ImageApa"));
-                row.add(rs.getString("InfoApa"));
-                row.add(rs.getString("StatusApa"));
-                row.add(rs.getDouble("PriceApa"));
-                row.add(rs.getString("IDSupApa"));
-                data.add(row);
-            }
-             } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        ApartModel.setDataVector(data, header);
-        tblApartment.setModel(ApartModel);
+//         ApartModel = new DefaultTableModel();
+//        header = new Vector();
+//        header.add("Service ID");
+//        header.add("Service Name");
+//        header.add("Service Address");
+//        header.add("Service Image");
+//        header.add("Service Info");
+//        header.add("Service Status");
+//        header.add("Service Price");
+//        header.add("Service IDSup");
+//        
+//        data = new Vector();
+//        ApartModel.setRowCount(0);
+//        try {            
+//            sql = "select * from Apartment";
+//            rs = stmt.executeQuery(sql);
+//            rs.beforeFirst();
+//            while(rs.next())
+//            {
+//                row = new Vector();
+//                row.add(rs.getString("IDApa"));
+//                row.add(rs.getString("NameApa"));
+//                row.add(rs.getString("AddressApa"));
+//                row.add(rs.getString("ImageApa"));
+//                row.add(rs.getString("InfoApa"));
+//                row.add(rs.getString("StatusApa"));
+//                row.add(rs.getDouble("PriceApa"));
+//                row.add(rs.getString("IDSupApa"));
+//                data.add(row);
+//            }
+//             } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        
+//        ApartModel.setDataVector(data, header);
+//        tblApartment.setModel(ApartModel);
     }
     public void manageButton(boolean BtnAddStatus, boolean BtnUpdateStatus, boolean BtnDeleteStatus)
     {
@@ -147,60 +148,6 @@ public class QLCH1 extends javax.swing.JFrame {
         txtStatus.setText("");
         txtPrice.setText("");
         txtIDSup.setText("");
-    }
-     public void checkblank()
-    {
-        if (txtID.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "ID cannot be blank. Re-Enter.");
-            txtID.grabFocus();
-            return;
-        }
-        try {
-            Integer.parseInt(txtID.getText());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Pls Re-Enter");
-        }
-        if (txtName.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Name cannot be blank. Re-Enter.");
-            txtName.grabFocus();
-            return;
-        }
-        if (txtAddress.getText().isEmpty()) {
-             JOptionPane.showMessageDialog(this, "Address cannot be blank. Re-Enter.");
-            txtAddress.grabFocus();
-            return;
-        }
-        if (txtImage.getText().isEmpty()) {
-             JOptionPane.showMessageDialog(this, "Image cannot be blank. Re-Enter.");
-            txtImage.grabFocus();
-            return;
-        }
-        if (txtInfo.getText().isEmpty()) {
-             JOptionPane.showMessageDialog(this, "Info cannot be blank. Re-Enter.");
-            txtInfo.grabFocus();
-            return;
-        }
-        if (txtIDSup.getText().isEmpty()) {
-             JOptionPane.showMessageDialog(this, "IDSup cannot be blank. Re-Enter.");
-            txtIDSup.grabFocus();
-            return;
-        }
-        try {
-          Integer.parseInt(txtIDSup.getText());  
-        } catch (NumberFormatException e) {
-              JOptionPane.showMessageDialog(this, "Pls Re-Enter");
-        }
-             
-        if (txtPrice.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Price cannot be blank. Re-Enter.");
-            txtPrice.grabFocus();
-            return;
-        }
-        try {
-          Integer.parseInt(txtPrice.getText());  
-        } catch (NumberFormatException e) {
-              JOptionPane.showMessageDialog(this, "Pls Re-Enter");
-        }
     }
 
     /**
@@ -585,7 +532,61 @@ public class QLCH1 extends javax.swing.JFrame {
         txtStatus.setText(StatusApa);
         txtPrice.setText(PriceApa);
         txtIDSup.setText(IDSupApa);
-    }   
+    } 
+    public void checkblank()
+    {
+        if (txtID.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "ID cannot be blank. Re-Enter.");
+            txtID.grabFocus();
+            return;
+        }
+        try {
+            Integer.parseInt(txtID.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Pls Re-Enter");
+        }
+        if (txtName.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Name cannot be blank. Re-Enter.");
+            txtName.grabFocus();
+            return;
+        }
+        if (txtAddress.getText().isEmpty()) {
+             JOptionPane.showMessageDialog(this, "Address cannot be blank. Re-Enter.");
+            txtAddress.grabFocus();
+            return;
+        }
+        if (txtImage.getText().isEmpty()) {
+             JOptionPane.showMessageDialog(this, "Image cannot be blank. Re-Enter.");
+            txtImage.grabFocus();
+            return;
+             }
+        if (txtInfo.getText().isEmpty()) {
+             JOptionPane.showMessageDialog(this, "Info cannot be blank. Re-Enter.");
+            txtInfo.grabFocus();
+            return;
+        }
+        if (txtIDSup.getText().isEmpty()) {
+             JOptionPane.showMessageDialog(this, "IDSup cannot be blank. Re-Enter.");
+            txtIDSup.grabFocus();
+            return;
+        }
+        try {
+          Integer.parseInt(txtIDSup.getText());  
+        } catch (NumberFormatException e) {
+              JOptionPane.showMessageDialog(this, "Pls Re-Enter");
+        }
+             
+        if (txtPrice.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Price cannot be blank. Re-Enter.");
+            txtPrice.grabFocus();
+            return;
+        }
+        try {
+          Integer.parseInt(txtPrice.getText());  
+        } catch (NumberFormatException e) {
+              JOptionPane.showMessageDialog(this, "Pls Re-Enter");
+        }
+    }
     public static void main(String args[]) {
 //        Connection con;
 //        Statement stmt;
@@ -614,14 +615,22 @@ public class QLCH1 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(QLCH1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(testQLCH1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(QLCH1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(testQLCH1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(QLCH1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(testQLCH1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(QLCH1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(testQLCH1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+
+        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new QLCH1().setVisible(true);
+//            }
+//        });
         //</editor-fold>
 
         /* Create and display the form */
