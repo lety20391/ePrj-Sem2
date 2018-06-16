@@ -31,33 +31,29 @@ public class QLCH1 extends javax.swing.JFrame {
         this.con = con;
         this.stmt = stmt;
         initComponents();
-<<<<<<< HEAD
         connectSQL();
-=======
         //connectSQL();
->>>>>>> 75bb6bc861f022e9fb3ba0d0e1a1542688611d45
         showTable();
         manageButton(true,false,false);
         manageTextField(false, false, false, false, false, false, false, false);
         this.setTitle("Apartment Management");
     }
-<<<<<<< HEAD
     
     public void connectSQL()
     {
-//        Connection con;
-//        Statement stmt;
-//        
-//        DatabaseConnect objDBConnect;
-//        objDBConnect = new DatabaseConnect();
-//        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "123456789", "1433");
-//        
-//        con = connectContainer.getObjCon();
-//        stmt = connectContainer.getStatement();
-//        
-//    
-//        objDBConnect.ListTable();
-//        objDBConnect.Close();
+        Connection con;
+        Statement stmt;
+        
+        DatabaseConnect objDBConnect;
+        objDBConnect = new DatabaseConnect();
+        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "123456789", "1433");
+        
+        con = connectContainer.getObjCon();
+        stmt = connectContainer.getStatement();
+        
+    
+        objDBConnect.ListTable();
+        objDBConnect.Close();
         
         {
             try {
@@ -66,7 +62,7 @@ public class QLCH1 extends javax.swing.JFrame {
                 e.printStackTrace();
             }        
     }}
-=======
+
 //    public void connectSQL()
 //        {
 //            try {
@@ -75,45 +71,45 @@ public class QLCH1 extends javax.swing.JFrame {
 //                e.printStackTrace();
 //            }        
 //    }
->>>>>>> 75bb6bc861f022e9fb3ba0d0e1a1542688611d45
     public void showTable()
     {
-         ApartModel = new DefaultTableModel();
-        header = new Vector();
-        header.add("Service ID");
-        header.add("Service Name");
-        header.add("Service Address");
-        header.add("Service Image");
-        header.add("Service Info");
-        header.add("Service Status");
-        header.add("Service Price");
-        header.add("Service IDSup");
-        
-        data = new Vector();
-        ApartModel.setRowCount(0);
-        try {            
-            sql = "select * from Apartment";
-            rs = stmt.executeQuery(sql);
-            rs.beforeFirst();
-            while(rs.next())
-            {
-                row = new Vector();
-                row.add(rs.getString("IDApa"));
-                row.add(rs.getString("NameApa"));
-                row.add(rs.getString("AddressApa"));
-                row.add(rs.getString("ImageApa"));
-                row.add(rs.getString("InfoApa"));
-                row.add(rs.getString("StatusApa"));
-                row.add(rs.getDouble("PriceApa"));
-                row.add(rs.getString("IDSupApa"));
-                data.add(row);
-            }
-             } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        ApartModel.setDataVector(data, header);
-        tblApartment.setModel(ApartModel);
+//         ApartModel = new DefaultTableModel();
+//        header = new Vector();
+//        header.add("Service ID");
+//        header.add("Service Name");
+//        header.add("Service Address");
+//        header.add("Service Image");
+//        header.add("Service Info");
+//        header.add("Service Status");
+//        header.add("Service Price");
+//        header.add("Service IDSup");
+//        
+//        data = new Vector();
+//        ApartModel.setRowCount(0);
+//        try {            
+//            sql = "select * from Apartment";
+//            rs = stmt.executeQuery(sql);
+//            rs.beforeFirst();
+//            while(rs.next())
+//            {
+//                row = new Vector();
+//                row.add(rs.getString("IDApa"));
+//                row.add(rs.getString("NameApa"));
+//                row.add(rs.getString("AddressApa"));
+//                row.add(rs.getString("ImageApa"));
+//                row.add(rs.getString("InfoApa"));
+//                row.add(rs.getString("StatusApa"));
+//                row.add(rs.getDouble("PriceApa"));
+//                row.add(rs.getString("IDSupApa"));
+//                data.add(row);
+//            }
+//             } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        
+//        ApartModel.setDataVector(data, header);
+//        tblApartment.setModel(ApartModel);
+//    }
     }
     public void manageButton(boolean BtnAddStatus, boolean BtnUpdateStatus, boolean BtnDeleteStatus)
     {
