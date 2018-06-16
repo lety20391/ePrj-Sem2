@@ -30,39 +30,40 @@ public class Theme_guest_2 extends javax.swing.JFrame {
      * Creates new form Theme_guest
      */
     DefaultTableModel CusModel;
-    Vector header,data,row;
+    Vector header, data, row;
     String sql;
     ResultSet rs;
     Statement stmt;
     Connection objConnection;
-    
+
     String IDGu;
-    String NameGu,DOBGu,IdentificationNumberGu,PhoneGu,EmailGu,ImageGu,StatusGu,IDCo;
-    
+    String NameGu, DOBGu, IdentificationNumberGu, PhoneGu, EmailGu, ImageGu, StatusGu, IDCo;
+
     /**/
-    String continueAccount;
+    String continueAccount, type;
+
     public Theme_guest_2(String account, String type, Connection objConnection, Statement stmt) {
         initComponents();
         this.objConnection = objConnection;
         this.stmt = stmt;
         continueAccount = account;
+        this.type = type;
         pButton.attachButtonAndSetMainRight(pButton, type);
         attachRegexAndErrorInform(pGuest);
         //connectSQL();
         showTable();
         //modifyTable();
         //manageButton(true,false,false);
-        manageTextField(false, false, false,false, false, false,false, false);
+        manageTextField(false, false, false, false, false, false, false, false);
     }
-    
+
     //---------------------------------------------
     //Phần này dùng để bỏ bớt mấy cột không cần thiết trong bảng đi
     //dữ liệu của Table vẫn được lưu trong modal
     //cột loại bỏ chỉ là view
     //----------------------------------------------
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-    public void modifyTable()
-    {
+    public void modifyTable() {
         tblCustomer.removeColumn(tblCustomer.getColumn("Identi No"));
         tblCustomer.removeColumn(tblCustomer.getColumn("Email"));
         tblCustomer.removeColumn(tblCustomer.getColumn("Image"));
@@ -74,7 +75,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
     //dữ liệu của Table vẫn được lưu trong modal
     //cột loại bỏ chỉ là view
     //----------------------------------------------
-    
+
     //-------------------------------------------------------
     //cái này dùng để lấy giá trị (gồm Pattern và Thông báo lỗi)
     //mà mình thêm vào TextField ở trong phần Design
@@ -82,15 +83,12 @@ public class Theme_guest_2 extends javax.swing.JFrame {
     //G2TextField
     //--------------------------------------------------------
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-    
-    public void attachRegexAndErrorInform(Library.G2Panel panel)
-    {
+    public void attachRegexAndErrorInform(Library.G2Panel panel) {
         //regexMap = new HashMap<JTextField, String>();
         Component[] listComponent = panel.getComponents();
         for (Component component : listComponent) {
-            if (component instanceof Library.G2TextField)
-            {
-                G2TextField tempTextField = (G2TextField)component;
+            if (component instanceof Library.G2TextField) {
+                G2TextField tempTextField = (G2TextField) component;
                 //regexMap.put(tempTextField, tempTextField.getText() );
                 String data = tempTextField.getText();
                 tempTextField.setPatStr(data.substring(0, data.indexOf("err")));
@@ -99,8 +97,8 @@ public class Theme_guest_2 extends javax.swing.JFrame {
                 tempTextField.setText("");
             }
         }
-    }    
-    
+    }
+
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     //-------------------------------------------------------
     //cái này dùng để lấy giá trị (gồm Pattern và Thông báo lỗi)
@@ -108,47 +106,41 @@ public class Theme_guest_2 extends javax.swing.JFrame {
     //sau đó nhét vào trong tính năng kiểm tra của
     //G2TextField
     //--------------------------------------------------------
-    
     //--------------------------------------------------------
     //Cái này dùng để kiểm tra coi các TextField được nhập vào
     //có bị lỗi gì không dựa trên các Pattern mình nhập ở Design
     //--------------------------------------------------------
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-    public boolean validateAllTextField(G2Panel panel)
-    {
+    public boolean validateAllTextField(G2Panel panel) {
         Component[] objListComp = panel.getComponents();
         String allError = "";
         boolean error = false;
         for (Component objComp : objListComp) {
-            if (objComp instanceof G2TextField)
-            {
+            if (objComp instanceof G2TextField) {
                 String temp = ((G2TextField) objComp).allValidate();
-                if (!temp.isEmpty())
-                {
+                if (!temp.isEmpty()) {
                     error = true;
-                    allError += temp+ "\n";
+                    allError += temp + "\n";
                 }
             }
         }
-        if (error == true)
-        {
+        if (error == true) {
             JOptionPane.showMessageDialog(this, allError, "Bi loi", JOptionPane.ERROR_MESSAGE);
             return true;
-        }else
+        } else {
             return false;
+        }
     }
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     //--------------------------------------------------------
     //Cái này dùng để kiểm tra coi các TextField được nhập vào
     //có bị lỗi gì không dựa trên các Pattern mình nhập ở Design
     //--------------------------------------------------------
-    
+
     //------------------------------------------------------
     //tui tạo lại method mới để connect nên tui ẩn cái này đi
     //------------------------------------------------------
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-    
-    
 //    public void connectSQL(){
 //        DatabaseConnect objDBConnect;
 //        objDBConnect = new DatabaseConnect();
@@ -160,14 +152,10 @@ public class Theme_guest_2 extends javax.swing.JFrame {
 //            System.out.println(e.getMessage());
 //        }
 //    }
-    
-    
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     //------------------------------------------------------
     //tui tạo lại method mới để connect nên tui ẩn cái này đi
     //------------------------------------------------------
-    
-    
     //------------------------------------------------------
     //đây là cái method mới để kết nối
     //------------------------------------------------------
@@ -181,15 +169,11 @@ public class Theme_guest_2 extends javax.swing.JFrame {
 //        objConnection = connectContainer.getObjCon();
 //        stmt = connectContainer.getStatement();
 //    }
-    
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     //------------------------------------------------------
     //đây là method mới để kết nối
     //------------------------------------------------------
-    
-    
-    public void showTable()
-    {
+    public void showTable() {
         CusModel = new DefaultTableModel();
         header = new Vector();
         header.add("ID");
@@ -201,17 +185,16 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         header.add("Image");
         header.add("Status");
         header.add("Collaborator ID");
-      
+
         data = new Vector();
         CusModel.setRowCount(0);
-        
-        try {            
+
+        try {
             //select * from Guest
             sql = "select * from Guest";
             rs = stmt.executeQuery(sql);
             rs.beforeFirst();
-            while(rs.next())
-            {
+            while (rs.next()) {
                 row = new Vector();
                 row.add(rs.getString("IDGu"));
                 row.add(rs.getString("NameGu"));
@@ -227,21 +210,20 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         CusModel.setDataVector(data, header);
         tblCustomer.setModel(CusModel);
         //tblBook.setModel(bookModel);
         modifyTable();
     }
 
-    public void manageButton(boolean BtnAddStatus, boolean BtnUpdateStatus, boolean BtnDeleteStatus)
-    {
+    public void manageButton(boolean BtnAddStatus, boolean BtnUpdateStatus, boolean BtnDeleteStatus) {
         btnAdd.setEnabled(BtnAddStatus);
         btnUpdate.setEnabled(BtnUpdateStatus);
         btnDelete.setEnabled(BtnDeleteStatus);
     }
-    public void manageTextField(boolean txtIDStatus, boolean txtNameStatus, boolean txtBirthStatus, boolean txtIDNoStatus, boolean txtPhoneStatus, boolean txtEmailStatus,boolean txtStatusStatus, boolean txtCoIDStatus)
-    {
+
+    public void manageTextField(boolean txtIDStatus, boolean txtNameStatus, boolean txtBirthStatus, boolean txtIDNoStatus, boolean txtPhoneStatus, boolean txtEmailStatus, boolean txtStatusStatus, boolean txtCoIDStatus) {
         txtID.setEditable(txtIDStatus);
         txtName.setEditable(txtNameStatus);
         txtBirth.setEditable(txtBirthStatus);
@@ -251,8 +233,8 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         txtStatus.setEditable(txtStatusStatus);
         txtCoID.setEditable(txtCoIDStatus);
     }
-    public void clearTxt()
-    {
+
+    public void clearTxt() {
         txtID.setText("");
         txtName.setText("");
         txtBirth.setText("");
@@ -262,6 +244,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         txtStatus.setText("");
         txtCoID.setText("");
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -354,7 +337,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pButtonLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -394,7 +377,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -541,7 +524,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         );
         pGuestImageLayout.setVerticalGroup(
             pGuestImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 148, Short.MAX_VALUE)
         );
 
         getContentPane().add(pGuestImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(376, 264, -1, 152));
@@ -557,22 +540,20 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         // TODO add your handling code here:
         manageButton(true, true, true);
         int row;
-        
-        
-        
+
         row = tblCustomer.getSelectedRow();
         TableModel tblModel = tblCustomer.getModel();
-        
-        IDGu = (String) tblModel.getValueAt(row, 0);        
-        NameGu = (String)tblModel.getValueAt(row, 1);
-        DOBGu = (String)tblModel.getValueAt(row, 2);
-        IdentificationNumberGu = (String)tblModel.getValueAt(row, 3);
-        PhoneGu = (String)tblModel.getValueAt(row, 4);
-        EmailGu = (String)tblModel.getValueAt(row, 5);
-        ImageGu = (String)tblModel.getValueAt(row, 6);
-        StatusGu = (String)tblModel.getValueAt(row, 7);
-        IDCo = (String)tblModel.getValueAt(row, 8);
-        
+
+        IDGu = (String) tblModel.getValueAt(row, 0);
+        NameGu = (String) tblModel.getValueAt(row, 1);
+        DOBGu = (String) tblModel.getValueAt(row, 2);
+        IdentificationNumberGu = (String) tblModel.getValueAt(row, 3);
+        PhoneGu = (String) tblModel.getValueAt(row, 4);
+        EmailGu = (String) tblModel.getValueAt(row, 5);
+        ImageGu = (String) tblModel.getValueAt(row, 6);
+        StatusGu = (String) tblModel.getValueAt(row, 7);
+        IDCo = (String) tblModel.getValueAt(row, 8);
+
         txtID.setText(IDGu);
         txtName.setText(NameGu);
         txtBirth.setText(DOBGu);
@@ -588,18 +569,17 @@ public class Theme_guest_2 extends javax.swing.JFrame {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
         String labelBtn = btnUpdate.getText();
-        if( labelBtn.equalsIgnoreCase("Update"))
-        {
-            btnUpdate.setText("Save");            
-            manageTextField(false, true, true,true,true,true,true,true);
+        if (labelBtn.equalsIgnoreCase("Update")) {
+            btnUpdate.setText("Save");
+            manageTextField(false, true, true, true, true, true, true, true);
             //dat lai trang thai cac Button
             manageButton(false, true, false);
-        }else
-        {
+        } else {
             //kiem tra cac textField co thoa man khong 
             //nếu có lỗi thì thoát ra khỏi lệnh update
-            if(validateAllTextField(pGuest))
+            if (validateAllTextField(pGuest)) {
                 return;
+            }
             String ID = txtID.getText();
             String Name = txtName.getText();
             String DOB = txtBirth.getText();
@@ -613,10 +593,10 @@ public class Theme_guest_2 extends javax.swing.JFrame {
                 //tien hanh update thong tin len database
                 //cau lenh sql mau da kiem tra thu tren SQL
                 //update Guest set  NameSer = 'Ban nha', Price = 100 where IDSer = 'S06'
-                sql = "update Guest set  NameGu = '" + Name + "',DOBGu = '" + DOB + "',IdentificationNumberGu = '" + IDentiNo + "',PhoneGu = '" + Phone + "',EmailGu  = '" + Email + "', ImageGu = '"+ ImageGu +"' ,StatusGu = '" + Status + "', IDCo = '" + CoID + "' where IDGu = '" + ID + "'";
-                
+                sql = "update Guest set  NameGu = '" + Name + "',DOBGu = '" + DOB + "',IdentificationNumberGu = '" + IDentiNo + "',PhoneGu = '" + Phone + "',EmailGu  = '" + Email + "', ImageGu = '" + ImageGu + "' ,StatusGu = '" + Status + "', IDCo = '" + CoID + "' where IDGu = '" + ID + "'";
+
                 stmt.executeUpdate(sql);
-                
+
                 //chay xong thi doi ten Button lai thanh Update
                 btnUpdate.setText("Update");
                 //xoa trang cac textField
@@ -625,23 +605,21 @@ public class Theme_guest_2 extends javax.swing.JFrame {
                 manageButton(true, true, true);
                 //cap nhat lai Table
                 showTable();
-                
+
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-            
+
         }
-        
-        
-         
+
+
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         try {
             int check = JOptionPane.showConfirmDialog(this, "Are you sure for deleting?");
-            if (check == JOptionPane.OK_OPTION)
-            {
+            if (check == JOptionPane.OK_OPTION) {
                 String ID = txtID.getText();
                 //cau lenh SQL mau da kiem tra thu tren SQl
                 //delete from Guest where IDGu = 'S06'
@@ -651,7 +629,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
                 showTable();
                 //xoa cac textField
                 clearTxt();
-            }else{
+            } else {
                 return;
             }
         } catch (Exception e) {
@@ -663,7 +641,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         // TODO add your handling code here:
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegisterForm(continueAccount,"gu", objConnection, stmt).setVisible(true);
+                new RegisterForm(continueAccount, type, objConnection, stmt).setVisible(true);
             }
         });
     }//GEN-LAST:event_btnAddActionPerformed
@@ -672,16 +650,15 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         // TODO add your handling code here:
         G2FileBrowserExtend objFileChooser = new G2FileBrowserExtend();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-            "JPG & PNG Images", "jpg", "png");
+                "JPG & PNG Images", "jpg", "png");
         objFileChooser.setFileFilter(filter);
         int returnVal = objFileChooser.showOpenDialog(null);
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
-           this.ImageGu = objFileChooser.getSelectedFile().getPath();
-           pGuestImage.inputImage(ImageGu);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            this.ImageGu = objFileChooser.getSelectedFile().getPath();
+            pGuestImage.inputImage(ImageGu);
         }
     }//GEN-LAST:event_pGuestImageMouseClicked
 
-    
     /**
      * @param args the command line arguments
      */
