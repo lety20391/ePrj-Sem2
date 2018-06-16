@@ -27,23 +27,24 @@ public class QLCH1 extends javax.swing.JFrame {
     ResultSet rs;
     Statement stmt;
     Connection con ;
-    public QLCH1() {
+    public QLCH1(String account, String type, Connection con, Statement stmt) {
+        this.con = con;
+        this.stmt = stmt;
         initComponents();
-        initComponents();
-        connectSQL();
+        //connectSQL();
         showTable();
         manageButton(true,false,false);
         manageTextField(false, false, false, false, false, false, false, false);
         this.setTitle("Apartment Management");
     }
-    public void connectSQL()
-        {
-            try {
-                con = DBConnection.getDBConnection(DBConnection.database,DBConnection.account,DBConnection.password);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }        
-    }
+//    public void connectSQL()
+//        {
+//            try {
+//                con = DBConnection.getDBConnection(DBConnection.database,DBConnection.account,DBConnection.password);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }        
+//    }
     public void showTable()
     {
          ApartModel = new DefaultTableModel();
@@ -522,11 +523,11 @@ public class QLCH1 extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new QLCH1().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new QLCH1().setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
