@@ -23,7 +23,7 @@ import sun.net.www.protocol.http.HttpURLConnection;
 
 public class G2ImagePanel extends JPanel{
     BufferedImage objBufImg;
-    String absolutePath;
+    String absolutePath ="";
     String path = "";
     Image objResizedIamge;
     int panelWidth;
@@ -32,7 +32,7 @@ public class G2ImagePanel extends JPanel{
     public G2ImagePanel()
     {
         super();
-        absolutePath = System.getProperty("user.dir");
+        //absolutePath = System.getProperty("user.dir");
         //prepareImage();
     }
     
@@ -61,6 +61,8 @@ public class G2ImagePanel extends JPanel{
     public void inputImage(String relativePath)
     {
         path = absolutePath + relativePath;
+        System.out.println("lib");
+        System.out.println(path);
         prepareImage();
     }
     
