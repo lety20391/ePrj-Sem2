@@ -28,8 +28,8 @@ insert into Collaborator(IDCo, NameCo, AddressCo, DOBCo, IdentificationNumberCo,
 go
 
 insert into Guest values
-('Gu01', 'Dat le', '1995-5-5', '1234456', '012345', 'datle@hetle.com', 'Normal', 'Co01'),
-('Gu02', 'Duyen tran truong', '2005-5-5', '566890', '0234435', 'duyenbede@bede.com', 'Normal', 'Co02')
+('Gu01', 'Dat le', '1995-5-5', '1234456', '012345', 'datle@hetle.com', 'Gu01.jpg' , 'Normal', 'Co01'),
+('Gu02', 'Duyen tran truong', '2005-5-5', '566890', '0234435', 'duyenbede@bede.com', 'Gu02.jpg' , 'Normal', 'Co02')
 go
 
 insert into Supplier values
@@ -67,6 +67,7 @@ insert into [Notification] values
 
 select * from Collaborator
 go
+
 
 
 

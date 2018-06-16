@@ -21,6 +21,7 @@
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
   </AuxValues>
 
+<<<<<<< HEAD
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
@@ -59,6 +60,10 @@
           </Group>
       </Group>
     </DimensionLayout>
+=======
+  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+    <Property name="useNullLayout" type="boolean" value="false"/>
+>>>>>>> 5a6c27261b034394e24cb62ff45c0ef9eda505b1
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel11">
@@ -72,6 +77,11 @@
         <Property name="text" type="java.lang.String" value="Customner Management"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="10" y="14" width="549" height="-1"/>
+        </Constraint>
+      </Constraints>
     </Component>
     <Container class="javax.swing.JPanel" name="pButton">
       <Properties>
@@ -84,34 +94,36 @@
         <AuxValue name="JavaCodeGenerator_DeclarationPost" type="java.lang.String" value="*/&#xa;private Library.G2Panel pButton;"/>
         <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/*"/>
       </AuxValues>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="506" y="264" width="-1" height="152"/>
+        </Constraint>
+      </Constraints>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="21" max="32767" attributes="0"/>
-                  <Component id="btnAdd" min="-2" pref="71" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace pref="37" max="32767" attributes="0"/>
                   <Component id="btnUpdate" min="-2" pref="78" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="btnDelete" min="-2" pref="76" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="btnAdd" min="-2" pref="71" max="-2" attributes="0"/>
+                      <Component id="btnDelete" min="-2" pref="76" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnAdd" min="-2" pref="54" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="btnUpdate" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
-                              <Component id="btnAdd" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="0" pref="3" max="32767" attributes="0"/>
-                      </Group>
-                      <Component id="btnDelete" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnUpdate" min="-2" pref="54" max="-2" attributes="0"/>
+                      <Component id="btnDelete" min="-2" pref="54" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -162,6 +174,14 @@
           </Border>
         </Property>
       </Properties>
+<<<<<<< HEAD
+=======
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="376" y="60" width="341" height="-1"/>
+        </Constraint>
+      </Constraints>
+>>>>>>> 5a6c27261b034394e24cb62ff45c0ef9eda505b1
 
       <Layout>
         <DimensionLayout dim="0">
@@ -169,21 +189,39 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
+<<<<<<< HEAD
                       <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" alignment="0" min="-2" pref="282" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
+=======
+                      <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+>>>>>>> 5a6c27261b034394e24cb62ff45c0ef9eda505b1
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
+<<<<<<< HEAD
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="92" max="-2" attributes="0"/>
                   <EmptySpace pref="71" max="32767" attributes="0"/>
+=======
+                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                  <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" pref="145" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+>>>>>>> 5a6c27261b034394e24cb62ff45c0ef9eda505b1
               </Group>
           </Group>
         </DimensionLayout>
@@ -268,6 +306,14 @@
         <AuxValue name="JavaCodeGenerator_DeclarationPost" type="java.lang.String" value="*/&#xa;private Library.G2Panel pGuest;"/>
         <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/*"/>
       </AuxValues>
+<<<<<<< HEAD
+=======
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="10" y="60" width="-1" height="-1"/>
+        </Constraint>
+      </Constraints>
+>>>>>>> 5a6c27261b034394e24cb62ff45c0ef9eda505b1
 
       <Layout>
         <DimensionLayout dim="0">
@@ -307,7 +353,11 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
+<<<<<<< HEAD
                   <EmptySpace max="32767" attributes="0"/>
+=======
+                  <EmptySpace pref="22" max="32767" attributes="0"/>
+>>>>>>> 5a6c27261b034394e24cb62ff45c0ef9eda505b1
                   <Component id="jLabel1" min="-2" pref="25" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -397,9 +447,12 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="^\u005cd{4}(-)\u005cd{2}(-)\u005cd{2}erryyyy-MM-dd" containsInvalidXMLChars="true"/>
           </Properties>
+<<<<<<< HEAD
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtBirthMouseClicked"/>
           </Events>
+=======
+>>>>>>> 5a6c27261b034394e24cb62ff45c0ef9eda505b1
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new Library.G2TextField()"/>
             <AuxValue name="JavaCodeGenerator_DeclarationPost" type="java.lang.String" value="*/&#xa;private Library.G2TextField txtBirth;"/>
@@ -491,5 +544,43 @@
         </Component>
       </SubComponents>
     </Container>
+<<<<<<< HEAD
+=======
+    <Container class="javax.swing.JPanel" name="pGuestImage">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+            <EtchetBorder/>
+          </Border>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pGuestImageMouseClicked"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new Library.G2ImagePanel()"/>
+        <AuxValue name="JavaCodeGenerator_DeclarationPost" type="java.lang.String" value="*/&#xa;private Library.G2ImagePanel pGuestImage;"/>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/*"/>
+      </AuxValues>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="376" y="264" width="-1" height="152"/>
+        </Constraint>
+      </Constraints>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="116" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+    </Container>
+>>>>>>> 5a6c27261b034394e24cb62ff45c0ef9eda505b1
   </SubComponents>
 </Form>

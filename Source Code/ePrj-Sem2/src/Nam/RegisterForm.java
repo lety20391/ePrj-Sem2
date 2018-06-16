@@ -6,7 +6,7 @@
 package Nam;
 
 import Duy.QuanlyCTV_2;
-import Tuyet_Duyen.Theme_guest_2;
+import Library.G2FileBrowserExtend;
 import java.awt.Image;
 import java.io.File;
 import java.sql.Connection;
@@ -22,6 +22,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -77,7 +78,7 @@ public class RegisterForm extends javax.swing.JFrame {
     private void guResetText() {
         txtIDGU.setText("");
         txtNameGU.setText("");
-        dateChooserDOBGU.setDate(null);
+        txtDOBGU.setText("");
         txtIdentifyGU.setText("");
         txtPhoneGU.setText("");
         txtEmailGU.setText("");
@@ -110,16 +111,6 @@ public class RegisterForm extends javax.swing.JFrame {
         if (txtIDCo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "ID cannot be blank. Re-Enter.");
             txtIDCo.grabFocus();
-            return;
-        }
-        if (txtPasswordCo.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Password cannot be blank. Re-Enter.");
-            txtPasswordCo.grabFocus();
-            return;
-        }
-        if (txtAnswerCo.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Answer cannot be blank. Re-Enter.");
-            txtAnswerCo.grabFocus();
             return;
         }
         if (txtPhoneCo.getText().isEmpty()) {
@@ -170,23 +161,14 @@ public class RegisterForm extends javax.swing.JFrame {
             txtIDGU.grabFocus();
             return;
         }
-        if (txtPasswordGU.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Password cannot be blank. Re-Enter.");
-            txtPasswordGU.grabFocus();
-            return;
-        }if (txtAnswerGU.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Answer cannot be blank. Re-Enter.");
-            txtAnswerGU.grabFocus();
-            return;
-        }
         if (txtNameGU.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Name cannot be blank. Re-Enter.");
             txtNameGU.grabFocus();
             return;
         }
-        if (dateChooserDOBGU.getDate() == null) {
+        if (txtDOBGU.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "DOB cannot be blank. Re-Enter.");
-            dateChooserDOBGU.grabFocus();
+            txtDOBGU.grabFocus();
             return;
         }
         if (txtIdentifyGU.getText().isEmpty()) {
@@ -274,6 +256,7 @@ public class RegisterForm extends javax.swing.JFrame {
         lbCoIDGU = new javax.swing.JLabel();
         txtIDGU = new javax.swing.JTextField();
         txtNameGU = new javax.swing.JTextField();
+        txtDOBGU = new javax.swing.JTextField();
         txtIdentifyGU = new javax.swing.JTextField();
         txtPhoneGU = new javax.swing.JTextField();
         txtEmailGU = new javax.swing.JTextField();
@@ -284,13 +267,6 @@ public class RegisterForm extends javax.swing.JFrame {
         btnResetGU = new javax.swing.JButton();
         txtPathImageGU = new javax.swing.JTextField();
         btnAttachGU = new javax.swing.JButton();
-        lbPasswordGU = new javax.swing.JLabel();
-        txtPasswordGU = new javax.swing.JPasswordField();
-        lbQuestionGU = new javax.swing.JLabel();
-        cbQuestionGU = new javax.swing.JComboBox<>();
-        lbAnswerGU = new javax.swing.JLabel();
-        txtAnswerGU = new javax.swing.JPasswordField();
-        dateChooserDOBGU = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -520,71 +496,68 @@ public class RegisterForm extends javax.swing.JFrame {
             pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnelColLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnelColLayout.createSequentialGroup()
-                        .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(pnelColLayout.createSequentialGroup()
-                                .addComponent(lbIDCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtIDCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lbPhoneCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnelColLayout.createSequentialGroup()
-                                .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnelColLayout.createSequentialGroup()
-                                        .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lbPasswordCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lbPasswordCo1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtPasswordCo)
-                                            .addComponent(cbQuestionCo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .addGroup(pnelColLayout.createSequentialGroup()
-                                        .addComponent(lbAnswerCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtAnswerCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
-                                .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbDepositCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbEmailCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbGradeCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(pnelColLayout.createSequentialGroup()
-                                .addComponent(lbDOBCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dateChooserDOBCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnelColLayout.createSequentialGroup()
-                                .addComponent(lbNameCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNameCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnelColLayout.createSequentialGroup()
-                                .addComponent(lbIdentifyCo2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtIdentifyCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnelColLayout.createSequentialGroup()
-                                .addComponent(lbAddressCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lbIDCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPhoneCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEmailCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtGradeCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDepositCo, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
-                            .addComponent(lbImageCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(63, Short.MAX_VALUE))
+                        .addComponent(txtIDCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lbPhoneCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnelColLayout.createSequentialGroup()
-                        .addComponent(btnBackCo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCreateCo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(17, 17, 17)
+                        .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnCreateCo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBackCo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnResetCo, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(202, 202, 202))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnelColLayout.createSequentialGroup()
-                .addGap(148, 148, 148)
-                .addComponent(txtPathImageCo)
+                        .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnelColLayout.createSequentialGroup()
+                                .addComponent(btnResetCo, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(114, 114, 114)
+                                .addComponent(btnAttachCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtPathImageCo, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnelColLayout.createSequentialGroup()
+                        .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnelColLayout.createSequentialGroup()
+                                .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbPasswordCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbPasswordCo1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtPasswordCo)
+                                    .addComponent(cbQuestionCo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(pnelColLayout.createSequentialGroup()
+                                .addComponent(lbAnswerCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtAnswerCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbDepositCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbEmailCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbGradeCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnelColLayout.createSequentialGroup()
+                        .addComponent(lbDOBCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dateChooserDOBCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnelColLayout.createSequentialGroup()
+                        .addComponent(lbNameCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNameCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnelColLayout.createSequentialGroup()
+                        .addComponent(lbIdentifyCo2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtIdentifyCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnelColLayout.createSequentialGroup()
+                        .addComponent(lbAddressCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAttachCo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
+                .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtPhoneCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEmailCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtGradeCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDepositCo, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                    .addComponent(lbImageCo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pnelColLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtAnswerCo, txtDepositCo, txtEmailCo, txtGradeCo, txtIDCo, txtPasswordCo, txtPhoneCo});
@@ -623,11 +596,7 @@ public class RegisterForm extends javax.swing.JFrame {
                 .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnelColLayout.createSequentialGroup()
                         .addComponent(lbImageCo, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAttachCo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPathImageCo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(78, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(pnelColLayout.createSequentialGroup()
                         .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbNameCo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -646,10 +615,13 @@ public class RegisterForm extends javax.swing.JFrame {
                             .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnResetCo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAttachCo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCreateCo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBackCo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                            .addComponent(btnResetCo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtPathImageCo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBackCo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
 
         pnelColLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cbQuestionCo, dateChooserDOBCo, lbIDCo, txtAnswerCo, txtDepositCo, txtEmailCo, txtGradeCo, txtIDCo, txtIdentifyCo, txtNameCo, txtPasswordCo, txtPhoneCo});
@@ -700,6 +672,10 @@ public class RegisterForm extends javax.swing.JFrame {
         txtNameGU.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         txtNameGU.setForeground(new java.awt.Color(255, 255, 255));
 
+        txtDOBGU.setBackground(new java.awt.Color(153, 153, 153));
+        txtDOBGU.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtDOBGU.setForeground(new java.awt.Color(255, 255, 255));
+
         txtIdentifyGU.setBackground(new java.awt.Color(153, 153, 153));
         txtIdentifyGU.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         txtIdentifyGU.setForeground(new java.awt.Color(255, 255, 255));
@@ -724,21 +700,11 @@ public class RegisterForm extends javax.swing.JFrame {
         btnBackGu.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnBackGu.setForeground(new java.awt.Color(255, 255, 255));
         btnBackGu.setText("Back");
-        btnBackGu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBackGuActionPerformed(evt);
-            }
-        });
 
         btnCreateGU.setBackground(new java.awt.Color(51, 51, 255));
         btnCreateGU.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnCreateGU.setForeground(new java.awt.Color(255, 255, 255));
         btnCreateGU.setText("Create");
-        btnCreateGU.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCreateGUActionPerformed(evt);
-            }
-        });
 
         btnResetGU.setBackground(new java.awt.Color(255, 51, 51));
         btnResetGU.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -764,34 +730,6 @@ public class RegisterForm extends javax.swing.JFrame {
             }
         });
 
-        lbPasswordGU.setBackground(new java.awt.Color(153, 153, 153));
-        lbPasswordGU.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lbPasswordGU.setForeground(new java.awt.Color(255, 255, 255));
-        lbPasswordGU.setText("Password");
-
-        txtPasswordGU.setBackground(new java.awt.Color(153, 153, 153));
-        txtPasswordGU.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        txtPasswordGU.setForeground(new java.awt.Color(255, 255, 255));
-
-        lbQuestionGU.setBackground(new java.awt.Color(153, 153, 153));
-        lbQuestionGU.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lbQuestionGU.setForeground(new java.awt.Color(255, 255, 255));
-        lbQuestionGU.setText("Question");
-
-        cbQuestionGU.setBackground(new java.awt.Color(153, 153, 153));
-        cbQuestionGU.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        cbQuestionGU.setForeground(new java.awt.Color(255, 255, 255));
-        cbQuestionGU.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is name of your best friend ?", "What is name of your pet ?", "What is name of your favorite film ?" }));
-
-        lbAnswerGU.setBackground(new java.awt.Color(153, 153, 153));
-        lbAnswerGU.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lbAnswerGU.setForeground(new java.awt.Color(255, 255, 255));
-        lbAnswerGU.setText("Answer");
-
-        txtAnswerGU.setBackground(new java.awt.Color(153, 153, 153));
-        txtAnswerGU.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        txtAnswerGU.setForeground(new java.awt.Color(255, 255, 255));
-
         javax.swing.GroupLayout pnelGuestLayout = new javax.swing.GroupLayout(pnelGuest);
         pnelGuest.setLayout(pnelGuestLayout);
         pnelGuestLayout.setHorizontalGroup(
@@ -806,35 +744,40 @@ public class RegisterForm extends javax.swing.JFrame {
                     .addGroup(pnelGuestLayout.createSequentialGroup()
                         .addGap(68, 68, 68)
                         .addComponent(btnAttachGU, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbIDGU, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lbPasswordGU, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbQuestionGU, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbAnswerGU, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbNameGU, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbDOBGU, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbIdentifyGU, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbIPhoneGU, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbEmailGU, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbStatusGU, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbCoIDGU, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtBelongCoGU)
                     .addGroup(pnelGuestLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtIdentifyGU, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPhoneGU, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEmailGU, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtStatusGU, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(txtAnswerGU)
-                    .addComponent(txtPasswordGU)
-                    .addComponent(txtIDGU)
-                    .addComponent(cbQuestionGU, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtNameGU, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateChooserDOBGU, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lbCoIDGU, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBelongCoGU, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2))
+                    .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(pnelGuestLayout.createSequentialGroup()
+                            .addComponent(lbIdentifyGU, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtIdentifyGU, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pnelGuestLayout.createSequentialGroup()
+                            .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lbIDGU, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lbStatusGU, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbEmailGU, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbNameGU, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbDOBGU, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbIPhoneGU, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnelGuestLayout.createSequentialGroup()
+                                    .addGap(49, 49, 49)
+                                    .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(txtIDGU, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtNameGU, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtDOBGU, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(0, 0, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnelGuestLayout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtPhoneGU, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtEmailGU, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtStatusGU, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                 .addGap(31, 31, 31))
             .addGroup(pnelGuestLayout.createSequentialGroup()
                 .addContainerGap()
@@ -846,9 +789,7 @@ public class RegisterForm extends javax.swing.JFrame {
                 .addGap(143, 143, 143))
         );
 
-        pnelGuestLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lbAnswerGU, lbDOBGU, lbEmailGU, lbIDGU, lbIPhoneGU, lbIdentifyGU, lbNameGU, lbPasswordGU, lbQuestionGU, lbStatusGU});
-
-        pnelGuestLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {dateChooserDOBGU, txtNameGU});
+        pnelGuestLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lbDOBGU, lbEmailGU, lbIDGU, lbIPhoneGU, lbIdentifyGU, lbNameGU, lbStatusGU});
 
         pnelGuestLayout.setVerticalGroup(
             pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -856,29 +797,19 @@ public class RegisterForm extends javax.swing.JFrame {
                 .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnelGuestLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtIDGU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbIDGU))
+                        .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtIDGU)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnelGuestLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(lbIDGU, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbPasswordGU, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPasswordGU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbQuestionGU, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbQuestionGU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbAnswerGU, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAnswerGU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbNameGU, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbNameGU, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNameGU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lbDOBGU, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                            .addComponent(dateChooserDOBGU, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbDOBGU, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDOBGU))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbIdentifyGU, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -898,15 +829,16 @@ public class RegisterForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbCoIDGU, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtBelongCoGU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtBelongCoGU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18))
                     .addGroup(pnelGuestLayout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(lbAttachImageGuest, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtPathImageGU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAttachGU)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addComponent(btnAttachGU)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBackGu)
                     .addComponent(btnCreateGU, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -914,7 +846,7 @@ public class RegisterForm extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        pnelGuestLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cbQuestionGU, dateChooserDOBGU, lbAnswerGU, lbCoIDGU, lbDOBGU, lbEmailGU, lbIDGU, lbIPhoneGU, lbIdentifyGU, lbNameGU, lbPasswordGU, lbQuestionGU, lbStatusGU, txtAnswerGU, txtBelongCoGU, txtEmailGU, txtIDGU, txtIdentifyGU, txtNameGU, txtPasswordGU, txtPhoneGU, txtStatusGU});
+        pnelGuestLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lbCoIDGU, lbDOBGU, lbEmailGU, lbIDGU, lbIPhoneGU, lbIdentifyGU, lbNameGU, lbStatusGU, txtBelongCoGU, txtEmailGU, txtIdentifyGU, txtNameGU, txtPhoneGU, txtStatusGU});
 
         pnelGuestLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnBackGu, btnCreateGU, btnResetGU});
 
@@ -964,13 +896,55 @@ public class RegisterForm extends javax.swing.JFrame {
 
     private void btnAttachCoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAttachCoActionPerformed
         // TODO add your handling code here:
-        JFileChooser chooser = new JFileChooser();
-        chooser.showOpenDialog(null);
-        File file = chooser.getSelectedFile();
-        String fileName = file.getAbsolutePath();
+        String fileName="";
+//        JFileChooser chooser = new JFileChooser();
+//        chooser.showOpenDialog(null);
+//        File file = chooser.getSelectedFile();
+
+        //-----------------------------------
+        //Gọi G2FileBrowserExtend để load ảnh
+        //-----------------------------------
+        //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+        G2FileBrowserExtend objFileChooser = new G2FileBrowserExtend();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+            "JPG & PNG Images", "jpg", "png");
+        objFileChooser.setFileFilter(filter);
+        int returnVal = objFileChooser.showOpenDialog(null);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+           fileName = objFileChooser.getSelectedFile().getPath();
+        }
+        
+        //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        //-----------------------------------
+        //Gọi G2FileBrowserExtend để load ảnh
+        //-----------------------------------
+        //String fileName = file.getAbsolutePath();
+        if(fileName.isEmpty())
+            return;
         txtPathImageCo.setText(fileName);
         ImageIcon icon = new ImageIcon(fileName);
-        Image image = icon.getImage().getScaledInstance(lbImageCo.getWidth(), lbImageCo.getHeight(), Image.SCALE_SMOOTH);
+//        Image image = icon.getImage().getScaledInstance(lbImageCo.getWidth(), lbImageCo.getHeight(), Image.SCALE_SMOOTH);
+        
+        //tui set lại tỉ lệ hình cho phù hợp
+        //__________________________________
+        //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+        int width = lbImageCo.getWidth();
+        int height = lbImageCo.getHeight();
+        int icoWidth = icon.getIconWidth();
+        int icoHeight = icon.getIconHeight();
+        Image image;
+        if (icoWidth/icoHeight >= width/height)
+        {
+            image = icon.getImage().getScaledInstance(width, icoHeight*width/icoWidth, Image.SCALE_SMOOTH);    
+        }else
+        {
+            image = icon.getImage().getScaledInstance(icoWidth*height/icoHeight, height, Image.SCALE_SMOOTH);
+        }
+        //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        //-----------------------------
+        //tui set lại tỉ lệ hình cho phù hợp
+        //--------------------------------
+        
         lbImageCo.setIcon(new ImageIcon(image));
     }//GEN-LAST:event_btnAttachCoActionPerformed
 
@@ -1019,7 +993,8 @@ public class RegisterForm extends javax.swing.JFrame {
         try {
             stmt.executeUpdate(sql);
             JOptionPane.showMessageDialog(this, "Create new Collaborator sucessfully");
-            new QuanlyCTV_2(continueAccount, continueType, conn, stmt).setVisible(true);
+            qlyCTV = new QuanlyCTV_2(continueAccount, continueType, conn, stmt);
+            qlyCTV.setVisible(true);
             dispose();
         } catch (SQLException ex) {
             Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -1034,58 +1009,6 @@ public class RegisterForm extends javax.swing.JFrame {
         qlyCTV.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnBackCoActionPerformed
-
-    private void btnBackGuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackGuActionPerformed
-        // TODO add your handling code here:
-        Theme_guest_2 theme_guest_2 = new Theme_guest_2(continueAccount, continueType, conn, stmt);
-        theme_guest_2.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnBackGuActionPerformed
-
-    private void btnCreateGUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateGUActionPerformed
-        // TODO add your handling code here:
-        checkBlankGu();
-        if (!txtIDGU.getText().matches("^Gu[0-9]{1,3}$")) {
-            JOptionPane.showMessageDialog(this, "ID format is Gu[xxx] with xxx is 1-3 digits");
-            txtIDGU.setText("");
-            txtIDGU.grabFocus();
-            return;
-        }
-        for (String str : listID) {
-            if (str.equals(txtIDGU.getText())) {
-                JOptionPane.showMessageDialog(this, "This ID has already existed");
-                txtIDGU.setText("");
-                txtIDGU.grabFocus();
-                return;
-            }
-        }
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String dob = df.format(dateChooserDOBCo.getDate());
-        
-        
-        sql = "insert into Account(ID, Password, Type, Question, Answer, Active) values\n"
-                + "('" + txtIDGU.getText() + "'," + "'" + txtPasswordGU.getText() + "'," + "'gu'," + "'" + cbQuestionGU.getSelectedItem() + "'," + "'" + txtAnswerGU.getText() + "'," + "1)";
-        try {
-            stmt.executeUpdate(sql);
-        } catch (SQLException ex) {
-            Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        sql = "insert into Guest values ('"+txtIDGU.getText()+"', '"+txtNameGU.getText()+"', '"+"', '"+dob+"', '"+"', '"+txtIdentifyGU.getText()+"', '"+"', '"+txtPhoneGU.getText()+"', '"+"', '"+txtEmailGU.getText()+"', '"+"', '"+txtStatusGU.getText()+"', '"+"', '"+txtBelongCoGU.getText()+"', '";
-        
-        try {
-            stmt.executeUpdate(sql);
-            JOptionPane.showMessageDialog(this, "Create new Guest sucessfully");
-            java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Theme_guest_2(continueAccount, continueType, conn, stmt).setVisible(true);
-            }
-        });
-            dispose();
-        } catch (SQLException ex) {
-            Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnCreateGUActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1132,15 +1055,12 @@ public class RegisterForm extends javax.swing.JFrame {
     private javax.swing.JButton btnResetCo;
     private javax.swing.JButton btnResetGU;
     private javax.swing.JComboBox<String> cbQuestionCo;
-    private javax.swing.JComboBox<String> cbQuestionGU;
     private com.toedter.calendar.JDateChooser dateChooserDOBCo;
-    private com.toedter.calendar.JDateChooser dateChooserDOBGU;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JTabbedPane jTabblePane;
     private javax.swing.JLabel lbAddressCo;
     private javax.swing.JLabel lbAnswerCo;
-    private javax.swing.JLabel lbAnswerGU;
     private javax.swing.JLabel lbAttachImageGuest;
     private javax.swing.JLabel lbClose;
     private javax.swing.JLabel lbCoIDGU;
@@ -1161,17 +1081,15 @@ public class RegisterForm extends javax.swing.JFrame {
     private javax.swing.JLabel lbNameGU;
     private javax.swing.JLabel lbPasswordCo;
     private javax.swing.JLabel lbPasswordCo1;
-    private javax.swing.JLabel lbPasswordGU;
     private javax.swing.JLabel lbPhoneCo;
-    private javax.swing.JLabel lbQuestionGU;
     private javax.swing.JLabel lbRegister;
     private javax.swing.JLabel lbStatusGU;
     private javax.swing.JPanel pnelCol;
     private javax.swing.JPanel pnelGuest;
     private javax.swing.JTextArea txtAddressCo;
     private javax.swing.JPasswordField txtAnswerCo;
-    private javax.swing.JPasswordField txtAnswerGU;
     private javax.swing.JTextField txtBelongCoGU;
+    private javax.swing.JTextField txtDOBGU;
     private javax.swing.JTextField txtDepositCo;
     private javax.swing.JTextField txtEmailCo;
     private javax.swing.JTextField txtEmailGU;
@@ -1183,7 +1101,6 @@ public class RegisterForm extends javax.swing.JFrame {
     private javax.swing.JTextField txtNameCo;
     private javax.swing.JTextField txtNameGU;
     private javax.swing.JPasswordField txtPasswordCo;
-    private javax.swing.JPasswordField txtPasswordGU;
     private javax.swing.JTextField txtPathImageCo;
     private javax.swing.JTextField txtPathImageGU;
     private javax.swing.JTextField txtPhoneCo;

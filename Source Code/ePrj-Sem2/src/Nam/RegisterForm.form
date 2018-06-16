@@ -154,89 +154,86 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="lbIDCo" min="-2" pref="134" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtIDCo" linkSize="5" min="-2" pref="209" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="lbPhoneCo" min="-2" pref="134" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="lbPasswordCo" alignment="0" min="-2" pref="134" max="-2" attributes="0"/>
-                                                  <Component id="lbPasswordCo1" alignment="0" min="-2" pref="134" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="txtPasswordCo" linkSize="5" max="32767" attributes="0"/>
-                                                  <Component id="cbQuestionCo" max="32767" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Group type="102" attributes="0">
-                                              <Component id="lbAnswerCo" min="-2" pref="134" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="txtAnswerCo" linkSize="5" min="-2" pref="209" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="lbDepositCo" min="-2" pref="134" max="-2" attributes="0"/>
-                                          <Component id="lbEmailCo" alignment="0" min="-2" pref="134" max="-2" attributes="0"/>
-                                          <Component id="lbGradeCo" alignment="0" min="-2" pref="134" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="lbDOBCo" min="-2" pref="134" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="dateChooserDOBCo" min="-2" pref="209" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="lbNameCo" min="-2" pref="134" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtNameCo" min="-2" pref="209" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="lbIdentifyCo2" min="-2" pref="134" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtIdentifyCo" min="-2" pref="209" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="lbAddressCo" min="-2" pref="134" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jScrollPane" min="-2" pref="209" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="lbIDCo" min="-2" pref="134" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtPhoneCo" linkSize="5" alignment="0" min="-2" pref="209" max="-2" attributes="0"/>
-                                  <Component id="txtEmailCo" linkSize="5" alignment="0" min="-2" pref="209" max="-2" attributes="0"/>
-                                  <Component id="txtGradeCo" linkSize="5" alignment="0" min="-2" pref="209" max="-2" attributes="0"/>
-                                  <Component id="txtDepositCo" linkSize="5" alignment="0" pref="209" max="32767" attributes="0"/>
-                                  <Component id="lbImageCo" alignment="0" min="-2" pref="209" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace pref="63" max="32767" attributes="0"/>
+                              <Component id="txtIDCo" linkSize="5" min="-2" pref="209" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="lbPhoneCo" min="-2" pref="134" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="btnBackCo" linkSize="7" max="32767" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="btnCreateCo" linkSize="7" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="btnCreateCo" linkSize="7" max="32767" attributes="0"/>
+                                  <Component id="btnBackCo" linkSize="7" max="32767" attributes="0"/>
+                              </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btnResetCo" linkSize="7" min="-2" pref="111" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="202" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="btnResetCo" linkSize="7" min="-2" pref="111" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
+                                      <Component id="btnAttachCo" min="-2" pref="134" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="txtPathImageCo" min="-2" pref="330" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="lbPasswordCo" alignment="0" min="-2" pref="134" max="-2" attributes="0"/>
+                                          <Component id="lbPasswordCo1" alignment="0" min="-2" pref="134" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="txtPasswordCo" linkSize="5" max="32767" attributes="0"/>
+                                          <Component id="cbQuestionCo" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="lbAnswerCo" min="-2" pref="134" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="txtAnswerCo" linkSize="5" min="-2" pref="209" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbDepositCo" min="-2" pref="134" max="-2" attributes="0"/>
+                                  <Component id="lbEmailCo" alignment="0" min="-2" pref="134" max="-2" attributes="0"/>
+                                  <Component id="lbGradeCo" alignment="0" min="-2" pref="134" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="lbDOBCo" min="-2" pref="134" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="dateChooserDOBCo" min="-2" pref="209" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="lbNameCo" min="-2" pref="134" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="txtNameCo" min="-2" pref="209" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="lbIdentifyCo2" min="-2" pref="134" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="txtIdentifyCo" min="-2" pref="209" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="lbAddressCo" min="-2" pref="134" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jScrollPane" min="-2" pref="209" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" pref="148" max="-2" attributes="0"/>
-                      <Component id="txtPathImageCo" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnAttachCo" min="-2" pref="134" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="txtPhoneCo" linkSize="5" alignment="0" min="-2" pref="209" max="-2" attributes="0"/>
+                          <Component id="txtEmailCo" linkSize="5" alignment="0" min="-2" pref="209" max="-2" attributes="0"/>
+                          <Component id="txtGradeCo" linkSize="5" alignment="0" min="-2" pref="209" max="-2" attributes="0"/>
+                          <Component id="txtDepositCo" linkSize="5" alignment="0" pref="209" max="32767" attributes="0"/>
+                          <Component id="lbImageCo" alignment="0" min="-2" pref="209" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="14" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -277,12 +274,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="lbImageCo" min="-2" pref="244" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="btnAttachCo" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
-                                  <Component id="txtPathImageCo" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace pref="78" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -306,11 +298,15 @@
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="btnResetCo" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                                  <Component id="btnAttachCo" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                                   <Component id="btnCreateCo" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
-                                  <Component id="btnBackCo" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                                  <Component id="btnResetCo" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="txtPathImageCo" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                                  <Component id="btnBackCo" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                   </Group>
@@ -780,38 +776,50 @@
                               <Component id="btnAttachGU" min="-2" pref="110" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lbIDGU" linkSize="1" alignment="0" max="32767" attributes="0"/>
-                          <Component id="lbPasswordGU" linkSize="1" alignment="0" min="-2" pref="128" max="-2" attributes="0"/>
-                          <Component id="lbQuestionGU" linkSize="1" alignment="0" min="-2" pref="134" max="-2" attributes="0"/>
-                          <Component id="lbAnswerGU" linkSize="1" alignment="0" min="-2" pref="134" max="-2" attributes="0"/>
-                          <Component id="lbNameGU" linkSize="1" alignment="0" min="-2" pref="104" max="-2" attributes="0"/>
-                          <Component id="lbDOBGU" linkSize="1" alignment="0" min="-2" pref="104" max="-2" attributes="0"/>
-                          <Component id="lbIdentifyGU" linkSize="1" alignment="0" min="-2" pref="124" max="-2" attributes="0"/>
-                          <Component id="lbIPhoneGU" linkSize="1" alignment="0" min="-2" pref="104" max="-2" attributes="0"/>
-                          <Component id="lbEmailGU" linkSize="1" alignment="0" min="-2" pref="104" max="-2" attributes="0"/>
-                          <Component id="lbStatusGU" linkSize="1" alignment="0" min="-2" pref="104" max="-2" attributes="0"/>
-                          <Component id="lbCoIDGU" alignment="0" min="-2" pref="218" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtBelongCoGU" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtIdentifyGU" alignment="1" min="-2" pref="307" max="-2" attributes="0"/>
-                                  <Component id="txtPhoneGU" alignment="1" min="-2" pref="307" max="-2" attributes="0"/>
-                                  <Component id="txtEmailGU" alignment="1" min="-2" pref="307" max="-2" attributes="0"/>
-                                  <Component id="txtStatusGU" alignment="1" min="-2" pref="307" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="lbCoIDGU" min="-2" pref="218" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="txtBelongCoGU" min="-2" pref="256" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="lbIdentifyGU" linkSize="1" min="-2" pref="124" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="txtIdentifyGU" min="-2" pref="307" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="lbIDGU" linkSize="1" max="32767" attributes="0"/>
+                                      <Component id="lbStatusGU" linkSize="1" min="-2" pref="104" max="-2" attributes="0"/>
+                                      <Component id="lbEmailGU" linkSize="1" min="-2" pref="104" max="-2" attributes="0"/>
+                                      <Component id="lbNameGU" linkSize="1" min="-2" pref="104" max="-2" attributes="0"/>
+                                      <Component id="lbDOBGU" linkSize="1" min="-2" pref="104" max="-2" attributes="0"/>
+                                      <Component id="lbIPhoneGU" linkSize="1" min="-2" pref="104" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="txtIDGU" min="-2" pref="307" max="-2" attributes="0"/>
+                                              <Component id="txtNameGU" min="-2" pref="307" max="-2" attributes="0"/>
+                                              <Component id="txtDOBGU" min="-2" pref="307" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="txtPhoneGU" alignment="1" min="-2" pref="307" max="-2" attributes="0"/>
+                                              <Component id="txtEmailGU" alignment="1" min="-2" pref="307" max="-2" attributes="0"/>
+                                              <Component id="txtStatusGU" alignment="1" min="-2" pref="307" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
                               </Group>
                           </Group>
-                          <Component id="txtAnswerGU" max="32767" attributes="0"/>
-                          <Component id="txtPasswordGU" max="32767" attributes="0"/>
-                          <Component id="txtIDGU" max="32767" attributes="0"/>
-                          <Component id="cbQuestionGU" max="32767" attributes="0"/>
-                          <Component id="txtNameGU" linkSize="8" min="-2" pref="307" max="-2" attributes="0"/>
-                          <Component id="dateChooserDOBGU" linkSize="8" min="-2" pref="307" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
@@ -832,34 +840,22 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="txtIDGU" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lbIDGU" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txtIDGU" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Component id="lbIDGU" linkSize="2" min="-2" pref="44" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lbPasswordGU" linkSize="2" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
-                                  <Component id="txtPasswordGU" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lbQuestionGU" linkSize="2" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                                  <Component id="cbQuestionGU" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lbAnswerGU" linkSize="2" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                  <Component id="txtAnswerGU" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lbNameGU" linkSize="2" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                                  <Component id="lbNameGU" linkSize="2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                   <Component id="txtNameGU" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="lbDOBGU" linkSize="2" pref="30" max="32767" attributes="0"/>
-                                  <Component id="dateChooserDOBGU" linkSize="2" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbDOBGU" linkSize="2" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="txtDOBGU" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -886,6 +882,7 @@
                                   <Component id="lbCoIDGU" linkSize="2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                   <Component id="txtBelongCoGU" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
@@ -894,9 +891,9 @@
                               <Component id="txtPathImageGU" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnAttachGU" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="44" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnBackGu" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnCreateGU" linkSize="3" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
@@ -1033,6 +1030,19 @@
                 </Property>
               </Properties>
             </Component>
+            <Component class="javax.swing.JTextField" name="txtDOBGU">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="99" green="99" red="99" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="18" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+              </Properties>
+            </Component>
             <Component class="javax.swing.JTextField" name="txtIdentifyGU">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -1111,9 +1121,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Back"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBackGuActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnCreateGU">
               <Properties>
@@ -1128,9 +1135,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Create"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCreateGUActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnResetGU">
               <Properties>
@@ -1178,99 +1182,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAttachGUActionPerformed"/>
               </Events>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lbPasswordGU">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="99" green="99" red="99" type="rgb"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="18" style="1"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Password"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JPasswordField" name="txtPasswordGU">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="99" green="99" red="99" type="rgb"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="18" style="1"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lbQuestionGU">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="99" green="99" red="99" type="rgb"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="18" style="1"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Question"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JComboBox" name="cbQuestionGU">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="99" green="99" red="99" type="rgb"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="12" style="1"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="3">
-                    <StringItem index="0" value="What is name of your best friend ?"/>
-                    <StringItem index="1" value="What is name of your pet ?"/>
-                    <StringItem index="2" value="What is name of your favorite film ?"/>
-                  </StringArray>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-              </AuxValues>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lbAnswerGU">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="99" green="99" red="99" type="rgb"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="18" style="1"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Answer"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JPasswordField" name="txtAnswerGU">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="99" green="99" red="99" type="rgb"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="18" style="1"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-              </Properties>
-            </Component>
-            <Component class="com.toedter.calendar.JDateChooser" name="dateChooserDOBGU">
             </Component>
           </SubComponents>
         </Container>

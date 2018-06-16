@@ -111,7 +111,6 @@ public class MainControlInterface extends javax.swing.JFrame {
         guBtnDiscount = new javax.swing.JButton();
         guBtnNotification = new javax.swing.JButton();
         guBtnViewAllRoom = new javax.swing.JButton();
-        guBtnFeedback = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -328,11 +327,6 @@ public class MainControlInterface extends javax.swing.JFrame {
         colBtnCreate.setFont(new java.awt.Font("Tahoma", 1, 33)); // NOI18N
         colBtnCreate.setForeground(new java.awt.Color(255, 255, 255));
         colBtnCreate.setText("Create new Account");
-        colBtnCreate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                colBtnCreateActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanelColLayout = new javax.swing.GroupLayout(jPanelCol);
         jPanelCol.setLayout(jPanelColLayout);
@@ -392,15 +386,10 @@ public class MainControlInterface extends javax.swing.JFrame {
         guBtnNotification.setForeground(new java.awt.Color(255, 255, 255));
         guBtnNotification.setText("Notification");
 
-        guBtnViewAllRoom.setBackground(new java.awt.Color(51, 102, 255));
+        guBtnViewAllRoom.setBackground(new java.awt.Color(255, 51, 102));
         guBtnViewAllRoom.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         guBtnViewAllRoom.setForeground(new java.awt.Color(255, 255, 255));
         guBtnViewAllRoom.setText("View all apartment");
-
-        guBtnFeedback.setBackground(new java.awt.Color(0, 204, 204));
-        guBtnFeedback.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
-        guBtnFeedback.setForeground(new java.awt.Color(255, 255, 255));
-        guBtnFeedback.setText("Feedback");
 
         javax.swing.GroupLayout jPanelGuestLayout = new javax.swing.GroupLayout(jPanelGuest);
         jPanelGuest.setLayout(jPanelGuestLayout);
@@ -408,18 +397,16 @@ public class MainControlInterface extends javax.swing.JFrame {
             jPanelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelGuestLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(guBtnFeedback, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanelGuestLayout.createSequentialGroup()
-                        .addGroup(jPanelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(guBtnViewAllRoom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanelGuestLayout.createSequentialGroup()
-                                .addComponent(guBtnDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(guBtnNotification, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
-                        .addComponent(guTxtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(guBtnDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(guBtnNotification, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(guTxtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(jPanelGuestLayout.createSequentialGroup()
+                .addGap(105, 105, 105)
+                .addComponent(guBtnViewAllRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelGuestLayout.setVerticalGroup(
             jPanelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -430,11 +417,9 @@ public class MainControlInterface extends javax.swing.JFrame {
                         .addComponent(guBtnDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(guBtnNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(guTxtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(guBtnViewAllRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addComponent(guBtnFeedback, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(143, Short.MAX_VALUE))
         );
 
         jTabbedPane.addTab("Guest", jPanelGuest);
@@ -534,16 +519,6 @@ public class MainControlInterface extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnGuestActionPerformed
 
-    private void colBtnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colBtnCreateActionPerformed
-        // TODO add your handling code here:
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RegisterForm(continueAccount, continueAccount, conn, stmt).setVisible(true);
-            }
-        });
-        dispose();
-    }//GEN-LAST:event_colBtnCreateActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -595,7 +570,6 @@ public class MainControlInterface extends javax.swing.JFrame {
     private javax.swing.JButton colLbNotification;
     private javax.swing.JTextField colTxtAccount;
     private javax.swing.JButton guBtnDiscount;
-    private javax.swing.JButton guBtnFeedback;
     private javax.swing.JButton guBtnNotification;
     private javax.swing.JButton guBtnViewAllRoom;
     private javax.swing.JTextField guTxtAccount;
