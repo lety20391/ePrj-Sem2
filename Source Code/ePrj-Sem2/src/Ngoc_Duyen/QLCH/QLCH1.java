@@ -148,60 +148,6 @@ public class QLCH1 extends javax.swing.JFrame {
         txtPrice.setText("");
         txtIDSup.setText("");
     }
-     public void checkblank()
-    {
-        if (txtID.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "ID cannot be blank. Re-Enter.");
-            txtID.grabFocus();
-            return;
-        }
-        try {
-            Integer.parseInt(txtID.getText());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Pls Re-Enter");
-        }
-        if (txtName.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Name cannot be blank. Re-Enter.");
-            txtName.grabFocus();
-            return;
-        }
-        if (txtAddress.getText().isEmpty()) {
-             JOptionPane.showMessageDialog(this, "Address cannot be blank. Re-Enter.");
-            txtAddress.grabFocus();
-            return;
-        }
-        if (txtImage.getText().isEmpty()) {
-             JOptionPane.showMessageDialog(this, "Image cannot be blank. Re-Enter.");
-            txtImage.grabFocus();
-            return;
-        }
-        if (txtInfo.getText().isEmpty()) {
-             JOptionPane.showMessageDialog(this, "Info cannot be blank. Re-Enter.");
-            txtInfo.grabFocus();
-            return;
-        }
-        if (txtIDSup.getText().isEmpty()) {
-             JOptionPane.showMessageDialog(this, "IDSup cannot be blank. Re-Enter.");
-            txtIDSup.grabFocus();
-            return;
-        }
-        try {
-          Integer.parseInt(txtIDSup.getText());  
-        } catch (NumberFormatException e) {
-              JOptionPane.showMessageDialog(this, "Pls Re-Enter");
-        }
-             
-        if (txtPrice.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Price cannot be blank. Re-Enter.");
-            txtPrice.grabFocus();
-            return;
-        }
-        try {
-          Integer.parseInt(txtPrice.getText());  
-        } catch (NumberFormatException e) {
-              JOptionPane.showMessageDialog(this, "Pls Re-Enter");
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -625,11 +571,11 @@ public class QLCH1 extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new QLCH1().setVisible(true);
-//            }
-//        });
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new QLCH1().setVisible(true);
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

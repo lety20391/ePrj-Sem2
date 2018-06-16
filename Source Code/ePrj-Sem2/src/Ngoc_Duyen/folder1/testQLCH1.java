@@ -45,23 +45,27 @@ public class testQLCH1 extends javax.swing.JFrame {
         this.setTitle("Apartment Management");
     }
 
+    public testQLCH1() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
 
     public void connectSQL()
     {
-//        Connection con;
-//        Statement stmt;
-//        
-//        DatabaseConnect objDBConnect;
-//        objDBConnect = new DatabaseConnect();
-//        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "123456789", "1433");
-//        
-//        con = connectContainer.getObjCon();
-//        stmt = connectContainer.getStatement();
-//        
-//    
-//        objDBConnect.ListTable();
-//        objDBConnect.Close();
+        Connection con;
+        Statement stmt;
+        
+        DatabaseConnect objDBConnect;
+        objDBConnect = new DatabaseConnect();
+        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "123456789", "1433");
+        
+        con = connectContainer.getObjCon();
+        stmt = connectContainer.getStatement();
+        
+    
+        objDBConnect.ListTable();
+        objDBConnect.Close();
         
         {
             try {
@@ -82,24 +86,24 @@ public class testQLCH1 extends javax.swing.JFrame {
 
     public void showTable()
     {
-//         ApartModel = new DefaultTableModel();
-//        header = new Vector();
-//        header.add("Service ID");
-//        header.add("Service Name");
-//        header.add("Service Address");
-//        header.add("Service Image");
-//        header.add("Service Info");
-//        header.add("Service Status");
-//        header.add("Service Price");
-//        header.add("Service IDSup");
-//        
-//        data = new Vector();
-//        ApartModel.setRowCount(0);
-//        try {            
-//            sql = "select * from Apartment";
-//            rs = stmt.executeQuery(sql);
-//            rs.beforeFirst();
-//            while(rs.next())
+////         ApartModel = new DefaultTableModel();
+////        header = new Vector();
+////        header.add("Service ID");
+////        header.add("Service Name");
+////        header.add("Service Address");
+////        header.add("Service Image");
+////        header.add("Service Info");
+////        header.add("Service Status");
+////        header.add("Service Price");
+////        header.add("Service IDSup");
+////        
+////        data = new Vector();
+////        ApartModel.setRowCount(0);
+////        try {            
+////            sql = "select * from Apartment";
+////            rs = stmt.executeQuery(sql);
+////            rs.beforeFirst();
+////            while(rs.next())
 //            {
 //                row = new Vector();
 //                row.add(rs.getString("IDApa"));
@@ -118,7 +122,7 @@ public class testQLCH1 extends javax.swing.JFrame {
 //        
 //        ApartModel.setDataVector(data, header);
 //        tblApartment.setModel(ApartModel);
-    }
+   }
     public void manageButton(boolean BtnAddStatus, boolean BtnUpdateStatus, boolean BtnDeleteStatus)
     {
         
@@ -634,11 +638,10 @@ public class testQLCH1 extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new QLCH1().setVisible(true);
-//            }
-//        });
+       java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+               new testQLCH1().setVisible(true);
+          }        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
