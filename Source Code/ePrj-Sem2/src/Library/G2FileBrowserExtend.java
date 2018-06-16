@@ -47,7 +47,7 @@ public class G2FileBrowserExtend extends JFileChooser{
         //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
         
         JPanel pPreview = new JPanel();
-        Dimension dimension = new Dimension(320, 500);
+        Dimension dimension = new Dimension(220, 300);
         pPreview.setPreferredSize(dimension);
         Border objBorder = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
         pPreview.setBorder(objBorder);
@@ -70,10 +70,10 @@ public class G2FileBrowserExtend extends JFileChooser{
         //----------------------------------------------
         //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
         objImagePanel = new G2ImagePanel();
-        dimension = new Dimension(300, 400);
+        dimension = new Dimension(200, 300);
         objImagePanel.setPreferredSize(dimension);
         objImagePanel.setBorder(objBorder);
-        pPreview.add(objImagePanel, BorderLayout.CENTER);
+        pPreview.add(objImagePanel, BorderLayout.PAGE_END);
         dialog.getContentPane().add(pPreview, BorderLayout.EAST);        
         dialog.pack();
         //sendDataToPreviewPane(objImagePanel);
