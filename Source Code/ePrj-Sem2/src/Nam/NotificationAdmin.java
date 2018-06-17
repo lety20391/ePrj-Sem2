@@ -48,7 +48,7 @@ public class NotificationAdmin extends javax.swing.JDialog {
      */
     public NotificationAdmin(java.awt.Frame parent, boolean modal, String account, String type, Connection connnection, Statement statement) {
         super(parent, modal);
-        //initComponents();
+        initComponents();
         continueAccount = account;
         continueType = type;
         conn = connnection;
@@ -58,10 +58,10 @@ public class NotificationAdmin extends javax.swing.JDialog {
         pack();
     }
     
-    public void show()
-    {
-        initComponents();
-    }
+//    public void show()
+//    {
+//        initComponents();
+//    }
     
     private void load() {
         ColModel = new DefaultTableModel();
@@ -117,28 +117,6 @@ public class NotificationAdmin extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         lbNotification = new javax.swing.JLabel();
         TabbedPane = new javax.swing.JTabbedPane();
-        pnelApart = new javax.swing.JPanel();
-        pnelCollaborator1 = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        tbApart = new javax.swing.JTable();
-        lbIDCo1 = new javax.swing.JLabel();
-        lbNameCo2 = new javax.swing.JLabel();
-        lbPhoneCo1 = new javax.swing.JLabel();
-        lbDepositCo1 = new javax.swing.JLabel();
-        lbGradeCo1 = new javax.swing.JLabel();
-        txtIDCo1 = new javax.swing.JTextField();
-        txtNameCo1 = new javax.swing.JTextField();
-        txtPhoneCo1 = new javax.swing.JTextField();
-        txtDepositCo1 = new javax.swing.JTextField();
-        txtGradeCo1 = new javax.swing.JTextField();
-        lbImageCo1 = new javax.swing.JLabel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        txtApartMessage = new javax.swing.JTextArea();
-        lbMessage1 = new javax.swing.JLabel();
-        txtSearchApart = new javax.swing.JTextField();
-        btnSearchApart = new javax.swing.JButton();
-        btnSendCo1 = new javax.swing.JButton();
-        btnCloseCo1 = new javax.swing.JButton();
         pnelCollaborator = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbCol = new javax.swing.JTable();
@@ -187,223 +165,6 @@ public class NotificationAdmin extends javax.swing.JDialog {
 
         TabbedPane.setForeground(new java.awt.Color(255, 0, 51));
         TabbedPane.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-
-        pnelApart.setBackground(new java.awt.Color(102, 102, 102));
-
-        pnelCollaborator1.setBackground(new java.awt.Color(102, 102, 102));
-
-        tbApart.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane4.setViewportView(tbApart);
-
-        lbIDCo1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lbIDCo1.setForeground(new java.awt.Color(255, 255, 255));
-        lbIDCo1.setText("ID");
-
-        lbNameCo2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lbNameCo2.setForeground(new java.awt.Color(255, 255, 255));
-        lbNameCo2.setText("Name");
-
-        lbPhoneCo1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lbPhoneCo1.setForeground(new java.awt.Color(255, 255, 255));
-        lbPhoneCo1.setText("Phone");
-
-        lbDepositCo1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lbDepositCo1.setForeground(new java.awt.Color(255, 255, 255));
-        lbDepositCo1.setText("Deposit");
-
-        lbGradeCo1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lbGradeCo1.setForeground(new java.awt.Color(255, 255, 255));
-        lbGradeCo1.setText("Grade");
-
-        txtIDCo1.setBackground(new java.awt.Color(153, 153, 153));
-        txtIDCo1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        txtIDCo1.setForeground(new java.awt.Color(255, 255, 255));
-
-        txtNameCo1.setBackground(new java.awt.Color(153, 153, 153));
-        txtNameCo1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        txtNameCo1.setForeground(new java.awt.Color(255, 255, 255));
-
-        txtPhoneCo1.setBackground(new java.awt.Color(153, 153, 153));
-        txtPhoneCo1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        txtPhoneCo1.setForeground(new java.awt.Color(255, 255, 255));
-
-        txtDepositCo1.setBackground(new java.awt.Color(153, 153, 153));
-        txtDepositCo1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        txtDepositCo1.setForeground(new java.awt.Color(255, 255, 255));
-
-        txtGradeCo1.setBackground(new java.awt.Color(153, 153, 153));
-        txtGradeCo1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        txtGradeCo1.setForeground(new java.awt.Color(255, 255, 255));
-
-        lbImageCo1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-
-        txtApartMessage.setColumns(20);
-        txtApartMessage.setRows(5);
-        jScrollPane5.setViewportView(txtApartMessage);
-
-        lbMessage1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lbMessage1.setForeground(new java.awt.Color(255, 255, 255));
-        lbMessage1.setText("Message");
-
-        txtSearchApart.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-
-        btnSearchApart.setBackground(new java.awt.Color(0, 255, 204));
-        btnSearchApart.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnSearchApart.setForeground(new java.awt.Color(255, 255, 255));
-        btnSearchApart.setText("Search");
-
-        btnSendCo1.setBackground(new java.awt.Color(51, 51, 255));
-        btnSendCo1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnSendCo1.setForeground(new java.awt.Color(255, 255, 255));
-        btnSendCo1.setText("Send");
-
-        btnCloseCo1.setBackground(new java.awt.Color(255, 51, 51));
-        btnCloseCo1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnCloseCo1.setForeground(new java.awt.Color(255, 255, 255));
-        btnCloseCo1.setText("Close");
-
-        javax.swing.GroupLayout pnelCollaborator1Layout = new javax.swing.GroupLayout(pnelCollaborator1);
-        pnelCollaborator1.setLayout(pnelCollaborator1Layout);
-        pnelCollaborator1Layout.setHorizontalGroup(
-            pnelCollaborator1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnelCollaborator1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnelCollaborator1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnelCollaborator1Layout.createSequentialGroup()
-                        .addGroup(pnelCollaborator1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4)
-                            .addGroup(pnelCollaborator1Layout.createSequentialGroup()
-                                .addGroup(pnelCollaborator1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(pnelCollaborator1Layout.createSequentialGroup()
-                                        .addComponent(txtSearchApart, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnSearchApart, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(pnelCollaborator1Layout.createSequentialGroup()
-                                        .addComponent(lbMessage1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(pnelCollaborator1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnelCollaborator1Layout.createSequentialGroup()
-                                                .addComponent(btnSendCo1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(btnCloseCo1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(1, 1, 1)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(pnelCollaborator1Layout.createSequentialGroup()
-                        .addGroup(pnelCollaborator1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnelCollaborator1Layout.createSequentialGroup()
-                                .addComponent(lbNameCo2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtNameCo1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnelCollaborator1Layout.createSequentialGroup()
-                                .addComponent(lbPhoneCo1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtPhoneCo1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnelCollaborator1Layout.createSequentialGroup()
-                                .addComponent(lbIDCo1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtIDCo1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnelCollaborator1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnelCollaborator1Layout.createSequentialGroup()
-                                    .addComponent(lbGradeCo1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(txtGradeCo1))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnelCollaborator1Layout.createSequentialGroup()
-                                    .addComponent(lbDepositCo1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(txtDepositCo1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                        .addComponent(lbImageCo1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26))))
-        );
-
-        pnelCollaborator1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCloseCo1, btnSendCo1});
-
-        pnelCollaborator1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtDepositCo1, txtGradeCo1, txtIDCo1, txtNameCo1, txtPhoneCo1});
-
-        pnelCollaborator1Layout.setVerticalGroup(
-            pnelCollaborator1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnelCollaborator1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnelCollaborator1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtSearchApart)
-                    .addComponent(btnSearchApart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addGroup(pnelCollaborator1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(pnelCollaborator1Layout.createSequentialGroup()
-                        .addGap(120, 120, 120)
-                        .addComponent(txtDepositCo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnelCollaborator1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbGradeCo1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtGradeCo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(pnelCollaborator1Layout.createSequentialGroup()
-                        .addGroup(pnelCollaborator1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbIDCo1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtIDCo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnelCollaborator1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNameCo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbNameCo2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnelCollaborator1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbPhoneCo1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPhoneCo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbDepositCo1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lbImageCo1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnelCollaborator1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnelCollaborator1Layout.createSequentialGroup()
-                        .addComponent(lbMessage1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnelCollaborator1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSendCo1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCloseCo1))
-                .addGap(5, 5, 5))
-        );
-
-        pnelCollaborator1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCloseCo1, btnSendCo1});
-
-        pnelCollaborator1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lbIDCo1, txtDepositCo1, txtGradeCo1, txtIDCo1, txtNameCo1, txtPhoneCo1});
-
-        javax.swing.GroupLayout pnelApartLayout = new javax.swing.GroupLayout(pnelApart);
-        pnelApart.setLayout(pnelApartLayout);
-        pnelApartLayout.setHorizontalGroup(
-            pnelApartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 689, Short.MAX_VALUE)
-            .addGroup(pnelApartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pnelApartLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(pnelCollaborator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        pnelApartLayout.setVerticalGroup(
-            pnelApartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 489, Short.MAX_VALUE)
-            .addGroup(pnelApartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pnelApartLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(pnelCollaborator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-
-        TabbedPane.addTab("Apartments", pnelApart);
 
         pnelCollaborator.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -629,6 +390,15 @@ public class NotificationAdmin extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCloseCoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseCoActionPerformed
+        // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(new JFrame(),
+            "Do you want to close ?", "",
+            JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+        this.dispose();
+        }
+    }//GEN-LAST:event_btnCloseCoActionPerformed
+
     private void btnSendCoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendCoActionPerformed
         // TODO add your handling code here:
         if (txtMessage.getText().isEmpty()) {
@@ -644,10 +414,12 @@ public class NotificationAdmin extends javax.swing.JDialog {
         }
 
         JOptionPane.showMessageDialog(this, "Message has been sent");
+        txtMessage.setText("");
     }//GEN-LAST:event_btnSendCoActionPerformed
 
     private void tbColMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbColMouseClicked
         // TODO add your handling code here:
+        txtMessage.setText("");
         int selectedRow;
 
         selectedRow = tbCol.getSelectedRow();
@@ -685,18 +457,9 @@ public class NotificationAdmin extends javax.swing.JDialog {
         } else {
             image = icon.getImage().getScaledInstance(icoWidth * height / icoHeight, height, Image.SCALE_SMOOTH);
         }
-        
+
         lbImageCo.setIcon(new ImageIcon(image));
     }//GEN-LAST:event_tbColMouseClicked
-
-    private void btnCloseCoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseCoActionPerformed
-        // TODO add your handling code here:
-        if (JOptionPane.showConfirmDialog(new JFrame(),
-                "Do you want to close ?", "",
-                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            this.dispose();
-        }
-    }//GEN-LAST:event_btnCloseCoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -743,49 +506,27 @@ public class NotificationAdmin extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane TabbedPane;
     private javax.swing.JButton btnCloseCo;
-    private javax.swing.JButton btnCloseCo1;
-    private javax.swing.JButton btnSearchApart;
     private javax.swing.JButton btnSearchCo;
     private javax.swing.JButton btnSendCo;
-    private javax.swing.JButton btnSendCo1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JLabel lbDepositCo;
-    private javax.swing.JLabel lbDepositCo1;
     private javax.swing.JLabel lbGradeCo;
-    private javax.swing.JLabel lbGradeCo1;
     private javax.swing.JLabel lbIDCo;
-    private javax.swing.JLabel lbIDCo1;
     private javax.swing.JLabel lbImageCo;
-    private javax.swing.JLabel lbImageCo1;
     private javax.swing.JLabel lbMessage;
-    private javax.swing.JLabel lbMessage1;
     private javax.swing.JLabel lbNameCo1;
-    private javax.swing.JLabel lbNameCo2;
     private javax.swing.JLabel lbNotification;
     private javax.swing.JLabel lbPhoneCo;
-    private javax.swing.JLabel lbPhoneCo1;
-    private javax.swing.JPanel pnelApart;
     private javax.swing.JPanel pnelCollaborator;
-    private javax.swing.JPanel pnelCollaborator1;
-    private javax.swing.JTable tbApart;
     private javax.swing.JTable tbCol;
-    private javax.swing.JTextArea txtApartMessage;
     private javax.swing.JTextField txtDepositCo;
-    private javax.swing.JTextField txtDepositCo1;
     private javax.swing.JTextField txtGradeCo;
-    private javax.swing.JTextField txtGradeCo1;
     private javax.swing.JTextField txtIDCo;
-    private javax.swing.JTextField txtIDCo1;
     private javax.swing.JTextArea txtMessage;
     private javax.swing.JTextField txtNameCo;
-    private javax.swing.JTextField txtNameCo1;
     private javax.swing.JTextField txtPhoneCo;
-    private javax.swing.JTextField txtPhoneCo1;
-    private javax.swing.JTextField txtSearchApart;
     private javax.swing.JTextField txtSearchCo;
     // End of variables declaration//GEN-END:variables
 }

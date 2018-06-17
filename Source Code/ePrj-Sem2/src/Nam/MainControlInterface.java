@@ -8,14 +8,14 @@ package Nam;
 import Dat_Le_2.uiHolding_2;
 import Tuyet_Duyen.Services_2;
 import Tuyet_Duyen.Theme_guest_2;
-import java.awt.Point;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
@@ -31,6 +31,7 @@ public class MainControlInterface extends javax.swing.JFrame {
     String sql;
 
     String continueAccount, continueType;
+    int count = 0;
 
     //phan dat ten cac variable cho tung Frame
     Dat_Le_2.uiHolding_2 objUIHolding;
@@ -39,7 +40,7 @@ public class MainControlInterface extends javax.swing.JFrame {
     Duy.QuanlyOwner_2 objOwner;
     Tuyet_Duyen.Services_2 objService;
     Tuyet_Duyen.Theme_guest_2 objThemeGuest;
-    Account accDialog;
+    NotificationFormToCol accDialog;
     NotificationAdmin notiAd;
 
     /**
@@ -61,7 +62,15 @@ public class MainControlInterface extends javax.swing.JFrame {
         guTxtAccount.setText(account);
         setLocationRelativeTo(null);
         load();
+        loadCol();
+        txtCoDeposit.setEditable(false);
+        txtCoGrade.setEditable(false);
+        txtCoName.setEditable(false);
+        txtCoNumberOfGuest.setEditable(false);
+        txtNotification.setEditable(false);
+        txtCoLogout.setEditable(false);
         pack();
+        
     }
 
     private void load() {
@@ -78,7 +87,36 @@ public class MainControlInterface extends javax.swing.JFrame {
             jTabbedPane.remove(jPanelCol);
         }
     }
-
+    
+    private void loadCol(){
+        sql = "select * from Collaborator where IDCo = '"+colTxtAccount.getText()+"'";
+        try {
+            rs = stmt.executeQuery(sql);
+            rs.beforeFirst();
+            while (rs.next()) {
+                txtCoDeposit.setText("Deposit: "+String.valueOf(rs.getDouble("DepositCo")));
+                txtCoGrade.setText("Grade: "+rs.getString("GradeCo"));
+                txtCoNumberOfGuest.setText("Number of guests: "+rs.getInt("NumberOfGuest"));
+                txtCoName.setText(""+rs.getString("NameCo"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NotificationFormToCol.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        sql = "select * from "+continueAccount+" where Status = 'unread' order by Status";
+        try {
+            rs = stmt.executeQuery(sql);
+            rs.beforeFirst();
+            while (rs.next()) {
+                count++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NotificationFormToCol.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        txtNotification.setText("Notification: "+ count);
+        txtCoLogout.setText("Logout");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -97,23 +135,24 @@ public class MainControlInterface extends javax.swing.JFrame {
         btnNotification = new javax.swing.JButton();
         txtAccount = new javax.swing.JTextField();
         btnHolding = new javax.swing.JButton();
-        btnDiscount = new javax.swing.JButton();
         btnCollaborator = new javax.swing.JButton();
-        btnSearch = new javax.swing.JButton();
         btnGuest = new javax.swing.JButton();
         btnCreate = new javax.swing.JButton();
         btnServices = new javax.swing.JButton();
+        btnOwners = new javax.swing.JButton();
         jPanelCol = new javax.swing.JPanel();
         colBtnHolding = new javax.swing.JButton();
         colBtnGuest = new javax.swing.JButton();
         colTxtAccount = new javax.swing.JTextField();
-        colBtnDiscount = new javax.swing.JButton();
-        colLbNotification = new javax.swing.JButton();
         colBtnCreate = new javax.swing.JButton();
+        txtCoName = new javax.swing.JTextField();
+        txtCoNumberOfGuest = new javax.swing.JTextField();
+        txtCoDeposit = new javax.swing.JTextField();
+        txtCoGrade = new javax.swing.JTextField();
+        txtNotification = new javax.swing.JTextField();
+        txtCoLogout = new javax.swing.JTextField();
         jPanelGuest = new javax.swing.JPanel();
         guTxtAccount = new javax.swing.JTextField();
-        guBtnDiscount = new javax.swing.JButton();
-        guBtnNotification = new javax.swing.JButton();
         guBtnViewAllRoom = new javax.swing.JButton();
         guBtnFeedback = new javax.swing.JButton();
 
@@ -198,11 +237,6 @@ public class MainControlInterface extends javax.swing.JFrame {
             }
         });
 
-        btnDiscount.setBackground(new java.awt.Color(51, 255, 51));
-        btnDiscount.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
-        btnDiscount.setForeground(new java.awt.Color(255, 255, 255));
-        btnDiscount.setText("Discount");
-
         btnCollaborator.setBackground(new java.awt.Color(51, 51, 255));
         btnCollaborator.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         btnCollaborator.setForeground(new java.awt.Color(255, 255, 255));
@@ -212,11 +246,6 @@ public class MainControlInterface extends javax.swing.JFrame {
                 btnCollaboratorActionPerformed(evt);
             }
         });
-
-        btnSearch.setBackground(new java.awt.Color(0, 102, 102));
-        btnSearch.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
-        btnSearch.setForeground(new java.awt.Color(255, 255, 255));
-        btnSearch.setText("Search");
 
         btnGuest.setBackground(new java.awt.Color(153, 153, 0));
         btnGuest.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
@@ -248,29 +277,38 @@ public class MainControlInterface extends javax.swing.JFrame {
             }
         });
 
+        btnOwners.setBackground(new java.awt.Color(0, 204, 51));
+        btnOwners.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        btnOwners.setForeground(new java.awt.Color(255, 255, 255));
+        btnOwners.setText("Owners");
+        btnOwners.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOwnersActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelAdminLayout = new javax.swing.GroupLayout(jPanelAdmin);
         jPanelAdmin.setLayout(jPanelAdminLayout);
         jPanelAdminLayout.setHorizontalGroup(
             jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAdminLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnCreate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(btnCreate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanelAdminLayout.createSequentialGroup()
                             .addComponent(btnNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnHolding, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanelAdminLayout.createSequentialGroup()
-                            .addComponent(btnDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnCollaborator, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnHolding, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanelAdminLayout.createSequentialGroup()
+                        .addComponent(btnCollaborator, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnGuest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtAccount)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnGuest, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-                    .addComponent(btnServices, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE))
+                    .addComponent(btnServices, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                    .addComponent(btnOwners, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -280,23 +318,23 @@ public class MainControlInterface extends javax.swing.JFrame {
             jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAdminLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanelAdminLayout.createSequentialGroup()
+                        .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnHolding, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnCollaborator, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnGuest, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelAdminLayout.createSequentialGroup()
                         .addComponent(txtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnHolding, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCollaborator, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGuest, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnServices, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnServices, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
+                        .addComponent(btnOwners, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -322,21 +360,6 @@ public class MainControlInterface extends javax.swing.JFrame {
         colBtnGuest.setText("Guest");
 
         colTxtAccount.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        colTxtAccount.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                colTxtAccountMouseClicked(evt);
-            }
-        });
-
-        colBtnDiscount.setBackground(new java.awt.Color(51, 255, 51));
-        colBtnDiscount.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
-        colBtnDiscount.setForeground(new java.awt.Color(255, 255, 255));
-        colBtnDiscount.setText("Discount");
-
-        colLbNotification.setBackground(new java.awt.Color(255, 0, 0));
-        colLbNotification.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
-        colLbNotification.setForeground(new java.awt.Color(255, 255, 255));
-        colLbNotification.setText("Notification");
 
         colBtnCreate.setBackground(new java.awt.Color(153, 0, 153));
         colBtnCreate.setFont(new java.awt.Font("Tahoma", 1, 33)); // NOI18N
@@ -348,6 +371,28 @@ public class MainControlInterface extends javax.swing.JFrame {
             }
         });
 
+        txtCoName.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+
+        txtCoNumberOfGuest.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+
+        txtCoDeposit.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+
+        txtCoGrade.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+
+        txtNotification.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtNotification.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtNotificationMouseClicked(evt);
+            }
+        });
+
+        txtCoLogout.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtCoLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtCoLogoutMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelColLayout = new javax.swing.GroupLayout(jPanelCol);
         jPanelCol.setLayout(jPanelColLayout);
         jPanelColLayout.setHorizontalGroup(
@@ -355,19 +400,20 @@ public class MainControlInterface extends javax.swing.JFrame {
             .addGroup(jPanelColLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(colBtnCreate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanelColLayout.createSequentialGroup()
-                        .addGroup(jPanelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanelColLayout.createSequentialGroup()
-                                .addComponent(colBtnHolding, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(colBtnGuest, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanelColLayout.createSequentialGroup()
-                                .addComponent(colBtnDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(colLbNotification, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(colTxtAccount, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE))
-                    .addComponent(colBtnCreate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(colBtnGuest, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(colBtnHolding, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(colTxtAccount, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                            .addComponent(txtCoName, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                            .addComponent(txtCoNumberOfGuest, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                            .addComponent(txtCoDeposit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                            .addComponent(txtCoGrade, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                            .addComponent(txtNotification, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                            .addComponent(txtCoLogout, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanelColLayout.setVerticalGroup(
@@ -375,17 +421,27 @@ public class MainControlInterface extends javax.swing.JFrame {
             .addGroup(jPanelColLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(jPanelColLayout.createSequentialGroup()
                         .addComponent(colBtnHolding, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(colBtnGuest))
-                    .addComponent(colTxtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(colBtnDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(colLbNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanelColLayout.createSequentialGroup()
+                        .addComponent(colTxtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCoName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addComponent(txtCoNumberOfGuest, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCoDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCoGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCoLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(colBtnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanelColLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {colBtnGuest, colBtnHolding});
@@ -395,16 +451,6 @@ public class MainControlInterface extends javax.swing.JFrame {
         jPanelGuest.setBackground(new java.awt.Color(102, 102, 102));
 
         guTxtAccount.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-
-        guBtnDiscount.setBackground(new java.awt.Color(51, 255, 51));
-        guBtnDiscount.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
-        guBtnDiscount.setForeground(new java.awt.Color(255, 255, 255));
-        guBtnDiscount.setText("Discount");
-
-        guBtnNotification.setBackground(new java.awt.Color(255, 0, 0));
-        guBtnNotification.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
-        guBtnNotification.setForeground(new java.awt.Color(255, 255, 255));
-        guBtnNotification.setText("Notification");
 
         guBtnViewAllRoom.setBackground(new java.awt.Color(51, 102, 255));
         guBtnViewAllRoom.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
@@ -425,12 +471,7 @@ public class MainControlInterface extends javax.swing.JFrame {
                 .addGroup(jPanelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(guBtnFeedback, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanelGuestLayout.createSequentialGroup()
-                        .addGroup(jPanelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(guBtnViewAllRoom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanelGuestLayout.createSequentialGroup()
-                                .addComponent(guBtnDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(guBtnNotification, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)))
+                        .addComponent(guBtnViewAllRoom, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(guTxtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -439,12 +480,8 @@ public class MainControlInterface extends javax.swing.JFrame {
             jPanelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelGuestLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(guBtnDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(guBtnNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(guTxtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(guTxtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(106, 106, 106)
                 .addComponent(guBtnViewAllRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(guBtnFeedback, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -520,7 +557,7 @@ public class MainControlInterface extends javax.swing.JFrame {
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnServicesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServicesActionPerformed
@@ -549,22 +586,6 @@ public class MainControlInterface extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnGuestActionPerformed
 
-    private void colTxtAccountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_colTxtAccountMouseClicked
-        // TODO add your handling code here:
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                accDialog = new Account(new javax.swing.JFrame(), true, continueAccount, continueType, conn, stmt);
-                accDialog.setVisible(true);
-                accDialog.getContentPane().add(new JLabel(new Date().toString()));
-                accDialog.pack();
-                Point point = colTxtAccount.getLocationOnScreen();
-                accDialog.setLocation(new Point(point.x, point.y + colTxtAccount.getHeight()));
-                accDialog.setVisible(true);
-                accDialog.setSize(colTxtAccount.getWidth(), 222);
-            }
-        });
-    }//GEN-LAST:event_colTxtAccountMouseClicked
-
     private void colBtnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colBtnCreateActionPerformed
         // TODO add your handling code here:
         SwingUtilities.invokeLater(new Runnable() {
@@ -579,15 +600,26 @@ public class MainControlInterface extends javax.swing.JFrame {
     private void btnNotificationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNotificationActionPerformed
         // TODO add your handling code here:
         notiAd = new NotificationAdmin(this, true, continueAccount, continueType, conn, stmt);
-        SwingUtilities.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-                notiAd.show();
-            }
-        }        
-        );
+        notiAd.setVisible(true);
     }//GEN-LAST:event_btnNotificationActionPerformed
+
+    private void btnOwnersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOwnersActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnOwnersActionPerformed
+
+    private void txtCoLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCoLogoutMouseClicked
+        // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(new JFrame(),
+                "Do you want to quit this application ?", "",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_txtCoLogoutMouseClicked
+
+    private void txtNotificationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNotificationMouseClicked
+        // TODO add your handling code here:
+        new NotificationFormToCol(this, true, continueAccount, continueType, conn, stmt).setVisible(true);
+    }//GEN-LAST:event_txtNotificationMouseClicked
 
     /**
      * @param args the command line arguments
@@ -627,21 +659,16 @@ public class MainControlInterface extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCollaborator;
     private javax.swing.JButton btnCreate;
-    private javax.swing.JButton btnDiscount;
     private javax.swing.JButton btnGuest;
     private javax.swing.JButton btnHolding;
     private javax.swing.JButton btnNotification;
-    private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnOwners;
     private javax.swing.JButton btnServices;
     private javax.swing.JButton colBtnCreate;
-    private javax.swing.JButton colBtnDiscount;
     private javax.swing.JButton colBtnGuest;
     private javax.swing.JButton colBtnHolding;
-    private javax.swing.JButton colLbNotification;
     private javax.swing.JTextField colTxtAccount;
-    private javax.swing.JButton guBtnDiscount;
     private javax.swing.JButton guBtnFeedback;
-    private javax.swing.JButton guBtnNotification;
     private javax.swing.JButton guBtnViewAllRoom;
     private javax.swing.JTextField guTxtAccount;
     private javax.swing.JPanel jPanel1;
@@ -653,5 +680,11 @@ public class MainControlInterface extends javax.swing.JFrame {
     private javax.swing.JLabel lbMain;
     private javax.swing.JLabel lbMin;
     private javax.swing.JTextField txtAccount;
+    private javax.swing.JTextField txtCoDeposit;
+    private javax.swing.JTextField txtCoGrade;
+    private javax.swing.JTextField txtCoLogout;
+    private javax.swing.JTextField txtCoName;
+    private javax.swing.JTextField txtCoNumberOfGuest;
+    private javax.swing.JTextField txtNotification;
     // End of variables declaration//GEN-END:variables
 }

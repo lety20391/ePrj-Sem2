@@ -76,18 +76,24 @@ public class RegisterForm extends javax.swing.JFrame {
         txtIdentifyCo.setText("");
         txtPhoneCo.setText("");
         txtPathImageCo.setText("");
+        txtPasswordCo.setText("");
+        txtAnswerCo.setText("");
+        cbQuestionCo.setSelectedIndex(0);
     }
 
     private void guResetText() {
         txtIDGU.setText("");
         txtNameGU.setText("");
-        txtDOBGU.setText("");
+        dateChooserDOBGU.setDate(null);
         txtIdentifyGU.setText("");
         txtPhoneGU.setText("");
         txtEmailGU.setText("");
         txtStatusGU.setText("");
         txtBelongCoGU.setText("");
         txtPathImageGU.setText("");
+        txtPasswordGU.setText("");
+        txtAnswerGU.setText("");
+        cbQuestionGU.setSelectedIndex(0);
     }
 
     private void loadAccountList() {
@@ -156,6 +162,16 @@ public class RegisterForm extends javax.swing.JFrame {
             txtAddressCo.grabFocus();
             return;
         }
+        if (txtAnswerCo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Answer cannot be blank. Re-Enter.");
+            txtAnswerCo.grabFocus();
+            return;
+        }
+        if (txtPasswordCo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Password cannot be blank. Re-Enter.");
+            txtPasswordCo.grabFocus();
+            return;
+        }
     }
 
     private void checkBlankGu() {
@@ -169,9 +185,9 @@ public class RegisterForm extends javax.swing.JFrame {
             txtNameGU.grabFocus();
             return;
         }
-        if (txtDOBGU.getText().isEmpty()) {
+        if (dateChooserDOBGU.getDate() == null) {
             JOptionPane.showMessageDialog(this, "DOB cannot be blank. Re-Enter.");
-            txtDOBGU.grabFocus();
+            dateChooserDOBGU.grabFocus();
             return;
         }
         if (txtIdentifyGU.getText().isEmpty()) {
@@ -197,6 +213,16 @@ public class RegisterForm extends javax.swing.JFrame {
         if (txtBelongCoGU.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Belonging to Collaborator cannot be blank. Re-Enter.");
             txtBelongCoGU.grabFocus();
+            return;
+        }
+        if (txtAnswerGU.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Answer cannot be blank. Re-Enter.");
+            txtAnswerGU.grabFocus();
+            return;
+        }
+        if (txtPasswordGU.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Password cannot be blank. Re-Enter.");
+            txtPasswordGU.grabFocus();
             return;
         }
     }
@@ -259,7 +285,6 @@ public class RegisterForm extends javax.swing.JFrame {
         lbCoIDGU = new javax.swing.JLabel();
         txtIDGU = new javax.swing.JTextField();
         txtNameGU = new javax.swing.JTextField();
-        txtDOBGU = new javax.swing.JTextField();
         txtIdentifyGU = new javax.swing.JTextField();
         txtPhoneGU = new javax.swing.JTextField();
         txtEmailGU = new javax.swing.JTextField();
@@ -270,6 +295,13 @@ public class RegisterForm extends javax.swing.JFrame {
         btnResetGU = new javax.swing.JButton();
         txtPathImageGU = new javax.swing.JTextField();
         btnAttachGU = new javax.swing.JButton();
+        lbPasswordGU = new javax.swing.JLabel();
+        txtPasswordGU = new javax.swing.JPasswordField();
+        lbQuestionGU = new javax.swing.JLabel();
+        cbQuestionGU = new javax.swing.JComboBox<>();
+        lbAnswerGU = new javax.swing.JLabel();
+        txtAnswerGU = new javax.swing.JPasswordField();
+        dateChooserDOBGU = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -675,10 +707,6 @@ public class RegisterForm extends javax.swing.JFrame {
         txtNameGU.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         txtNameGU.setForeground(new java.awt.Color(255, 255, 255));
 
-        txtDOBGU.setBackground(new java.awt.Color(153, 153, 153));
-        txtDOBGU.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        txtDOBGU.setForeground(new java.awt.Color(255, 255, 255));
-
         txtIdentifyGU.setBackground(new java.awt.Color(153, 153, 153));
         txtIdentifyGU.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         txtIdentifyGU.setForeground(new java.awt.Color(255, 255, 255));
@@ -713,6 +741,11 @@ public class RegisterForm extends javax.swing.JFrame {
         btnCreateGU.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnCreateGU.setForeground(new java.awt.Color(255, 255, 255));
         btnCreateGU.setText("Create");
+        btnCreateGU.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateGUActionPerformed(evt);
+            }
+        });
 
         btnResetGU.setBackground(new java.awt.Color(255, 51, 51));
         btnResetGU.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -738,6 +771,35 @@ public class RegisterForm extends javax.swing.JFrame {
             }
         });
 
+        lbPasswordGU.setBackground(new java.awt.Color(153, 153, 153));
+        lbPasswordGU.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbPasswordGU.setForeground(new java.awt.Color(255, 255, 255));
+        lbPasswordGU.setText("Password");
+
+        txtPasswordGU.setBackground(new java.awt.Color(153, 153, 153));
+        txtPasswordGU.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtPasswordGU.setForeground(new java.awt.Color(255, 255, 255));
+
+        lbQuestionGU.setBackground(new java.awt.Color(153, 153, 153));
+        lbQuestionGU.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbQuestionGU.setForeground(new java.awt.Color(255, 255, 255));
+        lbQuestionGU.setText("Question");
+
+        cbQuestionGU.setBackground(new java.awt.Color(153, 153, 153));
+        cbQuestionGU.setForeground(new java.awt.Color(255, 255, 255));
+        cbQuestionGU.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is name of your best friend ?", "What is name of your pet ?", "What is name of your favorite film ?" }));
+
+        lbAnswerGU.setBackground(new java.awt.Color(153, 153, 153));
+        lbAnswerGU.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbAnswerGU.setForeground(new java.awt.Color(255, 255, 255));
+        lbAnswerGU.setText("Answer");
+
+        txtAnswerGU.setBackground(new java.awt.Color(153, 153, 153));
+        txtAnswerGU.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtAnswerGU.setForeground(new java.awt.Color(255, 255, 255));
+
+        dateChooserDOBGU.setDateFormatString("yyyy-MM-dd");
+
         javax.swing.GroupLayout pnelGuestLayout = new javax.swing.GroupLayout(pnelGuest);
         pnelGuest.setLayout(pnelGuestLayout);
         pnelGuestLayout.setHorizontalGroup(
@@ -752,13 +814,12 @@ public class RegisterForm extends javax.swing.JFrame {
                     .addGroup(pnelGuestLayout.createSequentialGroup()
                         .addGap(68, 68, 68)
                         .addComponent(btnAttachGU, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnelGuestLayout.createSequentialGroup()
                         .addComponent(lbCoIDGU, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBelongCoGU, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2))
+                        .addComponent(txtBelongCoGU, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(pnelGuestLayout.createSequentialGroup()
                             .addComponent(lbIdentifyGU, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -769,23 +830,34 @@ public class RegisterForm extends javax.swing.JFrame {
                                 .addComponent(lbIDGU, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lbStatusGU, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lbEmailGU, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lbNameGU, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lbDOBGU, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lbIPhoneGU, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(pnelGuestLayout.createSequentialGroup()
-                                    .addGap(49, 49, 49)
-                                    .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(txtIDGU, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtNameGU, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtDOBGU, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(0, 0, Short.MAX_VALUE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnelGuestLayout.createSequentialGroup()
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txtPhoneGU, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(txtEmailGU, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtStatusGU, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                        .addComponent(txtStatusGU, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(pnelGuestLayout.createSequentialGroup()
+                                    .addGap(49, 49, 49)
+                                    .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtPasswordGU)
+                                        .addComponent(txtIDGU, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cbQuestionGU, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGap(0, 0, Short.MAX_VALUE)))))
+                    .addGroup(pnelGuestLayout.createSequentialGroup()
+                        .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbQuestionGU, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbPasswordGU, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbAnswerGU, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lbNameGU, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbDOBGU, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(49, 49, 49)
+                        .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtNameGU, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAnswerGU, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dateChooserDOBGU, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(31, 31, 31))
             .addGroup(pnelGuestLayout.createSequentialGroup()
                 .addContainerGap()
@@ -797,27 +869,39 @@ public class RegisterForm extends javax.swing.JFrame {
                 .addGap(143, 143, 143))
         );
 
-        pnelGuestLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lbDOBGU, lbEmailGU, lbIDGU, lbIPhoneGU, lbIdentifyGU, lbNameGU, lbStatusGU});
+        pnelGuestLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lbAnswerGU, lbDOBGU, lbEmailGU, lbIDGU, lbIPhoneGU, lbIdentifyGU, lbNameGU, lbPasswordGU, lbQuestionGU, lbStatusGU});
+
+        pnelGuestLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cbQuestionGU, dateChooserDOBGU, txtAnswerGU, txtIDGU, txtNameGU, txtPasswordGU});
 
         pnelGuestLayout.setVerticalGroup(
             pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnelGuestLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
                 .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnelGuestLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtIDGU)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnelGuestLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(lbIDGU, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lbIDGU, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtIDGU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbPasswordGU, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPasswordGU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbQuestionGU, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbQuestionGU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbAnswerGU, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAnswerGU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                         .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbNameGU, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNameGU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbDOBGU, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDOBGU))
+                            .addComponent(lbDOBGU, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                            .addComponent(dateChooserDOBGU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbIdentifyGU, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -837,24 +921,22 @@ public class RegisterForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbCoIDGU, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtBelongCoGU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18))
+                            .addComponent(txtBelongCoGU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pnelGuestLayout.createSequentialGroup()
-                        .addGap(23, 23, 23)
                         .addComponent(lbAttachImageGuest, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtPathImageGU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAttachGU)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(11, 11, 11)
                 .addGroup(pnelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBackGu)
                     .addComponent(btnCreateGU, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnResetGU))
-                .addContainerGap())
+                    .addComponent(btnResetGU)))
         );
 
-        pnelGuestLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lbCoIDGU, lbDOBGU, lbEmailGU, lbIDGU, lbIPhoneGU, lbIdentifyGU, lbNameGU, lbStatusGU, txtBelongCoGU, txtEmailGU, txtIdentifyGU, txtNameGU, txtPhoneGU, txtStatusGU});
+        pnelGuestLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cbQuestionGU, dateChooserDOBGU, lbAnswerGU, lbCoIDGU, lbDOBGU, lbEmailGU, lbIDGU, lbIPhoneGU, lbIdentifyGU, lbNameGU, lbPasswordGU, lbQuestionGU, lbStatusGU, txtAnswerGU, txtBelongCoGU, txtEmailGU, txtIDGU, txtIdentifyGU, txtNameGU, txtPasswordGU, txtPhoneGU, txtStatusGU});
 
         pnelGuestLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnBackGu, btnCreateGU, btnResetGU});
 
@@ -978,7 +1060,7 @@ public class RegisterForm extends javax.swing.JFrame {
         }
         for (String str : listID) {
             if (str.equals(txtIDCo.getText())) {
-                JOptionPane.showMessageDialog(this, "ID format is Co[xxx] with xxx is 1-3 digits");
+                JOptionPane.showMessageDialog(this, "This ID has already existed.");
                 txtIDCo.setText("");
                 txtIDCo.grabFocus();
                 return;
@@ -1002,18 +1084,26 @@ public class RegisterForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        sql = "create table " + txtIDCo.getText()+"\n(ID int identity(1,1) primary key, Detail nvarchar(1000) not null, Status varchar(6) not null)";
+
+        sql = "create table " + txtIDCo.getText() + "\n(ID int identity(1,1) primary key, Detail nvarchar(1000) not null, Status varchar(6) not null)";
         try {
             stmt.executeQuery(sql);
         } catch (SQLException ex) {
             Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        JOptionPane.showMessageDialog(this, "Create new Collaborator sucessfully");
-        qlyCTV = new QuanlyCTV_2(continueAccount, continueType, conn, stmt);
-        qlyCTV.setVisible(true);
-        dispose();
+
+        if (JOptionPane.showConfirmDialog(new JFrame(),
+                "Create new Collaborator sucessfully.\nDo you want to continue ?", "",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
+            if (previousPage.equalsIgnoreCase("main")) {
+                new MainControlInterface(continueAccount, continueType, conn, stmt).setVisible(true);
+            } else {
+                new QuanlyCTV_2(continueAccount, continueType, conn, stmt).setVisible(true);
+            }
+            dispose();
+        }else{
+            coResetText();
+        }
 
     }//GEN-LAST:event_btnCreateCoActionPerformed
 
@@ -1032,6 +1122,7 @@ public class RegisterForm extends javax.swing.JFrame {
                 }
             });
         }
+        dispose();
     }//GEN-LAST:event_btnBackCoActionPerformed
 
     private void btnBackGuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackGuActionPerformed
@@ -1049,7 +1140,59 @@ public class RegisterForm extends javax.swing.JFrame {
                 }
             });
         }
+        dispose();
     }//GEN-LAST:event_btnBackGuActionPerformed
+
+    private void btnCreateGUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateGUActionPerformed
+        // TODO add your handling code here:
+        checkBlankGu();
+        if (!txtIDGU.getText().matches("^Gu[0-9]{1,3}$")) {
+            JOptionPane.showMessageDialog(this, "ID format is Gu[xxx] with xxx is 1-3 digits");
+            txtIDGU.setText("");
+            txtIDGU.grabFocus();
+            return;
+        }
+        for (String str : listID) {
+            if (str.equals(txtIDGU.getText())) {
+                JOptionPane.showMessageDialog(this, "This ID has already existed.");
+                txtIDGU.setText("");
+                txtIDGU.grabFocus();
+                return;
+            }
+        }
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String dob = df.format(dateChooserDOBCo.getDate());
+
+        sql = "insert into Account(ID, Password, Type, Question, Answer, Active) values\n"
+                + "('" + txtIDGU.getText() + "'," + "'" + txtPasswordGU.getText() + "'," + "'gu'," + "'" + cbQuestionGU.getSelectedItem() + "'," + "'" + txtAnswerGU.getText() + "'," + "1)";
+        try {
+            stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        sql = "insert into Guest(IDGu, NameGu, DOBGu, IdentificationNumberGu, PhoneGu, EmailGu, ImageGu, StatusGu, IDCo) values\n"
+                + "('" + txtIDGU.getText() + "'," + "'" + txtNameGU.getText() + "'," + "'" + dob + "'," + "'" + txtIdentifyGU.getText() + "'," + "'" + txtPhoneGU.getText() + "'," + txtEmailGU.getText() + "," + "'" + txtPathImageGU.getText() + "'," + "'" + txtStatusGU.getText() + "'," + "'" + txtBelongCoGU.getText() + "')";
+        try {
+            stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        if (JOptionPane.showConfirmDialog(new JFrame(),
+                "Create new Guest sucessfully.\nDo you want to continue ?", "",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
+            if (previousPage.equalsIgnoreCase("main")) {
+                new MainControlInterface(continueAccount, continueType, conn, stmt).setVisible(true);
+            } else {
+                new Theme_guest_2(continueAccount, continueType, conn, stmt).setVisible(true);
+            }
+            dispose();
+        }else{
+            guResetText();
+        }
+    }//GEN-LAST:event_btnCreateGUActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1096,12 +1239,15 @@ public class RegisterForm extends javax.swing.JFrame {
     private javax.swing.JButton btnResetCo;
     private javax.swing.JButton btnResetGU;
     private javax.swing.JComboBox<String> cbQuestionCo;
+    private javax.swing.JComboBox<String> cbQuestionGU;
     private com.toedter.calendar.JDateChooser dateChooserDOBCo;
+    private com.toedter.calendar.JDateChooser dateChooserDOBGU;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JTabbedPane jTabblePane;
     private javax.swing.JLabel lbAddressCo;
     private javax.swing.JLabel lbAnswerCo;
+    private javax.swing.JLabel lbAnswerGU;
     private javax.swing.JLabel lbAttachImageGuest;
     private javax.swing.JLabel lbClose;
     private javax.swing.JLabel lbCoIDGU;
@@ -1122,15 +1268,17 @@ public class RegisterForm extends javax.swing.JFrame {
     private javax.swing.JLabel lbNameGU;
     private javax.swing.JLabel lbPasswordCo;
     private javax.swing.JLabel lbPasswordCo1;
+    private javax.swing.JLabel lbPasswordGU;
     private javax.swing.JLabel lbPhoneCo;
+    private javax.swing.JLabel lbQuestionGU;
     private javax.swing.JLabel lbRegister;
     private javax.swing.JLabel lbStatusGU;
     private javax.swing.JPanel pnelCol;
     private javax.swing.JPanel pnelGuest;
     private javax.swing.JTextArea txtAddressCo;
     private javax.swing.JPasswordField txtAnswerCo;
+    private javax.swing.JPasswordField txtAnswerGU;
     private javax.swing.JTextField txtBelongCoGU;
-    private javax.swing.JTextField txtDOBGU;
     private javax.swing.JTextField txtDepositCo;
     private javax.swing.JTextField txtEmailCo;
     private javax.swing.JTextField txtEmailGU;
@@ -1142,6 +1290,7 @@ public class RegisterForm extends javax.swing.JFrame {
     private javax.swing.JTextField txtNameCo;
     private javax.swing.JTextField txtNameGU;
     private javax.swing.JPasswordField txtPasswordCo;
+    private javax.swing.JPasswordField txtPasswordGU;
     private javax.swing.JTextField txtPathImageCo;
     private javax.swing.JTextField txtPathImageGU;
     private javax.swing.JTextField txtPhoneCo;
