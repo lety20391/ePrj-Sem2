@@ -16,6 +16,7 @@ import java.sql.Statement;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 public class QLCH1 extends javax.swing.JFrame {
 
     /**
@@ -27,12 +28,12 @@ public class QLCH1 extends javax.swing.JFrame {
     ResultSet rs;
     Statement stmt;
     Connection con ;
-    public QLCH1(/*String account, String type, Connection con, Statement stmt*/) 
+    public QLCH1(String account, String type, Connection con, Statement stmt) 
     {
         this.con = con;
         this.stmt = stmt;
         initComponents();
-        connectSQL();
+        //connectSQL();
         showTable();
         manageButton(true,true, true );//false,false);
         manageTextField(false, false, false, false, false, false, false, false);
@@ -41,29 +42,29 @@ public class QLCH1 extends javax.swing.JFrame {
 
     
 
-    public void connectSQL()
-    {
-        Connection con;
-        Statement stmt;
-        
-        DatabaseConnect objDBConnect;
-        objDBConnect = new DatabaseConnect();
-        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "123456789", "1433");
-        
-        con = connectContainer.getObjCon();
-        stmt = connectContainer.getStatement();
-        
-    
-        objDBConnect.ListTable();
-        objDBConnect.Close();
-        
-        {
-            try {
-                con = DBConnection.getDBConnection(DBConnection.database,DBConnection.account,DBConnection.password);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }        
-    }}
+//    public void connectSQL()
+//    {
+//        Connection con;
+//        Statement stmt;
+//        
+//        DatabaseConnect objDBConnect;
+//        objDBConnect = new DatabaseConnect();
+//        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "123456789", "1433");
+//        
+//        con = connectContainer.getObjCon();
+//        stmt = connectContainer.getStatement();
+//        
+//    
+//        objDBConnect.ListTable();
+//        objDBConnect.Close();
+//        
+//        {
+//            try {
+//                con = DBConnection.getDBConnection(DBConnection.database,DBConnection.account,DBConnection.password);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }        
+//    }}
 
 //    public void connectSQL()
 //        {
@@ -76,43 +77,51 @@ public class QLCH1 extends javax.swing.JFrame {
 
     public void showTable()
     {
-//         ApartModel = new DefaultTableModel();
-//        header = new Vector();
-//        header.add("Service ID");
-//        header.add("Service Name");
-//        header.add("Service Address");
-//        header.add("Service Image");
-//        header.add("Service Info");
-//        header.add("Service Status");
-//        header.add("Service Price");
-//        header.add("Service IDSup");
-//        
-//        data = new Vector();
-//        ApartModel.setRowCount(0);
-//        try {            
-//            sql = "select * from Apartment";
-//            rs = stmt.executeQuery(sql);
-//            rs.beforeFirst();
-//            while(rs.next())
-//            {
-//                row = new Vector();
-//                row.add(rs.getString("IDApa"));
-//                row.add(rs.getString("NameApa"));
-//                row.add(rs.getString("AddressApa"));
-//                row.add(rs.getString("ImageApa"));
-//                row.add(rs.getString("InfoApa"));
-//                row.add(rs.getString("StatusApa"));
-//                row.add(rs.getDouble("PriceApa"));
-//                row.add(rs.getString("IDSupApa"));
-//                data.add(row);
-//            }
-//             } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        
-//        ApartModel.setDataVector(data, header);
-//        tblApartment.setModel(ApartModel);
+        ApartModel = new DefaultTableModel();
+        header = new Vector();
+        header.add("ID");
+        header.add("Name");
+        header.add("Address");
+        header.add("Image");
+        header.add("Info");
+        header.add("Status");
+        header.add("Price");
+        header.add("IDSup");
+        
+        data = new Vector();
+        ApartModel.setRowCount(0);
+        try {            
+            sql = "select * from Apartment";
+            rs = stmt.executeQuery(sql);
+            rs.beforeFirst();
+            while(rs.next())
+            {
+                row = new Vector();
+                row.add(rs.getString("IDApa"));
+                row.add(rs.getString("NameApa"));
+                row.add(rs.getString("AddressApa"));
+                row.add(rs.getString("ImageApa"));
+                row.add(rs.getString("InfoApa"));
+                row.add(rs.getString("StatusApa"));
+                row.add(rs.getDouble("PriceApa"));
+                row.add(rs.getString("IDSup"));
+                data.add(row);
+            }
+             } catch (Exception e) {
+            e.printStackTrace();
+        }        
+        ApartModel.setDataVector(data, header);
+        tblApartment.setModel(ApartModel);
+        modifyTable();
     }
+    
+    public void modifyTable()
+    {
+        tblApartment.removeColumn(tblApartment.getColumn("Image"));
+        tblApartment.removeColumn(tblApartment.getColumn("Info"));
+        tblApartment.removeColumn(tblApartment.getColumn("IDSup"));
+    }
+    
     public void manageButton(boolean BtnAddStatus, boolean BtnUpdateStatus, boolean BtnDeleteStatus)
     {
         
@@ -194,6 +203,11 @@ public class QLCH1 extends javax.swing.JFrame {
                 "ID", "Name", "Address", "Image", "Info", "Status", "Price", "IDSupl"
             }
         ));
+        tblApartment.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblApartmentMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblApartment);
 
         jLabel4.setText("ID");
@@ -498,36 +512,37 @@ public class QLCH1 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    private void tblApartmentMouseClicked(java.awt.event.MouseEvent evt) {                                         
+    private void tblApartmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblApartmentMouseClicked
         // TODO add your handling code here:
         manageButton(true, true, true);
         int row;
         String IDApaString , ImageApaString, StatusApaString, IDSupApaString ;
         String NameApaString,OwnerApaString,PriceApaString,InfoApaString ;
-        
-        
+                
         row = tblApartment.getSelectedRow();
-        
-        String IDApa = (String) tblApartment.getValueAt(row, 1);        
-        String NameApa= (String) tblApartment.getValueAt(row, 2);
-        String AddressApa = (String)tblApartment.getValueAt(row, 3);
-        String ImageApa = (String)tblApartment.getValueAt(row, 4);
-        String InfoApa = (String)tblApartment.getValueAt(row, 5);
-        String StatusApa = (String)tblApartment.getValueAt(row, 6);
-        String PriceApa = (String)tblApartment.getValueAt(row, 7);
-        String IDSupApa = (String)tblApartment.getValueAt(row, 8);
+        TableModel tblModel = tblApartment.getModel();
+        String IDApa = (String) tblModel.getValueAt(row, 0);        
+        String NameApa= (String) tblModel.getValueAt(row, 1);
+        String AddressApa = (String)tblModel.getValueAt(row, 2);
+        String ImageApa = (String)tblModel.getValueAt(row, 3);
+        String InfoApa = (String)tblModel.getValueAt(row, 4);
+        String StatusApa = (String)tblModel.getValueAt(row, 5);
+        Double PriceApa = (Double)tblModel.getValueAt(row, 6);
+        String IDSupApa = (String)tblModel.getValueAt(row, 7);
         txtID.setText(IDApa);
         txtName.setText(NameApa);
         txtAddress.setText(AddressApa);
         txtImage.setText(ImageApa);
         txtInfo.setText(InfoApa);
         txtStatus.setText(StatusApa);
-        txtPrice.setText(PriceApa);
+        txtPrice.setText(String.valueOf(PriceApa));
         txtIDSup.setText(IDSupApa);
-    }   
+    }//GEN-LAST:event_tblApartmentMouseClicked
+
+    /**
+     * @param args the command line arguments
+     */
+   
     public void checkblank()
     {
         if (txtID.getText().isEmpty()) {
@@ -620,11 +635,11 @@ public class QLCH1 extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new QLCH1().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new QLCH1().setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
