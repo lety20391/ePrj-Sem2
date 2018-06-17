@@ -46,6 +46,8 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     String IDHo, IDGu, IDApa, IDCo, DateHo,FromDateHo, ToDateHo, PayStatusHo, IDSer;
     Double CommissionHo, TotalHo;
     
+    String imageGu, imageCo;
+    
     String patStr;
     
     DateChooser diaDateChooser;
@@ -281,7 +283,9 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
                 txtIdentificationNumberGu2.setText(rs.getString("IdentificationNumberGu"));
                 txtPhoneGu2.setText(rs.getString("PhoneGu"));
                 txtEmailGu2.setText(rs.getString("EmailGu"));
-            
+                //get image path
+                imageGu = rs.getString("ImageGu");
+                pImageGuest.inputImage(imageGu);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -300,7 +304,9 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
                 txtIdentificationNumberCo2.setText(rs.getString("IdentificationNumberCo"));
                 txtPhoneCo2.setText(rs.getString("PhoneCo"));
                 txtEmailCo2.setText(rs.getString("EmailCo"));
-            
+                //get image for collaborator
+                imageCo = rs.getString("ImageCo");
+                pImageCollaborator.inputImage(imageCo);            
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
