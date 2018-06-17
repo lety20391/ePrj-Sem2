@@ -230,6 +230,7 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
         txtCoGrade = new javax.swing.JTextField();
         txtNotification = new javax.swing.JTextField();
         txtCoLogout = new javax.swing.JTextField();
+        colBtnViewApartment = new javax.swing.JButton();
         jPanelGuest = new javax.swing.JPanel();
         guTxtAccount = new javax.swing.JTextField();
         guBtnViewAllRoom = new javax.swing.JButton();
@@ -503,6 +504,16 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
             }
         });
 
+        colBtnViewApartment.setBackground(new java.awt.Color(153, 0, 153));
+        colBtnViewApartment.setFont(new java.awt.Font("Tahoma", 1, 33)); // NOI18N
+        colBtnViewApartment.setForeground(new java.awt.Color(255, 255, 255));
+        colBtnViewApartment.setText("View All Apartment");
+        colBtnViewApartment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colBtnViewApartmentActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelColLayout = new javax.swing.GroupLayout(jPanelCol);
         jPanelCol.setLayout(jPanelColLayout);
         jPanelColLayout.setHorizontalGroup(
@@ -510,7 +521,10 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
             .addGroup(jPanelColLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(colBtnCreate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanelColLayout.createSequentialGroup()
+                        .addComponent(colBtnCreate)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(colBtnViewApartment))
                     .addGroup(jPanelColLayout.createSequentialGroup()
                         .addGroup(jPanelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(colBtnGuest, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -550,7 +564,9 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCoLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addComponent(colBtnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(colBtnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(colBtnViewApartment, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -566,6 +582,11 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
         guBtnViewAllRoom.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         guBtnViewAllRoom.setForeground(new java.awt.Color(255, 255, 255));
         guBtnViewAllRoom.setText("View all apartment");
+        guBtnViewAllRoom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guBtnViewAllRoomActionPerformed(evt);
+            }
+        });
 
         guBtnFeedback.setBackground(new java.awt.Color(0, 204, 204));
         guBtnFeedback.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
@@ -785,7 +806,18 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
 
     private void btnApartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApartmentActionPerformed
         // TODO add your handling code here:
+        new ViewAllApartmentGu(this, true, continueAccount, continueType, conn, stmt).setVisible(true);
     }//GEN-LAST:event_btnApartmentActionPerformed
+
+    private void colBtnViewApartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colBtnViewApartmentActionPerformed
+        // TODO add your handling code here:
+        new ViewAllApartmentGu(this, true, continueAccount, continueType, conn, stmt).setVisible(true);
+    }//GEN-LAST:event_colBtnViewApartmentActionPerformed
+
+    private void guBtnViewAllRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guBtnViewAllRoomActionPerformed
+        // TODO add your handling code here:
+        new ViewAllApartmentGu(this, true, continueAccount, continueType, conn, stmt).setVisible(true);
+    }//GEN-LAST:event_guBtnViewAllRoomActionPerformed
 
     public void invokeContract()
     {
@@ -841,6 +873,7 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
     private javax.swing.JButton colBtnCreate;
     private javax.swing.JButton colBtnGuest;
     private javax.swing.JButton colBtnHolding;
+    private javax.swing.JButton colBtnViewApartment;
     private javax.swing.JTextField colTxtAccount;
     private javax.swing.JButton guBtnFeedback;
     private javax.swing.JButton guBtnViewAllRoom;

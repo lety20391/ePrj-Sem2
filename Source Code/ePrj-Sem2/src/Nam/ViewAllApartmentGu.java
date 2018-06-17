@@ -5,6 +5,7 @@
  */
 package Nam;
 
+import java.awt.Image;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +13,7 @@ import java.sql.Statement;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,7 +31,8 @@ public class ViewAllApartmentGu extends javax.swing.JDialog {
     
     String continueAccount, continueType;
     
-    String iDApa, nameApa, infoApa, addressApa, imageApa, idSup, priceApa, statusApa;
+    String iDApa, nameApa, infoApa, addressApa, imageApa, idSup, statusApa;
+    double priceApa;
 
     /**
      * Creates new form ViewAllApartmentGu
@@ -191,6 +194,11 @@ public class ViewAllApartmentGu extends javax.swing.JDialog {
 
         btnClose.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnClose.setText("Close");
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -292,8 +300,49 @@ public class ViewAllApartmentGu extends javax.swing.JDialog {
         nameApa = (String) tbApa.getValueAt(selectedRow, 1);
         addressApa = (String) tbApa.getValueAt(selectedRow, 2);
         infoApa = (String) tbApa.getValueAt(selectedRow, 3);
+        statusApa = (String) tbApa.getValueAt(selectedRow, 4);
+        priceApa = (Double) tbApa.getValueAt(selectedRow, 5);
         
+        txtIDApa.setText(iDApa);
+        txtNameApa.setText(nameApa);
+        txtAddressApa.setText(addressApa);
+        txtInfoApa.setText(infoApa);
+        if (statusApa.equalsIgnoreCase("available")) {
+            rbYes.isSelected();
+        }else{
+            rbNo.isSelected();
+        }
+        
+        sql = "select * from Apartment where IDApa = '"+iDApa+"'";
+        try {
+            rs = stmt.executeQuery(sql);
+            rs.beforeFirst();
+            while (rs.next()) {
+                imageApa = rs.getString("ImageApa");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ViewAllApartmentGu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        ImageIcon icon = new ImageIcon(imageApa);
+        int width = lbImageApartment.getWidth();
+        int height = lbImageApartment.getHeight();
+        int icoWidth = icon.getIconWidth();
+        int icoHeight = icon.getIconHeight();
+        Image image;
+        if (icoWidth / icoHeight >= width / height) {
+            image = icon.getImage().getScaledInstance(width, icoHeight * width / icoWidth, Image.SCALE_SMOOTH);
+        } else {
+            image = icon.getImage().getScaledInstance(icoWidth * height / icoHeight, height, Image.SCALE_SMOOTH);
+        }
+
+        lbImageApartment.setIcon(new ImageIcon(image));
     }//GEN-LAST:event_tbApaMouseClicked
+
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_btnCloseActionPerformed
 
     /**
      * @param args the command line arguments
