@@ -59,6 +59,10 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     uiContract_2 objContract;
     Library.G2FrameInterface objG2Frame;
     
+    
+    boolean checkInitRow;
+    int initRow;
+    
     public uiHolding_2() throws HeadlessException 
     {
         
@@ -88,9 +92,10 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         
         initComponents();   
         pHolding.attachButtonAndSetMainRight(pHolding,type); 
-        attachRegexAndErrorInform(pHolding);
-        initData();
+        attachRegexAndErrorInform(pHolding);  
+        newData();
         showTable("Select * from Holding");
+        initData();
     }
     
     public uiHolding_2(String Account, String type, Connection objConnection, Statement stmt, Library.G2FrameInterface objG2Frame, Nam.MainControlInterface objMain)
@@ -105,9 +110,11 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         //patStr = txtIDHo.getText();
         pHolding.attachButtonAndSetMainRight(pHolding,type); 
         attachRegexAndErrorInform(pHolding);
-        initData();
+        
         //initDateChooser();
-        showTable("Select * from Holding");        
+        newData();
+        showTable("Select * from Holding"); 
+        initData();
         //pImageGuest.setSize(300, 400);
 //        pImageGuest.inputImage("\\src\\Image\\Guest\\Gu01.jpg");
 //        pImageCollaborator.inputImage("\\src\\Image\\Collaborator\\Co01.jpg");
@@ -148,14 +155,32 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
 //        objConnection = connectContainer.getObjCon();
 //        stmt = connectContainer.getStatement();
 //    }
-    
-    public void initData()
+    private void newData()
     {
         manageTextField(pHolding, "test");
         manageTextField(pGuest);
         manageTextField(pCollaborator);
         IDCo = "";
         IDGu = "";
+    }
+    
+    public void initData()
+    {     
+        //khởi tạo data từ MainControl
+        if(objMain.getIDHo().isEmpty())
+            return;
+        IDHo = objMain.getIDHo();
+        checkInitRow = false;
+        TableModel objModel = tblHo.getModel();
+        for (int i = 0; i < objModel.getRowCount(); i++) {
+            if (IDHo.equalsIgnoreCase((String)objModel.getValueAt(i, 0)))
+            {
+                checkInitRow = true;
+                initRow = i;
+                break;
+            }
+        }        
+        tblMouseClickedProcess();
     }
     
     public void initDateChooser()
@@ -1006,9 +1031,22 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
 
     private void tblHoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoMouseClicked
         // TODO add your handling code here:
+        //tách thành method riêng để tiện sử dụng lại khi cần
+        tblMouseClickedProcess();
+    }//GEN-LAST:event_tblHoMouseClicked
+
+    private void tblMouseClickedProcess()
+    {
         int row;
-        
-        row = tblHo.getSelectedRow();
+        //nếu có dữ liệu init thì load trước
+        //không có thì đợi click chuột vào bảng mới load
+        if (checkInitRow)
+        {
+            row = initRow;
+            checkInitRow = false;
+        }
+        else
+            row = tblHo.getSelectedRow();
         TableModel tblModel = tblHo.getModel();
         
         IDHo = (String) tblModel.getValueAt(row, 0);       
@@ -1038,8 +1076,8 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         
         setDataToGuestPanel();
         setDataToCollaboratorPanel();
-    }//GEN-LAST:event_tblHoMouseClicked
-
+    }
+    
     public String getDateHo() {
         return DateHo;
     }
