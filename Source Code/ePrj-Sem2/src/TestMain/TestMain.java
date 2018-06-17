@@ -10,6 +10,7 @@ import Dat_Le_2.uiHolding_2;
 import DatabaseConnection.DatabaseConnect;
 import DatabaseConnection.connectionContainer;
 import Duy.QuanlyCTV_2;
+import Duy.QuanlyOwner_2;
 import Ngoc_Duyen.QLCH.QLCH1;
 import Tuyet_Duyen.Services_2;
 import Tuyet_Duyen.Theme_guest_2;
@@ -306,7 +307,8 @@ public class TestMain extends javax.swing.JFrame {
             {
                 public void run()
                 {
-                    new Duy.QuanlyCTV_2(account, type, con, stmt).setVisible(true);
+                    objCTV = new QuanlyCTV_2(account, type, con, stmt);
+                    objCTV.setVisible(true);
                 }
             }        
         );
@@ -314,16 +316,16 @@ public class TestMain extends javax.swing.JFrame {
 
     private void btnDuyOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuyOwnerActionPerformed
         // TODO add your handling code here:
-//        SwingUtilities.invokeLater(new Runnable()
-//        {
-//            public void run()
-//            {
-//                //new Duy.QuanlyOwner_2(con, stmt).setVisible(true);
-//                objCTV = new QuanlyCTV_2(con, stmt);
-//                objCTV.setVisible(true);
-//            }
-//        }        
-//        );
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                //new Duy.QuanlyOwner_2(con, stmt).setVisible(true);
+                objOwner = new QuanlyOwner_2(account, type, con, stmt);
+                objOwner.setVisible(true);
+            }
+        }        
+        );
     }//GEN-LAST:event_btnDuyOwnerActionPerformed
 
     private void btnDatHoldingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatHoldingActionPerformed
