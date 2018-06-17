@@ -16,7 +16,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Nam.RegisterForm;
 import java.awt.Component;
-import java.awt.event.MouseEvent;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.TableModel;
@@ -62,7 +61,22 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         //manageButton(true,false,false);
         manageTextField(false, false, false, false, false, false, false, false);
     }
-    
+     public Theme_guest_2(String account, String type, Connection objConnection, Statement stmt) {
+        this.objConnection = objConnection;
+        this.stmt = stmt;
+        continueAccount = account;
+        this.type = type;
+        this.objMain = objMain;
+        initComponents();
+        
+        pButton.attachButtonAndSetMainRight(pButton, type);
+        attachRegexAndErrorInform(pGuest);
+        //connectSQL();
+        showTable();
+        initData();
+        //manageButton(true,false,false);
+        manageTextField(false, false, false, false, false, false, false, false);
+    }
     //init data get from objMain
     public void initData()
     {

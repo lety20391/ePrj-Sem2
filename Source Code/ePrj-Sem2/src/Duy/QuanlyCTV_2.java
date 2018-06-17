@@ -71,6 +71,22 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
         manageTextfield(false, false, false, false, false, false, false, false, false, false, false, false, false, false);
     }
     
+    public QuanlyCTV_2(String account, String type, Connection objConnection, Statement stmt) {
+        this.objMain = objMain;
+        this.objConnection = objConnection;
+        this.stmt = stmt;
+        continueAccount = account;
+        continueType = type;
+        initComponents();
+        manageAccountPanel();
+        showTable();
+        
+        initData();
+        pButton.attachButtonAndSetMainRight(pButton, type);
+        //manageButton(true, true, true, true);
+        manageTextfield(false, false, false, false, false, false, false, false, false, false, false, false, false, false);
+    }
+    
     private void manageAccountPanel()
     {
         if(!continueType.equalsIgnoreCase("ad"))
