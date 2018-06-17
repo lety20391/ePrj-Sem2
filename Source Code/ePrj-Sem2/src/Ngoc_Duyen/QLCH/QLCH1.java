@@ -35,18 +35,42 @@ public class QLCH1 extends javax.swing.JFrame {
     String IDApa , AddressApa, ImageApa, StatusApa, IDSupApa, NameApa,OwnerApa,InfoApa;
     Double PriceApa;
     
-    public QLCH1(String account, String type, Connection con, Statement stmt) 
+    Nam.MainControlInterface objMain;
+    
+    int initRow;
+    boolean checkInitRow;
+    
+    public QLCH1(String account, String type, Connection con, Statement stmt, Nam.MainControlInterface objMain) 
     {
+        this.objMain = objMain;
         this.con = con;
         this.stmt = stmt;
         initComponents();
         //connectSQL();
         showTable();
+        initDataFromMainControl();
         manageButton(true,true, true );//false,false);
         manageTextField(false, false, false, false, false, false, false, false);
         this.setTitle("Apartment Management");
     }
 
+    private void initDataFromMainControl()
+    {
+        if(objMain.getIDApa().isEmpty())
+            return;
+        IDApa = objMain.getIDApa();
+        checkInitRow = false;
+        TableModel objModel = tblApartment.getModel();
+        for (int i = 0; i < objModel.getRowCount(); i++) {
+            if (IDApa.equalsIgnoreCase((String)objModel.getValueAt(i, 0)))
+            {
+                checkInitRow = true;
+                initRow = i;
+                break;
+            }
+        }        
+        tblMouseClickedProcess();
+    }
     
 
 //    public void connectSQL()
@@ -555,10 +579,24 @@ public class QLCH1 extends javax.swing.JFrame {
 
     private void tblApartmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblApartmentMouseClicked
         // TODO add your handling code here:
+        //tách riêng ra thành method ở bên dưới để tiện sử dụng lại
+        //khi cần init Data từ MainControl
+        tblMouseClickedProcess();
+    }//GEN-LAST:event_tblApartmentMouseClicked
+
+    private void tblMouseClickedProcess()
+    {
         manageButton(true, true, true);
         int row;
-                
-        row = tblApartment.getSelectedRow();
+        //nếu có dữ liệu init thì load trước
+        //không có thì đợi click chuột vào bảng mới load
+        if (checkInitRow)
+        {
+            row = initRow;
+            checkInitRow = false;
+        }
+        else
+            row = tblApartment.getSelectedRow();
         TableModel tblModel = tblApartment.getModel();
         IDApa = (String) tblModel.getValueAt(row, 0);        
         NameApa= (String) tblModel.getValueAt(row, 1);
@@ -578,8 +616,8 @@ public class QLCH1 extends javax.swing.JFrame {
         txtIDSup.setText(IDSupApa);
         
         pApaImage.inputImage(ImageApa);
-    }//GEN-LAST:event_tblApartmentMouseClicked
-
+    }
+    
     private void pApaImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pApaImageMouseClicked
         // TODO add your handling code here:
         G2FileBrowserExtend objFileChooser = new G2FileBrowserExtend();
@@ -726,4 +764,18 @@ public class QLCH1 extends javax.swing.JFrame {
     private javax.swing.JTextField txtPrice;
     private javax.swing.JTextField txtStatus;
     // End of variables declaration//GEN-END:variables
+@Override
+    public void dispose(){
+        if (objMain != null)
+        {
+            objMain.setVisible(true);
+            returnDataToMainInterface();
+        }
+        super.dispose();
+    }
+
+    public void returnDataToMainInterface()
+    {        
+        objMain.setIDApa(IDApa);
+    }
 }
