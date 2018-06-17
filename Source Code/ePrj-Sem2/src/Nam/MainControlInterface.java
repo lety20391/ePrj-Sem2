@@ -755,8 +755,21 @@ public class MainControlInterface extends javax.swing.JFrame {
 
     private void btnOwnersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOwnersActionPerformed
         // TODO add your handling code here:
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                invokeQuanlyOwner();
+            }
+        });
     }//GEN-LAST:event_btnOwnersActionPerformed
 
+    private void invokeQuanlyOwner()
+    {
+        objOwner = new Duy.QuanlyOwner_2(continueAccount, continueType, conn, stmt, this);
+        objOwner.setVisible(true);
+    }
+    
     private void txtCoLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCoLogoutMouseClicked
         // TODO add your handling code here:
         if (JOptionPane.showConfirmDialog(new JFrame(),
