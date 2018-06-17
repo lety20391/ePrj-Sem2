@@ -806,7 +806,8 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
 
     private void btnApartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApartmentActionPerformed
         // TODO add your handling code here:
-        new ViewAllApartmentGu(this, true, continueAccount, continueType, conn, stmt).setVisible(true);
+        new Ngoc_Duyen.QLCH.QLCH1(continueAccount, continueType, conn, stmt).setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnApartmentActionPerformed
 
     private void colBtnViewApartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colBtnViewApartmentActionPerformed

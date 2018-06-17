@@ -9,7 +9,6 @@ package Ngoc_Duyen.QLCH;
  *
  * @author Dell
  */
-import DatabaseConnection.*;
 import Library.G2FileBrowserExtend;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -35,16 +34,22 @@ public class QLCH1 extends javax.swing.JFrame {
     String IDApa , AddressApa, ImageApa, StatusApa, IDSupApa, NameApa,OwnerApa,InfoApa;
     Double PriceApa;
     
+    String continueAccount, continueType;
+    
+
     Nam.MainControlInterface objMain;
     
     int initRow;
     boolean checkInitRow;
     
     public QLCH1(String account, String type, Connection con, Statement stmt, Nam.MainControlInterface objMain) 
+
     {
         this.objMain = objMain;
         this.con = con;
         this.stmt = stmt;
+        continueAccount = account;
+        continueType = type;
         initComponents();
         //connectSQL();
         showTable();
@@ -221,6 +226,7 @@ public class QLCH1 extends javax.swing.JFrame {
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -423,6 +429,13 @@ public class QLCH1 extends javax.swing.JFrame {
                 .addGap(23, 23, 23))
         );
 
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -437,7 +450,10 @@ public class QLCH1 extends javax.swing.JFrame {
                                 .addComponent(pApaImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -468,7 +484,9 @@ public class QLCH1 extends javax.swing.JFrame {
                             .addComponent(pApaImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnBack)))
                 .addContainerGap(117, Short.MAX_VALUE))
         );
 
@@ -632,6 +650,13 @@ public class QLCH1 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_pApaImageMouseClicked
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        
+        new Nam.MainControlInterface(continueAccount, continueType, con, stmt).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -734,6 +759,7 @@ public class QLCH1 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;

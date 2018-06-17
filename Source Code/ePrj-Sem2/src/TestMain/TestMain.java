@@ -5,14 +5,11 @@
  */
 package TestMain;
 
-import Dat_Le_2.uiContract_2;
-import Dat_Le_2.uiHolding_2;
 import DatabaseConnection.DatabaseConnect;
 import DatabaseConnection.connectionContainer;
 import Duy.QuanlyCTV_2;
 import Duy.QuanlyOwner_2;
 import Ngoc_Duyen.QLCH.QLCH1;
-import Tuyet_Duyen.Services_2;
 import Tuyet_Duyen.Theme_guest_2;
 import java.sql.Connection;
 import java.sql.Statement;
@@ -275,16 +272,16 @@ public class TestMain extends javax.swing.JFrame {
 
     private void btnDuyenServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuyenServiceActionPerformed
         // TODO add your handling code here:
-        SwingUtilities.invokeLater(new Runnable()
-            {
-                public void run()
-                {
-                    //new Tuyet_Duyen.Services_2(con, stmt).setVisible(true);
-                    objService = new Services_2(account, type, con, stmt);
-                    objService.setVisible(true);
-                }
-            }
-        );
+//        SwingUtilities.invokeLater(new Runnable()
+//            {
+//                public void run()
+//                {
+//                    //new Tuyet_Duyen.Services_2(con, stmt).setVisible(true);
+//                    objService = new Services_2(account, type, con, stmt);
+//                    objService.setVisible(true);
+//                }
+//            }
+//        );
     }//GEN-LAST:event_btnDuyenServiceActionPerformed
 
     private void btnDuyenGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuyenGuestActionPerformed
