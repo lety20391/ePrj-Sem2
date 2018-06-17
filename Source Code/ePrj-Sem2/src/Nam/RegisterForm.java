@@ -112,6 +112,8 @@ public class RegisterForm extends javax.swing.JFrame {
     private void load() {
         if (continueType.equals("co")) {
             jTabblePane.remove(pnelCol);
+            txtBelongCoGU.setText(continueAccount);
+            txtBelongCoGU.setEditable(false);
         }
     }
 
@@ -171,6 +173,10 @@ public class RegisterForm extends javax.swing.JFrame {
             txtPasswordCo.grabFocus();
             return;
         }
+        if (txtPathImageCo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Image cannot be blank. Re-Enter.");
+            return;
+        }
     }
 
     private void checkBlankGu() {
@@ -222,6 +228,10 @@ public class RegisterForm extends javax.swing.JFrame {
         if (txtPasswordGU.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Password cannot be blank. Re-Enter.");
             txtPasswordGU.grabFocus();
+            return;
+        }
+        if (txtPathImageGU.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Image cannot be blank. Re-Enter.");
             return;
         }
     }
@@ -1047,27 +1057,28 @@ public class RegisterForm extends javax.swing.JFrame {
         //Gọi G2FileBrowserExtend để load ảnh
         //-----------------------------------
         //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-        String fileName="";
+        String fileName = "";
         G2FileBrowserExtend objFileChooser = new G2FileBrowserExtend();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-            "JPG & PNG Images", "jpg", "png");
+                "JPG & PNG Images", "jpg", "png");
         objFileChooser.setFileFilter(filter);
         int returnVal = objFileChooser.showOpenDialog(null);
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
-           fileName = objFileChooser.getSelectedFile().getPath();
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            fileName = objFileChooser.getSelectedFile().getPath();
         }
-        
+
         //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         //-----------------------------------
         //Gọi G2FileBrowserExtend để load ảnh
         //-----------------------------------
         //String fileName = file.getAbsolutePath();
-        if(fileName.isEmpty())
+        if (fileName.isEmpty()) {
             return;
+        }
         txtPathImageCo.setText(fileName);
         ImageIcon icon = new ImageIcon(fileName);
 //        Image image = icon.getImage().getScaledInstance(lbImageCo.getWidth(), lbImageCo.getHeight(), Image.SCALE_SMOOTH);
-        
+
         //tui set lại tỉ lệ hình cho phù hợp
         //__________________________________
         //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
@@ -1076,12 +1087,10 @@ public class RegisterForm extends javax.swing.JFrame {
         int icoWidth = icon.getIconWidth();
         int icoHeight = icon.getIconHeight();
         Image image;
-        if (icoWidth/icoHeight >= width/height)
-        {
-            image = icon.getImage().getScaledInstance(width, icoHeight*width/icoWidth, Image.SCALE_SMOOTH);    
-        }else
-        {
-            image = icon.getImage().getScaledInstance(icoWidth*height/icoHeight, height, Image.SCALE_SMOOTH);
+        if (icoWidth / icoHeight >= width / height) {
+            image = icon.getImage().getScaledInstance(width, icoHeight * width / icoWidth, Image.SCALE_SMOOTH);
+        } else {
+            image = icon.getImage().getScaledInstance(icoWidth * height / icoHeight, height, Image.SCALE_SMOOTH);
         }
         //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         //-----------------------------
@@ -1132,7 +1141,7 @@ public class RegisterForm extends javax.swing.JFrame {
 
         sql = "create table " + txtIDCo.getText() + "\n(ID int identity(1,1) primary key, Detail nvarchar(1000) not null, Status varchar(6) not null)";
         try {
-            stmt.executeQuery(sql);
+            stmt.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1146,7 +1155,7 @@ public class RegisterForm extends javax.swing.JFrame {
                 new QuanlyCTV_2(continueAccount, continueType, conn, stmt).setVisible(true);
             }
             dispose();
-        }else{
+        } else {
             coResetText();
         }
 
@@ -1191,6 +1200,7 @@ public class RegisterForm extends javax.swing.JFrame {
     private void btnCreateGUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateGUActionPerformed
         // TODO add your handling code here:
         checkBlankGu();
+        int countGu = 0;
         if (!txtIDGU.getText().matches("^Gu[0-9]{1,3}$")) {
             JOptionPane.showMessageDialog(this, "ID format is Gu[xxx] with xxx is 1-3 digits");
             txtIDGU.setText("");
@@ -1206,7 +1216,7 @@ public class RegisterForm extends javax.swing.JFrame {
             }
         }
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String dob = df.format(dateChooserDOBCo.getDate());
+        String dob = df.format(dateChooserDOBGU.getDate());
 
         sql = "insert into Account(ID, Password, Type, Question, Answer, Active) values\n"
                 + "('" + txtIDGU.getText() + "'," + "'" + txtPasswordGU.getText() + "'," + "'gu'," + "'" + cbQuestionGU.getSelectedItem() + "'," + "'" + txtAnswerGU.getText() + "'," + "1)";
@@ -1215,16 +1225,33 @@ public class RegisterForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         sql = "insert into Guest(IDGu, NameGu, DOBGu, IdentificationNumberGu, PhoneGu, EmailGu, ImageGu, StatusGu, IDCo) values\n"
-                + "('" + txtIDGU.getText() + "'," + "'" + txtNameGU.getText() + "'," + "'" + dob + "'," + "'" + txtIdentifyGU.getText() + "'," + "'" + txtPhoneGU.getText() + "'," + txtEmailGU.getText() + "," + "'" + txtPathImageGU.getText() + "'," + "'" + txtStatusGU.getText() + "'," + "'" + txtBelongCoGU.getText() + "')";
+                + "('" + txtIDGU.getText() + "'," + "'" + txtNameGU.getText() + "'," + "'" + dob + "'," + "'" + txtIdentifyGU.getText() + "'," + "'" + txtPhoneGU.getText() + "'," + "'" + txtEmailGU.getText() + "'," + "'" + txtPathImageGU.getText() + "'," + "'" + txtStatusGU.getText() + "'," + "'" + txtBelongCoGU.getText() + "')";
         try {
             stmt.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        sql = "select * from Collaborator where IDCo = '"+txtBelongCoGU.getText()+"'";
+        try {
+            rs = stmt.executeQuery(sql);
+            rs.beforeFirst();
+            while (rs.next()) {
+                countGu = rs.getInt("NumberOfGuest")+1;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
+        sql = "update Collaborator set NumberOfGuest = "+countGu+" where IDCo = '"+txtBelongCoGU.getText()+"'";
+        
+        try {
+            stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
         if (JOptionPane.showConfirmDialog(new JFrame(),
                 "Create new Guest sucessfully.\nDo you want to continue ?", "",
                 JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
@@ -1234,7 +1261,7 @@ public class RegisterForm extends javax.swing.JFrame {
                 new Theme_guest_2(continueAccount, continueType, conn, stmt).setVisible(true);
             }
             dispose();
-        }else{
+        } else {
             guResetText();
         }
     }//GEN-LAST:event_btnCreateGUActionPerformed
