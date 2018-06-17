@@ -152,7 +152,7 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
         btnDelete = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         pSupplier.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -532,7 +532,7 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
                 String ID = txtID.getText();
                 //cau lenh SQL mau da kiem tra thu tren SQl
                 //delete from Guest where IDGu = 'S06'
-                sql = "delete from Supplier where IDCo = '" + ID + "'";
+                sql = "delete from Supplier where IDSup = '" + ID + "'";
                 stmt.executeUpdate(sql);
                 //xoa xong thi cap nhat lai Table
                 showTable();
