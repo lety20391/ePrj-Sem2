@@ -29,6 +29,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -58,6 +59,9 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
     
     SearchData objSearch;
     String account, type;
+    int initRow;
+    boolean checkInitRow;
+    
     /**
      * Creates new form uiContract
      */
@@ -72,6 +76,7 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
         manageConfirmButton();
         attachRegexAndErrorInform(pContract);
         showTable("Select * from Contract");
+        initDataFromMainControl();
         changeStatusAllTextField(pContract, false);
     }
     
@@ -89,6 +94,24 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
         showTable("Select * from Contract");
         changeStatusAllTextField(pContract, false);
         initData();
+    }
+    
+    private void initDataFromMainControl()
+    {
+        if(objMain.getIDCon().isEmpty())
+            return;
+        IDCon = objMain.getIDCon();
+        checkInitRow = false;
+        TableModel objModel = tblCon.getModel();
+        for (int i = 0; i < objModel.getRowCount(); i++) {
+            if (IDCon.equalsIgnoreCase((String)objModel.getValueAt(i, 0)))
+            {
+                checkInitRow = true;
+                initRow = i;
+                break;
+            }
+        }        
+        tblMouseClickedProcess();
     }
     
     public void manageConfirmButton()
@@ -725,10 +748,23 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
 
     private void tblConMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblConMouseClicked
         // TODO add your handling code here:
+        //tách riêng thành method khác để tái sử dụng khi cần
+        //init Data từ MainControl
+        tblMouseClickedProcess();
+    }//GEN-LAST:event_tblConMouseClicked
+
+    private void tblMouseClickedProcess()
+    {
         int row;
-        
-        row = tblCon.getSelectedRow();
-        
+        //nếu có dữ liệu init thì load trước
+        //không có thì đợi click chuột vào bảng mới load
+        if (checkInitRow)
+        {
+            row = initRow;
+            checkInitRow = false;
+        }
+        else
+            row = tblCon.getSelectedRow();
         IDCon = (String) tblCon.getValueAt(row, 0);       
         DateCon = (String)tblCon.getValueAt(row, 1);
         IDHo = (String)tblCon.getValueAt(row, 2);
@@ -742,8 +778,8 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
         txtStatusCon.setText(StatusCon);
         
         setImageGuestAndCollaborator();
-    }//GEN-LAST:event_tblConMouseClicked
-
+    }
+    
     public void setImageGuestAndCollaborator()
     {
         try {
@@ -917,4 +953,21 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
     */
     private Library.G2TextField txtStatusCon;
     // End of variables declaration//GEN-END:variables
+@Override
+    public void dispose(){
+        if (objMain != null)
+        {
+            objMain.setVisible(true);
+            returnDataToMainInterface();
+        }
+        super.dispose();
+    }
+
+    public void returnDataToMainInterface()
+    {
+        objMain.setIDHo(IDHo);
+        objMain.setIDCo(IDCo);
+        objMain.setIDGu(IDGu);
+        objMain.setIDCon(IDCon);
+    }
 }
