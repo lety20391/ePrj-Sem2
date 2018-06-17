@@ -41,6 +41,7 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
     Dat_Le_2.uiContract_2 objUIContract;
     Duy.QuanlyCTV_2 objCTV;
     Duy.QuanlyOwner_2 objOwner;
+    Ngoc_Duyen.QLCH.QLCH1 objQLCH;
     Tuyet_Duyen.Services_2 objService;
     Tuyet_Duyen.Theme_guest_2 objThemeGuest;
     NotificationFormToCol accDialog;
@@ -806,10 +807,22 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
 
     private void btnApartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApartmentActionPerformed
         // TODO add your handling code here:
-        new Ngoc_Duyen.QLCH.QLCH1(continueAccount, continueType, conn, stmt).setVisible(true);
-        dispose();
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                invokeQLCH();
+            }
+        }
+        );
     }//GEN-LAST:event_btnApartmentActionPerformed
 
+    private void invokeQLCH()
+    {
+        objQLCH = new Ngoc_Duyen.QLCH.QLCH1(continueAccount, continueType, conn, stmt, this);
+        objQLCH.setVisible(true);
+    }
+    
     private void colBtnViewApartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colBtnViewApartmentActionPerformed
         // TODO add your handling code here:
         new ViewAllApartmentGu(this, true, continueAccount, continueType, conn, stmt).setVisible(true);
