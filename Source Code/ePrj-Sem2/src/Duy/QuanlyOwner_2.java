@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -25,17 +26,19 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
     ResultSet rs;
 
     Connection objConnection;
+    
+    String IDSup, NameSup, AddressSup, EmailSup, PhoneSup, StatusSup;
 
     /**
      * Creates new form QuanlyOwner
      */
-    public QuanlyOwner_2(Connection objConnection, Statement stmt) {
+    public QuanlyOwner_2(String account, String type, Connection objConnection, Statement stmt) {
         this.objConnection = objConnection;
         this.stmt = stmt;
         initComponents();
         //connect();
         showTable();
-        manageButton(true,true,true,true);
+        //manageButton(true,true,true,true);
         manageTextfield(false,false,false,false,false);
     }
        
@@ -66,13 +69,12 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
         supModel = new DefaultTableModel();
         
         header = new Vector();
-        header.add("Supplier ID");
-        header.add("Collaborator Name");
-        header.add("Collaborator Address");
-        header.add("Collaborator Phone");
-        header.add("Collaborator Email");
-        
-        
+        header.add("ID");
+        header.add("Name");
+        header.add("Address");
+        header.add("Phone");
+        header.add("Email");
+        header.add("Status");
         
         data = new Vector();
         
@@ -92,9 +94,7 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
                 row.add(rs.getString("AddressSup"));
                 row.add(rs.getString("PhoneSup"));
                 row.add(rs.getString("EmailSup"));
-                
-                
-                
+                row.add(rs.getString("StatusSup"));
                 data.add(row);
             }
         } catch (Exception e) {
@@ -104,8 +104,17 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
         supModel.setDataVector(data, header);
         tblSup.setModel(supModel);
         //tblBook.setModel(bookModel);
+        //ẩn bớt các cột không dùng đến
+        //thật ra là xóa bớt view và giữ lại model
+        modifyTable();
     }
 
+    public void modifyTable()
+    {
+        tblSup.removeColumn(tblSup.getColumn("Address"));
+        tblSup.removeColumn(tblSup.getColumn("Phone"));
+        tblSup.removeColumn(tblSup.getColumn("Email"));
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -116,11 +125,12 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGroupRad = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         btnClose = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSup = new javax.swing.JTable();
-        jPanel3 = new javax.swing.JPanel();
+        pSupplier = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -135,8 +145,8 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        radActivated = new javax.swing.JRadioButton();
+        radLocked = new javax.swing.JRadioButton();
         btnAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -167,7 +177,7 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tblSup);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pSupplier.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel2.setText("ID");
 
@@ -203,12 +213,14 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
         btnSearch.setText("Search");
         btnSearch.setPreferredSize(new java.awt.Dimension(99, 25));
 
-        jRadioButton1.setText("Unlocked");
+        btnGroupRad.add(radActivated);
+        radActivated.setText("Activated");
 
-        jRadioButton2.setText("Locked");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnGroupRad.add(radLocked);
+        radLocked.setText("Locked");
+        radLocked.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                radLockedActionPerformed(evt);
             }
         });
 
@@ -219,82 +231,82 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout pSupplierLayout = new javax.swing.GroupLayout(pSupplier);
+        pSupplier.setLayout(pSupplierLayout);
+        pSupplierLayout.setHorizontalGroup(
+            pSupplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pSupplierLayout.createSequentialGroup()
                 .addGap(52, 52, 52)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pSupplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(pSupplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pSupplierLayout.createSequentialGroup()
                         .addGap(99, 99, 99)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pSupplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtPhone)
                             .addComponent(txtAddress)
                             .addComponent(txtName)
                             .addComponent(txtID)
                             .addComponent(txtEmail))
                         .addGap(57, 57, 57))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(pSupplierLayout.createSequentialGroup()
                         .addGap(47, 47, 47)
-                        .addComponent(jRadioButton1)
+                        .addComponent(radActivated)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2)
+                        .addComponent(radLocked)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pSupplierLayout.createSequentialGroup()
                 .addContainerGap(80, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(pSupplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(pSupplierLayout.createSequentialGroup()
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(51, 51, 51)
                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(pSupplierLayout.createSequentialGroup()
                         .addComponent(btnAdd)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(65, 65, 65))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        pSupplierLayout.setVerticalGroup(
+            pSupplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pSupplierLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pSupplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pSupplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pSupplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pSupplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pSupplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pSupplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(radActivated)
+                    .addComponent(radLocked))
                 .addGap(27, 27, 27)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pSupplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAdd))
                 .addGap(34, 34, 34)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pSupplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(39, Short.MAX_VALUE))
@@ -310,7 +322,7 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(pSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(274, 274, 274)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -328,7 +340,7 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -353,9 +365,9 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
         txtPhone.setEditable(txtPhoneStatus);
         txtEmail.setEditable(txtEmailStatus);
     }    
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+    private void radLockedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radLockedActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    }//GEN-LAST:event_radLockedActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
          String IDSup;
@@ -432,19 +444,15 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
 
     private void tblSupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSupMouseClicked
       int row;
-        String IDSup;
-        String NameSup, AddressSup ;
-        String EmailSup, PhoneSup;
-        
-        
         
         row = tblSup.getSelectedRow();
-        
-        IDSup = (String) tblSup.getValueAt(row, 0);       
-        NameSup = (String)tblSup.getValueAt(row, 1);
-        AddressSup = (String)tblSup.getValueAt(row, 2);   
-        PhoneSup = (String)tblSup.getValueAt(row, 3);
-        EmailSup = (String)tblSup.getValueAt(row, 4);
+        TableModel tblModel = tblSup.getModel();
+        IDSup = (String) tblModel.getValueAt(row, 0);       
+        NameSup = (String)tblModel.getValueAt(row, 1);
+        AddressSup = (String)tblModel.getValueAt(row, 2);   
+        PhoneSup = (String)tblModel.getValueAt(row, 3);
+        EmailSup = (String)tblModel.getValueAt(row, 4);
+        StatusSup = (String)tblModel.getValueAt(row, 5);
            
         
         txtID.setText(IDSup);
@@ -453,6 +461,16 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
         txtPhone.setText(PhoneSup);
         txtEmail.setText(EmailSup);
        
+        System.out.println(StatusSup);
+        if (StatusSup.equalsIgnoreCase("1"))
+        {
+            radActivated.setSelected(true);
+            radLocked.setSelected(false);
+        }else
+        {
+            radActivated.setSelected(false);
+            radLocked.setSelected(true);
+        }
        
     }//GEN-LAST:event_tblSupMouseClicked
 
@@ -519,6 +537,7 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
+    private javax.swing.ButtonGroup btnGroupRad;
     private javax.swing.JButton btnSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -527,10 +546,10 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPanel pSupplier;
+    private javax.swing.JRadioButton radActivated;
+    private javax.swing.JRadioButton radLocked;
     private javax.swing.JTable tblSup;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtEmail;

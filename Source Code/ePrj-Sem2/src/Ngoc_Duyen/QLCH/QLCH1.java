@@ -10,12 +10,16 @@ package Ngoc_Duyen.QLCH;
  * @author Dell
  */
 import DatabaseConnection.*;
+import Library.G2FileBrowserExtend;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Vector;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 public class QLCH1 extends javax.swing.JFrame {
 
     /**
@@ -27,48 +31,47 @@ public class QLCH1 extends javax.swing.JFrame {
     ResultSet rs;
     Statement stmt;
     Connection con ;
-    public QLCH1(String account, String type, Connection con, Statement stmt) {
+    
+    String IDApa , AddressApa, ImageApa, StatusApa, IDSupApa, NameApa,OwnerApa,InfoApa;
+    Double PriceApa;
+    
+    public QLCH1(String account, String type, Connection con, Statement stmt) 
+    {
         this.con = con;
         this.stmt = stmt;
         initComponents();
-        connectSQL();
         //connectSQL();
-
-
-        //connectSQL();
-
-
         showTable();
-        manageButton(true,false,false);
+        manageButton(true,true, true );//false,false);
         manageTextField(false, false, false, false, false, false, false, false);
         this.setTitle("Apartment Management");
     }
 
     
 
-    public void connectSQL()
-    {
-        Connection con;
-        Statement stmt;
-        
-        DatabaseConnect objDBConnect;
-        objDBConnect = new DatabaseConnect();
-        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "123456789", "1433");
-        
-        con = connectContainer.getObjCon();
-        stmt = connectContainer.getStatement();
-        
-    
-        objDBConnect.ListTable();
-        objDBConnect.Close();
-        
-        {
-            try {
-                con = DBConnection.getDBConnection(DBConnection.database,DBConnection.account,DBConnection.password);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }        
-    }}
+//    public void connectSQL()
+//    {
+//        Connection con;
+//        Statement stmt;
+//        
+//        DatabaseConnect objDBConnect;
+//        objDBConnect = new DatabaseConnect();
+//        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "123456789", "1433");
+//        
+//        con = connectContainer.getObjCon();
+//        stmt = connectContainer.getStatement();
+//        
+//    
+//        objDBConnect.ListTable();
+//        objDBConnect.Close();
+//        
+//        {
+//            try {
+//                con = DBConnection.getDBConnection(DBConnection.database,DBConnection.account,DBConnection.password);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }        
+//    }}
 
 //    public void connectSQL()
 //        {
@@ -81,43 +84,51 @@ public class QLCH1 extends javax.swing.JFrame {
 
     public void showTable()
     {
-//         ApartModel = new DefaultTableModel();
-//        header = new Vector();
-//        header.add("Service ID");
-//        header.add("Service Name");
-//        header.add("Service Address");
-//        header.add("Service Image");
-//        header.add("Service Info");
-//        header.add("Service Status");
-//        header.add("Service Price");
-//        header.add("Service IDSup");
-//        
-//        data = new Vector();
-//        ApartModel.setRowCount(0);
-//        try {            
-//            sql = "select * from Apartment";
-//            rs = stmt.executeQuery(sql);
-//            rs.beforeFirst();
-//            while(rs.next())
-//            {
-//                row = new Vector();
-//                row.add(rs.getString("IDApa"));
-//                row.add(rs.getString("NameApa"));
-//                row.add(rs.getString("AddressApa"));
-//                row.add(rs.getString("ImageApa"));
-//                row.add(rs.getString("InfoApa"));
-//                row.add(rs.getString("StatusApa"));
-//                row.add(rs.getDouble("PriceApa"));
-//                row.add(rs.getString("IDSupApa"));
-//                data.add(row);
-//            }
-//             } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        
-//        ApartModel.setDataVector(data, header);
-//        tblApartment.setModel(ApartModel);
+        ApartModel = new DefaultTableModel();
+        header = new Vector();
+        header.add("ID");
+        header.add("Name");
+        header.add("Address");
+        header.add("Image");
+        header.add("Info");
+        header.add("Status");
+        header.add("Price");
+        header.add("IDSup");
+        
+        data = new Vector();
+        ApartModel.setRowCount(0);
+        try {            
+            sql = "select * from Apartment";
+            rs = stmt.executeQuery(sql);
+            rs.beforeFirst();
+            while(rs.next())
+            {
+                row = new Vector();
+                row.add(rs.getString("IDApa"));
+                row.add(rs.getString("NameApa"));
+                row.add(rs.getString("AddressApa"));
+                row.add(rs.getString("ImageApa"));
+                row.add(rs.getString("InfoApa"));
+                row.add(rs.getString("StatusApa"));
+                row.add(rs.getDouble("PriceApa"));
+                row.add(rs.getString("IDSup"));
+                data.add(row);
+            }
+             } catch (Exception e) {
+            e.printStackTrace();
+        }        
+        ApartModel.setDataVector(data, header);
+        tblApartment.setModel(ApartModel);
+        modifyTable();
     }
+    
+    public void modifyTable()
+    {
+        tblApartment.removeColumn(tblApartment.getColumn("Image"));
+        tblApartment.removeColumn(tblApartment.getColumn("Info"));
+        tblApartment.removeColumn(tblApartment.getColumn("IDSup"));
+    }
+    
     public void manageButton(boolean BtnAddStatus, boolean BtnUpdateStatus, boolean BtnDeleteStatus)
     {
         
@@ -148,6 +159,7 @@ public class QLCH1 extends javax.swing.JFrame {
         txtPrice.setText("");
         txtIDSup.setText("");
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -177,15 +189,16 @@ public class QLCH1 extends javax.swing.JFrame {
         txtStatus = new javax.swing.JTextField();
         txtPrice = new javax.swing.JTextField();
         txtIDSup = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        pApaImage = new Library.G2ImagePanel();
         jPanel2 = new javax.swing.JPanel();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tblApartment.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -198,6 +211,11 @@ public class QLCH1 extends javax.swing.JFrame {
                 "ID", "Name", "Address", "Image", "Info", "Status", "Price", "IDSupl"
             }
         ));
+        tblApartment.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblApartmentMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblApartment);
 
         jLabel4.setText("ID");
@@ -237,49 +255,6 @@ public class QLCH1 extends javax.swing.JFrame {
 
         txtIDSup.setText("jTextField8");
 
-        btnUpdate.setText("Update");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
-            }
-        });
-
-        btnDelete.setText("Delete");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-
-        btnAdd.setText("Add");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(btnAdd)
-                .addGap(62, 62, 62)
-                .addComponent(btnUpdate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnDelete))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUpdate)
-                    .addComponent(btnDelete)
-                    .addComponent(btnAdd))
-                .addGap(23, 23, 23))
-        );
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -290,7 +265,7 @@ public class QLCH1 extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtIDSup))
+                        .addComponent(txtIDSup, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -310,8 +285,7 @@ public class QLCH1 extends javax.swing.JFrame {
                             .addComponent(txtImage)
                             .addComponent(txtAddress)
                             .addComponent(txtName)
-                            .addComponent(txtID)))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtID))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -349,8 +323,7 @@ public class QLCH1 extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtIDSup, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
@@ -361,16 +334,86 @@ public class QLCH1 extends javax.swing.JFrame {
 
         jLabel3.setText("Aparment List :");
 
+        pApaImage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pApaImage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pApaImageMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pApaImageLayout = new javax.swing.GroupLayout(pApaImage);
+        pApaImage.setLayout(pApaImageLayout);
+        pApaImageLayout.setHorizontalGroup(
+            pApaImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 238, Short.MAX_VALUE)
+        );
+        pApaImageLayout.setVerticalGroup(
+            pApaImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 252, Short.MAX_VALUE)
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
+        btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(81, 81, 81)
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnUpdate)
+                    .addComponent(btnDelete)
+                    .addComponent(btnAdd))
+                .addGap(23, 23, 23))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(pApaImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -381,7 +424,7 @@ public class QLCH1 extends javax.swing.JFrame {
                                 .addComponent(jLabel2)
                                 .addGap(235, 235, 235)
                                 .addComponent(jLabel3)))
-                        .addGap(0, 46, Short.MAX_VALUE)))
+                        .addGap(0, 239, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -394,10 +437,15 @@ public class QLCH1 extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(pApaImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
 
         pack();
@@ -413,8 +461,8 @@ public class QLCH1 extends javax.swing.JFrame {
             int check = JOptionPane.showConfirmDialog(this, "Are you sure for deleting?");
             if (check == JOptionPane.OK_OPTION)
             {
-                String ID = txtName.getText();
-                sql = "delete from Apartment where IDApart = '" + ID + "'";
+                String ID = txtID.getText();
+                sql = "delete from Apartment where IDApa = '" + ID + "'";
                 stmt.executeUpdate(sql);
                 showTable();
                 clearTxt();
@@ -437,6 +485,8 @@ public class QLCH1 extends javax.swing.JFrame {
             }
              else{
                 try {    
+                    if (!checkblank())
+                        return;
                     String ID = txtID.getText();
                     String Name = txtName.getText();
                     String Address = txtAddress.getText();
@@ -467,8 +517,8 @@ public class QLCH1 extends javax.swing.JFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-        UpdateApartment objUA = new UpdateApartment();
-        objUA.setVisible(true);
+//        UpdateApartment objUA = new UpdateApartment();
+//        objUA.setVisible(true);
         
         String labelBtn = btnUpdate.getText();
         if( labelBtn.equalsIgnoreCase("Update"))
@@ -476,10 +526,11 @@ public class QLCH1 extends javax.swing.JFrame {
             btnUpdate.setText("Save");            
             manageTextField(false, true, true,true,true,true,true,true);
             manageButton(false, true, false);
-           
-            
+                       
         }else
             {
+            if (!checkblank())
+                return;
             String ID = txtID.getText();
             String Name = txtName.getText();
             String Address = txtAddress.getText();
@@ -489,7 +540,7 @@ public class QLCH1 extends javax.swing.JFrame {
             String Price = txtPrice.getText();
             String IDSup = txtIDSup.getText();
             try {
-                sql = "update Apartment set  NameApa = '" + Name + "',AddressApa = '" + Address + "',ImageApa = '" + Image + "',InfoApa = '" + Info + "',StatusApa  = '" + Status+"',PriceApa  = '" + Price+"',IDSupApa  = '" + IDSup+ " where IDApa = '" + ID + "'";
+                sql = "update Apartment set  NameApa = '" + Name + "',AddressApa = '" + Address + "',ImageApa = '" + Image + "',InfoApa = '" + Info + "',StatusApa  = '" + Status+"',PriceApa  = '" + Price+"',IDSup  = '" + IDSup+ "' where IDApa = '" + ID + "'";
                 stmt.executeUpdate(sql);
                 
                btnUpdate.setText("Update");
@@ -502,36 +553,101 @@ public class QLCH1 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    private void tblApartmentMouseClicked(java.awt.event.MouseEvent evt) {                                         
+    private void tblApartmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblApartmentMouseClicked
         // TODO add your handling code here:
         manageButton(true, true, true);
         int row;
-        String IDApaString , ImageApaString, StatusApaString, IDSupApaString ;
-        String NameApaString,OwnerApaString,PriceApaString,InfoApaString ;
-        
-        
+                
         row = tblApartment.getSelectedRow();
-        
-        String IDApa = (String) tblApartment.getValueAt(row, 1);        
-        String NameApa= (String) tblApartment.getValueAt(row, 2);
-        String AddressApa = (String)tblApartment.getValueAt(row, 3);
-        String ImageApa = (String)tblApartment.getValueAt(row, 4);
-        String InfoApa = (String)tblApartment.getValueAt(row, 5);
-        String StatusApa = (String)tblApartment.getValueAt(row, 6);
-        String PriceApa = (String)tblApartment.getValueAt(row, 7);
-        String IDSupApa = (String)tblApartment.getValueAt(row, 8);
+        TableModel tblModel = tblApartment.getModel();
+        IDApa = (String) tblModel.getValueAt(row, 0);        
+        NameApa= (String) tblModel.getValueAt(row, 1);
+        AddressApa = (String)tblModel.getValueAt(row, 2);
+        ImageApa = (String)tblModel.getValueAt(row, 3);
+        InfoApa = (String)tblModel.getValueAt(row, 4);
+        StatusApa = (String)tblModel.getValueAt(row, 5);
+        PriceApa = (Double)tblModel.getValueAt(row, 6);
+        IDSupApa = (String)tblModel.getValueAt(row, 7);
         txtID.setText(IDApa);
         txtName.setText(NameApa);
         txtAddress.setText(AddressApa);
         txtImage.setText(ImageApa);
         txtInfo.setText(InfoApa);
         txtStatus.setText(StatusApa);
-        txtPrice.setText(PriceApa);
+        txtPrice.setText(String.valueOf(PriceApa));
         txtIDSup.setText(IDSupApa);
-    }   
+        
+        pApaImage.inputImage(ImageApa);
+    }//GEN-LAST:event_tblApartmentMouseClicked
+
+    private void pApaImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pApaImageMouseClicked
+        // TODO add your handling code here:
+        G2FileBrowserExtend objFileChooser = new G2FileBrowserExtend();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "JPG & PNG Images", "jpg", "png");
+        objFileChooser.setFileFilter(filter);
+        int returnVal = objFileChooser.showOpenDialog(null);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            this.ImageApa = objFileChooser.getSelectedFile().getPath();
+            txtImage.setText(ImageApa);
+            pApaImage.inputImage(ImageApa);
+        }
+    }//GEN-LAST:event_pApaImageMouseClicked
+
+    /**
+     * @param args the command line arguments
+     */
+   
+    public boolean checkblank()
+    {
+        boolean check = true;
+        if (txtID.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "ID cannot be blank. Re-Enter.");
+            txtID.grabFocus();
+            check = false;
+            return check;
+        }
+        
+        if (txtName.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Name cannot be blank. Re-Enter.");
+            txtName.grabFocus();
+            check = false;
+            return check;
+        }
+        if (txtAddress.getText().isEmpty()) {
+             JOptionPane.showMessageDialog(this, "Address cannot be blank. Re-Enter.");
+            txtAddress.grabFocus();
+            check = false;
+            return check;
+        }
+        if (txtImage.getText().isEmpty()) {
+             JOptionPane.showMessageDialog(this, "Image cannot be blank. Re-Enter.");
+            txtImage.grabFocus();
+            check = false;
+            return check;
+             }
+        if (txtInfo.getText().isEmpty()) {
+             JOptionPane.showMessageDialog(this, "Info cannot be blank. Re-Enter.");
+            txtInfo.grabFocus();
+            check = false;
+            return check;
+        }
+        if (txtIDSup.getText().isEmpty()) {
+             JOptionPane.showMessageDialog(this, "IDSup cannot be blank. Re-Enter.");
+            txtIDSup.grabFocus();
+            check = false;
+            return check;
+        }
+        
+        if (txtPrice.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Price cannot be blank. Re-Enter.");
+            txtPrice.grabFocus();
+            check = false;
+            return check;
+        }
+        
+        return check;
+    }
     public static void main(String args[]) {
 //        Connection con;
 //        Statement stmt;
@@ -571,11 +687,11 @@ public class QLCH1 extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new QLCH1().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new QLCH1().setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -596,6 +712,10 @@ public class QLCH1 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    /*
+    private javax.swing.JPanel pApaImage;
+    */
+    private Library.G2ImagePanel pApaImage;
     private javax.swing.JTable tblApartment;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtID;

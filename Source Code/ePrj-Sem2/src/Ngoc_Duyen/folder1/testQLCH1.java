@@ -28,7 +28,7 @@ public class testQLCH1 extends javax.swing.JFrame {
     ResultSet rs;
     Statement stmt;
     Connection con ;
-    public testQLCH1(String account, String type, Connection con, Statement stmt) {
+    public testQLCH1(/*String account, String type, Connection con, Statement stmt*/) {
         this.con = con;
         this.stmt = stmt;
         initComponents();
@@ -45,9 +45,9 @@ public class testQLCH1 extends javax.swing.JFrame {
         this.setTitle("Apartment Management");
     }
 
-    private testQLCH1() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//    private testQLCH1() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 
     
 
@@ -86,24 +86,24 @@ public class testQLCH1 extends javax.swing.JFrame {
 
     public void showTable()
     {
-////         ApartModel = new DefaultTableModel();
-////        header = new Vector();
-////        header.add("Service ID");
-////        header.add("Service Name");
-////        header.add("Service Address");
-////        header.add("Service Image");
-////        header.add("Service Info");
-////        header.add("Service Status");
-////        header.add("Service Price");
-////        header.add("Service IDSup");
-////        
-////        data = new Vector();
-////        ApartModel.setRowCount(0);
-////        try {            
-////            sql = "select * from Apartment";
-////            rs = stmt.executeQuery(sql);
-////            rs.beforeFirst();
-////            while(rs.next())
+//         ApartModel = new DefaultTableModel();
+//        header = new Vector();
+//        header.add("Service ID");
+//        header.add("Service Name");
+//        header.add("Service Address");
+//        header.add("Service Image");
+//        header.add("Service Info");
+//        header.add("Service Status");
+//        header.add("Service Price");
+//        header.add("Service IDSup");
+//        
+//        data = new Vector();
+//        ApartModel.setRowCount(0);
+//        try {            
+//            sql = "select * from Apartment";
+//            rs = stmt.executeQuery(sql);
+//            rs.beforeFirst();
+//            while(rs.next())
 //            {
 //                row = new Vector();
 //                row.add(rs.getString("IDApa"));
@@ -119,7 +119,7 @@ public class testQLCH1 extends javax.swing.JFrame {
 //             } catch (Exception e) {
 //            e.printStackTrace();
 //        }
-//        
+        
 //        ApartModel.setDataVector(data, header);
 //        tblApartment.setModel(ApartModel);
    }

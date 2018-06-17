@@ -9,6 +9,7 @@ import DatabaseConnection.DBConnection;
 import DatabaseConnection.DatabaseConnect;
 import DatabaseConnection.connectionContainer;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 
@@ -304,7 +305,7 @@ public class UpdateApartment extends javax.swing.JFrame {
         if( labelBtn.equalsIgnoreCase("Update"))
         {
             btnOK.setText("Save");            
-            manageTextField(false, true, true,true,true,true,true,true);
+            manageTextField(true, true, true,true,true,true,true,true);
            
             
         }else
@@ -319,12 +320,13 @@ public class UpdateApartment extends javax.swing.JFrame {
             String IDSup = txtIDSup.getText();
             try {
                 String sql = "update Apartment set  NameApa = '" + Name + "',AddressApa = '" + Address + "',ImageApa = '" + Image + "',InfoApa = '" + Info + "',StatusApa  = '" + Status+"',PriceApa  = '" + Price+"',IDSupApa  = '" + IDSup+ " where IDApa = '" + ID + "'";
+                stmt=con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                 stmt.executeUpdate(sql);
                 
                btnOK.setText("Update");
                 clearTxt();
                  } catch (Exception e) {
-                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
         }
     }//GEN-LAST:event_btnOKActionPerformed
