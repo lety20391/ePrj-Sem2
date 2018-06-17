@@ -558,6 +558,14 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                
+                new RegisterForm(continueAccount, continueType, conn, stmt, "main").setVisible(true);
+            }
+        }
+        );
+        dispose();
 
     }//GEN-LAST:event_btnCreateActionPerformed
 
