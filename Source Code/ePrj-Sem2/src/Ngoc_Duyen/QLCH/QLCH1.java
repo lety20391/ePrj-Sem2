@@ -502,7 +502,7 @@ public class QLCH1 extends javax.swing.JFrame {
             String Price = txtPrice.getText();
             String IDSup = txtIDSup.getText();
             try {
-                sql = "update Apartment set  NameApa = '" + Name + "',AddressApa = '" + Address + "',ImageApa = '" + Image + "',InfoApa = '" + Info + "',StatusApa  = '" + Status+"',PriceApa  = '" + Price+"',IDSupApa  = '" + IDSup+ " where IDApa = '" + ID + "'";
+                sql = "update Apartment set  NameApa = '" + Name + "',AddressApa = '" + Address + "',ImageApa = '" + Image + "',InfoApa = '" + Info + "',StatusApa  = '" + Status+"',PriceApa  = '" + Price+"',IDSup  = '" + IDSup+ "' where IDApa = '" + ID + "'";
                 stmt.executeUpdate(sql);
                 
                btnUpdate.setText("Update");
@@ -555,11 +555,7 @@ public class QLCH1 extends javax.swing.JFrame {
             check = false;
             return check;
         }
-        try {
-            Integer.parseInt(txtID.getText());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Pls Re-Enter");
-        }
+        
         if (txtName.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Name cannot be blank. Re-Enter.");
             txtName.grabFocus();
@@ -590,22 +586,14 @@ public class QLCH1 extends javax.swing.JFrame {
             check = false;
             return check;
         }
-        try {
-          Integer.parseInt(txtIDSup.getText());  
-        } catch (NumberFormatException e) {
-              JOptionPane.showMessageDialog(this, "Pls Re-Enter");
-        }
+        
         if (txtPrice.getText().isEmpty()){
             JOptionPane.showMessageDialog(this, "Price cannot be blank. Re-Enter.");
             txtPrice.grabFocus();
             check = false;
             return check;
         }
-        try {
-          Integer.parseInt(txtPrice.getText());  
-        } catch (NumberFormatException e) {
-              JOptionPane.showMessageDialog(this, "Pls Re-Enter");
-        }
+        
         return check;
     }
     public static void main(String args[]) {
