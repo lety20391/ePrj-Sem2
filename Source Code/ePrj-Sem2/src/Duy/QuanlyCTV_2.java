@@ -7,12 +7,14 @@ package Duy;
 
 import Library.G2FileBrowserExtend;
 import Nam.RegisterForm;
+import java.awt.Component;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Vector;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -60,11 +62,26 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
         continueAccount = account;
         continueType = type;
         initComponents();
+        manageAccountPanel();
         showTable();
+        
         initData();
         pButton.attachButtonAndSetMainRight(pButton, type);
         //manageButton(true, true, true, true);
         manageTextfield(false, false, false, false, false, false, false, false, false, false, false, false, false, false);
+    }
+    
+    private void manageAccountPanel()
+    {
+        if(!continueType.equalsIgnoreCase("ad"))
+        {
+            Component[] objListComponent = pAccount.getComponents();
+            for (Object objComp : objListComponent) 
+            {
+                if (objComp instanceof JTextField)
+                    ((JTextField) objComp).setVisible(false);
+            }
+        }
     }
     
     //init data get from objMain
@@ -825,8 +842,12 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
             String Image = txtImage.getText();
             String Status = txtStatus.getText();
             String Deposit = txtDeposit.getText();
+            TypeCo = txtType.getText();
+            PassCo = txtPass.getText();
+            
 
             try {
+                                
                 //update Guest set  NameSer = 'Ban nha', Price = 100 where IDSer = 'S06'
                 sql = "update Collaborator set  NameCo = '" + Name + "', AddressCo = '" + Address + "', PhoneCo = '" + Phone + "',EmailCo = '" + Email + "', DOBCo = '" + DOB + "', IdentificationNumberCo = '" + IDNo + "', ImageCo = '" + Image + "', DepositCo = '" + Deposit + "' where IDCo = '" + ID + "'";
                 stmt.executeUpdate(sql);
