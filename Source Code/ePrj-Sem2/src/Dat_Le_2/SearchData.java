@@ -11,7 +11,7 @@ import javax.swing.JComboBox;
  *
  * @author Dat ThinkPad
  */
-public class SearchHolding extends javax.swing.JDialog {
+public class SearchData extends javax.swing.JDialog {
 
     /**
      * Creates new form SearchHolding
@@ -19,7 +19,7 @@ public class SearchHolding extends javax.swing.JDialog {
     String[] arrInit;
     String searchTable;
     java.awt.Frame parent;
-    public SearchHolding(java.awt.Frame parent, boolean modal) {
+    public SearchData(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.parent = parent;
         this.arrInit = arrInit;
@@ -98,7 +98,7 @@ public class SearchHolding extends javax.swing.JDialog {
         // TODO add your handling code here:
         String searchType = cbSearch.getSelectedItem().toString();
         String searchValue = txtSearch.getText();
-        ((uiHolding_2)parent).showTable("select * from "+searchTable+" where "+ searchType +" like '%"+searchValue+"%'");
+        ((Library.G2FrameInterface)parent).showTable("select * from "+searchTable+" where "+ searchType +" like '%"+searchValue+"%'");
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -119,20 +119,21 @@ public class SearchHolding extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SearchHolding.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SearchHolding.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SearchHolding.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SearchHolding.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                SearchHolding dialog = new SearchHolding(new javax.swing.JFrame(), true);
+                SearchData dialog = new SearchData(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

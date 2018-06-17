@@ -28,7 +28,7 @@ import Library.G2TextField;
  *
  * @author Dat ThinkPad
  */
-public class uiHolding_2 extends javax.swing.JFrame {
+public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameInterface{
     
     Statement stmt;
     DatabaseConnect objDBConnect;
@@ -50,9 +50,10 @@ public class uiHolding_2 extends javax.swing.JFrame {
     
     DateChooser diaDateChooser;
     
-    SearchHolding objSearch;
+    SearchData objSearch;
     
     Nam.MainControlInterface objMain;
+    TestMain.TestMain objMain2;
     
     
     public uiHolding_2() throws HeadlessException 
@@ -88,8 +89,27 @@ public class uiHolding_2 extends javax.swing.JFrame {
         //initDateChooser();
         showTable("Select * from Holding");        
         //pImageGuest.setSize(300, 400);
-        pImageGuest.inputImage("\\src\\Image\\Guest\\Gu01.jpg");
-        pImageCollaborator.inputImage("\\src\\Image\\Collaborator\\Co01.jpg");
+//        pImageGuest.inputImage("\\src\\Image\\Guest\\Gu01.jpg");
+//        pImageCollaborator.inputImage("\\src\\Image\\Collaborator\\Co01.jpg");
+    }
+    
+    public uiHolding_2(String Account, String type, Connection objConnection, Statement stmt, TestMain.TestMain objMain)
+    {
+        this.objConnection = objConnection;
+        this.stmt = stmt;
+        this.objMain2 = objMain;
+        objMain.setVisible(false);
+        
+        initComponents();   
+        //patStr = txtIDHo.getText();
+        pHolding.attachButtonAndSetMainRight(pHolding,type); 
+        attachRegexAndErrorInform(pHolding);
+        initData();
+        //initDateChooser();
+        showTable("Select * from Holding");        
+        //pImageGuest.setSize(300, 400);
+//        pImageGuest.inputImage("\\src\\Image\\Guest\\Gu01.jpg");
+//        pImageCollaborator.inputImage("\\src\\Image\\Collaborator\\Co01.jpg");
     }
     
     public void attachRegexAndErrorInform(Library.G2Panel panel)
@@ -1132,7 +1152,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
         String[] arrSearch = {"IDHo" , "IDGu" , "IDApa" ,"IDCo" , "DateHo" ,"FromDateHo" ,"ToDateHo" ,"PayStatusHo", "IDSer"};
-        objSearch = new SearchHolding(this, true);
+        objSearch = new SearchData(this, true);
         SwingUtilities.invokeLater(new Runnable()
         {
             public void run()
@@ -1297,12 +1317,20 @@ public class uiHolding_2 extends javax.swing.JFrame {
     
     @Override
     public void dispose(){
-        objMain.setVisible(true);
+        if (objMain != null)
+            objMain.setVisible(true);
+        if (objMain2 != null)
+            objMain2.setVisible(true);
         super.dispose();
     }
 
 //    @Override
 //    public void receiveData() {
 //        System.out.println("data");
+//    }
+
+//    @Override
+//    public void showTable() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
 }
