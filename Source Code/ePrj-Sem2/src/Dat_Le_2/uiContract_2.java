@@ -41,6 +41,7 @@ public class uiContract_2 extends javax.swing.JFrame {
     
     String IDCon, DateCon, IDHo, StatusCon;
     Double PriceCon;
+    String IDCo, IDGu, ImageGu, ImageCo;
     
     Library.DateChooser diaDateChooser;
     
@@ -248,8 +249,8 @@ public class uiContract_2 extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
+        pGuestImage = new Library.G2ImagePanel();
+        pCollaboratorImage = new Library.G2ImagePanel();
         jLabel13 = new javax.swing.JLabel();
         pContract = new Library.G2Panel();
         jLabel14 = new javax.swing.JLabel();
@@ -321,29 +322,29 @@ public class uiContract_2 extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setText("Guest");
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pGuestImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pGuestImageLayout = new javax.swing.GroupLayout(pGuestImage);
+        pGuestImage.setLayout(pGuestImageLayout);
+        pGuestImageLayout.setHorizontalGroup(
+            pGuestImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 153, Short.MAX_VALUE)
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pGuestImageLayout.setVerticalGroup(
+            pGuestImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 190, Short.MAX_VALUE)
         );
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pCollaboratorImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pCollaboratorImageLayout = new javax.swing.GroupLayout(pCollaboratorImage);
+        pCollaboratorImage.setLayout(pCollaboratorImageLayout);
+        pCollaboratorImageLayout.setHorizontalGroup(
+            pCollaboratorImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 157, Short.MAX_VALUE)
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pCollaboratorImageLayout.setVerticalGroup(
+            pCollaboratorImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
@@ -357,12 +358,12 @@ public class uiContract_2 extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pGuestImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(98, 98, 98)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pCollaboratorImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -374,8 +375,8 @@ public class uiContract_2 extends javax.swing.JFrame {
                     .addComponent(jLabel13))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pGuestImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pCollaboratorImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -623,6 +624,36 @@ public class uiContract_2 extends javax.swing.JFrame {
         txtIDHo.setText(IDHo);
         txtPriceCon.setText(String.valueOf(PriceCon));
         txtStatusCon.setText(StatusCon);
+        
+        try {
+            //select IDGu, IDCo from Holding where IDHo = 'Ho01'
+            sql = "select IDGu, IDCo from Holding where IDHo = '"+ IDHo +"'";
+            rs = stmt.executeQuery(sql);
+            rs.beforeFirst();
+            while(rs.next())
+            {
+                IDGu = rs.getString("IDGu");
+                IDCo = rs.getString("IDCo");
+            }
+            
+            //find Guest Image
+            rs = stmt.executeQuery("Select ImageGu from Guest where IDGu = '" + IDGu + "'");
+            rs.beforeFirst();
+            rs.next();
+            ImageGu = rs.getString("ImageGu");
+            System.out.println(ImageGu);
+            
+            //find Collaborator Image
+            rs = stmt.executeQuery("Select ImageCo from Collaborator where IDCo = '" + IDCo + "'");
+            rs.beforeFirst();
+            rs.next();
+            ImageCo = rs.getString("ImageCo");
+            System.out.println(ImageCo);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        pGuestImage.inputImage(ImageGu);
+        pCollaboratorImage.inputImage(ImageCo);
     }//GEN-LAST:event_tblConMouseClicked
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -714,13 +745,19 @@ public class uiContract_2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    /*
+    private javax.swing.JPanel pCollaboratorImage;
+    */
+    private Library.G2ImagePanel pCollaboratorImage;
     /*
     private javax.swing.JPanel pContract;
     */
     private Library.G2Panel pContract;
+    /*
+    private javax.swing.JPanel pGuestImage;
+    */
+    private Library.G2ImagePanel pGuestImage;
     private javax.swing.JTable tblCon;
     /*
     private javax.swing.JTextField txtDateCon;
