@@ -32,6 +32,8 @@ public class NotificationFormToCol extends javax.swing.JDialog {
     
     DefaultTableModel ColModel;
     Vector header, data, row;
+    
+    MainControlInterface objMain;
     /**
      * Creates new form Account
      * @param parent
@@ -41,13 +43,15 @@ public class NotificationFormToCol extends javax.swing.JDialog {
      * @param connection
      * @param statement
      */
-    public NotificationFormToCol(java.awt.Frame parent, boolean modal, String account, String type, Connection connection, Statement statement) {
+    public NotificationFormToCol(java.awt.Frame parent, boolean modal, String account, String type, Connection connection, Statement statement, MainControlInterface main) {
         super(parent, modal);
         initComponents();
         continueAccount = account;
         continueType = type;
         conn = connection;
         stmt = statement;
+        objMain = main;
+        setLocationRelativeTo(parent);
         load();
         
     }
@@ -190,6 +194,7 @@ public class NotificationFormToCol extends javax.swing.JDialog {
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
         // TODO add your handling code here:
+        objMain.loadCol();
         dispose();
         
     }//GEN-LAST:event_btnCloseActionPerformed

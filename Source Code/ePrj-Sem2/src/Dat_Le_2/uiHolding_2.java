@@ -5,19 +5,13 @@
  */
 package Dat_Le_2;
 
-import Dat_Le.*;
 import DatabaseConnection.DatabaseConnect;
-import DatabaseConnection.connectionContainer;
-import java.awt.Color;
 import java.awt.Component;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
 import java.util.Vector;
-import java.util.regex.Pattern;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -26,7 +20,6 @@ import javax.swing.table.TableModel;
 import Library.DateChooser;
 import Library.G2Panel;
 import java.awt.HeadlessException;
-import java.awt.Panel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import Library.G2TextField;
@@ -59,7 +52,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
     
     SearchHolding objSearch;
     
-    TestMain.TestMain objMain;
+    Nam.MainControlInterface objMain;
     
     
     public uiHolding_2() throws HeadlessException 
@@ -80,7 +73,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
 //        showTable("Select * from Holding");
 //    }
     
-    public uiHolding_2(String Account, String type, Connection objConnection, Statement stmt, TestMain.TestMain objMain)
+    public uiHolding_2(String Account, String type, Connection objConnection, Statement stmt, Nam.MainControlInterface objMain)
     {
         this.objConnection = objConnection;
         this.stmt = stmt;

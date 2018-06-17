@@ -25,7 +25,7 @@ import javax.swing.SwingUtilities;
  *
  * @author Namcham
  */
-public class MainControlInterface extends javax.swing.JFrame implements ActionListener{
+public class MainControlInterface extends javax.swing.JFrame implements ActionListener {
 
     Connection conn;
     Statement stmt;
@@ -64,7 +64,7 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
         guTxtAccount.setText(account);
         setLocationRelativeTo(null);
         load();
-        loadCol();
+
         txtCoDeposit.setEditable(false);
         txtCoGrade.setEditable(false);
         txtCoName.setEditable(false);
@@ -72,7 +72,7 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
         txtNotification.setEditable(false);
         txtCoLogout.setEditable(false);
         pack();
-        
+
     }
 
     private void load() {
@@ -83,42 +83,45 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
         if (continueType.equals("co")) {
             jTabbedPane.remove(jPanelAdmin);
             jTabbedPane.remove(jPanelGuest);
+            loadCol();
         }
         if (continueType.equals("gu")) {
             jTabbedPane.remove(jPanelAdmin);
             jTabbedPane.remove(jPanelCol);
         }
     }
-    
-    private void loadCol(){
-        sql = "select * from Collaborator where IDCo = '"+colTxtAccount.getText()+"'";
+
+    public void loadCol() {
+        int countNoti = 0;
+        sql = "select * from Collaborator where IDCo = '" + colTxtAccount.getText() + "'";
         try {
             rs = stmt.executeQuery(sql);
             rs.beforeFirst();
             while (rs.next()) {
-                txtCoDeposit.setText("Deposit: "+String.valueOf(rs.getDouble("DepositCo")));
-                txtCoGrade.setText("Grade: "+rs.getString("GradeCo"));
-                txtCoNumberOfGuest.setText("Number of guests: "+rs.getInt("NumberOfGuest"));
-                txtCoName.setText(""+rs.getString("NameCo"));
+                txtCoDeposit.setText("Deposit: " + String.valueOf(rs.getDouble("DepositCo")));
+                txtCoGrade.setText("Grade: " + rs.getString("GradeCo"));
+                txtCoNumberOfGuest.setText("Number of guests: " + rs.getInt("NumberOfGuest"));
+                txtCoName.setText("" + rs.getString("NameCo"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(NotificationFormToCol.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        sql = "select * from "+continueAccount+" where Status = 'unread' order by Status";
+
+        sql = "select * from " + continueAccount + " where Status = 'unread' order by Status";
         try {
             rs = stmt.executeQuery(sql);
             rs.beforeFirst();
             while (rs.next()) {
-                count++;
+                countNoti++;
             }
         } catch (SQLException ex) {
             Logger.getLogger(NotificationFormToCol.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        txtNotification.setText("Notification: "+ count);
+
+        txtNotification.setText("Notification: " + countNoti);
         txtCoLogout.setText("Logout");
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -326,7 +329,7 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
                             .addComponent(btnNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnHolding, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnCollaborator, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnGuest, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -535,13 +538,9 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
 
     private void btnHoldingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoldingActionPerformed
         // TODO add your handling code here:
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                objUIHolding = new uiHolding_2(continueAccount, continueType, conn, stmt);
-                objUIHolding.setVisible(true);
-            }
-        }
-        );
+
+        objUIHolding = new uiHolding_2(continueAccount, continueType, conn, stmt, this);
+        objUIHolding.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnHoldingActionPerformed
 
@@ -620,7 +619,7 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
 
     private void txtNotificationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNotificationMouseClicked
         // TODO add your handling code here:
-        new NotificationFormToCol(this, true, continueAccount, continueType, conn, stmt).setVisible(true);
+        new NotificationFormToCol(this, true, continueAccount, continueType, conn, stmt, this).setVisible(true);
     }//GEN-LAST:event_txtNotificationMouseClicked
 
     /**

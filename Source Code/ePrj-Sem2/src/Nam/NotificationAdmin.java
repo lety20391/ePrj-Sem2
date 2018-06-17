@@ -56,6 +56,7 @@ public class NotificationAdmin extends javax.swing.JDialog {
         load();
         setTextOnOff(false);
         pack();
+        setLocationRelativeTo(parent);
     }
     
 //    public void show()
