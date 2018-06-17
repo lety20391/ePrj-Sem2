@@ -133,7 +133,18 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
         txtNotification.setEditable(false);
         txtCoLogout.setEditable(false);
         pack();
-
+        initData();
+    }
+    
+    private void initData()
+    {
+        IDGu ="";
+        IDCo="";
+        IDApa="";
+        IDSup="";
+        IDSer="";
+        IDHo = "";
+        IDCon = "";
     }
 
     private void load() {

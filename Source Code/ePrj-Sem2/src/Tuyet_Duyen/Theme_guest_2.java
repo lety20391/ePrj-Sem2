@@ -585,8 +585,13 @@ public class Theme_guest_2 extends javax.swing.JFrame {
     {
         manageButton(true, true, true);
         int row;
+        //nếu có dữ liệu init thì load trước
+        //không có thì đợi click chuột vào bảng mới load
         if (checkInitRow)
+        {
             row = initRow;
+            checkInitRow = false;
+        }
         else
             row = tblCustomer.getSelectedRow();
         TableModel tblModel = tblCustomer.getModel();
