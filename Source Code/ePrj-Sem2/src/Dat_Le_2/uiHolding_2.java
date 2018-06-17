@@ -252,7 +252,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     public boolean validateAllTextField()
     {
         Component[] objListComp = pHolding.getComponents();
-        String allError = "Please fix RED TextField\n";
+        String allError = "Please fix GREEN TextField\n";
         boolean error = false;
         for (Component objComp : objListComp) {
             if (objComp instanceof G2TextField)
@@ -266,7 +266,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             }
         }
         if (error == true)
-            JOptionPane.showMessageDialog(this, allError, "Bi loi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, allError, "INPUT ERROR", JOptionPane.ERROR_MESSAGE);
         return error;
     }
     
@@ -1134,6 +1134,8 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
 
     private void btnMakeContractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMakeContractActionPerformed
         // TODO add your handling code here:
+        if(validateAllTextField())
+            return;
         returnDataToMainInterface();
         SwingUtilities.invokeLater(new Runnable()
         {

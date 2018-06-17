@@ -55,6 +55,8 @@ public class uiContract_2 extends javax.swing.JFrame {
     javax.swing.JFrame objFrame;
     
     Nam.MainControlInterface objMain;
+    
+    SearchData objSearch;
     /**
      * Creates new form uiContract
      */
@@ -187,7 +189,7 @@ public class uiContract_2 extends javax.swing.JFrame {
     public boolean validateAllTextField()
     {
         Component[] objListComp = pContract.getComponents();
-        String allError = "Please fix RED TextField\n";
+        String allError = "Please fix GREEN TextField\n";
         boolean error = false;
         for (Component objComp : objListComp) {
             if (objComp instanceof G2TextField)
@@ -201,7 +203,7 @@ public class uiContract_2 extends javax.swing.JFrame {
             }
         }
         if (error == true)
-            JOptionPane.showMessageDialog(this, allError, "Bi loi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, allError, "INPUT ERROR", JOptionPane.ERROR_MESSAGE);
         return error;
     }
     
@@ -510,6 +512,11 @@ public class uiContract_2 extends javax.swing.JFrame {
         jLabel18.setText("Status");
 
         btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -779,6 +786,21 @@ public class uiContract_2 extends javax.swing.JFrame {
         diaDateChooser.addListener(txtDateCon);
         diaDateChooser.setVisible(true);
     }//GEN-LAST:event_txtDateConMouseClicked
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+        String[] arrSearch = {"IDCon" , "DateCon" , "IDHo" ,"StatusCon" };
+        objSearch = new SearchData(this, true);
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                objSearch.showGUI(arrSearch, "Contract");
+                objSearch.setVisible(true);
+            }
+        }        
+        );
+    }//GEN-LAST:event_btnSearchActionPerformed
 
     /**
      * @param args the command line arguments
