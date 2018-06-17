@@ -25,7 +25,7 @@ import javax.swing.SwingUtilities;
  *
  * @author Namcham
  */
-public class MainControlInterface extends javax.swing.JFrame implements ActionListener{
+public class MainControlInterface extends javax.swing.JFrame implements ActionListener {
 
     Connection conn;
     Statement stmt;
@@ -64,7 +64,7 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
         guTxtAccount.setText(account);
         setLocationRelativeTo(null);
         load();
-        
+
         txtCoDeposit.setEditable(false);
         txtCoGrade.setEditable(false);
         txtCoName.setEditable(false);
@@ -72,7 +72,7 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
         txtNotification.setEditable(false);
         txtCoLogout.setEditable(false);
         pack();
-        
+
     }
 
     private void load() {
@@ -90,24 +90,24 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
             jTabbedPane.remove(jPanelCol);
         }
     }
-    
-    public void loadCol(){
+
+    public void loadCol() {
         int countNoti = 0;
-        sql = "select * from Collaborator where IDCo = '"+colTxtAccount.getText()+"'";
+        sql = "select * from Collaborator where IDCo = '" + colTxtAccount.getText() + "'";
         try {
             rs = stmt.executeQuery(sql);
             rs.beforeFirst();
             while (rs.next()) {
-                txtCoDeposit.setText("Deposit: "+String.valueOf(rs.getDouble("DepositCo")));
-                txtCoGrade.setText("Grade: "+rs.getString("GradeCo"));
-                txtCoNumberOfGuest.setText("Number of guests: "+rs.getInt("NumberOfGuest"));
-                txtCoName.setText(""+rs.getString("NameCo"));
+                txtCoDeposit.setText("Deposit: " + String.valueOf(rs.getDouble("DepositCo")));
+                txtCoGrade.setText("Grade: " + rs.getString("GradeCo"));
+                txtCoNumberOfGuest.setText("Number of guests: " + rs.getInt("NumberOfGuest"));
+                txtCoName.setText("" + rs.getString("NameCo"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(NotificationFormToCol.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        sql = "select * from "+continueAccount+" where Status = 'unread' order by Status";
+
+        sql = "select * from " + continueAccount + " where Status = 'unread' order by Status";
         try {
             rs = stmt.executeQuery(sql);
             rs.beforeFirst();
@@ -117,10 +117,11 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
         } catch (SQLException ex) {
             Logger.getLogger(NotificationFormToCol.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        txtNotification.setText("Notification: "+ countNoti);
+
+        txtNotification.setText("Notification: " + countNoti);
         txtCoLogout.setText("Logout");
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -537,13 +538,9 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
 
     private void btnHoldingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoldingActionPerformed
         // TODO add your handling code here:
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                objUIHolding = new uiHolding_2(continueAccount, continueType, conn, stmt);
-                objUIHolding.setVisible(true);
-            }
-        }
-        );
+
+        objUIHolding = new uiHolding_2(continueAccount, continueType, conn, stmt, this);
+        objUIHolding.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnHoldingActionPerformed
 

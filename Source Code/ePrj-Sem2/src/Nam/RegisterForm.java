@@ -9,7 +9,6 @@ import Duy.QuanlyCTV_2;
 import Library.G2FileBrowserExtend;
 import Tuyet_Duyen.Theme_guest_2;
 import java.awt.Image;
-import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -1133,7 +1132,7 @@ public class RegisterForm extends javax.swing.JFrame {
 
         sql = "create table " + txtIDCo.getText() + "\n(ID int identity(1,1) primary key, Detail nvarchar(1000) not null, Status varchar(6) not null)";
         try {
-            stmt.executeQuery(sql);
+            stmt.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
         }
