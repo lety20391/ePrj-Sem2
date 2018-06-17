@@ -40,6 +40,10 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
     int StatusCo;
     
     String TypeCo, QuesCo, AnsCo, PassCo;
+    
+    Nam.MainControlInterface objMain;
+    boolean checkInitRow;
+    int initRow;
 
     /**
      * Creates new form QuanlyCTV
@@ -49,16 +53,37 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
      * @param objConnection
      * @param stmt
      */
-    public QuanlyCTV_2(String account, String type, Connection objConnection, Statement stmt) {
+    public QuanlyCTV_2(String account, String type, Connection objConnection, Statement stmt, Nam.MainControlInterface objMain) {
+        this.objMain = objMain;
         this.objConnection = objConnection;
         this.stmt = stmt;
         continueAccount = account;
         continueType = type;
         initComponents();
         showTable();
+        initData();
         pButton.attachButtonAndSetMainRight(pButton, type);
         //manageButton(true, true, true, true);
         manageTextfield(false, false, false, false, false, false, false, false, false, false, false, false, false, false);
+    }
+    
+    //init data get from objMain
+    public void initData()
+    {
+        if(objMain.getIDCo().isEmpty())
+            return;
+        IDCo = objMain.getIDCo();
+        checkInitRow = false;
+        TableModel objModel = tblCo.getModel();
+        for (int i = 0; i < objModel.getRowCount(); i++) {
+            if (IDCo.equalsIgnoreCase((String)objModel.getValueAt(i, 0)))
+            {
+                checkInitRow = true;
+                initRow = i;
+                break;
+            }
+        }        
+        tblMouseClickedProcess();
     }
 
     public void manageButton(boolean btnAddStatus, boolean btnEditStatus, boolean btnDeleteStatus, boolean btnSearchStatus) {
@@ -710,10 +735,24 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
 
     private void tblCoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCoMouseClicked
         // TODO add your handling code here:
+       //tách thành method riêng ở bên dưới
+       //để tận dụng lại khi initData
+       tblMouseClickedProcess();
+        
+    }//GEN-LAST:event_tblCoMouseClicked
 
+    private void tblMouseClickedProcess()
+    {
         int row;        
-
-        row = tblCo.getSelectedRow();
+        //nếu có dữ liệu init thì load trước
+        //không có thì đợi click chuột vào bảng mới load
+        if (checkInitRow)
+        {
+            row = initRow;
+            checkInitRow = false;
+        }
+        else
+            row = tblCo.getSelectedRow();
         TableModel tblModel = tblCo.getModel();
 
         IDCo = (String) tblModel.getValueAt(row, 0);
@@ -743,9 +782,8 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
         pCollaboratorImage.inputImage(ImageCo);
         setRadButton();
         setDataToAccountPanel();
-        
-    }//GEN-LAST:event_tblCoMouseClicked
-
+    }
+    
     private void setRadButton()
     {
         try {
@@ -930,4 +968,18 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
     private javax.swing.JTextField txtStatus;
     private javax.swing.JTextField txtType;
     // End of variables declaration//GEN-END:variables
+@Override
+    public void dispose(){
+        if (objMain != null)
+        {
+            objMain.setVisible(true);
+            returnDataToMainInterface();
+        }
+        super.dispose();
+    }
+
+    public void returnDataToMainInterface()
+    {        
+        objMain.setIDCo(IDCo);
+    }
 }

@@ -635,13 +635,18 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
         // TODO add your handling code here:
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new Duy.QuanlyCTV_2(continueAccount, continueType, conn, stmt).setVisible(true);
+                invokeQuanlyCTV();
             }
         }
         );
-        dispose();
     }//GEN-LAST:event_btnCollaboratorActionPerformed
 
+    private void invokeQuanlyCTV()
+    {
+        objCTV = new Duy.QuanlyCTV_2(continueAccount, continueType, conn, stmt, this);
+        objCTV.setVisible(true);
+    }
+    
     private void btnHoldingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoldingActionPerformed
         // TODO add your handling code here:
         java.awt.EventQueue.invokeLater(new Runnable() 
