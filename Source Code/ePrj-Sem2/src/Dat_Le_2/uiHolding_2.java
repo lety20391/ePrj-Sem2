@@ -23,6 +23,7 @@ import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import Library.G2TextField;
+import Tuyet_Duyen.Services_2;
 
 /**
  *
@@ -58,6 +59,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     TestMain.TestMain objMain2;
     uiContract_2 objContract;
     Library.G2FrameInterface objG2Frame;
+    Tuyet_Duyen.Services_2 objSer2;
     
     
     boolean checkInitRow;
@@ -881,6 +883,11 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
 
         txtIDSer.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtIDSer.setText("^(Se)\\d+errSexx with x is number");
+        txtIDSer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtIDSerMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pHoldingLayout = new javax.swing.GroupLayout(pHolding);
         pHolding.setLayout(pHoldingLayout);
@@ -1241,6 +1248,24 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         // TODO add your handling code here:
     }//GEN-LAST:event_txtToDateHoActionPerformed
 
+    private void txtIDSerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIDSerMouseClicked
+        // TODO add your handling code here:
+        
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                invokeService();
+            }
+        });
+    }//GEN-LAST:event_txtIDSerMouseClicked
+
+    private void invokeService()
+    {
+        objSer2 = new Services_2(account, type, objConnection, stmt, txtIDSer, objMain);
+        objSer2.setVisible(true);
+    }
+    
     /**
      * @param args the command line arguments
      */

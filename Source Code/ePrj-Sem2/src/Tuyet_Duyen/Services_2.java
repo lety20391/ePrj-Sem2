@@ -5,6 +5,7 @@
  */
 package Tuyet_Duyen;
 
+import Dat_Le_2.uiHolding_2;
 import DatabaseConnection.DatabaseConnect;
 import DatabaseConnection.connectionContainer;
 import Library.G2Panel;
@@ -30,6 +31,7 @@ public class Services_2 extends javax.swing.JFrame {
     Statement stmt;
     Connection objConnection;
     Nam.MainControlInterface objMain;
+    G2TextField objOutputTextField;
     
     String IDSer;
     String Nameser;
@@ -47,9 +49,6 @@ public class Services_2 extends javax.swing.JFrame {
         //connectSQL();
         pButton.attachButtonAndSetMainRight(pButton, type);
         attachRegexAndErrorInform(pService);
-//        txtID.setSize(197, 30);
-//        txtName.setSize(197, 30);
-//        txtPrice.setSize(197, 30);
         showTable();
         initData();
 //        manageButton(true,false,false);
@@ -57,6 +56,21 @@ public class Services_2 extends javax.swing.JFrame {
         //clearAllTextField(pService);
     }
     
+    public Services_2(String Account, String type, Connection objConnection, Statement stmt, G2TextField objOutputTextField, Nam.MainControlInterface objMain) {
+        this.objMain = objMain;
+        this.objOutputTextField = objOutputTextField;
+        this.objConnection = objConnection;
+        this.stmt = stmt;
+        initComponents();      
+        //connectSQL();
+        pButton.attachButtonAndSetMainRight(pButton, type);
+        attachRegexAndErrorInform(pService);
+        showTable();
+        initData();
+//        manageButton(true,false,false);
+        manageTextField(false, false, false);
+        //clearAllTextField(pService);
+    }
     //-------------------------------------------------------
     //cái này dùng để lấy giá trị (gồm Pattern và Thông báo lỗi)
     //mà mình thêm vào TextField ở trong phần Design
@@ -693,6 +707,8 @@ public class Services_2 extends javax.swing.JFrame {
             objMain.setVisible(true);
             returnDataToMainInterface();
         }
+        if(objOutputTextField != null)
+            objOutputTextField.setText(IDSer);
         super.dispose();
     }
 
@@ -700,4 +716,5 @@ public class Services_2 extends javax.swing.JFrame {
     {        
         objMain.setIDSer(IDSer);
     }
+    
 }
