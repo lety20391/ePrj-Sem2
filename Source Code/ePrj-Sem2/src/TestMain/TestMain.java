@@ -334,13 +334,18 @@ public class TestMain extends javax.swing.JFrame {
         {
             public void run()
             {
-                objUIHolding = new uiHolding_2(account, type, con, stmt);
-                objUIHolding.setVisible(true);                
+                invokeUIHolding();
             }
         }        
         );
     }//GEN-LAST:event_btnDatHoldingActionPerformed
 
+    public void invokeUIHolding()
+    {
+        objUIHolding = new uiHolding_2(account, type, con, stmt, this);
+        objUIHolding.setVisible(true);
+    }
+    
     private void btnConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConnectActionPerformed
         // TODO add your handling code here:
         connectSQL();

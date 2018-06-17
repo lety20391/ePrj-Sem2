@@ -59,6 +59,8 @@ public class uiHolding_2 extends javax.swing.JFrame {
     
     SearchHolding objSearch;
     
+    TestMain.TestMain objMain;
+    
     
     public uiHolding_2() throws HeadlessException 
     {
@@ -78,10 +80,13 @@ public class uiHolding_2 extends javax.swing.JFrame {
 //        showTable("Select * from Holding");
 //    }
     
-    public uiHolding_2(String Account, String type, Connection objConnection, Statement stmt)
+    public uiHolding_2(String Account, String type, Connection objConnection, Statement stmt, TestMain.TestMain objMain)
     {
         this.objConnection = objConnection;
         this.stmt = stmt;
+        this.objMain = objMain;
+        objMain.setVisible(false);
+        
         initComponents();   
         //patStr = txtIDHo.getText();
         pHolding.attachButtonAndSetMainRight(pHolding,type); 
@@ -1298,7 +1303,7 @@ public class uiHolding_2 extends javax.swing.JFrame {
     
     @Override
     public void dispose(){
-        System.out.println("Disposed complete");
+        objMain.setVisible(true);
         super.dispose();
     }
 
