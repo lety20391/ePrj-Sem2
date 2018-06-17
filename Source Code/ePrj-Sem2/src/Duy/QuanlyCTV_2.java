@@ -703,6 +703,7 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
 
     private void radLockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radLockActionPerformed
         // TODO add your handling code here:
+        //StatusCo = 
     }//GEN-LAST:event_radLockActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -867,7 +868,7 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
                 //update Guest set  NameSer = 'Ban nha', Price = 100 where IDSer = 'S06'
                 sql = "update Collaborator set  NameCo = '" + Name + "', AddressCo = '" + Address + "', PhoneCo = '" + Phone + "',EmailCo = '" + Email + "', DOBCo = '" + DOB + "', IdentificationNumberCo = '" + IDNo + "', ImageCo = '" + Image + "', DepositCo = '" + Deposit + "' where IDCo = '" + ID + "'";
                 stmt.executeUpdate(sql);
-                btnUpdate.setText("Edit");
+                btnUpdate.setText("Update");
                 clearTxt();
                 manageButton(true, true, true, true);
                 showTable();

@@ -43,6 +43,8 @@ public class QLCH1 extends javax.swing.JFrame {
     int initRow;
     boolean checkInitRow;
     
+    boolean checkDepositBtn = false;
+    
     public QLCH1(String account, String type, Connection con, Statement stmt, Nam.MainControlInterface objMain) 
 
     {
@@ -56,6 +58,7 @@ public class QLCH1 extends javax.swing.JFrame {
         showTable();
         initDataFromMainControl();
         manageButton(true,true, true );//false,false);
+        btnDeposit.setEnabled(false);
         manageTextField(false, false, false, false, false, false, false, false);
         this.setTitle("Apartment Management");
     }
@@ -74,6 +77,7 @@ public class QLCH1 extends javax.swing.JFrame {
         showTable();
         initDataFromMainControl();
         manageButton(true,true, true );//false,false);
+        btnDeposit.setEnabled(false);
         manageTextField(false, false, false, false, false, false, false, false);
         this.setTitle("Apartment Management");
     }
@@ -619,6 +623,8 @@ public class QLCH1 extends javax.swing.JFrame {
                        
         }else
             {
+                 
+                
             if (!checkblank())
                 return;
             String ID = txtID.getText();
@@ -712,11 +718,43 @@ public class QLCH1 extends javax.swing.JFrame {
 
     private void btnDepositActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositActionPerformed
         // TODO add your handling code here:
-        txtStatus.setText("Holding");        
-        btnDeposit.setEnabled(false);
-        btnUpdate.setText("Save");            
-        manageTextField(false, true, true,true,true,true,true,true);
-        manageButton(false, true, false);                       
+        String labelBtn = btnDeposit.getText();
+        if( labelBtn.equalsIgnoreCase("Deposit"))
+        {
+            btnDeposit.setText("Confirm");            
+            manageTextField(false, false, false,false,false,false,false,false);
+            manageButton(false, false, false);
+                       
+        }else
+            {
+                int ans = JOptionPane.showConfirmDialog(this, "Your balance will be subtract 100USD. Are you sure?");
+                if(ans == JOptionPane.NO_OPTION)
+                {
+                    btnDeposit.setText("Deposit");
+                    return;
+                }
+                
+            if (!checkblank())
+                return;
+            txtStatus.setText("Holding");
+            String ID = txtID.getText();
+            String Status = txtStatus.getText();
+            try {
+                sql = "update Apartment set  StatusApa = '" + Status + "' where IDApa = '" + ID + "'";
+                stmt.executeUpdate(sql);
+                
+                //update Collaborator set DepositCo = DepositCo - 100 where IDCo = 'Co01'
+                sql = "update Collaborator set DepositCo = DepositCo - 100 where IDCo = '"+ continueAccount +"'";
+                stmt.executeUpdate(sql);
+               btnUpdate.setText("Update");
+                clearTxt();
+                manageButton(true, true, true);
+                btnDeposit.setEnabled(true);
+                showTable();
+                 } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }                       
         
     }//GEN-LAST:event_btnDepositActionPerformed
 
