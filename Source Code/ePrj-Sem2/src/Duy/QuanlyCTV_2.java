@@ -52,7 +52,8 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
         continueType = type;
         initComponents();
         showTable();
-        manageButton(true, true, true, true);
+        pButton.attachButtonAndSetMainRight(pButton, type);
+        //manageButton(true, true, true, true);
         manageTextfield(false, false, false, false, false, false, false, false, false, false, false, false, false, false);
     }
 
@@ -218,7 +219,7 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblCo = new javax.swing.JTable();
-        pButton = new javax.swing.JPanel();
+        pButton = new Library.G2Panel();
         btnAdd = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
@@ -851,7 +852,10 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane2;
+    /*
     private javax.swing.JPanel pButton;
+    */
+    private Library.G2Panel pButton;
     /*
     private javax.swing.JPanel pCollaboratorImage;
     */
