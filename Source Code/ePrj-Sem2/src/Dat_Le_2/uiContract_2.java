@@ -7,6 +7,7 @@ package Dat_Le_2;
 
 import Dat_Le.*;
 import DatabaseConnection.DatabaseConnect;
+import Library.G2TextField;
 import java.awt.Component;
 import java.sql.*;
 import java.util.Collection;
@@ -15,6 +16,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -51,6 +53,7 @@ public class uiContract_2 extends javax.swing.JFrame {
         this.objConnection = objConnection;
         this.stmt = stmt;
         pContract.attachButtonAndSetMainRight(pContract, type);
+        attachRegexAndErrorInform(pContract);
         //connectToDatabase();
         initData();
         initDateChooser();
@@ -60,15 +63,33 @@ public class uiContract_2 extends javax.swing.JFrame {
     
     public void initData()
     {
-        dataMap = new HashMap<String, String>();
-        dataMap.put("IDCon", "CON001");
-        dataMap.put("DateCon", "12-12-2018");
-        dataMap.put("IDHo", "HOL001" );
-        dataMap.put("PriceCon", "1234");
-        dataMap.put("StatusCon", "Waiting");
-        btnConfirm.setEnabled(false);
+//        dataMap = new HashMap<String, String>();
+//        dataMap.put("IDCon", "CON001");
+//        dataMap.put("DateCon", "12-12-2018");
+//        dataMap.put("IDHo", "HOL001" );
+//        dataMap.put("PriceCon", "1234");
+//        dataMap.put("StatusCon", "Waiting");
+        //btnConfirm.setEnabled(false);        
+        //txtMap = new HashMap<String, JTextField>(); 
         
-        txtMap = new HashMap<String, JTextField>(); 
+    }
+    
+    public void attachRegexAndErrorInform(Library.G2Panel panel)
+    {
+        //regexMap = new HashMap<JTextField, String>();
+        Component[] listComponent = panel.getComponents();
+        for (Component component : listComponent) {
+            if (component instanceof Library.G2TextField)
+            {
+                G2TextField tempTextField = (G2TextField)component;
+                //regexMap.put(tempTextField, tempTextField.getText() );
+                String data = tempTextField.getText();
+                tempTextField.setPatStr(data.substring(0, data.indexOf("err")));
+                String tempErr = "' Must change to type of: ";
+                tempTextField.setError(tempErr + data.substring(data.indexOf("err") + 3, data.length()));                
+                tempTextField.setText("");
+            }
+        }
     }
     
     public void initDateChooser()
@@ -82,26 +103,44 @@ public class uiContract_2 extends javax.swing.JFrame {
                 //diaDateChooser.setVisible(true);
             }
         }        
-        );
-               
-        
+        );   
     }
     
-    public void testCollection(HashMap data, JPanel panel)
+    public void validateAllTextField()
     {
-        Component[] objGetComponents = pContract.getComponents();
-        
-        Set keySet = data.entrySet();
-        Iterator ite = keySet.iterator();
-        
-        while (ite.hasNext())
-        {
-            Map.Entry entry = (Map.Entry)ite.next();
-            String tempKey = (String)entry.getKey();
-            System.out.println(tempKey);
+        Component[] objListComp = pContract.getComponents();
+        String allError = "";
+        boolean error = false;
+        for (Component objComp : objListComp) {
+            if (objComp instanceof G2TextField)
+            {
+                String temp = ((G2TextField) objComp).allValidate();
+                if (!temp.isEmpty())
+                {
+                    error = true;
+                    allError += temp+ "\n";
+                }
+            }
         }
-        
+        if (error == true)
+            JOptionPane.showMessageDialog(this, allError, "Bi loi", JOptionPane.ERROR_MESSAGE);
     }
+    
+//    public void testCollection(HashMap data, JPanel panel)
+//    {
+//        Component[] objGetComponents = pContract.getComponents();
+//        
+//        Set keySet = data.entrySet();
+//        Iterator ite = keySet.iterator();
+//        
+//        while (ite.hasNext())
+//        {
+//            Map.Entry entry = (Map.Entry)ite.next();
+//            String tempKey = (String)entry.getKey();
+//            System.out.println(tempKey);
+//        }
+//        
+//    }
     
     
 //    public void connectToDatabase()
@@ -214,14 +253,14 @@ public class uiContract_2 extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         pContract = new Library.G2Panel();
         jLabel14 = new javax.swing.JLabel();
-        txtIDCon = new javax.swing.JTextField();
-        txtIDHo = new javax.swing.JTextField();
+        txtIDCon = new Library.G2TextField();
+        txtIDHo = new Library.G2TextField();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        txtDateCon = new javax.swing.JTextField();
-        txtPriceCon = new javax.swing.JTextField();
+        txtDateCon = new Library.G2TextField();
+        txtPriceCon = new Library.G2TextField();
         jLabel17 = new javax.swing.JLabel();
-        txtStatusCon = new javax.swing.JTextField();
+        txtStatusCon = new Library.G2TextField();
         jLabel18 = new javax.swing.JLabel();
         btnSearch = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
@@ -345,9 +384,9 @@ public class uiContract_2 extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel14.setText("ID");
 
-        txtIDCon.setText("txtIDCon");
+        txtIDCon.setText("^(Co)\\d+errHoxx with x is number");
 
-        txtIDHo.setText("txtIDHo");
+        txtIDHo.setText("^(Ho)\\d+errHoxx with x is number");
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel15.setText("ID Holding");
@@ -355,7 +394,7 @@ public class uiContract_2 extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel16.setText("Date");
 
-        txtDateCon.setText("txtDateCon");
+        txtDateCon.setText("^\\d{4}(-)\\d{2}(-)\\d{2}erryyyy-MM-dd");
         txtDateCon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtDateConMouseClicked(evt);
@@ -367,12 +406,12 @@ public class uiContract_2 extends javax.swing.JFrame {
             }
         });
 
-        txtPriceCon.setText("txtPriceCon");
+        txtPriceCon.setText("\\d+(.)*(\\d)+errxxx.xx with x is number");
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel17.setText("Price");
 
-        txtStatusCon.setText("txtStatusCon");
+        txtStatusCon.setText("\\w+(.)*\\werrnormal paragraph");
         txtStatusCon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtStatusConActionPerformed(evt);
@@ -683,10 +722,25 @@ public class uiContract_2 extends javax.swing.JFrame {
     */
     private Library.G2Panel pContract;
     private javax.swing.JTable tblCon;
+    /*
     private javax.swing.JTextField txtDateCon;
+    */
+    private Library.G2TextField txtDateCon;
+    /*
     private javax.swing.JTextField txtIDCon;
+    */
+    private Library.G2TextField txtIDCon;
+    /*
     private javax.swing.JTextField txtIDHo;
+    */
+    private Library.G2TextField txtIDHo;
+    /*
     private javax.swing.JTextField txtPriceCon;
+    */
+    private Library.G2TextField txtPriceCon;
+    /*
     private javax.swing.JTextField txtStatusCon;
+    */
+    private Library.G2TextField txtStatusCon;
     // End of variables declaration//GEN-END:variables
 }

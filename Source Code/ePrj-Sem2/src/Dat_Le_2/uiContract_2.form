@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.8" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
@@ -382,13 +382,23 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtIDCon">
           <Properties>
-            <Property name="text" type="java.lang.String" value="txtIDCon"/>
+            <Property name="text" type="java.lang.String" value="^(Co)\u005cd+errHoxx with x is number" containsInvalidXMLChars="true"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new Library.G2TextField()"/>
+            <AuxValue name="JavaCodeGenerator_DeclarationPost" type="java.lang.String" value="*/&#xa;private Library.G2TextField txtIDCon;"/>
+            <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/*"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="txtIDHo">
           <Properties>
-            <Property name="text" type="java.lang.String" value="txtIDHo"/>
+            <Property name="text" type="java.lang.String" value="^(Ho)\u005cd+errHoxx with x is number" containsInvalidXMLChars="true"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new Library.G2TextField()"/>
+            <AuxValue name="JavaCodeGenerator_DeclarationPost" type="java.lang.String" value="*/&#xa;private Library.G2TextField txtIDHo;"/>
+            <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/*"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel15">
           <Properties>
@@ -408,17 +418,27 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtDateCon">
           <Properties>
-            <Property name="text" type="java.lang.String" value="txtDateCon"/>
+            <Property name="text" type="java.lang.String" value="^\u005cd{4}(-)\u005cd{2}(-)\u005cd{2}erryyyy-MM-dd" containsInvalidXMLChars="true"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtDateConMouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDateConActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new Library.G2TextField()"/>
+            <AuxValue name="JavaCodeGenerator_DeclarationPost" type="java.lang.String" value="*/&#xa;private Library.G2TextField txtDateCon;"/>
+            <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/*"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPriceCon">
           <Properties>
-            <Property name="text" type="java.lang.String" value="txtPriceCon"/>
+            <Property name="text" type="java.lang.String" value="\u005cd+(.)*(\u005cd)+errxxx.xx with x is number" containsInvalidXMLChars="true"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new Library.G2TextField()"/>
+            <AuxValue name="JavaCodeGenerator_DeclarationPost" type="java.lang.String" value="*/&#xa;private Library.G2TextField txtPriceCon;"/>
+            <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/*"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel17">
           <Properties>
@@ -430,11 +450,16 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtStatusCon">
           <Properties>
-            <Property name="text" type="java.lang.String" value="txtStatusCon"/>
+            <Property name="text" type="java.lang.String" value="\u005cw+(.)*\u005cwerrnormal paragraph" containsInvalidXMLChars="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtStatusConActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new Library.G2TextField()"/>
+            <AuxValue name="JavaCodeGenerator_DeclarationPost" type="java.lang.String" value="*/&#xa;private Library.G2TextField txtStatusCon;"/>
+            <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/*"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel18">
           <Properties>
