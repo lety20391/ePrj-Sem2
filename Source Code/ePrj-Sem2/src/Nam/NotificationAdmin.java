@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -243,6 +244,11 @@ public class NotificationAdmin extends javax.swing.JDialog {
         btnSearchCo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnSearchCo.setForeground(new java.awt.Color(255, 255, 255));
         btnSearchCo.setText("Search by ID");
+        btnSearchCo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchCoActionPerformed(evt);
+            }
+        });
 
         btnSendCo.setBackground(new java.awt.Color(51, 51, 255));
         btnSendCo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -461,6 +467,49 @@ public class NotificationAdmin extends javax.swing.JDialog {
 
         lbImageCo.setIcon(new ImageIcon(image));
     }//GEN-LAST:event_tbColMouseClicked
+
+    private void btnSearchCoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchCoActionPerformed
+        // TODO add your handling code here:
+        if (txtSearchCo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "The field cannot be blank.");
+            return ;
+        }
+        ArrayList<String> idCoList = new ArrayList<>();
+        sql = "select * from Collaborator";
+        try {
+            rs = stmt.executeQuery(sql);
+            rs.beforeFirst();
+            while (rs.next()) {
+                idCoList.add(rs.getString("IDCo"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NotificationAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        boolean check = false;
+        for (String string : idCoList) {
+            if (string.equals(txtSearchCo.getText())) {
+                check = true;
+                sql = "select * from Collaborator where IDCo = '"+string+"'";
+                try {
+                    rs = stmt.executeQuery(sql);
+                    rs.beforeFirst();
+                    while (rs.next()) {
+                        txtDepositCo.setText(String.valueOf(rs.getDouble("DepositCo")));
+                        txtGradeCo.setText(rs.getString("GradeCo"));
+                        txtIDCo.setText(string);
+                        txtNameCo.setText(rs.getString("NameCo"));
+                        txtPhoneCo.setText(rs.getString("PhoneCo"));
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(NotificationAdmin.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
+            }
+        }
+        if (check == false) {
+            JOptionPane.showMessageDialog(this, "Cannot find this Collaborator");
+        }
+    }//GEN-LAST:event_btnSearchCoActionPerformed
 
     /**
      * @param args the command line arguments
