@@ -690,14 +690,18 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 //new Tuyet_Duyen.Services_2(con, stmt).setVisible(true);
-                objService = new Services_2(continueAccount, continueType, conn, stmt);
-                objService.setVisible(true);
+                invokeServiceFrame();
             }
         }
         );
-        dispose();
     }//GEN-LAST:event_btnServicesActionPerformed
 
+    private void invokeServiceFrame()
+    {
+        objService = new Services_2(continueAccount, continueType, conn, stmt, this);
+        objService.setVisible(true);
+    }
+    
     private void btnGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuestActionPerformed
         // TODO add your handling code here:
         SwingUtilities.invokeLater(new Runnable()
@@ -708,7 +712,6 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
             }
         }        
         );
-        dispose();
     }//GEN-LAST:event_btnGuestActionPerformed
 
     private void colBtnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colBtnCreateActionPerformed
@@ -719,7 +722,6 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
             }
         }
         );
-        dispose();
     }//GEN-LAST:event_colBtnCreateActionPerformed
 
     private void btnNotificationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNotificationActionPerformed
@@ -756,7 +758,6 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
             }
         }        
         );
-        dispose();
     }//GEN-LAST:event_colBtnGuestActionPerformed
 
     public void invokeThemeGuest2()

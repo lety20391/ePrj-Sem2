@@ -16,6 +16,7 @@ import java.sql.Statement;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -28,11 +29,18 @@ public class Services_2 extends javax.swing.JFrame {
     ResultSet rs;
     Statement stmt;
     Connection objConnection;
-
+    Nam.MainControlInterface objMain;
+    
+    String IDSer;
+    String Nameser;
+    Double Price;
+    int initRow;
+    boolean checkInitRow;
     /**
      * Creates new form Services
      */
-    public Services_2(String Account, String type, Connection objConnection, Statement stmt) {
+    public Services_2(String Account, String type, Connection objConnection, Statement stmt, Nam.MainControlInterface objMain) {
+        this.objMain = objMain;
         this.objConnection = objConnection;
         this.stmt = stmt;
         initComponents();      
@@ -43,6 +51,7 @@ public class Services_2 extends javax.swing.JFrame {
 //        txtName.setSize(197, 30);
 //        txtPrice.setSize(197, 30);
         showTable();
+        initData();
 //        manageButton(true,false,false);
         manageTextField(false, false, false);
         //clearAllTextField(pService);
@@ -69,9 +78,28 @@ public class Services_2 extends javax.swing.JFrame {
                 tempTextField.setPatStr(data.substring(0, data.indexOf("err")));
                 String tempErr = "' Must change to type of: ";
                 tempTextField.setError(tempErr + data.substring(data.indexOf("err") + 3, data.length()));
-                //tempTextField.setText("");
+                tempTextField.setText("");
             }
         }
+    }
+    
+    //init data get from objMain
+    public void initData()
+    {
+        if(objMain.getIDSer().isEmpty())
+            return;
+        IDSer = objMain.getIDSer();
+        checkInitRow = false;
+        TableModel objModel = tblService.getModel();
+        for (int i = 0; i < objModel.getRowCount(); i++) {
+            if (IDSer.equalsIgnoreCase((String)objModel.getValueAt(i, 0)))
+            {
+                checkInitRow = true;
+                initRow = i;
+                break;
+            }
+        }        
+        tblMouseClickedProcess();
     }
     
     public void clearAllTextField(G2Panel panel)
@@ -487,26 +515,36 @@ public class Services_2 extends javax.swing.JFrame {
 
     private void tblServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblServiceMouseClicked
         // TODO add your handling code here:
+        tblMouseClickedProcess();
+        //tách thành method riêng ngay bên dưới để có thể tái sử dụng
+        //lúc initData
+    }//GEN-LAST:event_tblServiceMouseClicked
+
+    private void tblMouseClickedProcess()
+    {
         manageButton(true, true, true);
         int row;
-        String IDser;
-        String Nameser;
-        Double Price;
+        //nếu có dữ liệu init thì load trước
+        //không có thì đợi click chuột vào bảng mới load
+        if (checkInitRow)
+        {
+            row = initRow;
+            checkInitRow = false;
+        }
+        else
+            row = tblService.getSelectedRow();
         
-        row = tblService.getSelectedRow();
-        
-        IDser = (String) tblService.getValueAt(row, 0);        
+        IDSer = (String) tblService.getValueAt(row, 0);        
         Nameser = (String)tblService.getValueAt(row, 1);
         Price = (double)tblService.getValueAt(row, 2);
         
-        txtID.setText(IDser);
+        txtID.setText(IDSer);
         txtName.setText(Nameser);
         //tra ve kieu String vi Price la kieu Double
         txtPrice.setText(String.valueOf(Price));
         
-        
-    }//GEN-LAST:event_tblServiceMouseClicked
-
+    }
+    
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
         
@@ -648,4 +686,18 @@ public class Services_2 extends javax.swing.JFrame {
     */
     private Library.G2TextField txtPrice;
     // End of variables declaration//GEN-END:variables
+@Override
+    public void dispose(){
+        if (objMain != null)
+        {
+            objMain.setVisible(true);
+            returnDataToMainInterface();
+        }
+        super.dispose();
+    }
+
+    public void returnDataToMainInterface()
+    {        
+        objMain.setIDSer(IDSer);
+    }
 }
