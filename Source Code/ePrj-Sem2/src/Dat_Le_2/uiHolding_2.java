@@ -1038,7 +1038,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             }
         });
 
-        jButton2.setText("jButton2");
+        jButton2.setText("Deposit");
 
         javax.swing.GroupLayout pButtonLayout = new javax.swing.GroupLayout(pButton);
         pButton.setLayout(pButtonLayout);

@@ -170,6 +170,22 @@ public class QLCH1 extends javax.swing.JFrame {
         modifyTable();
     }
     
+    private void setStatusDepositButton(String data)
+    {
+        if (objOutputTextField == null)
+        {
+            btnDeposit.setEnabled(false);
+            return;
+        }
+        if (data.equalsIgnoreCase("On-Hold"))
+        {
+            btnDeposit.setEnabled(false);
+        }else{
+            btnDeposit.setEnabled(true);
+        }
+        
+    }
+    
     public void modifyTable()
     {
         tblApartment.removeColumn(tblApartment.getColumn("Image"));
@@ -245,6 +261,7 @@ public class QLCH1 extends javax.swing.JFrame {
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
+        btnDeposit = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -424,18 +441,29 @@ public class QLCH1 extends javax.swing.JFrame {
             }
         });
 
+        btnDeposit.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnDeposit.setText("Deposit");
+        btnDeposit.setEnabled(false);
+        btnDeposit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDepositActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnDeposit)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
                 .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81)
+                .addGap(40, 40, 40)
                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(65, 65, 65))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -444,7 +472,8 @@ public class QLCH1 extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdate)
                     .addComponent(btnDelete)
-                    .addComponent(btnAdd))
+                    .addComponent(btnAdd)
+                    .addComponent(btnDeposit))
                 .addGap(23, 23, 23))
         );
 
@@ -607,6 +636,7 @@ public class QLCH1 extends javax.swing.JFrame {
                btnUpdate.setText("Update");
                 clearTxt();
                 manageButton(true, true, true);
+                btnDeposit.setEnabled(true);
                 showTable();
                  } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -653,6 +683,10 @@ public class QLCH1 extends javax.swing.JFrame {
         txtIDSup.setText(IDSupApa);
         
         pApaImage.inputImage(ImageApa);
+        if (StatusApa.equalsIgnoreCase("Holding"))
+            setStatusDepositButton("On-Hold");
+        else
+            setStatusDepositButton("OK");
     }
     
     private void pApaImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pApaImageMouseClicked
@@ -675,6 +709,16 @@ public class QLCH1 extends javax.swing.JFrame {
         new Nam.MainControlInterface(continueAccount, continueType, con, stmt).setVisible(true);
         dispose();
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnDepositActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositActionPerformed
+        // TODO add your handling code here:
+        txtStatus.setText("Holding");        
+        btnDeposit.setEnabled(false);
+        btnUpdate.setText("Save");            
+        manageTextField(false, true, true,true,true,true,true,true);
+        manageButton(false, true, false);                       
+        
+    }//GEN-LAST:event_btnDepositActionPerformed
 
     /**
      * @param args the command line arguments
@@ -780,6 +824,7 @@ public class QLCH1 extends javax.swing.JFrame {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnDeposit;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
