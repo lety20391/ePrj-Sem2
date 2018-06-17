@@ -64,7 +64,7 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
         guTxtAccount.setText(account);
         setLocationRelativeTo(null);
         load();
-        loadCol();
+        
         txtCoDeposit.setEditable(false);
         txtCoGrade.setEditable(false);
         txtCoName.setEditable(false);
@@ -83,6 +83,7 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
         if (continueType.equals("co")) {
             jTabbedPane.remove(jPanelAdmin);
             jTabbedPane.remove(jPanelGuest);
+            loadCol();
         }
         if (continueType.equals("gu")) {
             jTabbedPane.remove(jPanelAdmin);
@@ -90,7 +91,8 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
         }
     }
     
-    private void loadCol(){
+    public void loadCol(){
+        int countNoti = 0;
         sql = "select * from Collaborator where IDCo = '"+colTxtAccount.getText()+"'";
         try {
             rs = stmt.executeQuery(sql);
@@ -110,13 +112,13 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
             rs = stmt.executeQuery(sql);
             rs.beforeFirst();
             while (rs.next()) {
-                count++;
+                countNoti++;
             }
         } catch (SQLException ex) {
             Logger.getLogger(NotificationFormToCol.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        txtNotification.setText("Notification: "+ count);
+        txtNotification.setText("Notification: "+ countNoti);
         txtCoLogout.setText("Logout");
     }
     /**
@@ -326,7 +328,7 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
                             .addComponent(btnNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnHolding, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnCollaborator, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnGuest, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -620,7 +622,7 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
 
     private void txtNotificationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNotificationMouseClicked
         // TODO add your handling code here:
-        new NotificationFormToCol(this, true, continueAccount, continueType, conn, stmt).setVisible(true);
+        new NotificationFormToCol(this, true, continueAccount, continueType, conn, stmt, this).setVisible(true);
     }//GEN-LAST:event_txtNotificationMouseClicked
 
     /**
