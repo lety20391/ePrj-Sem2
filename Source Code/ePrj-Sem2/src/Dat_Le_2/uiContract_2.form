@@ -460,6 +460,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtStatusCon">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="text" type="java.lang.String" value="\u005cw+(.)*\u005cwerrnormal paragraph" containsInvalidXMLChars="true"/>
           </Properties>
           <Events>
