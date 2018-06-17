@@ -33,9 +33,11 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
 
     String continueAccount, continueType;
     
-    String IDCo, NameCo, AddressCo, DOBCo, IDNoCo, PhoneCo, EmailCo, StatusCo, ImageCo, GradeCo;
+    String IDCo, NameCo, AddressCo, DOBCo, IDNoCo, PhoneCo, EmailCo, ImageCo, GradeCo;
     Double DepositCo;
     int NumberOfGuest;
+    
+    int StatusCo;
 
     /**
      * Creates new form QuanlyCTV
@@ -180,6 +182,7 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -192,8 +195,8 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
         txtAddress = new javax.swing.JTextField();
         txtPhone = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        radActivate = new javax.swing.JRadioButton();
+        radLock = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
@@ -243,12 +246,14 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
 
         txtName.setToolTipText("");
 
-        jRadioButton1.setText("Active");
+        buttonGroup1.add(radActivate);
+        radActivate.setText("Active");
 
-        jRadioButton2.setText("Locked");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(radLock);
+        radLock.setText("Locked");
+        radLock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                radLockActionPerformed(evt);
             }
         });
 
@@ -270,9 +275,9 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(52, 52, 52)
-                                .addComponent(jRadioButton1)
+                                .addComponent(radActivate)
                                 .addGap(45, 45, 45)
-                                .addComponent(jRadioButton2)
+                                .addComponent(radLock)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
@@ -314,13 +319,13 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2)
+                    .addComponent(radActivate)
+                    .addComponent(radLock)
                     .addComponent(jLabel7))
                 .addContainerGap())
         );
 
-        jRadioButton2.getAccessibleContext().setAccessibleParent(jRadioButton1);
+        radLock.getAccessibleContext().setAccessibleParent(radActivate);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -611,9 +616,9 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+    private void radLockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radLockActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    }//GEN-LAST:event_radLockActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
@@ -707,11 +712,32 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
         txtImage.setText(ImageCo);
         //tra ve kieu String vi Price la kieu Double
         txtDeposit.setText(String.valueOf(DepositCo));
-        
         //hiển thị hình ảnh
         pCollaboratorImage.inputImage(ImageCo);
+        setRadButton();
+        
+        
     }//GEN-LAST:event_tblCoMouseClicked
 
+    private void setRadButton()
+    {
+        try {
+            //select Active from Account where ID = 'Co01'
+            sql ="select Active from Account where ID = '"+IDCo+"'";
+            rs= stmt.executeQuery(sql);
+            rs.beforeFirst();
+            rs.next();
+            StatusCo = rs.getInt("Active");
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        if (StatusCo == 1)
+            radActivate.setSelected(true);
+        else
+            radLock.setSelected(true);
+    }
+    
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
 
         String labelBtn = btnUpdate.getText();
@@ -829,6 +855,7 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -849,8 +876,6 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane2;
     /*
     private javax.swing.JPanel pButton;
@@ -860,6 +885,8 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
     private javax.swing.JPanel pCollaboratorImage;
     */
     private Library.G2ImagePanel pCollaboratorImage;
+    private javax.swing.JRadioButton radActivate;
+    private javax.swing.JRadioButton radLock;
     private javax.swing.JTable tblCo;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtAns;
