@@ -7,6 +7,7 @@ package Nam;
 
 import Duy.QuanlyCTV_2;
 import Library.G2FileBrowserExtend;
+import Tuyet_Duyen.Theme_guest_2;
 import java.awt.Image;
 import java.io.File;
 import java.sql.Connection;
@@ -35,9 +36,9 @@ public class RegisterForm extends javax.swing.JFrame {
     ResultSet rs;
     String sql;
 
-    String continueAccount, continueType;
+    String continueAccount, continueType, previousPage;
     ArrayList<String> listID;
-    
+
     QuanlyCTV_2 qlyCTV;
 
     /**
@@ -47,13 +48,15 @@ public class RegisterForm extends javax.swing.JFrame {
      * @param type
      * @param statement
      * @param connection
+     * @param prevP
      */
-    public RegisterForm(String account, String type, Connection connection, Statement statement) {
+    public RegisterForm(String account, String type, Connection connection, Statement statement, String prevP) {
         initComponents();
         continueAccount = account;
         continueType = type;
         conn = connection;
         stmt = statement;
+        previousPage = prevP;
         this.setLocationRelativeTo(null);
         txtPathImageCo.setEditable(false);
         txtPathImageGU.setEditable(false);
@@ -700,6 +703,11 @@ public class RegisterForm extends javax.swing.JFrame {
         btnBackGu.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnBackGu.setForeground(new java.awt.Color(255, 255, 255));
         btnBackGu.setText("Back");
+        btnBackGu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackGuActionPerformed(evt);
+            }
+        });
 
         btnCreateGU.setBackground(new java.awt.Color(51, 51, 255));
         btnCreateGU.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -896,7 +904,7 @@ public class RegisterForm extends javax.swing.JFrame {
 
     private void btnAttachCoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAttachCoActionPerformed
         // TODO add your handling code here:
-        String fileName="";
+        String fileName = "";
 //        JFileChooser chooser = new JFileChooser();
 //        chooser.showOpenDialog(null);
 //        File file = chooser.getSelectedFile();
@@ -907,24 +915,25 @@ public class RegisterForm extends javax.swing.JFrame {
         //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
         G2FileBrowserExtend objFileChooser = new G2FileBrowserExtend();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-            "JPG & PNG Images", "jpg", "png");
+                "JPG & PNG Images", "jpg", "png");
         objFileChooser.setFileFilter(filter);
         int returnVal = objFileChooser.showOpenDialog(null);
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
-           fileName = objFileChooser.getSelectedFile().getPath();
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            fileName = objFileChooser.getSelectedFile().getPath();
         }
-        
+
         //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         //-----------------------------------
         //Gọi G2FileBrowserExtend để load ảnh
         //-----------------------------------
         //String fileName = file.getAbsolutePath();
-        if(fileName.isEmpty())
+        if (fileName.isEmpty()) {
             return;
+        }
         txtPathImageCo.setText(fileName);
         ImageIcon icon = new ImageIcon(fileName);
 //        Image image = icon.getImage().getScaledInstance(lbImageCo.getWidth(), lbImageCo.getHeight(), Image.SCALE_SMOOTH);
-        
+
         //tui set lại tỉ lệ hình cho phù hợp
         //__________________________________
         //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
@@ -933,18 +942,16 @@ public class RegisterForm extends javax.swing.JFrame {
         int icoWidth = icon.getIconWidth();
         int icoHeight = icon.getIconHeight();
         Image image;
-        if (icoWidth/icoHeight >= width/height)
-        {
-            image = icon.getImage().getScaledInstance(width, icoHeight*width/icoWidth, Image.SCALE_SMOOTH);    
-        }else
-        {
-            image = icon.getImage().getScaledInstance(icoWidth*height/icoHeight, height, Image.SCALE_SMOOTH);
+        if (icoWidth / icoHeight >= width / height) {
+            image = icon.getImage().getScaledInstance(width, icoHeight * width / icoWidth, Image.SCALE_SMOOTH);
+        } else {
+            image = icon.getImage().getScaledInstance(icoWidth * height / icoHeight, height, Image.SCALE_SMOOTH);
         }
         //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         //-----------------------------
         //tui set lại tỉ lệ hình cho phù hợp
         //--------------------------------
-        
+
         lbImageCo.setIcon(new ImageIcon(image));
     }//GEN-LAST:event_btnAttachCoActionPerformed
 
@@ -1038,23 +1045,57 @@ public class RegisterForm extends javax.swing.JFrame {
 
         try {
             stmt.executeUpdate(sql);
-            JOptionPane.showMessageDialog(this, "Create new Collaborator sucessfully");
-            qlyCTV = new QuanlyCTV_2(continueAccount, continueType, conn, stmt);
-            qlyCTV.setVisible(true);
-            dispose();
         } catch (SQLException ex) {
             Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        sql = "create table " + txtIDCo.getText()+"\n(ID int identity(1,1) primary key, Detail nvarchar(1000) not null, Status varchar(6) not null)";
+        try {
+            stmt.executeQuery(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
+        JOptionPane.showMessageDialog(this, "Create new Collaborator sucessfully");
+        qlyCTV = new QuanlyCTV_2(continueAccount, continueType, conn, stmt);
+        qlyCTV.setVisible(true);
+        dispose();
+
     }//GEN-LAST:event_btnCreateCoActionPerformed
 
     private void btnBackCoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackCoActionPerformed
         // TODO add your handling code here:
-        QuanlyCTV_2 qlyCTV = new QuanlyCTV_2(continueAccount, continueType, conn, stmt);
-        qlyCTV.setVisible(true);
-        dispose();
+        if (previousPage.equals("main")) {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new MainControlInterface(continueAccount, continueType, conn, stmt).setVisible(true);
+                }
+            });
+        } else {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new QuanlyCTV_2(continueAccount, continueType, conn, stmt).setVisible(true);
+                }
+            });
+        }
     }//GEN-LAST:event_btnBackCoActionPerformed
+
+    private void btnBackGuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackGuActionPerformed
+        // TODO add your handling code here:
+        if (previousPage.equals("main")) {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new MainControlInterface(continueAccount, continueType, conn, stmt).setVisible(true);
+                }
+            });
+        } else {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new Theme_guest_2(continueAccount, continueType, conn, stmt).setVisible(true);
+                }
+            });
+        }
+    }//GEN-LAST:event_btnBackGuActionPerformed
 
     /**
      * @param args the command line arguments

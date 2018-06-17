@@ -5,6 +5,14 @@
  */
 package Ngoc_Duyen.QLCH;
 
+import DatabaseConnection.DBConnection;
+import DatabaseConnection.DatabaseConnect;
+import DatabaseConnection.connectionContainer;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Dell
@@ -14,9 +22,113 @@ public class UpdateApartment extends javax.swing.JFrame {
     /**
      * Creates new form UpdateApartment
      */
+    Statement stmt;
+    Connection con ;
     public UpdateApartment() {
+        this.con = con;
+        this.stmt = stmt;
         initComponents();
+        connectSQL();
         this.setTitle("UpdateApartment");
+    }
+     public void connectSQL()
+    {
+        Connection con;
+        Statement stmt;
+        
+        DatabaseConnect objDBConnect;
+        objDBConnect = new DatabaseConnect();
+        connectionContainer connectContainer = objDBConnect.DBConnect("Sem2_project_group2", "sa", "123456789", "1433");
+        
+        con = connectContainer.getObjCon();
+        stmt = connectContainer.getStatement();
+        
+    
+        objDBConnect.ListTable();
+        objDBConnect.Close();
+        
+        {
+            try {
+                con = DBConnection.getDBConnection(DBConnection.database,DBConnection.account,DBConnection.password);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }        
+    }}
+     public void manageTextField(boolean txtIDStatus, boolean txtNameStatus, boolean txtAddressStatus,boolean txtImageStatus, boolean txtInfoStatus, boolean txtStatusStatus,  boolean txtPriceStatus, boolean txtIDSupStatus)
+    {
+        txtID.setEditable(txtIDStatus);
+        txtName.setEditable(txtNameStatus);
+        txtAddress.setEditable(txtAddressStatus);
+        txtImage.setEditable(txtImageStatus);
+        txtInfo.setEditable(txtInfoStatus);
+        txtStatus.setEditable(txtStatusStatus);
+        txtPrice.setEditable(txtPriceStatus);
+        txtIDSup.setEditable(txtIDSupStatus);
+    }
+    public void clearTxt()
+    {
+        txtID.setText("");
+        txtName.setText("");
+        txtAddress.setText("");
+        txtImage.setText("");
+        txtInfo.setText("");
+        txtStatus.setText("");
+        txtPrice.setText("");
+        txtIDSup.setText("");
+    }
+    public void checkblank()
+    {
+        if (txtID.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "ID cannot be blank. Re-Enter.");
+            txtID.grabFocus();
+            return;
+        }
+        try {
+            Integer.parseInt(txtID.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Pls Re-Enter");
+        }
+        if (txtName.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Name cannot be blank. Re-Enter.");
+            txtName.grabFocus();
+            return;
+        }
+        if (txtAddress.getText().isEmpty()) {
+             JOptionPane.showMessageDialog(this, "Address cannot be blank. Re-Enter.");
+            txtAddress.grabFocus();
+            return;
+        }
+        if (txtImage.getText().isEmpty()) {
+             JOptionPane.showMessageDialog(this, "Image cannot be blank. Re-Enter.");
+            txtImage.grabFocus();
+            return;
+        }
+        if (txtInfo.getText().isEmpty()) {
+             JOptionPane.showMessageDialog(this, "Info cannot be blank. Re-Enter.");
+            txtInfo.grabFocus();
+            return;
+        }
+        if (txtIDSup.getText().isEmpty()) {
+             JOptionPane.showMessageDialog(this, "IDSup cannot be blank. Re-Enter.");
+            txtIDSup.grabFocus();
+            return;
+        }
+        try {
+          Integer.parseInt(txtIDSup.getText());  
+        } catch (NumberFormatException e) {
+              JOptionPane.showMessageDialog(this, "Pls Re-Enter");
+        }
+             
+        if (txtPrice.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Price cannot be blank. Re-Enter.");
+            txtPrice.grabFocus();
+            return;
+        }
+        try {
+          Integer.parseInt(txtPrice.getText());  
+        } catch (NumberFormatException e) {
+              JOptionPane.showMessageDialog(this, "Pls Re-Enter");
+        }
     }
 
     /**
@@ -36,17 +148,17 @@ public class UpdateApartment extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        txtID = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
+        txtAddress = new javax.swing.JTextField();
+        txtImage = new javax.swing.JTextField();
+        txtInfo = new javax.swing.JTextField();
+        txtStatus = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtPrice = new javax.swing.JTextField();
+        txtIDSup = new javax.swing.JTextField();
+        btnOK = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,9 +183,9 @@ public class UpdateApartment extends javax.swing.JFrame {
 
         jLabel9.setText("IDSup");
 
-        jTextField8.addActionListener(new java.awt.event.ActionListener() {
+        txtIDSup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField8ActionPerformed(evt);
+                txtIDSupActionPerformed(evt);
             }
         });
 
@@ -95,14 +207,14 @@ public class UpdateApartment extends javax.swing.JFrame {
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1)
-                    .addComponent(jTextField3)
-                    .addComponent(jTextField4)
-                    .addComponent(jTextField5)
-                    .addComponent(jTextField6)
-                    .addComponent(jTextField2)
-                    .addComponent(jTextField7)
-                    .addComponent(jTextField8))
+                    .addComponent(txtID)
+                    .addComponent(txtAddress)
+                    .addComponent(txtImage)
+                    .addComponent(txtInfo)
+                    .addComponent(txtStatus)
+                    .addComponent(txtName)
+                    .addComponent(txtPrice)
+                    .addComponent(txtIDSup))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -111,42 +223,47 @@ public class UpdateApartment extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtImage, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIDSup, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        jButton1.setText("OK");
+        btnOK.setText("OK");
+        btnOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOKActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -160,7 +277,7 @@ public class UpdateApartment extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
@@ -171,16 +288,48 @@ public class UpdateApartment extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
+    private void txtIDSupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDSupActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField8ActionPerformed
+    }//GEN-LAST:event_txtIDSupActionPerformed
+
+    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
+        // TODO add your handling code here:
+        String labelBtn = btnOK.getText();
+        if( labelBtn.equalsIgnoreCase("Update"))
+        {
+            btnOK.setText("Save");            
+            manageTextField(true, true, true,true,true,true,true,true);
+           
+            
+        }else
+            {
+            String ID = txtID.getText();
+            String Name = txtName.getText();
+            String Address = txtAddress.getText();
+            String Image = txtImage.getText();
+            String Info = txtInfo.getText();
+            String Status = txtStatus.getText();
+            String Price = txtPrice.getText();
+            String IDSup = txtIDSup.getText();
+            try {
+                String sql = "update Apartment set  NameApa = '" + Name + "',AddressApa = '" + Address + "',ImageApa = '" + Image + "',InfoApa = '" + Info + "',StatusApa  = '" + Status+"',PriceApa  = '" + Price+"',IDSupApa  = '" + IDSup+ " where IDApa = '" + ID + "'";
+                stmt=con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                stmt.executeUpdate(sql);
+                
+               btnOK.setText("Update");
+                clearTxt();
+                 } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_btnOKActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,7 +367,7 @@ public class UpdateApartment extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnOK;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -229,13 +378,13 @@ public class UpdateApartment extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField txtAddress;
+    private javax.swing.JTextField txtID;
+    private javax.swing.JTextField txtIDSup;
+    private javax.swing.JTextField txtImage;
+    private javax.swing.JTextField txtInfo;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtPrice;
+    private javax.swing.JTextField txtStatus;
     // End of variables declaration//GEN-END:variables
 }

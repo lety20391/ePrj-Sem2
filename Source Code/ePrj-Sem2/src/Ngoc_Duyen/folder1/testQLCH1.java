@@ -3,20 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Ngoc_Duyen.QLCH;
+package Ngoc_Duyen.folder1;
 
 /**
  *
  * @author Dell
  */
 import DatabaseConnection.*;
+import Ngoc_Duyen.QLCH.UpdateApartment;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-public class QLCH1 extends javax.swing.JFrame {
+public class testQLCH1 extends javax.swing.JFrame {
 
     /**
      * Creates new form QLCH1
@@ -27,17 +28,26 @@ public class QLCH1 extends javax.swing.JFrame {
     ResultSet rs;
     Statement stmt;
     Connection con ;
-    public QLCH1(/*String account, String type, Connection con, Statement stmt*/) 
-    {
+    public testQLCH1(/*String account, String type, Connection con, Statement stmt*/) {
         this.con = con;
         this.stmt = stmt;
         initComponents();
         connectSQL();
+        //connectSQL();
+
+
+        //connectSQL();
+
+
         showTable();
-        manageButton(true,true, true );//false,false);
+        manageButton(true,false,false);
         manageTextField(false, false, false, false, false, false, false, false);
         this.setTitle("Apartment Management");
     }
+
+//    private testQLCH1() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 
     
 
@@ -109,10 +119,10 @@ public class QLCH1 extends javax.swing.JFrame {
 //             } catch (Exception e) {
 //            e.printStackTrace();
 //        }
-//        
+        
 //        ApartModel.setDataVector(data, header);
 //        tblApartment.setModel(ApartModel);
-    }
+   }
     public void manageButton(boolean BtnAddStatus, boolean BtnUpdateStatus, boolean BtnDeleteStatus)
     {
         
@@ -143,7 +153,6 @@ public class QLCH1 extends javax.swing.JFrame {
         txtPrice.setText("");
         txtIDSup.setText("");
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -463,8 +472,8 @@ public class QLCH1 extends javax.swing.JFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-//        UpdateApartment objUA = new UpdateApartment();
-//        objUA.setVisible(true);
+        UpdateApartment objUA = new UpdateApartment();
+        objUA.setVisible(true);
         
         String labelBtn = btnUpdate.getText();
         if( labelBtn.equalsIgnoreCase("Update"))
@@ -527,7 +536,7 @@ public class QLCH1 extends javax.swing.JFrame {
         txtStatus.setText(StatusApa);
         txtPrice.setText(PriceApa);
         txtIDSup.setText(IDSupApa);
-    }   
+    } 
     public void checkblank()
     {
         if (txtID.getText().isEmpty()) {
@@ -570,6 +579,7 @@ public class QLCH1 extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
               JOptionPane.showMessageDialog(this, "Pls Re-Enter");
         }
+             
         if (txtPrice.getText().isEmpty()){
             JOptionPane.showMessageDialog(this, "Price cannot be blank. Re-Enter.");
             txtPrice.grabFocus();
@@ -609,22 +619,29 @@ public class QLCH1 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(QLCH1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(testQLCH1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(QLCH1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(testQLCH1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(QLCH1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(testQLCH1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(QLCH1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(testQLCH1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new QLCH1().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new QLCH1().setVisible(true);
+//            }
+//        });
+        //</editor-fold>
+
+        /* Create and display the form */
+       java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+               new testQLCH1().setVisible(true);
+          }        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

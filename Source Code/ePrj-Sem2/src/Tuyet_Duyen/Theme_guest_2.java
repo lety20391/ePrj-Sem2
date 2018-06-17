@@ -1,14 +1,11 @@
-﻿/*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package Tuyet_Duyen;
 
-
-import Library.DateChooser;
 import Library.G2FileBrowserExtend;
-
 import Library.G2Panel;
 import Library.G2TextField;
 import java.sql.Connection;
@@ -19,13 +16,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Nam.RegisterForm;
 import java.awt.Component;
-
-import javax.swing.SwingUtilities;
-
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.TableModel;
-
 
 /**
  *
@@ -37,51 +30,40 @@ public class Theme_guest_2 extends javax.swing.JFrame {
      * Creates new form Theme_guest
      */
     DefaultTableModel CusModel;
-    Vector header,data,row;
+    Vector header, data, row;
     String sql;
     ResultSet rs;
     Statement stmt;
     Connection objConnection;
 
-
-
-    DateChooser objDateChooser;
-    
-
-
-    
     String IDGu;
-    String NameGu,DOBGu,IdentificationNumberGu,PhoneGu,EmailGu,ImageGu,StatusGu,IDCo;
-    
+    String NameGu, DOBGu, IdentificationNumberGu, PhoneGu, EmailGu, ImageGu, StatusGu, IDCo;
 
     /**/
-    String continueAccount;
+    String continueAccount, type;
+
     public Theme_guest_2(String account, String type, Connection objConnection, Statement stmt) {
         initComponents();
         this.objConnection = objConnection;
         this.stmt = stmt;
         continueAccount = account;
+        this.type = type;
         pButton.attachButtonAndSetMainRight(pButton, type);
         attachRegexAndErrorInform(pGuest);
         //connectSQL();
-        //initDateChooser();
         showTable();
         //modifyTable();
         //manageButton(true,false,false);
-        manageTextField(false, false, false,false, false, false,false, false);
+        manageTextField(false, false, false, false, false, false, false, false);
     }
 
-
-
-    
     //---------------------------------------------
     //Phần này dùng để bỏ bớt mấy cột không cần thiết trong bảng đi
     //dữ liệu của Table vẫn được lưu trong modal
     //cột loại bỏ chỉ là view
     //----------------------------------------------
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-    public void modifyTable()
-    {
+    public void modifyTable() {
         tblCustomer.removeColumn(tblCustomer.getColumn("Identi No"));
         tblCustomer.removeColumn(tblCustomer.getColumn("Email"));
         tblCustomer.removeColumn(tblCustomer.getColumn("Image"));
@@ -94,7 +76,6 @@ public class Theme_guest_2 extends javax.swing.JFrame {
     //cột loại bỏ chỉ là view
     //----------------------------------------------
 
-    
     //-------------------------------------------------------
     //cái này dùng để lấy giá trị (gồm Pattern và Thông báo lỗi)
     //mà mình thêm vào TextField ở trong phần Design
@@ -102,15 +83,12 @@ public class Theme_guest_2 extends javax.swing.JFrame {
     //G2TextField
     //--------------------------------------------------------
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-    
-    public void attachRegexAndErrorInform(Library.G2Panel panel)
-    {
+    public void attachRegexAndErrorInform(Library.G2Panel panel) {
         //regexMap = new HashMap<JTextField, String>();
         Component[] listComponent = panel.getComponents();
         for (Component component : listComponent) {
-            if (component instanceof Library.G2TextField)
-            {
-                G2TextField tempTextField = (G2TextField)component;
+            if (component instanceof Library.G2TextField) {
+                G2TextField tempTextField = (G2TextField) component;
                 //regexMap.put(tempTextField, tempTextField.getText() );
                 String data = tempTextField.getText();
                 tempTextField.setPatStr(data.substring(0, data.indexOf("err")));
@@ -119,8 +97,8 @@ public class Theme_guest_2 extends javax.swing.JFrame {
                 tempTextField.setText("");
             }
         }
-    }    
-    
+    }
+
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     //-------------------------------------------------------
     //cái này dùng để lấy giá trị (gồm Pattern và Thông báo lỗi)
@@ -128,48 +106,41 @@ public class Theme_guest_2 extends javax.swing.JFrame {
     //sau đó nhét vào trong tính năng kiểm tra của
     //G2TextField
     //--------------------------------------------------------
-    
     //--------------------------------------------------------
     //Cái này dùng để kiểm tra coi các TextField được nhập vào
     //có bị lỗi gì không dựa trên các Pattern mình nhập ở Design
     //--------------------------------------------------------
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-    public boolean validateAllTextField(G2Panel panel)
-    {
+    public boolean validateAllTextField(G2Panel panel) {
         Component[] objListComp = panel.getComponents();
         String allError = "";
         boolean error = false;
         for (Component objComp : objListComp) {
-            if (objComp instanceof G2TextField)
-            {
+            if (objComp instanceof G2TextField) {
                 String temp = ((G2TextField) objComp).allValidate();
-                if (!temp.isEmpty())
-                {
+                if (!temp.isEmpty()) {
                     error = true;
-                    allError += temp+ "\n";
+                    allError += temp + "\n";
                 }
             }
         }
-        if (error == true)
-        {
+        if (error == true) {
             JOptionPane.showMessageDialog(this, allError, "Bi loi", JOptionPane.ERROR_MESSAGE);
             return true;
-        }else
+        } else {
             return false;
+        }
     }
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     //--------------------------------------------------------
     //Cái này dùng để kiểm tra coi các TextField được nhập vào
     //có bị lỗi gì không dựa trên các Pattern mình nhập ở Design
     //--------------------------------------------------------
-    
 
     //------------------------------------------------------
     //tui tạo lại method mới để connect nên tui ẩn cái này đi
     //------------------------------------------------------
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-    
-    
 //    public void connectSQL(){
 //        DatabaseConnect objDBConnect;
 //        objDBConnect = new DatabaseConnect();
@@ -181,14 +152,10 @@ public class Theme_guest_2 extends javax.swing.JFrame {
 //            System.out.println(e.getMessage());
 //        }
 //    }
-    
-    
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     //------------------------------------------------------
     //tui tạo lại method mới để connect nên tui ẩn cái này đi
     //------------------------------------------------------
-    
-    
     //------------------------------------------------------
     //đây là cái method mới để kết nối
     //------------------------------------------------------
@@ -202,15 +169,11 @@ public class Theme_guest_2 extends javax.swing.JFrame {
 //        objConnection = connectContainer.getObjCon();
 //        stmt = connectContainer.getStatement();
 //    }
-    
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     //------------------------------------------------------
     //đây là method mới để kết nối
     //------------------------------------------------------
-    
-    
-    public void showTable()
-    {
+    public void showTable() {
         CusModel = new DefaultTableModel();
         header = new Vector();
         header.add("ID");
@@ -222,17 +185,16 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         header.add("Image");
         header.add("Status");
         header.add("Collaborator ID");
-      
+
         data = new Vector();
         CusModel.setRowCount(0);
-        
-        try {            
+
+        try {
             //select * from Guest
             sql = "select * from Guest";
             rs = stmt.executeQuery(sql);
             rs.beforeFirst();
-            while(rs.next())
-            {
+            while (rs.next()) {
                 row = new Vector();
                 row.add(rs.getString("IDGu"));
                 row.add(rs.getString("NameGu"));
@@ -248,21 +210,20 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         CusModel.setDataVector(data, header);
         tblCustomer.setModel(CusModel);
         //tblBook.setModel(bookModel);
         modifyTable();
     }
 
-    public void manageButton(boolean BtnAddStatus, boolean BtnUpdateStatus, boolean BtnDeleteStatus)
-    {
+    public void manageButton(boolean BtnAddStatus, boolean BtnUpdateStatus, boolean BtnDeleteStatus) {
         btnAdd.setEnabled(BtnAddStatus);
         btnUpdate.setEnabled(BtnUpdateStatus);
         btnDelete.setEnabled(BtnDeleteStatus);
     }
-    public void manageTextField(boolean txtIDStatus, boolean txtNameStatus, boolean txtBirthStatus, boolean txtIDNoStatus, boolean txtPhoneStatus, boolean txtEmailStatus,boolean txtStatusStatus, boolean txtCoIDStatus)
-    {
+
+    public void manageTextField(boolean txtIDStatus, boolean txtNameStatus, boolean txtBirthStatus, boolean txtIDNoStatus, boolean txtPhoneStatus, boolean txtEmailStatus, boolean txtStatusStatus, boolean txtCoIDStatus) {
         txtID.setEditable(txtIDStatus);
         txtName.setEditable(txtNameStatus);
         txtBirth.setEditable(txtBirthStatus);
@@ -272,8 +233,8 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         txtStatus.setEditable(txtStatusStatus);
         txtCoID.setEditable(txtCoIDStatus);
     }
-    public void clearTxt()
-    {
+
+    public void clearTxt() {
         txtID.setText("");
         txtName.setText("");
         txtBirth.setText("");
@@ -283,23 +244,6 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         txtStatus.setText("");
         txtCoID.setText("");
     }
-
-
-
-    public void initDateChooser()
-    {
-        objDateChooser = new DateChooser(this, true);
-        SwingUtilities.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-                objDateChooser.showGUI();
-            }
-        }        
-        );
-        
-    }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -337,17 +281,11 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         txtCoID = new Library.G2TextField();
         jLabel1 = new javax.swing.JLabel();
-
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("GUESTs");
-
         pGuestImage = new Library.G2ImagePanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("GUESTs");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(153, 0, 51));
@@ -399,7 +337,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pButtonLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -439,7 +377,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -470,78 +408,11 @@ public class Theme_guest_2 extends javax.swing.JFrame {
 
         jLabel3.setText("Name");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        tblCustomer.setBackground(new java.awt.Color(255, 204, 255));
-        tblCustomer.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        tblCustomer.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "ID", "Name", "Status", "Collaborator ID"
-            }
-        ));
-        tblCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblCustomerMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblCustomer);
-
-        jLabel10.setText("Customer List");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(71, Short.MAX_VALUE))
-        );
-
-        pGuest.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel2.setText("ID");
-
-        txtID.setText("^(Gu)\\d+errGuxx with x is number");
-        txtID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIDActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setText("Name");
-
-
         txtName.setText("\\w+(.)*\\w*errnormal paragraph");
 
         jLabel4.setText("Birthday");
 
         txtBirth.setText("^\\d{4}(-)\\d{2}(-)\\d{2}erryyyy-MM-dd");
-
-        txtBirth.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtBirthMouseClicked(evt);
-            }
-        });
-
-
 
         jLabel5.setText("Identi No");
 
@@ -599,11 +470,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         pGuestLayout.setVerticalGroup(
             pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pGuestLayout.createSequentialGroup()
-
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-
                 .addContainerGap(22, Short.MAX_VALUE)
-
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -640,48 +507,6 @@ public class Theme_guest_2 extends javax.swing.JFrame {
                 .addGap(61, 61, 61))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(pGuest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 14, Short.MAX_VALUE)
-                .addComponent(jLabel11)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(pButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(pGuest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22))
-
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCoID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addGap(61, 61, 61))
-
-        );
-
         getContentPane().add(pGuest, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
         pGuestImage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -699,7 +524,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         );
         pGuestImageLayout.setVerticalGroup(
             pGuestImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 148, Short.MAX_VALUE)
         );
 
         getContentPane().add(pGuestImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(376, 264, -1, 152));
@@ -715,22 +540,20 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         // TODO add your handling code here:
         manageButton(true, true, true);
         int row;
-        
-        
-        
+
         row = tblCustomer.getSelectedRow();
         TableModel tblModel = tblCustomer.getModel();
-        
-        IDGu = (String) tblModel.getValueAt(row, 0);        
-        NameGu = (String)tblModel.getValueAt(row, 1);
-        DOBGu = (String)tblModel.getValueAt(row, 2);
-        IdentificationNumberGu = (String)tblModel.getValueAt(row, 3);
-        PhoneGu = (String)tblModel.getValueAt(row, 4);
-        EmailGu = (String)tblModel.getValueAt(row, 5);
-        ImageGu = (String)tblModel.getValueAt(row, 6);
-        StatusGu = (String)tblModel.getValueAt(row, 7);
-        IDCo = (String)tblModel.getValueAt(row, 8);
-        
+
+        IDGu = (String) tblModel.getValueAt(row, 0);
+        NameGu = (String) tblModel.getValueAt(row, 1);
+        DOBGu = (String) tblModel.getValueAt(row, 2);
+        IdentificationNumberGu = (String) tblModel.getValueAt(row, 3);
+        PhoneGu = (String) tblModel.getValueAt(row, 4);
+        EmailGu = (String) tblModel.getValueAt(row, 5);
+        ImageGu = (String) tblModel.getValueAt(row, 6);
+        StatusGu = (String) tblModel.getValueAt(row, 7);
+        IDCo = (String) tblModel.getValueAt(row, 8);
+
         txtID.setText(IDGu);
         txtName.setText(NameGu);
         txtBirth.setText(DOBGu);
@@ -746,27 +569,17 @@ public class Theme_guest_2 extends javax.swing.JFrame {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
         String labelBtn = btnUpdate.getText();
-        if( labelBtn.equalsIgnoreCase("Update"))
-        {
-            btnUpdate.setText("Save");            
-            manageTextField(false, true, true,true,true,true,true,true);
+        if (labelBtn.equalsIgnoreCase("Update")) {
+            btnUpdate.setText("Save");
+            manageTextField(false, true, true, true, true, true, true, true);
             //dat lai trang thai cac Button
             manageButton(false, true, false);
-
-
         } else {
-            //kiem tra cac textField co thoa man khong
-
-
-        }else
-        {
             //kiem tra cac textField co thoa man khong 
             //nếu có lỗi thì thoát ra khỏi lệnh update
-            if(validateAllTextField(pGuest))
+            if (validateAllTextField(pGuest)) {
                 return;
-
-
-
+            }
             String ID = txtID.getText();
             String Name = txtName.getText();
             String DOB = txtBirth.getText();
@@ -780,10 +593,10 @@ public class Theme_guest_2 extends javax.swing.JFrame {
                 //tien hanh update thong tin len database
                 //cau lenh sql mau da kiem tra thu tren SQL
                 //update Guest set  NameSer = 'Ban nha', Price = 100 where IDSer = 'S06'
-                sql = "update Guest set  NameGu = '" + Name + "',DOBGu = '" + DOB + "',IdentificationNumberGu = '" + IDentiNo + "',PhoneGu = '" + Phone + "',EmailGu  = '" + Email + "', ImageGu = '"+ ImageGu +"' ,StatusGu = '" + Status + "', IDCo = '" + CoID + "' where IDGu = '" + ID + "'";
-                
+                sql = "update Guest set  NameGu = '" + Name + "',DOBGu = '" + DOB + "',IdentificationNumberGu = '" + IDentiNo + "',PhoneGu = '" + Phone + "',EmailGu  = '" + Email + "', ImageGu = '" + ImageGu + "' ,StatusGu = '" + Status + "', IDCo = '" + CoID + "' where IDGu = '" + ID + "'";
+
                 stmt.executeUpdate(sql);
-                
+
                 //chay xong thi doi ten Button lai thanh Update
                 btnUpdate.setText("Update");
                 //xoa trang cac textField
@@ -792,23 +605,21 @@ public class Theme_guest_2 extends javax.swing.JFrame {
                 manageButton(true, true, true);
                 //cap nhat lai Table
                 showTable();
-                
+
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-            
+
         }
-        
-        
-         
+
+
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         try {
             int check = JOptionPane.showConfirmDialog(this, "Are you sure for deleting?");
-            if (check == JOptionPane.OK_OPTION)
-            {
+            if (check == JOptionPane.OK_OPTION) {
                 String ID = txtID.getText();
                 //cau lenh SQL mau da kiem tra thu tren SQl
                 //delete from Guest where IDGu = 'S06'
@@ -818,7 +629,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
                 showTable();
                 //xoa cac textField
                 clearTxt();
-            }else{
+            } else {
                 return;
             }
         } catch (Exception e) {
@@ -830,35 +641,23 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         // TODO add your handling code here:
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegisterForm(continueAccount,"gu", objConnection, stmt).setVisible(true);
+                new RegisterForm(continueAccount, type, objConnection, stmt, "guest").setVisible(true);
             }
         });
     }//GEN-LAST:event_btnAddActionPerformed
-
-
-    private void txtBirthMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBirthMouseClicked
-        // TODO add your handling code here:
-        initDateChooser();
-        objDateChooser.addListener(txtBirth);
-        objDateChooser.setVisible(true);
-    }//GEN-LAST:event_txtBirthMouseClicked
-
-    
 
     private void pGuestImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pGuestImageMouseClicked
         // TODO add your handling code here:
         G2FileBrowserExtend objFileChooser = new G2FileBrowserExtend();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-            "JPG & PNG Images", "jpg", "png");
+                "JPG & PNG Images", "jpg", "png");
         objFileChooser.setFileFilter(filter);
         int returnVal = objFileChooser.showOpenDialog(null);
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
-           this.ImageGu = objFileChooser.getSelectedFile().getPath();
-           pGuestImage.inputImage(ImageGu);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            this.ImageGu = objFileChooser.getSelectedFile().getPath();
+            pGuestImage.inputImage(ImageGu);
         }
     }//GEN-LAST:event_pGuestImageMouseClicked
-
-    
 
     /**
      * @param args the command line arguments
@@ -921,7 +720,6 @@ public class Theme_guest_2 extends javax.swing.JFrame {
     private javax.swing.JPanel pGuest;
     */
     private Library.G2Panel pGuest;
-
     /*
     private javax.swing.JPanel pGuestImage;
     */
