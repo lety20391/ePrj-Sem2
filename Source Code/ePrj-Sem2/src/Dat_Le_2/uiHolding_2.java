@@ -23,6 +23,7 @@ import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import Library.G2TextField;
+import Ngoc_Duyen.QLCH.QLCH1;
 import Tuyet_Duyen.Services_2;
 
 /**
@@ -60,6 +61,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     uiContract_2 objContract;
     Library.G2FrameInterface objG2Frame;
     Tuyet_Duyen.Services_2 objSer2;
+    Ngoc_Duyen.QLCH.QLCH1 objQLCH;
     
     
     boolean checkInitRow;
@@ -475,6 +477,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         btnMakeContract = new javax.swing.JButton();
         jLabel26 = new javax.swing.JLabel();
         txtIDSer = new Library.G2TextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Holding");
@@ -775,6 +778,11 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
 
         txtIDApa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtIDApa.setText("^(Ap)\\d+errApxx with x is number");
+        txtIDApa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtIDApaMouseClicked(evt);
+            }
+        });
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel20.setText("Date");
@@ -871,7 +879,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         });
 
         btnMakeContract.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        btnMakeContract.setText("Make Contract");
+        btnMakeContract.setText("->Contract");
         btnMakeContract.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMakeContractActionPerformed(evt);
@@ -886,6 +894,14 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         txtIDSer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtIDSerMouseClicked(evt);
+            }
+        });
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton1.setText("Book Apartment");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -945,10 +961,14 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
                         .addGap(43, 43, 43)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pHoldingLayout.createSequentialGroup()
-                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(pHoldingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(43, 43, 43)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnMakeContract, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(pHoldingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnMakeContract, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         pHoldingLayout.setVerticalGroup(
             pHoldingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1027,8 +1047,14 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
                 .addGroup(pHoldingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6)
-                .addComponent(btnMakeContract, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pHoldingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pHoldingLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pHoldingLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnMakeContract, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         getContentPane().add(pHolding, new org.netbeans.lib.awtextra.AbsoluteConstraints(491, 11, -1, -1));
@@ -1260,6 +1286,35 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         });
     }//GEN-LAST:event_txtIDSerMouseClicked
 
+    private void txtIDApaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIDApaMouseClicked
+        // TODO add your handling code here:
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+               invokeQLCH(); 
+            }
+        });
+    }//GEN-LAST:event_txtIDApaMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+               invokeQLCH(); 
+            }
+        });
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void invokeQLCH()
+    {
+        objQLCH = new QLCH1(account, type, objConnection, stmt, txtIDApa , objMain);
+        objQLCH.setVisible(true);
+    }
+    
     private void invokeService()
     {
         objSer2 = new Services_2(account, type, objConnection, stmt, txtIDSer, objMain);
@@ -1308,6 +1363,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     private javax.swing.JButton btnMakeContract;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

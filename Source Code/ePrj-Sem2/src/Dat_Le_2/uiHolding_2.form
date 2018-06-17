@@ -600,7 +600,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="19" pref="19" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
@@ -663,13 +663,19 @@
                           <EmptySpace min="43" pref="43" max="-2" attributes="0"/>
                           <Component id="btnAdd" min="-2" pref="154" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="btnUpdate" min="-2" pref="144" max="-2" attributes="0"/>
-                          <EmptySpace min="43" pref="43" max="-2" attributes="0"/>
-                          <Component id="btnDelete" min="-2" pref="154" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="btnUpdate" pref="144" max="32767" attributes="0"/>
+                              <Component id="jButton1" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="btnMakeContract" min="-2" pref="154" max="-2" attributes="0"/>
+                              <Component id="btnDelete" min="-2" pref="154" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <Component id="btnMakeContract" min="-2" pref="341" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -774,8 +780,17 @@
                       <Component id="btnUpdate" min="-2" pref="57" max="-2" attributes="0"/>
                       <Component id="btnDelete" min="-2" pref="57" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                  <Component id="btnMakeContract" min="-2" pref="68" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                          <Component id="jButton1" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="btnMakeContract" pref="57" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -859,6 +874,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="^(Ap)\u005cd+errApxx with x is number" containsInvalidXMLChars="true"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtIDApaMouseClicked"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new Library.G2TextField()"/>
             <AuxValue name="JavaCodeGenerator_DeclarationPost" type="java.lang.String" value="*/&#xa;private Library.G2TextField txtIDApa;"/>
@@ -1044,7 +1062,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Make Contract"/>
+            <Property name="text" type="java.lang.String" value="-&gt;Contract"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMakeContractActionPerformed"/>
@@ -1073,6 +1091,17 @@
             <AuxValue name="JavaCodeGenerator_DeclarationPost" type="java.lang.String" value="*/&#xa;private Library.G2TextField txtIDSer;"/>
             <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/*"/>
           </AuxValues>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButton1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="11" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Book Apartment"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

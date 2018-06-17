@@ -10,6 +10,7 @@ package Ngoc_Duyen.QLCH;
  * @author Dell
  */
 import Library.G2FileBrowserExtend;
+import Library.G2TextField;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -38,7 +39,7 @@ public class QLCH1 extends javax.swing.JFrame {
     
 
     Nam.MainControlInterface objMain;
-    
+    G2TextField objOutputTextField;
     int initRow;
     boolean checkInitRow;
     
@@ -59,6 +60,24 @@ public class QLCH1 extends javax.swing.JFrame {
         this.setTitle("Apartment Management");
     }
 
+    public QLCH1(String account, String type, Connection con, Statement stmt, G2TextField objOutputTextField, Nam.MainControlInterface objMain) 
+
+    {
+        this.objMain = objMain;
+        this.objOutputTextField = objOutputTextField;
+        this.con = con;
+        this.stmt = stmt;
+        continueAccount = account;
+        continueType = type;
+        initComponents();
+        //connectSQL();
+        showTable();
+        initDataFromMainControl();
+        manageButton(true,true, true );//false,false);
+        manageTextField(false, false, false, false, false, false, false, false);
+        this.setTitle("Apartment Management");
+    }
+    
     private void initDataFromMainControl()
     {
         if(objMain.getIDApa().isEmpty())
@@ -797,6 +816,8 @@ public class QLCH1 extends javax.swing.JFrame {
             objMain.setVisible(true);
             returnDataToMainInterface();
         }
+        if (objOutputTextField != null)
+            objOutputTextField.setText(IDApa);
         super.dispose();
     }
 
