@@ -5,6 +5,7 @@
  */
 package Nam;
 
+import Dat_Le_2.uiContract_2;
 import Dat_Le_2.uiHolding_2;
 import Tuyet_Duyen.Services_2;
 import Tuyet_Duyen.Theme_guest_2;
@@ -717,8 +718,22 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
 
     private void btnContractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContractActionPerformed
         // TODO add your handling code here:
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                invokeContract();
+            }
+        }
+        );
     }//GEN-LAST:event_btnContractActionPerformed
 
+    public void invokeContract()
+    {
+        objUIContract = new uiContract_2(continueAccount, continueType, conn, stmt, this);
+        objUIContract.setVisible(true);
+    }
+    
     /**
      * @param args the command line arguments
      */

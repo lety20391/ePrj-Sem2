@@ -34,7 +34,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Dat ThinkPad
  */
-public class uiContract_2 extends javax.swing.JFrame {
+public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameInterface{
     Statement stmt;
     DatabaseConnect objDBConnect;
     Connection objConnection;
