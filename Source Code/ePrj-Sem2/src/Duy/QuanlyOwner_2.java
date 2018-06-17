@@ -178,6 +178,11 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
 
         btnGroupRad.add(radActivated);
         radActivated.setText("Activated");
+        radActivated.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radActivatedActionPerformed(evt);
+            }
+        });
 
         btnGroupRad.add(radLocked);
         radLocked.setText("Locked");
@@ -314,7 +319,7 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
             }
         });
 
-        btnEdit.setText("Edit");
+        btnEdit.setText("Update");
         btnEdit.setPreferredSize(new java.awt.Dimension(99, 25));
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -415,15 +420,16 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
     }    
     private void radLockedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radLockedActionPerformed
         // TODO add your handling code here:
+        getStatusSup();
     }//GEN-LAST:event_radLockedActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-         String IDSup;
+        String IDSup;
         String NameSup, AddressSup, PhoneSup, EmailSup;
         String labelButton = btnAdd.getText();
         if (labelButton.equalsIgnoreCase("Add"))
         {
-            clearTxt();
+            //clearTxt();
             manageButton(true, false, false, false);
             manageTextfield(true, true, true,true, true);
             btnAdd.setText("Save");
@@ -431,22 +437,17 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
         {
         
             try {
+                //cần phải kiểm tra dữ liệu trước khi add
+                
                 //lay du lieu tu textField
                 IDSup = txtID.getText();
                 NameSup = txtName.getText();
-                AddressSup = txtAddress.getText();
-               
+                AddressSup = txtAddress.getText();               
                 PhoneSup = txtPhone.getText();
                 EmailSup= txtEmail.getText();
-             
-              
-                //insert into Account(ID, Password, Type, Question, Answer) values ('Co01', 'abc123', 'Co', 'Dog Name' , 'Duy')
-    //            sql = "insert into Account(ID, Password, Type, Question, Answer) values ('" + IDSup + "', '" + Pass + "', '" + Type + "', '" + Ques + "' , '" + Ans + "')";
-   //             stmt.executeUpdate(sql);
-
-                //insert into Collaborator(IDCo, NameCo, AddressCo, DOBCo, IdentificationNumberCo, DepositCo, PhoneCo, EmailCo, StatusCo, ImageCo) values ('Co01', 'Duy', 'Q5', '2005-12-20',  '1234', 123, '12345', 'email', 'Normal', 'Link' )
-    //            sql = "insert into Supplier (IDCo, NameCo, AddressCo, DOBCo, IdentificationNumberCo, DepositCo, PhoneCo, EmailCo, StatusCo, ImageCo) values ('" + IDCo + "', '" + NameCo + "', '" + AddressCo + "', '" + DOBCo + "',  '" + IDNoCo + "', " + DepositCo + ", '" + PhoneCo + "', '" + EmailCo + "', '" + StatusCo + "', '" + ImageCo + "' )";
-    //            stmt.executeUpdate(sql);
+                //insert into Supplier values ('Su01', 'Sup 1' , 'Q10', '12345', 'Sup@sup.vn', 'Normal')
+                sql = "insert into Supplier values ('" + IDSup + "', '"+ NameSup +"' , '" + AddressSup +"', '" + PhoneSup + "', '" + EmailSup + "', '" + StatusSup + "')";
+                stmt.executeUpdate(sql);
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -462,7 +463,7 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
     String labelBtn = btnEdit.getText();
-        if( labelBtn.equalsIgnoreCase("Edit"))
+        if( labelBtn.equalsIgnoreCase("Update"))
         {
             btnEdit.setText("Save");
             manageTextfield(false,true,true,true,true);
@@ -470,17 +471,19 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
         }
         else
         {
-            String ID = txtID.getText();
-            String Name = txtName.getText();
-            String Address = txtAddress.getText();
-            String Phone =   txtPhone.getText();
-            String Email =   txtEmail.getText();
+            //Kiểm tra textfield trước khi nhập
+            IDSup = txtID.getText();
+            NameSup = txtName.getText();
+            AddressSup = txtAddress.getText();               
+            PhoneSup = txtPhone.getText();
+            EmailSup= txtEmail.getText();
          
             try {
                 //update Guest set  NameSer = 'Ban nha', Price = 100 where IDSer = 'S06'
-                    sql = "update Supplier set NameSup = '"+Name+"', AddressSup = '"+Address+"', PhoneSup = '"+Phone+"',EmailSup = '"+Email+"'' where IDSup = '"+ID+"'";
+                    sql = "update Supplier set NameSup = '"+ NameSup +"', AddressSup = '"+ AddressSup +"', PhoneSup = '"+ PhoneSup +"',EmailSup = '"+ EmailSup  +"',StatusSup = '"+ StatusSup +"' where IDSup = '"+ IDSup +"'";
+                    //System.out.println(StatusSup);
                     stmt.executeUpdate(sql);
-                    btnEdit.setText("Edit");
+                    btnEdit.setText("Update");
                     clearTxt();
                     manageButton(true,true,true,true);
                     showTable();
@@ -509,8 +512,7 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
         txtPhone.setText(PhoneSup);
         txtEmail.setText(EmailSup);
        
-        System.out.println(StatusSup);
-        if (StatusSup.equalsIgnoreCase("1"))
+        if (StatusSup.equalsIgnoreCase("Activated"))
         {
             radActivated.setSelected(true);
             radLocked.setSelected(false);
@@ -548,6 +550,19 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAddressActionPerformed
 
+    private void radActivatedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radActivatedActionPerformed
+        // TODO add your handling code here:
+        getStatusSup();
+    }//GEN-LAST:event_radActivatedActionPerformed
+
+    public void getStatusSup()
+    {
+        if (radActivated.isSelected())
+            StatusSup = "Activated";
+        else
+            StatusSup = "Blocked";
+    }
+    
     /**
      * @param args the command line arguments
      */

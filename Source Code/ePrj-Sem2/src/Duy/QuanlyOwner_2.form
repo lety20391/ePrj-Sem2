@@ -202,6 +202,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Activated"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radActivatedActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="radLocked">
           <Properties>
@@ -363,7 +366,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnEdit">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Edit"/>
+            <Property name="text" type="java.lang.String" value="Update"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[99, 25]"/>
             </Property>
