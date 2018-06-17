@@ -1138,18 +1138,21 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
 
     private void txtDateHoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDateHoMouseClicked
         // TODO add your handling code here:
+        initDateChooser();
         diaDateChooser.addListener(txtDateHo);
         diaDateChooser.setVisible(true);        
     }//GEN-LAST:event_txtDateHoMouseClicked
 
     private void txtFromDateHoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFromDateHoMouseClicked
         // TODO add your handling code here:
+        initDateChooser();
         diaDateChooser.addListener(txtFromDateHo);
         diaDateChooser.setVisible(true);  
     }//GEN-LAST:event_txtFromDateHoMouseClicked
 
     private void txtToDateHoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtToDateHoMouseClicked
         // TODO add your handling code here:
+        initDateChooser();
         diaDateChooser.addListener(txtToDateHo);
         diaDateChooser.setVisible(true); 
     }//GEN-LAST:event_txtToDateHoMouseClicked
