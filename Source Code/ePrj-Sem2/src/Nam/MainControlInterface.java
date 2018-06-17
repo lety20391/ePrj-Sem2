@@ -689,13 +689,13 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
 
     private void btnGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuestActionPerformed
         // TODO add your handling code here:
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                //new Tuyet_Duyen.Theme_guest_2(con, stmt).setVisible(true);
-                objThemeGuest = new Theme_guest_2(continueAccount, continueType, conn, stmt);
-                objThemeGuest.setVisible(true);
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                invokeThemeGuest2();
             }
-        }
+        }        
         );
         dispose();
     }//GEN-LAST:event_btnGuestActionPerformed
@@ -737,10 +737,23 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
 
     private void colBtnGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colBtnGuestActionPerformed
         // TODO add your handling code here:
-        new Theme_guest_2(continueAccount, continueType, conn, stmt).setVisible(true);
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                invokeThemeGuest2();
+            }
+        }        
+        );
         dispose();
     }//GEN-LAST:event_colBtnGuestActionPerformed
 
+    public void invokeThemeGuest2()
+    {
+        objThemeGuest = new Theme_guest_2(continueAccount, continueType, conn, stmt, this);
+        objThemeGuest.setVisible(true);
+    }
+    
     private void btnContractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContractActionPerformed
         // TODO add your handling code here:
         SwingUtilities.invokeLater(new Runnable()

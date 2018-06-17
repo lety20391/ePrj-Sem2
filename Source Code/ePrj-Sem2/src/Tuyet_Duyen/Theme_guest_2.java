@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Nam.RegisterForm;
 import java.awt.Component;
+import java.awt.event.MouseEvent;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.TableModel;
@@ -41,20 +42,44 @@ public class Theme_guest_2 extends javax.swing.JFrame {
 
     /**/
     String continueAccount, type;
+    Nam.MainControlInterface objMain;
+    int initRow;
+    boolean checkInitRow;
 
-    public Theme_guest_2(String account, String type, Connection objConnection, Statement stmt) {
-        initComponents();
+    public Theme_guest_2(String account, String type, Connection objConnection, Statement stmt, Nam.MainControlInterface objMain) {
         this.objConnection = objConnection;
         this.stmt = stmt;
         continueAccount = account;
         this.type = type;
+        this.objMain = objMain;
+        initComponents();
+        
         pButton.attachButtonAndSetMainRight(pButton, type);
         attachRegexAndErrorInform(pGuest);
         //connectSQL();
         showTable();
-        //modifyTable();
+        initData();
         //manageButton(true,false,false);
         manageTextField(false, false, false, false, false, false, false, false);
+    }
+    
+    //init data get from objMain
+    public void initData()
+    {
+        if(objMain.getIDGu().isEmpty())
+            return;
+        IDGu = objMain.getIDGu();
+        checkInitRow = false;
+        TableModel objModel = tblCustomer.getModel();
+        for (int i = 0; i < objModel.getRowCount(); i++) {
+            if (IDGu.equalsIgnoreCase((String)objModel.getValueAt(i, 0)))
+            {
+                checkInitRow = true;
+                initRow = i;
+                break;
+            }
+        }        
+        tblMouseClickedProcess();
     }
 
     //---------------------------------------------
@@ -214,7 +239,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         CusModel.setDataVector(data, header);
         tblCustomer.setModel(CusModel);
         //tblBook.setModel(bookModel);
-        modifyTable();
+        modifyTable();        
     }
 
     public void manageButton(boolean BtnAddStatus, boolean BtnUpdateStatus, boolean BtnDeleteStatus) {
@@ -551,10 +576,19 @@ public class Theme_guest_2 extends javax.swing.JFrame {
 
     private void tblCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustomerMouseClicked
         // TODO add your handling code here:
+        tblMouseClickedProcess();
+        //method nằm ở bên dưới
+        //tách ra để dùng ké nhiều lần
+    }//GEN-LAST:event_tblCustomerMouseClicked
+
+    public void tblMouseClickedProcess()
+    {
         manageButton(true, true, true);
         int row;
-
-        row = tblCustomer.getSelectedRow();
+        if (checkInitRow)
+            row = initRow;
+        else
+            row = tblCustomer.getSelectedRow();
         TableModel tblModel = tblCustomer.getModel();
 
         IDGu = (String) tblModel.getValueAt(row, 0);
@@ -577,8 +611,8 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         txtCoID.setText(IDCo);
         //show Guest Image
         pGuestImage.inputImage(ImageGu);
-    }//GEN-LAST:event_tblCustomerMouseClicked
-
+    }
+    
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
         String labelBtn = btnUpdate.getText();
@@ -778,4 +812,19 @@ public class Theme_guest_2 extends javax.swing.JFrame {
     */
     private Library.G2TextField txtStatus;
     // End of variables declaration//GEN-END:variables
+@Override
+    public void dispose(){
+        if (objMain != null)
+        {
+            objMain.setVisible(true);
+            returnDataToMainInterface();
+        }
+        super.dispose();
+    }
+
+    public void returnDataToMainInterface()
+    {        
+        objMain.setIDCo(IDCo);
+        objMain.setIDGu(IDGu);
+    }
 }
