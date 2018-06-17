@@ -191,6 +191,7 @@ public class NotificationFormToCol extends javax.swing.JDialog {
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
         // TODO add your handling code here:
         dispose();
+        
     }//GEN-LAST:event_btnCloseActionPerformed
 
     /**

@@ -8,6 +8,8 @@ package Nam;
 import Dat_Le_2.uiHolding_2;
 import Tuyet_Duyen.Services_2;
 import Tuyet_Duyen.Theme_guest_2;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -23,7 +25,7 @@ import javax.swing.SwingUtilities;
  *
  * @author Namcham
  */
-public class MainControlInterface extends javax.swing.JFrame {
+public class MainControlInterface extends javax.swing.JFrame implements ActionListener{
 
     Connection conn;
     Statement stmt;
@@ -687,4 +689,9 @@ public class MainControlInterface extends javax.swing.JFrame {
     private javax.swing.JTextField txtCoNumberOfGuest;
     private javax.swing.JTextField txtNotification;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
