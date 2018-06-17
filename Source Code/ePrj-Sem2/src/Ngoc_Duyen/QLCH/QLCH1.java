@@ -461,7 +461,7 @@ public class QLCH1 extends javax.swing.JFrame {
             int check = JOptionPane.showConfirmDialog(this, "Are you sure for deleting?");
             if (check == JOptionPane.OK_OPTION)
             {
-                String ID = txtName.getText();
+                String ID = txtID.getText();
                 sql = "delete from Apartment where IDApa = '" + ID + "'";
                 stmt.executeUpdate(sql);
                 showTable();
