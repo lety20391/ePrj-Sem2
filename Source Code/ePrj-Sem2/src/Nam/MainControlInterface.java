@@ -9,8 +9,6 @@ import Dat_Le_2.uiContract_2;
 import Dat_Le_2.uiHolding_2;
 import Tuyet_Duyen.Services_2;
 import Tuyet_Duyen.Theme_guest_2;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -26,7 +24,7 @@ import javax.swing.SwingUtilities;
  *
  * @author Namcham
  */
-public class MainControlInterface extends javax.swing.JFrame implements ActionListener {
+public class MainControlInterface extends javax.swing.JFrame {
 
     Connection conn;
     Statement stmt;
@@ -46,8 +44,8 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
     Tuyet_Duyen.Theme_guest_2 objThemeGuest;
     NotificationFormToCol accDialog;
     NotificationAdmin notiAd;
-    
-    String IDGu, IDCo, IDApa, IDSup, IDSer, IDHo,IDCon;
+
+    String IDGu, IDCo, IDApa, IDSup, IDSer, IDHo, IDCon;
 
     public String getIDGu() {
         return IDGu;
@@ -136,14 +134,13 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
         pack();
         initData();
     }
-    
-    private void initData()
-    {
-        IDGu ="";
-        IDCo="";
-        IDApa="";
-        IDSup="";
-        IDSer="";
+
+    private void initData() {
+        IDGu = "";
+        IDCo = "";
+        IDApa = "";
+        IDSup = "";
+        IDSer = "";
         IDHo = "";
         IDCon = "";
     }
@@ -593,6 +590,11 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
         guBtnFeedback.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         guBtnFeedback.setForeground(new java.awt.Color(255, 255, 255));
         guBtnFeedback.setText("Feedback");
+        guBtnFeedback.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guBtnFeedbackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelGuestLayout = new javax.swing.GroupLayout(jPanelGuest);
         jPanelGuest.setLayout(jPanelGuestLayout);
@@ -663,16 +665,14 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
         );
     }//GEN-LAST:event_btnCollaboratorActionPerformed
 
-    private void invokeQuanlyCTV()
-    {
+    private void invokeQuanlyCTV() {
         objCTV = new Duy.QuanlyCTV_2(continueAccount, continueType, conn, stmt, this);
         objCTV.setVisible(true);
     }
-    
+
     private void btnHoldingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoldingActionPerformed
         // TODO add your handling code here:
-        java.awt.EventQueue.invokeLater(new Runnable() 
-        {
+        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 invokeUIHolding();
             }
@@ -692,18 +692,17 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
         dispose();
     }//GEN-LAST:event_colBtnHoldingActionPerformed
 
-    public void invokeUIHolding()
-    {
+    public void invokeUIHolding() {
         objUIHolding = new uiHolding_2(continueAccount, continueType, conn, stmt, this);
         objUIHolding.setVisible(true);
     }
-    
-    
+
+
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                
+
                 new RegisterForm(continueAccount, continueType, conn, stmt, "main").setVisible(true);
             }
         }
@@ -723,21 +722,18 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
         );
     }//GEN-LAST:event_btnServicesActionPerformed
 
-    private void invokeServiceFrame()
-    {
+    private void invokeServiceFrame() {
         objService = new Services_2(continueAccount, continueType, conn, stmt, this);
         objService.setVisible(true);
     }
-    
+
     private void btnGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuestActionPerformed
         // TODO add your handling code here:
-        SwingUtilities.invokeLater(new Runnable()
-        {
-            public void run()
-            {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
                 invokeThemeGuest2();
             }
-        }        
+        }
         );
     }//GEN-LAST:event_btnGuestActionPerformed
 
@@ -777,28 +773,23 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
 
     private void colBtnGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colBtnGuestActionPerformed
         // TODO add your handling code here:
-        SwingUtilities.invokeLater(new Runnable()
-        {
-            public void run()
-            {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
                 invokeThemeGuest2();
             }
-        }        
+        }
         );
     }//GEN-LAST:event_colBtnGuestActionPerformed
 
-    public void invokeThemeGuest2()
-    {
+    public void invokeThemeGuest2() {
         objThemeGuest = new Theme_guest_2(continueAccount, continueType, conn, stmt, this);
         objThemeGuest.setVisible(true);
     }
-    
+
     private void btnContractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContractActionPerformed
         // TODO add your handling code here:
-        SwingUtilities.invokeLater(new Runnable()
-        {
-            public void run()
-            {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
                 invokeContract();
             }
         }
@@ -807,22 +798,19 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
 
     private void btnApartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApartmentActionPerformed
         // TODO add your handling code here:
-        SwingUtilities.invokeLater(new Runnable()
-        {
-            public void run()
-            {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
                 invokeQLCH();
             }
         }
         );
     }//GEN-LAST:event_btnApartmentActionPerformed
 
-    private void invokeQLCH()
-    {
+    private void invokeQLCH() {
         objQLCH = new Ngoc_Duyen.QLCH.QLCH1(continueAccount, continueType, conn, stmt, this);
         objQLCH.setVisible(true);
     }
-    
+
     private void colBtnViewApartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colBtnViewApartmentActionPerformed
         // TODO add your handling code here:
         new ViewAllApartmentGu(this, true, continueAccount, continueType, conn, stmt).setVisible(true);
@@ -833,12 +821,15 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
         new ViewAllApartmentGu(this, true, continueAccount, continueType, conn, stmt).setVisible(true);
     }//GEN-LAST:event_guBtnViewAllRoomActionPerformed
 
-    public void invokeContract()
-    {
+    private void guBtnFeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guBtnFeedbackActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_guBtnFeedbackActionPerformed
+
+    public void invokeContract() {
         objUIContract = new uiContract_2(continueAccount, continueType, conn, stmt, this);
         objUIContract.setVisible(true);
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -909,8 +900,4 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
     private javax.swing.JTextField txtNotification;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

@@ -51,6 +51,7 @@ public class ViewAllApartmentGu extends javax.swing.JDialog {
         }
         setLocationRelativeTo(parent);
         setTextOnOff(false);
+        load();
         pack();
     }
 
@@ -76,7 +77,7 @@ public class ViewAllApartmentGu extends javax.swing.JDialog {
                 row.add(rs.getString("IDApa"));
                 row.add(rs.getString("NameApa"));
                 row.add(rs.getString("AddressApa"));
-                row.add(rs.getDouble("InfoApa"));
+                row.add(rs.getString("InfoApa"));
                 row.add(rs.getString("StatusApa"));
                 row.add(rs.getDouble("PriceApa"));
 
@@ -307,10 +308,11 @@ public class ViewAllApartmentGu extends javax.swing.JDialog {
         txtNameApa.setText(nameApa);
         txtAddressApa.setText(addressApa);
         txtInfoApa.setText(infoApa);
+        txtPriceApa.setText(String.valueOf(priceApa));
         if (statusApa.equalsIgnoreCase("available")) {
-            rbYes.isSelected();
+            rbYes.setSelected(true);
         }else{
-            rbNo.isSelected();
+            rbNo.setSelected(true);
         }
         
         sql = "select * from Apartment where IDApa = '"+iDApa+"'";
