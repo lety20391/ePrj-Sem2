@@ -25,6 +25,15 @@ public class G2TextField extends JTextField {
     String error;
     boolean checkError = false;
     Color tempColor;
+    String finalError;
+
+    public String getFinalError() {
+        return finalError;
+    }
+
+    public void setFinalError(String finalError) {
+        this.finalError = finalError;
+    }
     public G2TextField()
     {
         super();
@@ -68,7 +77,7 @@ public class G2TextField extends JTextField {
     
     public void showError()
     {
-        JOptionPane.showMessageDialog(this, error, "Error", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, finalError, "Error", JOptionPane.INFORMATION_MESSAGE);
     }
     
     public void validateTextField()
@@ -78,6 +87,7 @@ public class G2TextField extends JTextField {
         {
             checkError = true;
             this.setBackground(Color.red);
+            finalError = "Your input: '" + this.getText() + error;
             showError();
         }
     }
@@ -88,8 +98,8 @@ public class G2TextField extends JTextField {
         {
             checkError = true;
             this.setBackground(Color.red);
-            error = "Your input: '" + this.getText() + error;
-            return error;
+            finalError = "Your input: '" + this.getText() + error;
+            return finalError;
         }else
         {
             return "";
@@ -113,7 +123,7 @@ public class G2TextField extends JTextField {
             }
             @Override
             public void mouseEntered(MouseEvent e) {
-                
+                returnOriginalBackground();
             }
             @Override
             public void mouseExited(MouseEvent e) {

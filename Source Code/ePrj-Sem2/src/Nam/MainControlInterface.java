@@ -44,6 +44,64 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
     Tuyet_Duyen.Theme_guest_2 objThemeGuest;
     NotificationFormToCol accDialog;
     NotificationAdmin notiAd;
+    
+    String IDGu, IDCo, IDApa, IDSup, IDSer, IDHo,IDCon;
+
+    public String getIDGu() {
+        return IDGu;
+    }
+
+    public String getIDCo() {
+        return IDCo;
+    }
+
+    public String getIDApa() {
+        return IDApa;
+    }
+
+    public String getIDSup() {
+        return IDSup;
+    }
+
+    public String getIDSer() {
+        return IDSer;
+    }
+
+    public String getIDHo() {
+        return IDHo;
+    }
+
+    public String getIDCon() {
+        return IDCon;
+    }
+
+    public void setIDHo(String IDHo) {
+        this.IDHo = IDHo;
+    }
+
+    public void setIDCon(String IDCon) {
+        this.IDCon = IDCon;
+    }
+
+    public void setIDGu(String IDGu) {
+        this.IDGu = IDGu;
+    }
+
+    public void setIDCo(String IDCo) {
+        this.IDCo = IDCo;
+    }
+
+    public void setIDApa(String IDApa) {
+        this.IDApa = IDApa;
+    }
+
+    public void setIDSup(String IDSup) {
+        this.IDSup = IDSup;
+    }
+
+    public void setIDSer(String IDSer) {
+        this.IDSer = IDSer;
+    }
 
     /**
      * Creates new form MainControlInterface

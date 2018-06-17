@@ -29,7 +29,7 @@ import Library.G2TextField;
  * @author Dat ThinkPad
  */
 public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameInterface{
-    
+    String account, type;
     Statement stmt;
     DatabaseConnect objDBConnect;
     Connection objConnection;
@@ -56,7 +56,8 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     
     Nam.MainControlInterface objMain;
     TestMain.TestMain objMain2;
-    
+    uiContract_2 objContract;
+    Library.G2FrameInterface objG2Frame;
     
     public uiHolding_2() throws HeadlessException 
     {
@@ -76,30 +77,28 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
 //        showTable("Select * from Holding");
 //    }
     
-    public uiHolding_2(String Account, String type, Connection objConnection, Statement stmt, Nam.MainControlInterface objMain)
+    public uiHolding_2(String account, String type, Connection objConnection, Statement stmt, Nam.MainControlInterface objMain)
     {
+        this.account = account;
+        this.type = type;
         this.objConnection = objConnection;
         this.stmt = stmt;
         this.objMain = objMain;
         objMain.setVisible(false);
         
         initComponents();   
-        //patStr = txtIDHo.getText();
         pHolding.attachButtonAndSetMainRight(pHolding,type); 
         attachRegexAndErrorInform(pHolding);
         initData();
-        //initDateChooser();
-        showTable("Select * from Holding");        
-        //pImageGuest.setSize(300, 400);
-//        pImageGuest.inputImage("\\src\\Image\\Guest\\Gu01.jpg");
-//        pImageCollaborator.inputImage("\\src\\Image\\Collaborator\\Co01.jpg");
+        showTable("Select * from Holding");
     }
     
-    public uiHolding_2(String Account, String type, Connection objConnection, Statement stmt, TestMain.TestMain objMain)
+    public uiHolding_2(String Account, String type, Connection objConnection, Statement stmt, Library.G2FrameInterface objG2Frame, Nam.MainControlInterface objMain)
     {
         this.objConnection = objConnection;
         this.stmt = stmt;
-        this.objMain2 = objMain;
+        this.objMain = objMain;
+        this.objG2Frame = objG2Frame;
         objMain.setVisible(false);
         
         initComponents();   
@@ -250,7 +249,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         IDSer = txtIDSer.getText();
     }
     
-    public void validateAllTextField()
+    public boolean validateAllTextField()
     {
         Component[] objListComp = pHolding.getComponents();
         String allError = "";
@@ -268,6 +267,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         }
         if (error == true)
             JOptionPane.showMessageDialog(this, allError, "Bi loi", JOptionPane.ERROR_MESSAGE);
+        return error;
     }
     
     public void setDataToGuestPanel()
@@ -1040,6 +1040,14 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         setDataToCollaboratorPanel();
     }//GEN-LAST:event_tblHoMouseClicked
 
+    public String getDateHo() {
+        return DateHo;
+    }
+
+    public Double getTotalHo() {
+        return TotalHo;
+    }
+
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
         
@@ -1052,7 +1060,8 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             btnAdd.setText("Save");
         }else
         {
-        
+            if (validateAllTextField())
+                return;            
             try {
                 //insert into Holding values('Ho01', 'Gu01', 'Ap01', 'Co01', '2018-5-5', '2018-6-6', '2018-6-12', 'Chua thanh toan', 10000, 100, 'Se01')
                 sql = "insert into Holding values('"+IDHo+"', '"+IDGu+"', '"+IDApa+"', '"+IDCo+"', '"+DateHo+"', '"+FromDateHo+"', '"+ToDateHo+"', '"+PayStatusHo+"', "+TotalHo+", "+CommissionHo+", '"+IDSer+"')";
@@ -1080,7 +1089,8 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             btnUpdate.setText("Save");
         }else
         {
-        
+            if(validateAllTextField())
+                return;
             try {
                 //update Holding set IDGu = 'Gu01', IDApa = 'Ap01', IDCo = 'Co02', DateHo = '2018-8-6', FromDateHo = '2019-6-6', ToDateHo = '2019-6-10', PayStatusHo = 'Thanh toan 50%', TotalHo = 100, CommissionHo = 10, IDSer = 'Se02' where IDHo = 'Ho01'
                 sql = "update Holding set IDGu = '" + IDGu + "', IDApa = '" + IDApa + "', IDCo = '" + IDCo + "', DateHo = '" + DateHo + "', FromDateHo = '" + FromDateHo + "', ToDateHo = '" + ToDateHo + "', PayStatusHo = '" + PayStatusHo + "', TotalHo = " + TotalHo + ", CommissionHo = " + CommissionHo + ", IDSer = '" + IDSer + "' where IDHo = '" + IDHo + "'";
@@ -1124,10 +1134,23 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
 
     private void btnMakeContractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMakeContractActionPerformed
         // TODO add your handling code here:
-        //validateTextField();
-        validateAllTextField();
+        returnDataToMainInterface();
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                invokeContract();
+            }
+        }
+        );
     }//GEN-LAST:event_btnMakeContractActionPerformed
 
+    public void invokeContract()
+    {
+        objContract = new uiContract_2(account, type, objConnection, stmt, this, objMain);
+        objContract.setVisible(true);
+    }
+    
     private void txtTotalHoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalHoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTotalHoActionPerformed
@@ -1327,12 +1350,22 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     @Override
     public void dispose(){
         if (objMain != null)
+        {
             objMain.setVisible(true);
+            returnDataToMainInterface();
+        }
         if (objMain2 != null)
             objMain2.setVisible(true);
         super.dispose();
     }
 
+    public void returnDataToMainInterface()
+    {
+        objMain.setIDHo(IDHo);
+        objMain.setIDCo(IDCo);
+        objMain.setIDGu(IDGu);
+        objMain.setIDApa(IDApa);
+    }
 //    @Override
 //    public void receiveData() {
 //        System.out.println("data");
