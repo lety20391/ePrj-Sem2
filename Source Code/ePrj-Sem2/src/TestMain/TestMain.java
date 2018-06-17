@@ -9,7 +9,6 @@ import DatabaseConnection.DatabaseConnect;
 import DatabaseConnection.connectionContainer;
 import Duy.QuanlyCTV_2;
 import Duy.QuanlyOwner_2;
-import Ngoc_Duyen.QLCH.QLCH1;
 import Tuyet_Duyen.Theme_guest_2;
 import java.sql.Connection;
 import java.sql.Statement;
@@ -361,13 +360,13 @@ public class TestMain extends javax.swing.JFrame {
 
     private void btnDuyenQLCHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuyenQLCHActionPerformed
         // TODO add your handling code here:
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                objQLCH = new QLCH1(account, type, con, stmt);
-                objQLCH.setVisible(true);
-            }
-        });
+//        SwingUtilities.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                objQLCH = new QLCH1(account, type, con, stmt);
+//                objQLCH.setVisible(true);
+//            }
+//        });
     }//GEN-LAST:event_btnDuyenQLCHActionPerformed
 
     /**
