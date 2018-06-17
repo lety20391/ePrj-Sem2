@@ -553,11 +553,12 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
                 .addContainerGap()
                 .addGroup(jPanelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(guBtnFeedback, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanelGuestLayout.createSequentialGroup()
-                        .addComponent(guBtnViewAllRoom, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(guTxtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(guBtnViewAllRoom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(jPanelGuestLayout.createSequentialGroup()
+                .addGap(278, 278, 278)
+                .addComponent(guTxtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(281, Short.MAX_VALUE))
         );
         jPanelGuestLayout.setVerticalGroup(
             jPanelGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
