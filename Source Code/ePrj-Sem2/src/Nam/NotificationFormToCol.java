@@ -51,6 +51,7 @@ public class NotificationFormToCol extends javax.swing.JDialog {
         conn = connection;
         stmt = statement;
         objMain = main;
+        setLocationRelativeTo(parent);
         load();
         
     }

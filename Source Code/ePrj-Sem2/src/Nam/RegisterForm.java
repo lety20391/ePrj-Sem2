@@ -1132,7 +1132,7 @@ public class RegisterForm extends javax.swing.JFrame {
 
         sql = "create table " + txtIDCo.getText() + "\n(ID int identity(1,1) primary key, Detail nvarchar(1000) not null, Status varchar(6) not null)";
         try {
-            stmt.executeUpdate(sql);
+            stmt.executeQuery(sql);
         } catch (SQLException ex) {
             Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
         }
