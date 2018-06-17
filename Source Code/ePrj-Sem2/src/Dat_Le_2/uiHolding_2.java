@@ -1138,12 +1138,13 @@ public class uiHolding_2 extends javax.swing.JFrame {
         
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
+        String[] arrSearch = {"IDHo" , "IDGu" , "IDApa" ,"IDCo" , "DateHo" ,"FromDateHo" ,"ToDateHo" ,"PayStatusHo", "IDSer"};
         objSearch = new SearchHolding(this, true);
         SwingUtilities.invokeLater(new Runnable()
         {
             public void run()
             {
-                objSearch.showGUI();
+                objSearch.showGUI(arrSearch, "Holding");
                 objSearch.setVisible(true);
             }
         }        

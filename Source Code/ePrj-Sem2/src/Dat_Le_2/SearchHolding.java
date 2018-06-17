@@ -5,6 +5,8 @@
  */
 package Dat_Le_2;
 
+import javax.swing.JComboBox;
+
 /**
  *
  * @author Dat ThinkPad
@@ -14,15 +16,20 @@ public class SearchHolding extends javax.swing.JDialog {
     /**
      * Creates new form SearchHolding
      */
+    String[] arrInit;
+    String searchTable;
     java.awt.Frame parent;
     public SearchHolding(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.parent = parent;
+        this.arrInit = arrInit;
         
     }
     
-    public void showGUI()
+    public void showGUI(String[] arrInit, String searchTable)
     {
+        this.searchTable = searchTable;
+        this.arrInit = arrInit;
         initComponents();
     }
     
@@ -40,14 +47,13 @@ public class SearchHolding extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cbSearch = new javax.swing.JComboBox<>();
+        cbSearch = new javax.swing.JComboBox(arrInit);
         txtSearch = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         cbSearch.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        cbSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "IDHo", "IDGu", "IDApa", "IDCo", "DateHo", "FromDateHo", "ToDateHo", "PayStatusHo", "IDSer" }));
 
         txtSearch.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
@@ -92,7 +98,7 @@ public class SearchHolding extends javax.swing.JDialog {
         // TODO add your handling code here:
         String searchType = cbSearch.getSelectedItem().toString();
         String searchValue = txtSearch.getText();
-        ((uiHolding_2)parent).showTable("select * from Holding where "+ searchType +" like '%"+searchValue+"%'");
+        ((uiHolding_2)parent).showTable("select * from "+searchTable+" where "+ searchType +" like '%"+searchValue+"%'");
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -139,7 +145,10 @@ public class SearchHolding extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    /*
     private javax.swing.JComboBox<String> cbSearch;
+    */
+    private javax.swing.JComboBox cbSearch;
     private javax.swing.JButton jButton1;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
