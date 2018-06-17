@@ -342,8 +342,8 @@ public class TestMain extends javax.swing.JFrame {
 
     public void invokeUIHolding()
     {
-        objUIHolding = new uiHolding_2(account, type, con, stmt, this);
-        objUIHolding.setVisible(true);
+//        objUIHolding = new uiHolding_2(account, type, con, stmt, this);
+//        objUIHolding.setVisible(true);
     }
     
     private void btnConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConnectActionPerformed
@@ -353,13 +353,13 @@ public class TestMain extends javax.swing.JFrame {
 
     private void btnDatContractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatContractActionPerformed
         // TODO add your handling code here:
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                objUIContract = new uiContract_2(account, type, con, stmt);
-                objUIContract.setVisible(true);
-            }
-        });
+//        SwingUtilities.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                objUIContract = new uiContract_2(account, type, con, stmt);
+//                objUIContract.setVisible(true);
+//            }
+//        });
     }//GEN-LAST:event_btnDatContractActionPerformed
 
     private void btnDuyenQLCHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuyenQLCHActionPerformed

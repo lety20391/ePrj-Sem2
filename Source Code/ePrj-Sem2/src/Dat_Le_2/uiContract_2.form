@@ -392,7 +392,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtIDCon">
           <Properties>
-            <Property name="text" type="java.lang.String" value="^(Co)\u005cd+errHoxx with x is number" containsInvalidXMLChars="true"/>
+            <Property name="text" type="java.lang.String" value="^(Con)\u005cd+errHoxx with x is number" containsInvalidXMLChars="true"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new Library.G2TextField()"/>

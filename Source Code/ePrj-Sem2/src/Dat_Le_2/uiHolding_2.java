@@ -252,7 +252,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     public boolean validateAllTextField()
     {
         Component[] objListComp = pHolding.getComponents();
-        String allError = "";
+        String allError = "Please fix RED TextField\n";
         boolean error = false;
         for (Component objComp : objListComp) {
             if (objComp instanceof G2TextField)

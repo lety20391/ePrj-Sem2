@@ -109,21 +109,29 @@ public class uiContract_2 extends javax.swing.JFrame {
         }        
         setImageGuestAndCollaborator();
         //tạo giao diện gây sự chú ý
-//        SwingUtilities.invokeLater(new Runnable()
-//        {
-//            public void run()
-//            {
-//                createAttentionGUI();
-//            }
-//        }
-//        );
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                createAttentionGUI();
+            }
+        }
+        );
+          //createAttentionGUI();
     }
     
     public void createAttentionGUI()
     {        
-        Border newBorder = BorderFactory.createLineBorder(Color.GREEN, 8);
-        pContract.setBorder(newBorder);
-        JOptionPane.showMessageDialog(this, "Please fill in GREEN form to complete your Contract", "New Contract", JOptionPane.INFORMATION_MESSAGE);
+        Component[] objListComp = pContract.getComponents();
+        for (Component objComp : objListComp) {
+            if(objComp instanceof G2TextField)
+                objComp.setBackground(Color.GREEN);
+        }
+        btnAdd.doClick();
+        btnAdd.setBackground(Color.GREEN);
+        btnConfirm.setEnabled(false);
+        JOptionPane.showMessageDialog(this, "Please fill in GREEN form and Click Save button to complete your contract", "New Contract", JOptionPane.INFORMATION_MESSAGE);
+        
     }
     
     public void attachRegexAndErrorInform(Library.G2Panel panel)
@@ -464,7 +472,7 @@ public class uiContract_2 extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel14.setText("ID");
 
-        txtIDCon.setText("^(Co)\\d+errHoxx with x is number");
+        txtIDCon.setText("^(Con)\\d+errHoxx with x is number");
 
         txtIDHo.setText("^(Ho)\\d+errHoxx with x is number");
 

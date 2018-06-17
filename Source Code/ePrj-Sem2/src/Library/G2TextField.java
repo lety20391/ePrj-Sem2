@@ -86,8 +86,9 @@ public class G2TextField extends JTextField {
         if (!Pattern.matches(patStr, this.getText()))
         {
             checkError = true;
-            this.setBackground(Color.red);
+            this.setBackground(Color.green);
             finalError = "Your input: '" + this.getText() + error;
+            repaint();
             showError();
         }
     }
@@ -97,8 +98,9 @@ public class G2TextField extends JTextField {
         if (!Pattern.matches(patStr, this.getText()))
         {
             checkError = true;
-            this.setBackground(Color.red);
+            this.setBackground(Color.green);
             finalError = "Your input: '" + this.getText() + error;
+            repaint();
             return finalError;
         }else
         {
@@ -135,18 +137,25 @@ public class G2TextField extends JTextField {
     public void returnOriginalBackground()
     {
         this.setBackground(tempColor);
+        checkError = false;
+        repaint();
     }
     
     @Override
     protected void paintComponent(java.awt.Graphics g)
     {
         super.paintComponent(g);
-//        Graphics2D g2 = (Graphics2D)g.create();             
-//        if (checkError == true)
-//        {            
-//            g2.setBackground(Color.red);
-//            g2.dispose();
-//        }        
+        Graphics2D g2 = (Graphics2D)g.create();             
+        if (checkError == true)
+        {            
+//            g2.setColor(Color.GREEN);
+            int h = this.getHeight();
+            int d = this.getWidth();
+//            g2.fillOval(h/4, h/4, h/2, h/2);
+            g2.setColor(Color.blue);
+            g2.drawString("Fix this", d/2 , h*2/3);
+            g2.dispose();
+        }        
         
     }
 }
