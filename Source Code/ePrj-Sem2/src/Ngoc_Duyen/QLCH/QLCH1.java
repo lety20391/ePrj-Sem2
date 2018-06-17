@@ -424,7 +424,7 @@ public class QLCH1 extends javax.swing.JFrame {
             if (check == JOptionPane.OK_OPTION)
             {
                 String ID = txtName.getText();
-                sql = "delete from Apartment where IDApart = '" + ID + "'";
+                sql = "delete from Apartment where IDApa = '" + ID + "'";
                 stmt.executeUpdate(sql);
                 showTable();
                 clearTxt();
@@ -447,6 +447,8 @@ public class QLCH1 extends javax.swing.JFrame {
             }
              else{
                 try {    
+                    if (!checkblank())
+                        return;
                     String ID = txtID.getText();
                     String Name = txtName.getText();
                     String Address = txtAddress.getText();
@@ -486,10 +488,11 @@ public class QLCH1 extends javax.swing.JFrame {
             btnUpdate.setText("Save");            
             manageTextField(false, true, true,true,true,true,true,true);
             manageButton(false, true, false);
-           
-            
+                       
         }else
             {
+            if (!checkblank())
+                return;
             String ID = txtID.getText();
             String Name = txtName.getText();
             String Address = txtAddress.getText();
@@ -543,12 +546,14 @@ public class QLCH1 extends javax.swing.JFrame {
      * @param args the command line arguments
      */
    
-    public void checkblank()
+    public boolean checkblank()
     {
+        boolean check = true;
         if (txtID.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "ID cannot be blank. Re-Enter.");
             txtID.grabFocus();
-            return;
+            check = false;
+            return check;
         }
         try {
             Integer.parseInt(txtID.getText());
@@ -558,27 +563,32 @@ public class QLCH1 extends javax.swing.JFrame {
         if (txtName.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Name cannot be blank. Re-Enter.");
             txtName.grabFocus();
-            return;
+            check = false;
+            return check;
         }
         if (txtAddress.getText().isEmpty()) {
              JOptionPane.showMessageDialog(this, "Address cannot be blank. Re-Enter.");
             txtAddress.grabFocus();
-            return;
+            check = false;
+            return check;
         }
         if (txtImage.getText().isEmpty()) {
              JOptionPane.showMessageDialog(this, "Image cannot be blank. Re-Enter.");
             txtImage.grabFocus();
-            return;
+            check = false;
+            return check;
              }
         if (txtInfo.getText().isEmpty()) {
              JOptionPane.showMessageDialog(this, "Info cannot be blank. Re-Enter.");
             txtInfo.grabFocus();
-            return;
+            check = false;
+            return check;
         }
         if (txtIDSup.getText().isEmpty()) {
              JOptionPane.showMessageDialog(this, "IDSup cannot be blank. Re-Enter.");
             txtIDSup.grabFocus();
-            return;
+            check = false;
+            return check;
         }
         try {
           Integer.parseInt(txtIDSup.getText());  
@@ -588,13 +598,15 @@ public class QLCH1 extends javax.swing.JFrame {
         if (txtPrice.getText().isEmpty()){
             JOptionPane.showMessageDialog(this, "Price cannot be blank. Re-Enter.");
             txtPrice.grabFocus();
-            return;
+            check = false;
+            return check;
         }
         try {
           Integer.parseInt(txtPrice.getText());  
         } catch (NumberFormatException e) {
               JOptionPane.showMessageDialog(this, "Pls Re-Enter");
         }
+        return check;
     }
     public static void main(String args[]) {
 //        Connection con;
