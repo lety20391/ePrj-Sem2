@@ -207,6 +207,7 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
         btnServices = new javax.swing.JButton();
         btnOwners = new javax.swing.JButton();
         btnContract = new javax.swing.JButton();
+        btnApartment = new javax.swing.JButton();
         jPanelCol = new javax.swing.JPanel();
         colBtnHolding = new javax.swing.JButton();
         colBtnGuest = new javax.swing.JButton();
@@ -364,6 +365,16 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
             }
         });
 
+        btnApartment.setBackground(new java.awt.Color(102, 102, 255));
+        btnApartment.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        btnApartment.setForeground(new java.awt.Color(255, 255, 255));
+        btnApartment.setText("Apartment");
+        btnApartment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApartmentActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelAdminLayout = new javax.swing.GroupLayout(jPanelAdmin);
         jPanelAdmin.setLayout(jPanelAdminLayout);
         jPanelAdminLayout.setHorizontalGroup(
@@ -371,16 +382,18 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
             .addGroup(jPanelAdminLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnCreate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanelAdminLayout.createSequentialGroup()
-                            .addComponent(btnNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnHolding, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanelAdminLayout.createSequentialGroup()
-                        .addComponent(btnCollaborator, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnGuest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnHolding, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelAdminLayout.createSequentialGroup()
+                        .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnCreate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                            .addComponent(btnCollaborator, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnGuest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnApartment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtAccount)
@@ -412,7 +425,9 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
                         .addComponent(btnContract, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnCreate, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                    .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnCreate, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                        .addComponent(btnApartment, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnOwners, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -728,6 +743,10 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
         );
     }//GEN-LAST:event_btnContractActionPerformed
 
+    private void btnApartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApartmentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnApartmentActionPerformed
+
     public void invokeContract()
     {
         objUIContract = new uiContract_2(continueAccount, continueType, conn, stmt, this);
@@ -770,6 +789,7 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnApartment;
     private javax.swing.JButton btnCollaborator;
     private javax.swing.JButton btnContract;
     private javax.swing.JButton btnCreate;
