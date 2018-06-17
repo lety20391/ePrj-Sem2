@@ -60,11 +60,13 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
         continueAccount = account;
         continueType = type;
         txtAccount.setText(account);
+        txtAccount.setEditable(false);
         colTxtAccount.setText(account);
+        colTxtAccount.setEditable(false);
         guTxtAccount.setText(account);
+        guTxtAccount.setEditable(false);
         setLocationRelativeTo(null);
         load();
-
         txtCoDeposit.setEditable(false);
         txtCoGrade.setEditable(false);
         txtCoName.setEditable(false);
@@ -363,6 +365,11 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
         colBtnGuest.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         colBtnGuest.setForeground(new java.awt.Color(255, 255, 255));
         colBtnGuest.setText("Guest");
+        colBtnGuest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colBtnGuestActionPerformed(evt);
+            }
+        });
 
         colTxtAccount.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
@@ -629,6 +636,12 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
         // TODO add your handling code here:
         new NotificationFormToCol(this, true, continueAccount, continueType, conn, stmt, this).setVisible(true);
     }//GEN-LAST:event_txtNotificationMouseClicked
+
+    private void colBtnGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colBtnGuestActionPerformed
+        // TODO add your handling code here:
+        new Theme_guest_2(continueAccount, continueType, conn, stmt).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_colBtnGuestActionPerformed
 
     /**
      * @param args the command line arguments
