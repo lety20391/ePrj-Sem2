@@ -57,31 +57,46 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
     Nam.MainControlInterface objMain;
     
     SearchData objSearch;
+    String account, type;
     /**
      * Creates new form uiContract
      */
     public uiContract_2(String Account, String type, Connection objConnection, Statement stmt, Nam.MainControlInterface objMain) {
+        this.account = account;
+        this.type = type;
         this.objConnection = objConnection;
         this.stmt = stmt;
         this.objMain = objMain;
         initComponents();        
         pContract.attachButtonAndSetMainRight(pContract, type);
+        manageConfirmButton();
         attachRegexAndErrorInform(pContract);
         showTable("Select * from Contract");
         changeStatusAllTextField(pContract, false);
     }
     
     public uiContract_2(String Account, String type, Connection objConnection, Statement stmt, javax.swing.JFrame objFrame, Nam.MainControlInterface objMain) {
+        this.account = account;
+        this.type = type;
         this.objConnection = objConnection;
         this.stmt = stmt;
         this.objMain = objMain;
         this.objFrame = objFrame;
         initComponents();            
         pContract.attachButtonAndSetMainRight(pContract, type);
+        manageConfirmButton();
         attachRegexAndErrorInform(pContract);
         showTable("Select * from Contract");
         changeStatusAllTextField(pContract, false);
         initData();
+    }
+    
+    public void manageConfirmButton()
+    {
+        if (type.equalsIgnoreCase("ad"))
+            btnConfirm.setEnabled(true);
+        else
+            btnConfirm.setEnabled(false);
     }
     
 //    public void initData()
@@ -103,6 +118,7 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
         txtIDHo.setText(IDHo);
         IDCo = objMain.getIDCo();
         IDGu = objMain.getIDGu();
+        txtStatusCon.setText("Waiting");
         if (objFrame instanceof uiHolding_2)
         {
             uiHolding_2 tempObjFrame = (uiHolding_2)objFrame;
@@ -184,6 +200,7 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
             if (objComp instanceof G2TextField)
                 ((G2TextField) objComp).setEditable(status);
         }
+        txtStatusCon.setEditable(false);
     }
     
     public boolean validateAllTextField()
@@ -272,6 +289,7 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
         btnAdd.setEnabled(btnAddStatus);
         btnUpdate.setEnabled(btnUpdateStatus);
         btnDelete.setEnabled(btnDeleteStatus);
+        pContract.attachButtonAndSetMainRight(pContract, type);
     }
     
     public void showTable(String sql)
@@ -501,6 +519,7 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel17.setText("Price");
 
+        txtStatusCon.setEditable(false);
         txtStatusCon.setText("\\w+(.)*\\werrnormal paragraph");
         txtStatusCon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -648,6 +667,14 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         // TODO add your handling code here:
         //this.bindTextField();
+        if (!type.equalsIgnoreCase("ad"))
+        {
+            JOptionPane.showMessageDialog(this, "Sorry. This Feature just be used by Administrator", "Warning", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        txtStatusCon.setText("Activated");
+        btnUpdate.setText("Save");
+        btnUpdate.doClick();
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void txtDateConActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDateConActionPerformed
@@ -766,7 +793,8 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
                 return;
             getDataFromTextField();        
             try {
-                sql = "";
+                //update Contract set DateCon = '1991-03-03', IDHo = 'Ho01', PriceCon = 1234, StatusCon = 'Blocked' where IDCon = 'Con01'
+                sql = "update Contract set DateCon = '"+ DateCon +"', IDHo = '"+ IDHo +"', PriceCon = "+ PriceCon +", StatusCon = '" + StatusCon + "' where IDCon = '" + IDCon + "'";
                 stmt.executeUpdate(sql);
 
             } catch (Exception e) {

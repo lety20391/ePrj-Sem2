@@ -633,9 +633,13 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
 
     private void btnHoldingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoldingActionPerformed
         // TODO add your handling code here:
-
-        objUIHolding = new uiHolding_2(continueAccount, continueType, conn, stmt, this);
-        objUIHolding.setVisible(true);
+        java.awt.EventQueue.invokeLater(new Runnable() 
+        {
+            public void run() {
+                invokeUIHolding();
+            }
+        }
+        );
         dispose();
     }//GEN-LAST:event_btnHoldingActionPerformed
 
@@ -643,14 +647,20 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
         // TODO add your handling code here:
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                //objHolding = new uiHolding_2(connection, stmt);
-                //objHolding.setVisible(true);
+                invokeUIHolding();
             }
         }
         );
         dispose();
     }//GEN-LAST:event_colBtnHoldingActionPerformed
 
+    public void invokeUIHolding()
+    {
+        objUIHolding = new uiHolding_2(continueAccount, continueType, conn, stmt, this);
+        objUIHolding.setVisible(true);
+    }
+    
+    
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
         SwingUtilities.invokeLater(new Runnable() {
