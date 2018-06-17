@@ -38,6 +38,8 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
     int NumberOfGuest;
     
     int StatusCo;
+    
+    String TypeCo, QuesCo, AnsCo, PassCo;
 
     /**
      * Creates new form QuanlyCTV
@@ -163,6 +165,7 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
         //ẩn bớt mấy cột không cần thiết bằng modifyTable()
         //thực ra là xóa view, giữ nguyên Model
         modifyTable();
+        
     }
     
     public void modifyTable()
@@ -173,6 +176,30 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
         tblCo.removeColumn(tblCo.getColumn("GradeCo"));
     }
 
+    private void setDataToAccountPanel()
+    {
+        try {
+            //select Active from Account where ID = 'Co01'
+            sql ="select * from Account where ID = '"+IDCo+"'";
+            rs= stmt.executeQuery(sql);
+            rs.beforeFirst();
+            rs.next();
+            TypeCo = rs.getString("Type");
+            StatusCo = rs.getInt("Active");
+            QuesCo = rs.getString("Question");
+            AnsCo = rs.getString("Answer");
+            PassCo = rs.getString("Password");
+            
+            txtPass.setText(PassCo);
+            txtType.setText(TypeCo);
+            txtQues.setText(QuesCo);
+            txtAns.setText(AnsCo);
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -209,7 +236,7 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
         txtStatus = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         txtDeposit = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
+        pAccount = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         txtPass = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
@@ -396,7 +423,7 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
                 .addGap(14, 14, 14))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pAccount.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel13.setText("Pass");
 
@@ -406,48 +433,48 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
 
         jLabel16.setText("Answer");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout pAccountLayout = new javax.swing.GroupLayout(pAccount);
+        pAccount.setLayout(pAccountLayout);
+        pAccountLayout.setHorizontalGroup(
+            pAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pAccountLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pAccountLayout.createSequentialGroup()
+                        .addGroup(pAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel14)
                             .addComponent(jLabel13))
                         .addGap(76, 76, 76)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtType)
                             .addComponent(txtPass)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pAccountLayout.createSequentialGroup()
+                        .addGroup(pAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel15)
                             .addComponent(jLabel16))
                         .addGap(64, 64, 64)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtAns)
                             .addComponent(txtQues))))
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        pAccountLayout.setVerticalGroup(
+            pAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pAccountLayout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtQues, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtAns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16))
                 .addGap(16, 16, 16))
@@ -578,7 +605,7 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pAccount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -608,7 +635,7 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pAccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -715,7 +742,7 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
         //hiển thị hình ảnh
         pCollaboratorImage.inputImage(ImageCo);
         setRadButton();
-        
+        setDataToAccountPanel();
         
     }//GEN-LAST:event_tblCoMouseClicked
 
@@ -873,10 +900,10 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPanel pAccount;
     /*
     private javax.swing.JPanel pButton;
     */
