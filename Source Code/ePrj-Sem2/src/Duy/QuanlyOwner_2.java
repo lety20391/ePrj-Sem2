@@ -28,21 +28,49 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
     Connection objConnection;
     
     String IDSup, NameSup, AddressSup, EmailSup, PhoneSup, StatusSup;
+    Nam.MainControlInterface objMain;
 
+    int initRow;
+    boolean checkInitRow;
+    
+    String account, type;
+    
     /**
      * Creates new form QuanlyOwner
      */
-    public QuanlyOwner_2(String account, String type, Connection objConnection, Statement stmt) {
+    public QuanlyOwner_2(String account, String type, Connection objConnection, Statement stmt, Nam.MainControlInterface objMain) {
+        this.objMain = objMain;
         this.objConnection = objConnection;
         this.stmt = stmt;
+        this.account = account;
+        this.type = type;
         initComponents();
         //connect();
         showTable();
+        initDataFromMainControl();
         pButton.attachButtonAndSetMainRight(pButton, type);
         //manageButton(true,true,true,true);
         manageTextfield(false,false,false,false,false);
     }
        
+    private void initDataFromMainControl()
+    {
+        if(objMain.getIDSup().isEmpty())
+            return;
+        IDSup = objMain.getIDSup();
+        checkInitRow = false;
+        TableModel objModel = tblSup.getModel();
+        for (int i = 0; i < objModel.getRowCount(); i++) {
+            if (IDSup.equalsIgnoreCase((String)objModel.getValueAt(i, 0)))
+            {
+                checkInitRow = true;
+                initRow = i;
+                break;
+            }
+        }        
+        tblMouseClickedProcess();
+    }
+    
     public void manageButton(boolean btnAddStatus, boolean btnEditStatus, boolean btnViewStatus, boolean btnSearchStatus)
     {
         btnAdd.setEnabled(btnAddStatus);
@@ -494,9 +522,26 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void tblSupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSupMouseClicked
-      int row;
+        //tách thành method riêng khai báo ở bên dưới
+        //để tiện sử dụng lại khi cần hoặc khi initData từ
+        //MainControl
+        tblMouseClickedProcess();
         
-        row = tblSup.getSelectedRow();
+       
+    }//GEN-LAST:event_tblSupMouseClicked
+    
+    private void tblMouseClickedProcess()
+    {
+        int row;
+        //nếu có dữ liệu init thì load trước
+        //không có thì đợi click chuột vào bảng mới load
+        if (checkInitRow)
+        {
+            row = initRow;
+            checkInitRow = false;
+        }
+        else
+            row = tblSup.getSelectedRow();
         TableModel tblModel = tblSup.getModel();
         IDSup = (String) tblModel.getValueAt(row, 0);       
         NameSup = (String)tblModel.getValueAt(row, 1);
@@ -521,9 +566,8 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
             radActivated.setSelected(false);
             radLocked.setSelected(true);
         }
-       
-    }//GEN-LAST:event_tblSupMouseClicked
-
+    }
+    
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
      try {
             int check = JOptionPane.showConfirmDialog(this, "You want to delete,sure?");
@@ -629,4 +673,19 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPhone;
     // End of variables declaration//GEN-END:variables
+
+@Override
+    public void dispose(){
+        if (objMain != null)
+        {
+            objMain.setVisible(true);
+            returnDataToMainInterface();
+        }
+        super.dispose();
+    }
+
+    public void returnDataToMainInterface()
+    {        
+        objMain.setIDSup(IDSup);
+    }
 }

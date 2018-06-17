@@ -770,7 +770,7 @@ public class MainControlInterface extends javax.swing.JFrame implements ActionLi
 
     private void invokeQuanlyOwner()
     {
-        objOwner = new Duy.QuanlyOwner_2(IDCon, sql, conn, stmt, this);
+        objOwner = new Duy.QuanlyOwner_2(continueAccount, continueType, conn, stmt, this);
         objOwner.setVisible(true);
     }
     
