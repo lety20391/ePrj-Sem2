@@ -39,7 +39,7 @@ public class QLCH1 extends javax.swing.JFrame {
     
 
     Nam.MainControlInterface objMain;
-    G2TextField objOutputTextField;
+    Dat_Le_2.uiHolding_2 objHoldingFrame;
     int initRow;
     boolean checkInitRow;
     
@@ -63,11 +63,11 @@ public class QLCH1 extends javax.swing.JFrame {
         this.setTitle("Apartment Management");
     }
 
-    public QLCH1(String account, String type, Connection con, Statement stmt, G2TextField objOutputTextField, Nam.MainControlInterface objMain) 
+    public QLCH1(String account, String type, Connection con, Statement stmt, Dat_Le_2.uiHolding_2 objHoldingFrame, Nam.MainControlInterface objMain) 
 
     {
         this.objMain = objMain;
-        this.objOutputTextField = objOutputTextField;
+        this.objHoldingFrame = objHoldingFrame;
         this.con = con;
         this.stmt = stmt;
         continueAccount = account;
@@ -176,7 +176,7 @@ public class QLCH1 extends javax.swing.JFrame {
     
     private void setStatusDepositButton(String data)
     {
-        if (objOutputTextField == null)
+        if (objHoldingFrame == null)
         {
             btnDeposit.setEnabled(false);
             return;
@@ -750,7 +750,7 @@ public class QLCH1 extends javax.swing.JFrame {
                 clearTxt();
                 manageButton(true, true, true);
                 btnDeposit.setEnabled(true);
-                showTable();
+                dispose();
                  } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -899,8 +899,11 @@ public class QLCH1 extends javax.swing.JFrame {
             objMain.setVisible(true);
             returnDataToMainInterface();
         }
-        if (objOutputTextField != null)
-            objOutputTextField.setText(IDApa);
+        if (objHoldingFrame != null)
+        {
+            objHoldingFrame.setIDApa(IDApa);
+            //objHoldingFrame.goToContract();
+        }
         super.dispose();
     }
 

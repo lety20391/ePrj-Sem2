@@ -477,7 +477,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         btnAdd = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnBookApartment = new javax.swing.JButton();
         btnMakeContract = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -1022,11 +1022,11 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton1.setText("Book Apartment");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnBookApartment.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnBookApartment.setText("Book Apartment");
+        btnBookApartment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnBookApartmentActionPerformed(evt);
             }
         });
 
@@ -1053,7 +1053,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
                         .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBookApartment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnMakeContract, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
@@ -1061,7 +1061,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pButtonLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnBookApartment, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnMakeContract, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
@@ -1332,7 +1332,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         });
     }//GEN-LAST:event_txtIDApaMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnBookApartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookApartmentActionPerformed
         // TODO add your handling code here:
         SwingUtilities.invokeLater(new Runnable()
         {
@@ -1342,11 +1342,11 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             }
         });
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnBookApartmentActionPerformed
 
     private void invokeQLCH()
     {
-        objQLCH = new QLCH1(account, type, objConnection, stmt, txtIDApa , objMain);
+        objQLCH = new QLCH1(account, type, objConnection, stmt, this , objMain);
         objQLCH.setVisible(true);
     }
     
@@ -1354,6 +1354,16 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     {
         objSer2 = new Services_2(account, type, objConnection, stmt, txtIDSer, objMain);
         objSer2.setVisible(true);
+    }
+    
+    public void goToContract()
+    {
+        btnMakeContract.doClick();
+    }
+    
+    public void setIDApa(String data)
+    {
+        txtIDApa.setText(data);
     }
     
     /**
@@ -1394,11 +1404,11 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnBookApartment;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnMakeContract;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

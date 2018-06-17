@@ -1049,7 +1049,7 @@
                           <Component id="btnSearch" max="32767" attributes="0"/>
                           <Component id="btnAdd" max="32767" attributes="0"/>
                           <Component id="btnDelete" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jButton1" max="32767" attributes="0"/>
+                          <Component id="btnBookApartment" max="32767" attributes="0"/>
                           <Component id="btnMakeContract" pref="134" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -1061,7 +1061,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" pref="72" max="-2" attributes="0"/>
+                  <Component id="btnBookApartment" min="-2" pref="72" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="btnMakeContract" pref="136" max="32767" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -1112,7 +1112,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="btnBookApartment">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="11" style="1"/>
@@ -1120,7 +1120,7 @@
             <Property name="text" type="java.lang.String" value="Book Apartment"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBookApartmentActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnMakeContract">
