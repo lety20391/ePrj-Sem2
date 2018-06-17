@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -58,12 +59,11 @@ public class NotificationAdmin extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(parent);
     }
-    
+
 //    public void show()
 //    {
 //        initComponents();
 //    }
-    
     private void load() {
         ColModel = new DefaultTableModel();
         header = new Vector();
@@ -98,14 +98,14 @@ public class NotificationAdmin extends javax.swing.JDialog {
         tbCol.setModel(ColModel);
     }
 
-    private void setTextOnOff(boolean check){
+    private void setTextOnOff(boolean check) {
         txtIDCo.setEditable(check);
         txtNameCo.setEditable(check);
         txtGradeCo.setEditable(check);
         txtDepositCo.setEditable(check);
         txtPhoneCo.setEditable(check);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -243,6 +243,11 @@ public class NotificationAdmin extends javax.swing.JDialog {
         btnSearchCo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnSearchCo.setForeground(new java.awt.Color(255, 255, 255));
         btnSearchCo.setText("Search by ID");
+        btnSearchCo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchCoActionPerformed(evt);
+            }
+        });
 
         btnSendCo.setBackground(new java.awt.Color(51, 51, 255));
         btnSendCo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -394,9 +399,9 @@ public class NotificationAdmin extends javax.swing.JDialog {
     private void btnCloseCoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseCoActionPerformed
         // TODO add your handling code here:
         if (JOptionPane.showConfirmDialog(new JFrame(),
-            "Do you want to close ?", "",
-            JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-        this.dispose();
+                "Do you want to close ?", "",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            this.dispose();
         }
     }//GEN-LAST:event_btnCloseCoActionPerformed
 
@@ -461,6 +466,63 @@ public class NotificationAdmin extends javax.swing.JDialog {
 
         lbImageCo.setIcon(new ImageIcon(image));
     }//GEN-LAST:event_tbColMouseClicked
+
+    private void btnSearchCoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchCoActionPerformed
+        // TODO add your handling code here:
+        if (txtSearchCo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "The field cannot be blank.");
+            return;
+        }
+        ArrayList<String> idCoList = new ArrayList<>();
+        sql = "select * from Collaborator";
+        try {
+            rs = stmt.executeQuery(sql);
+            rs.beforeFirst();
+            while (rs.next()) {
+                idCoList.add(rs.getString("IDCo"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NotificationAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        boolean check = false;
+        String path;
+        for (String string : idCoList) {
+            if (string.equals(txtSearchCo.getText())) {
+                check = true;
+                sql = "select * from Collaborator where IDCo = '" + string + "'";
+                try {
+                    rs = stmt.executeQuery(sql);
+                    rs.beforeFirst();
+                    while (rs.next()) {
+                        txtDepositCo.setText(String.valueOf(rs.getDouble("DepositCo")));
+                        txtGradeCo.setText(rs.getString("GradeCo"));
+                        txtIDCo.setText(string);
+                        txtNameCo.setText(rs.getString("NameCo"));
+                        txtPhoneCo.setText(rs.getString("PhoneCo"));
+                        path = rs.getString("ImageCo");
+                        ImageIcon icon = new ImageIcon(path);
+                        int width = lbImageCo.getWidth();
+                        int height = lbImageCo.getHeight();
+                        int icoWidth = icon.getIconWidth();
+                        int icoHeight = icon.getIconHeight();
+                        Image image;
+                        if (icoWidth / icoHeight >= width / height) {
+                            image = icon.getImage().getScaledInstance(width, icoHeight * width / icoWidth, Image.SCALE_SMOOTH);
+                        } else {
+                            image = icon.getImage().getScaledInstance(icoWidth * height / icoHeight, height, Image.SCALE_SMOOTH);
+                        }
+                        lbImageCo.setIcon(new ImageIcon(image));
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(NotificationAdmin.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
+            }
+        }
+        if (check == false) {
+            JOptionPane.showMessageDialog(this, "Cannot find this Collaborator");
+        }
+    }//GEN-LAST:event_btnSearchCoActionPerformed
 
     /**
      * @param args the command line arguments

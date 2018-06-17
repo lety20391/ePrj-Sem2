@@ -1215,6 +1215,10 @@ public class RegisterForm extends javax.swing.JFrame {
                 return;
             }
         }
+        
+        if (!txtStatusGU.getText().equalsIgnoreCase("bad")||!txtStatusGU.getText().equalsIgnoreCase("normal")||!txtStatusGU.getText().equalsIgnoreCase("good")||!txtStatusGU.getText().equalsIgnoreCase("e")) {
+            
+        }
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String dob = df.format(dateChooserDOBGU.getDate());
 
