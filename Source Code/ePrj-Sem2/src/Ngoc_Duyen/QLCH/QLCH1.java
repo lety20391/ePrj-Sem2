@@ -9,6 +9,7 @@ package Ngoc_Duyen.QLCH;
  *
  * @author Dell
  */
+import Dat_Le_2.uiHolding_2;
 import Library.G2FileBrowserExtend;
 import Library.G2TextField;
 import java.sql.Connection;
@@ -17,6 +18,7 @@ import java.sql.Statement;
 import java.util.Vector;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -39,14 +41,13 @@ public class QLCH1 extends javax.swing.JFrame {
     
 
     Nam.MainControlInterface objMain;
-    Dat_Le_2.uiHolding_2 objHoldingFrame;
+    Dat_Le_2.uiHolding_2 objUIHolding;
     int initRow;
     boolean checkInitRow;
     
     boolean checkDepositBtn = false;
     
     public QLCH1(String account, String type, Connection con, Statement stmt, Nam.MainControlInterface objMain) 
-
     {
         this.objMain = objMain;
         this.con = con;
@@ -63,24 +64,24 @@ public class QLCH1 extends javax.swing.JFrame {
         this.setTitle("Apartment Management");
     }
 
-    public QLCH1(String account, String type, Connection con, Statement stmt, Dat_Le_2.uiHolding_2 objHoldingFrame, Nam.MainControlInterface objMain) 
-
-    {
-        this.objMain = objMain;
-        this.objHoldingFrame = objHoldingFrame;
-        this.con = con;
-        this.stmt = stmt;
-        continueAccount = account;
-        continueType = type;
-        initComponents();
-        //connectSQL();
-        showTable();
-        initDataFromMainControl();
-        manageButton(true,true, true );//false,false);
-        btnBook.setEnabled(false);
-        manageTextField(false, false, false, false, false, false, false, false);
-        this.setTitle("Apartment Management");
-    }
+//    public QLCH1(String account, String type, Connection con, Statement stmt, Dat_Le_2.uiHolding_2 objHoldingFrame, Nam.MainControlInterface objMain) 
+//
+//    {
+//        this.objMain = objMain;
+//        this.objHoldingFrame = objHoldingFrame;
+//        this.con = con;
+//        this.stmt = stmt;
+//        continueAccount = account;
+//        continueType = type;
+//        initComponents();
+//        //connectSQL();
+//        showTable();
+//        initDataFromMainControl();
+//        manageButton(true,true, true );//false,false);
+//        btnBook.setEnabled(false);
+//        manageTextField(false, false, false, false, false, false, false, false);
+//        this.setTitle("Apartment Management");
+//    }
     
     private void initDataFromMainControl()
     {
@@ -179,11 +180,11 @@ public class QLCH1 extends javax.swing.JFrame {
     
     private void setStatusDepositButton(String data)
     {
-        if (objHoldingFrame == null)
-        {
-            btnBook.setEnabled(false);
-            return;
-        }
+//        if (objHoldingFrame == null)
+//        {
+//            btnBook.setEnabled(false);
+//            return;
+//        }
         if (data.equalsIgnoreCase("On-Hold"))
         {
             btnBook.setEnabled(false);
@@ -773,7 +774,9 @@ public class QLCH1 extends javax.swing.JFrame {
                 clearTxt();
                 manageButton(true, true, true);
                 btnBook.setEnabled(true);
-                objHoldingFrame.BookSuccess(PriceApa);
+                objMain.bookSuccess = true;
+                returnDataToMainInterface();
+                invokeUIHolding();
                 dispose();
                  } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -782,6 +785,18 @@ public class QLCH1 extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnBookActionPerformed
 
+    public void invokeUIHolding()
+    {
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                objUIHolding = new uiHolding_2(continueAccount, continueType, con, stmt, objMain);
+                objUIHolding.setVisible(true);
+            }
+        });
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -925,16 +940,17 @@ public class QLCH1 extends javax.swing.JFrame {
             objMain.setVisible(true);
             returnDataToMainInterface();
         }
-        if (objHoldingFrame != null)
-        {
-            objHoldingFrame.setIDApa(IDApa);
-            //objHoldingFrame.goToContract();
-        }
+//        if (objHoldingFrame != null)
+//        {
+//            objHoldingFrame.setIDApa(IDApa);
+//            //objHoldingFrame.goToContract();
+//        }
         super.dispose();
     }
 
     public void returnDataToMainInterface()
     {        
         objMain.setIDApa(IDApa);
+        objMain.setTempDouble(PriceApa);
     }
 }
