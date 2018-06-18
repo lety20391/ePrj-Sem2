@@ -25,6 +25,9 @@ import javax.swing.SwingUtilities;
 import Library.G2TextField;
 import Ngoc_Duyen.QLCH.QLCH1;
 import Tuyet_Duyen.Services_2;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -66,6 +69,11 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     
     boolean checkInitRow;
     int initRow;
+    
+    Double ratioCommission = 0.1;
+    boolean BookingSuccess = false;
+    
+    Double pricePerDay;
     
     public uiHolding_2() throws HeadlessException 
     {
@@ -405,6 +413,37 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             setDataToCollaboratorPanel();
         }
     }
+    
+    public void BookSuccess(Double pricePerDay)
+    {
+        BookingSuccess = true;
+        ratioCommission = 0.15;
+        this.pricePerDay = pricePerDay;
+    }
+    
+    public double TotalMoney(Double price)
+    {
+        System.out.println(pricePerDay);
+        int totalDay = 0;
+        SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date1 = myFormat.parse(FromDateHo);
+            Date date2 = myFormat.parse(ToDateHo);
+            Calendar cal1 = Calendar.getInstance();
+            cal1.setTime(date1);
+            
+            Calendar cal2 = Calendar.getInstance();
+            cal2.setTime(date2);
+            
+            totalDay = cal2.get(Calendar.DAY_OF_YEAR) - cal1.get(Calendar.DAY_OF_YEAR) + 1;
+                        
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        return totalDay * pricePerDay;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -479,7 +518,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         btnDelete = new javax.swing.JButton();
         btnBookApartment = new javax.swing.JButton();
         btnMakeContract = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnTotal = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -719,15 +758,11 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(pImageGuest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(39, 39, 39))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15)
-                            .addComponent(pImageCollaborator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(39, 39, 39)))
+                    .addComponent(pImageGuest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15)
+                    .addComponent(pImageCollaborator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pCollaborator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pGuest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -840,12 +875,14 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel24.setText("Commission");
 
+        txtCommissionHo.setEditable(false);
         txtCommissionHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtCommissionHo.setText("\\d+(.)*(\\d)+errxxx.xx with x is number");
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel25.setText("Total");
 
+        txtTotalHo.setEditable(false);
         txtTotalHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtTotalHo.setText("\\d+(.)*(\\d)+errxxx.xx with x is number");
         txtTotalHo.addActionListener(new java.awt.event.ActionListener() {
@@ -1038,7 +1075,12 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             }
         });
 
-        jButton2.setText("Deposit");
+        btnTotal.setText("Total");
+        btnTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTotalActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pButtonLayout = new javax.swing.GroupLayout(pButton);
         pButton.setLayout(pButtonLayout);
@@ -1047,14 +1089,13 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             .addGroup(pButtonLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
-                    .addGroup(pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBookApartment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnMakeContract, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)))
+                    .addComponent(btnTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSearch, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAdd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBookApartment, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnMakeContract, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         pButtonLayout.setVerticalGroup(
@@ -1065,7 +1106,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnMakeContract, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -1128,7 +1169,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         TotalHo = (Double)tblModel.getValueAt(row, 8);
         CommissionHo = (Double)tblModel.getValueAt(row, 9);
         IDSer = (String)tblModel.getValueAt(row, 10);
-        
+        CommissionHo = TotalHo * ratioCommission;
         
         txtIDHo.setText(IDHo);
         txtIDGu.setText(IDGu);
@@ -1167,7 +1208,9 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         }else
         {
             if (validateAllTextField())
-                return;            
+                return;
+            CommissionHo = TotalHo * ratioCommission;
+            
             try {
                 //insert into Holding values('Ho01', 'Gu01', 'Ap01', 'Co01', '2018-5-5', '2018-6-6', '2018-6-12', 'Chua thanh toan', 10000, 100, 'Se01')
                 sql = "insert into Holding values('"+IDHo+"', '"+IDGu+"', '"+IDApa+"', '"+IDCo+"', '"+DateHo+"', '"+FromDateHo+"', '"+ToDateHo+"', '"+PayStatusHo+"', "+TotalHo+", "+CommissionHo+", '"+IDSer+"')";
@@ -1197,6 +1240,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         {
             if(validateAllTextField())
                 return;
+            CommissionHo = TotalHo * ratioCommission;
             try {
                 //update Holding set IDGu = 'Gu01', IDApa = 'Ap01', IDCo = 'Co02', DateHo = '2018-8-6', FromDateHo = '2019-6-6', ToDateHo = '2019-6-10', PayStatusHo = 'Thanh toan 50%', TotalHo = 100, CommissionHo = 10, IDSer = 'Se02' where IDHo = 'Ho01'
                 sql = "update Holding set IDGu = '" + IDGu + "', IDApa = '" + IDApa + "', IDCo = '" + IDCo + "', DateHo = '" + DateHo + "', FromDateHo = '" + FromDateHo + "', ToDateHo = '" + ToDateHo + "', PayStatusHo = '" + PayStatusHo + "', TotalHo = " + TotalHo + ", CommissionHo = " + CommissionHo + ", IDSer = '" + IDSer + "' where IDHo = '" + IDHo + "'";
@@ -1278,7 +1322,9 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         // TODO add your handling code here:
         initDateChooser();
         diaDateChooser.addListener(txtFromDateHo);
-        diaDateChooser.setVisible(true);  
+        diaDateChooser.setVisible(true); 
+        FromDateHo = txtFromDateHo.getText();
+        showTotalAndCommission();
     }//GEN-LAST:event_txtFromDateHoMouseClicked
 
     private void txtToDateHoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtToDateHoMouseClicked
@@ -1286,6 +1332,8 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         initDateChooser();
         diaDateChooser.addListener(txtToDateHo);
         diaDateChooser.setVisible(true); 
+        ToDateHo = txtTotalHo.getText();
+        showTotalAndCommission();
     }//GEN-LAST:event_txtToDateHoMouseClicked
 
         
@@ -1344,6 +1392,19 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         
     }//GEN-LAST:event_btnBookApartmentActionPerformed
 
+    private void btnTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTotalActionPerformed
+        // TODO add your handling code here:
+        showTotalAndCommission();
+    }//GEN-LAST:event_btnTotalActionPerformed
+
+    public void showTotalAndCommission()
+    {
+        TotalHo = TotalMoney(pricePerDay);
+        txtTotalHo.setText(String.valueOf(TotalHo));
+        CommissionHo = TotalHo * ratioCommission;
+        txtCommissionHo.setText(String.valueOf(CommissionHo));
+    }
+    
     private void invokeQLCH()
     {
         objQLCH = new QLCH1(account, type, objConnection, stmt, this , objMain);
@@ -1408,8 +1469,8 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnMakeContract;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnTotal;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

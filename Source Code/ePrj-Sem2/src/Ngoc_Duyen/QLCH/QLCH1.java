@@ -748,10 +748,11 @@ public class QLCH1 extends javax.swing.JFrame {
                        
         }else
             {
-                int ans = JOptionPane.showConfirmDialog(this, "Your balance will be subtract 100USD. Are you sure?");
+                int ans = JOptionPane.showConfirmDialog(this, "Your balance will be subtract 100USD. But Commission is increase to 15%. Do you want to continue?");
                 if(ans == JOptionPane.NO_OPTION)
                 {
-                    btnBook.setText("Deposit");
+                    btnBook.setText("Book");
+                    
                     return;
                 }
                 
@@ -772,6 +773,7 @@ public class QLCH1 extends javax.swing.JFrame {
                 clearTxt();
                 manageButton(true, true, true);
                 btnBook.setEnabled(true);
+                objHoldingFrame.BookSuccess(PriceApa);
                 dispose();
                  } catch (Exception e) {
                 System.out.println(e.getMessage());

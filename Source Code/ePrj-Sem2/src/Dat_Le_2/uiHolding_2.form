@@ -180,19 +180,12 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="pImageGuest" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel2" min="-2" pref="70" max="-2" attributes="0"/>
-                              <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
-                              <Component id="pImageCollaborator" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="pImageGuest" max="32767" attributes="0"/>
+                      <Component id="jLabel2" min="-2" pref="70" max="-2" attributes="0"/>
+                      <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                      <Component id="pImageCollaborator" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace min="39" pref="39" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="pCollaborator" max="32767" attributes="0"/>
                       <Component id="pGuest" max="32767" attributes="0"/>
@@ -957,6 +950,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtCommissionHo">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="0"/>
             </Property>
@@ -978,6 +972,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtTotalHo">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="0"/>
             </Property>
@@ -1043,15 +1038,13 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="jButton2" pref="134" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="btnUpdate" max="32767" attributes="0"/>
-                          <Component id="btnSearch" max="32767" attributes="0"/>
-                          <Component id="btnAdd" max="32767" attributes="0"/>
-                          <Component id="btnDelete" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnBookApartment" max="32767" attributes="0"/>
-                          <Component id="btnMakeContract" pref="134" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="btnTotal" pref="134" max="32767" attributes="0"/>
+                      <Component id="btnUpdate" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnSearch" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnAdd" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnDelete" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnBookApartment" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnMakeContract" alignment="0" pref="134" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="12" max="32767" attributes="0"/>
               </Group>
@@ -1065,7 +1058,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="btnMakeContract" pref="136" max="32767" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jButton2" min="-2" pref="67" max="-2" attributes="0"/>
+                  <Component id="btnTotal" min="-2" pref="67" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnSearch" min="-2" pref="57" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -1134,10 +1127,13 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMakeContractActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="btnTotal">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Deposit"/>
+            <Property name="text" type="java.lang.String" value="Total"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTotalActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
