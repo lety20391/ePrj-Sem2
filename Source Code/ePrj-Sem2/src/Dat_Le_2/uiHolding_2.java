@@ -1569,7 +1569,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     
     private void invokeQLCH()
     {
-        objQLCH = new QLCH1(account, type, objConnection, stmt, objMain);
+        objQLCH = new QLCH1(account, type, objConnection, stmt,this, objMain);
         objQLCH.setVisible(true);
     }
     
