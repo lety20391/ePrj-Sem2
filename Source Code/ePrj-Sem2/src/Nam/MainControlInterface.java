@@ -46,6 +46,35 @@ public class MainControlInterface extends javax.swing.JFrame {
     NotificationAdmin notiAd;
 
     String IDGu, IDCo, IDApa, IDSup, IDSer, IDHo, IDCon;
+    
+    String tempStr;
+    Double tempDouble;
+    int tempInt;
+    public boolean bookSuccess = false;
+
+    public void setTempStr(String tempStr) {
+        this.tempStr = tempStr;
+    }
+
+    public void setTempDouble(Double tempDouble) {
+        this.tempDouble = tempDouble;
+    }
+
+    public void setTempInt(int tempInt) {
+        this.tempInt = tempInt;
+    }
+
+    public String getTempStr() {
+        return tempStr;
+    }
+
+    public Double getTempDouble() {
+        return tempDouble;
+    }
+
+    public int getTempInt() {
+        return tempInt;
+    }
 
     public String getIDGu() {
         return IDGu;
@@ -143,6 +172,9 @@ public class MainControlInterface extends javax.swing.JFrame {
         IDSer = "";
         IDHo = "";
         IDCon = "";
+        tempDouble = 0.0;
+        tempInt = 0;
+        tempStr = "";
     }
 
     private void load() {
@@ -669,6 +701,16 @@ public class MainControlInterface extends javax.swing.JFrame {
         objCTV = new Duy.QuanlyCTV_2(continueAccount, continueType, conn, stmt, this);
         objCTV.setVisible(true);
     }
+    
+//    public void initHoldingFrameFromOutside()
+//    {
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                invokeUIHolding();
+//            }
+//        }
+//        );
+//    }
 
     private void btnHoldingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoldingActionPerformed
         // TODO add your handling code here:
