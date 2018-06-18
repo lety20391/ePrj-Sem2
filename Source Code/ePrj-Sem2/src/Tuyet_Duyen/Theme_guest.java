@@ -516,7 +516,7 @@ public class Theme_guest extends javax.swing.JFrame {
                 //tien hanh update thong tin len database
                 //cau lenh sql mau da kiem tra thu tren SQL
                 //update Guest set  NameSer = 'Ban nha', Price = 100 where IDSer = 'S06'
-                sql = "update Guest set  NameGu = '" + Name + "',DOBGu = '" + DOB + "',IdentificationNumberGu = '" + IDentiNo + "',PhoneGu = '" + Phone + "',EmailGu  = '" + Email + "',StatusGu = '" + Status + "', IDCo = " + CoID + " where IDGu = '" + ID + "'";
+                sql = "update Guest set  NameGu = '" + Name + "',DOBGu = '" + DOB + "',IdentificationNumberGu = '" + IDentiNo + "',PhoneGu = '" + Phone + "',EmailGu  = '" + Email + "',StatusGu = '" + Status + "',IDCo = '"+ CoID +"' where IDGu = '" + ID + "'";
                 stmt.executeUpdate(sql);
                 
                 //chay xong thi doi ten Button lai thanh Update
