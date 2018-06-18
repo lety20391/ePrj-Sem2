@@ -7,8 +7,6 @@ package TestMain;
 
 import DatabaseConnection.DatabaseConnect;
 import DatabaseConnection.connectionContainer;
-import Duy.QuanlyCTV_2;
-import Tuyet_Duyen.Theme_guest_2;
 import java.sql.Connection;
 import java.sql.Statement;
 import javax.swing.SwingUtilities;
@@ -284,29 +282,29 @@ public class TestMain extends javax.swing.JFrame {
 
     private void btnDuyenGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuyenGuestActionPerformed
         // TODO add your handling code here:
-        SwingUtilities.invokeLater(new Runnable()
-            {
-                public void run()
-                {
-                    //new Tuyet_Duyen.Theme_guest_2(con, stmt).setVisible(true);
-                    objThemeGuest = new Theme_guest_2(account, type,con, stmt);
-                    objThemeGuest.setVisible(true);
-                }
-            }
-        );
+//        SwingUtilities.invokeLater(new Runnable()
+//            {
+//                public void run()
+//                {
+//                    //new Tuyet_Duyen.Theme_guest_2(con, stmt).setVisible(true);
+//                    objThemeGuest = new Theme_guest_2(account, type,con, stmt);
+//                    objThemeGuest.setVisible(true);
+//                }
+//            }
+//        );
     }//GEN-LAST:event_btnDuyenGuestActionPerformed
 
     private void btnDuyCTVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuyCTVActionPerformed
         // TODO add your handling code here:
-        SwingUtilities.invokeLater(new Runnable()
-            {
-                public void run()
-                {
-                    objCTV = new QuanlyCTV_2(account, type, con, stmt);
-                    objCTV.setVisible(true);
-                }
-            }        
-        );
+//        SwingUtilities.invokeLater(new Runnable()
+//            {
+//                public void run()
+//                {
+//                    objCTV = new QuanlyCTV_2(account, type, con, stmt);
+//                    objCTV.setVisible(true);
+//                }
+//            }        
+//        );
     }//GEN-LAST:event_btnDuyCTVActionPerformed
 
     private void btnDuyOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuyOwnerActionPerformed

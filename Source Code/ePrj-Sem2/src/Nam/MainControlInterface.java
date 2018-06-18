@@ -196,7 +196,7 @@ public class MainControlInterface extends javax.swing.JFrame {
 
     public void loadAd(){
         int countFb = 0;
-        sql = "select * from Notification where StatusFb = 'unread'";
+        sql = "select * from FeedbackNote where StatusFb = 'unread'";
         try {
             rs = stmt.executeQuery(sql);
             rs.beforeFirst();
@@ -206,7 +206,7 @@ public class MainControlInterface extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(NotificationFormToCol.class.getName()).log(Level.SEVERE, null, ex);
         }
-        txtNotification.setText("Notification: " + countFb);
+        txtFeedback.setText("Notification: " + countFb);
     }
     
     public void loadCol() {

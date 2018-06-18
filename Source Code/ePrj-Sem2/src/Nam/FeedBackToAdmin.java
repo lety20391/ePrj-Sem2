@@ -43,6 +43,7 @@ public class FeedBackToAdmin extends javax.swing.JDialog {
         stmt = statement;
         objMain = main;
         setLocationRelativeTo(parent);
+        load();
         pack();
     }
     
@@ -58,7 +59,7 @@ public class FeedBackToAdmin extends javax.swing.JDialog {
 
         data = new Vector();
         ColModel.setRowCount(0);
-        sql = "select * from Notification where StatusFb = 'unread'";
+        sql = "select * from FeedbackNote where StatusFb = 'unread'";
         try {
             rs = stmt.executeQuery(sql);
             rs.beforeFirst();
