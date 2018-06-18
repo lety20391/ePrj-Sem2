@@ -42,8 +42,8 @@ insert into Services values
 ('Se02', 'Lau nha', 2000)
 
 insert into Apartment values
-('Ap01', 'A01', 'Q10', 'Link', '2 giuong', 'Trong', 1000, 'Co01', 'Su01'),
-('Ap02', 'A02', 'Q5', 'Link', '1 giuong', 'Co nguoi', 2000, '' , 'Su02')
+('Ap01', 'A01', 'Q10', 'Link', '2 giuong', 'available', 1000, 'Co01', 'Su01'),
+('Ap02', 'A02', 'Q5', 'Link', '1 giuong', 'unavailable', 2000, '' , 'Su02')
 go
 
 insert into Holding values
@@ -57,13 +57,13 @@ insert into [Contract] values
 go
 
 insert into FeedbackNote values
-('Fb01', '2018-5-5', 'Gu01', 'Ap01', 'Thieu tien ich', 'unread'),
-('Fb02', '2018-6-5', 'Gu02', 'Ap02', 'Nha hang xom qua on', 'read')
+('2018-5-5', 'Gu01', 'Ap01', 'Thieu tien ich', 'unread'),
+('2018-6-5', 'Gu02', 'Ap02', 'Nha hang xom qua on', 'read')
 go
 
 insert into [Notification] values
-('Not01', 'Gu01', 'Dat phong thanh cong', 'unread', 'Link Frame'),
-('Not02', 'Gu02', 'Sap het han thanh toan', 'read', 'Link Frame')
+('Gu01', 'Dat phong thanh cong', 'unread', 'Link Frame'),
+('Gu02', 'Sap het han thanh toan', 'read', 'Link Frame')
 
 select * from Collaborator
 go
