@@ -412,13 +412,18 @@ public class NotificationAdmin extends javax.swing.JDialog {
             return;
         }
 
-        sql = "insert into " + txtIDCo.getText() + " values ('" + txtMessage.getText() + "', 'unread')";
+//        sql = "insert into " + txtIDCo.getText() + " values ('" + txtMessage.getText() + "', 'unread')";
+//        try {
+//            stmt.executeUpdate(sql);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(NotificationAdmin.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        sql = "insert into Notification values"+"('"+txtIDCo.getText()+"', '"+txtMessage.getText()+"', 'unread')";
         try {
             stmt.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(NotificationAdmin.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         JOptionPane.showMessageDialog(this, "Message has been sent");
         txtMessage.setText("");
     }//GEN-LAST:event_btnSendCoActionPerformed

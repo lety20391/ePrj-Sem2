@@ -8,7 +8,6 @@ package TestMain;
 import DatabaseConnection.DatabaseConnect;
 import DatabaseConnection.connectionContainer;
 import Duy.QuanlyCTV_2;
-import Duy.QuanlyOwner_2;
 import Tuyet_Duyen.Theme_guest_2;
 import java.sql.Connection;
 import java.sql.Statement;
@@ -312,16 +311,16 @@ public class TestMain extends javax.swing.JFrame {
 
     private void btnDuyOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuyOwnerActionPerformed
         // TODO add your handling code here:
-        SwingUtilities.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-                //new Duy.QuanlyOwner_2(con, stmt).setVisible(true);
-                objOwner = new QuanlyOwner_2(account, type, con, stmt);
-                objOwner.setVisible(true);
-            }
-        }        
-        );
+//        SwingUtilities.invokeLater(new Runnable()
+//        {
+//            public void run()
+//            {
+//                //new Duy.QuanlyOwner_2(con, stmt).setVisible(true);
+//                objOwner = new QuanlyOwner_2(account, type, con, stmt);
+//                objOwner.setVisible(true);
+//            }
+//        }        
+//        );
     }//GEN-LAST:event_btnDuyOwnerActionPerformed
 
     private void btnDatHoldingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatHoldingActionPerformed

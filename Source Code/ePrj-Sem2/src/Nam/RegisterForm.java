@@ -1139,12 +1139,12 @@ public class RegisterForm extends javax.swing.JFrame {
             Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        sql = "create table " + txtIDCo.getText() + "\n(ID int identity(1,1) primary key, Detail nvarchar(1000) not null, Status varchar(6) not null)";
-        try {
-            stmt.executeUpdate(sql);
-        } catch (SQLException ex) {
-            Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        sql = "create table " + txtIDCo.getText() + "\n(ID int identity(1,1) primary key, Detail nvarchar(1000) not null, Status varchar(6) not null)";
+//        try {
+//            stmt.executeUpdate(sql);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
         if (JOptionPane.showConfirmDialog(new JFrame(),
                 "Create new Collaborator sucessfully.\nDo you want to continue ?", "",
