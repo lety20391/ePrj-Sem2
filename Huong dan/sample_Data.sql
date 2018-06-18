@@ -62,8 +62,8 @@ insert into FeedbackNote values
 go
 
 insert into [Notification] values
-('Gu01', 'Dat phong thanh cong', 'unread', 'Link Frame'),
-('Gu02', 'Sap het han thanh toan', 'read', 'Link Frame')
+( 'Gu01','Dat phong thanh cong', 'Link Frame'),
+( 'Co02','Sap het han thanh toan', 'Link Frame')
 
 select * from Collaborator
 go
