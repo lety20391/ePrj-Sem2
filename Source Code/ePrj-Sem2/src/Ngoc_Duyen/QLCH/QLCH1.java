@@ -32,7 +32,7 @@ public class QLCH1 extends javax.swing.JFrame {
     Statement stmt;
     Connection con ;
     
-    String IDApa , AddressApa, ImageApa, StatusApa, IDSupApa, NameApa,OwnerApa,InfoApa;
+    String IDApa , AddressApa, ImageApa, StatusApa, IDSupApa, NameApa,OwnerApa,InfoApa, BookCo;
     Double PriceApa;
     
     String continueAccount, continueType;
@@ -58,7 +58,7 @@ public class QLCH1 extends javax.swing.JFrame {
         showTable();
         initDataFromMainControl();
         manageButton(true,true, true );//false,false);
-        btnDeposit.setEnabled(false);
+        btnBook.setEnabled(false);
         manageTextField(false, false, false, false, false, false, false, false);
         this.setTitle("Apartment Management");
     }
@@ -77,7 +77,7 @@ public class QLCH1 extends javax.swing.JFrame {
         showTable();
         initDataFromMainControl();
         manageButton(true,true, true );//false,false);
-        btnDeposit.setEnabled(false);
+        btnBook.setEnabled(false);
         manageTextField(false, false, false, false, false, false, false, false);
         this.setTitle("Apartment Management");
     }
@@ -145,6 +145,7 @@ public class QLCH1 extends javax.swing.JFrame {
         header.add("Info");
         header.add("Status");
         header.add("Price");
+        header.add("BookCo");
         header.add("IDSup");
         
         data = new Vector();
@@ -163,7 +164,9 @@ public class QLCH1 extends javax.swing.JFrame {
                 row.add(rs.getString("InfoApa"));
                 row.add(rs.getString("StatusApa"));
                 row.add(rs.getDouble("PriceApa"));
+                row.add(rs.getString("BookCo"));
                 row.add(rs.getString("IDSup"));
+                
                 data.add(row);
             }
              } catch (Exception e) {
@@ -178,14 +181,14 @@ public class QLCH1 extends javax.swing.JFrame {
     {
         if (objHoldingFrame == null)
         {
-            btnDeposit.setEnabled(false);
+            btnBook.setEnabled(false);
             return;
         }
         if (data.equalsIgnoreCase("On-Hold"))
         {
-            btnDeposit.setEnabled(false);
+            btnBook.setEnabled(false);
         }else{
-            btnDeposit.setEnabled(true);
+            btnBook.setEnabled(true);
         }
         
     }
@@ -257,6 +260,8 @@ public class QLCH1 extends javax.swing.JFrame {
         txtStatus = new javax.swing.JTextField();
         txtPrice = new javax.swing.JTextField();
         txtIDSup = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        txtBookCo = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -265,7 +270,7 @@ public class QLCH1 extends javax.swing.JFrame {
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
-        btnDeposit = new javax.swing.JButton();
+        btnBook = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -325,6 +330,10 @@ public class QLCH1 extends javax.swing.JFrame {
 
         txtIDSup.setText("jTextField8");
 
+        jLabel12.setText("BookCo");
+
+        txtBookCo.setText("jTextField1");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -332,10 +341,6 @@ public class QLCH1 extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtIDSup, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -355,7 +360,15 @@ public class QLCH1 extends javax.swing.JFrame {
                             .addComponent(txtImage)
                             .addComponent(txtAddress)
                             .addComponent(txtName)
-                            .addComponent(txtID))))
+                            .addComponent(txtID)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtBookCo)
+                            .addComponent(txtIDSup, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -393,7 +406,11 @@ public class QLCH1 extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtIDSup, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(txtBookCo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
@@ -445,12 +462,12 @@ public class QLCH1 extends javax.swing.JFrame {
             }
         });
 
-        btnDeposit.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnDeposit.setText("Deposit");
-        btnDeposit.setEnabled(false);
-        btnDeposit.addActionListener(new java.awt.event.ActionListener() {
+        btnBook.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnBook.setText("Book");
+        btnBook.setEnabled(false);
+        btnBook.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDepositActionPerformed(evt);
+                btnBookActionPerformed(evt);
             }
         });
 
@@ -460,7 +477,7 @@ public class QLCH1 extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnDeposit)
+                .addComponent(btnBook)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
@@ -477,7 +494,7 @@ public class QLCH1 extends javax.swing.JFrame {
                     .addComponent(btnUpdate)
                     .addComponent(btnDelete)
                     .addComponent(btnAdd)
-                    .addComponent(btnDeposit))
+                    .addComponent(btnBook))
                 .addGap(23, 23, 23))
         );
 
@@ -539,7 +556,7 @@ public class QLCH1 extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnBack)))
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
 
         pack();
@@ -588,6 +605,7 @@ public class QLCH1 extends javax.swing.JFrame {
                     String Info = txtInfo.getText();
                     String Status = txtStatus.getText();
                     String Price = txtPrice.getText();
+                    String BookCo = txtBookCo.getText();
                     String IDSup = txtIDSup.getText();
                     
                     if (ID.isEmpty())
@@ -597,7 +615,7 @@ public class QLCH1 extends javax.swing.JFrame {
                         return;
                     }
                     
-                    sql="insert into Apartment values ('"+ ID +"', '"+ Name +"', '"+ Address +"', '"+ Image +"', '"+ Info +"','"+ Status +"'  ,'"+ Price +"','"+ IDSup +"')";
+                    sql="insert into Apartment values ('"+ ID +"', '"+ Name +"', '"+ Address +"', '"+ Image +"', '"+ Info +"','"+ Status +"'  ,'"+ Price + "'  ,'"+ BookCo + "','"+ IDSup +"')";
                     stmt.executeUpdate(sql);
                     showTable();
                     btnAdd.setText("Add");
@@ -634,15 +652,16 @@ public class QLCH1 extends javax.swing.JFrame {
             String Info = txtInfo.getText();
             String Status = txtStatus.getText();
             String Price = txtPrice.getText();
+            String BookCo = txtBookCo.getText();
             String IDSup = txtIDSup.getText();
             try {
-                sql = "update Apartment set  NameApa = '" + Name + "',AddressApa = '" + Address + "',ImageApa = '" + Image + "',InfoApa = '" + Info + "',StatusApa  = '" + Status+"',PriceApa  = '" + Price+"',IDSup  = '" + IDSup+ "' where IDApa = '" + ID + "'";
+                sql = "update Apartment set  NameApa = '" + Name + "',AddressApa = '" + Address + "',ImageApa = '" + Image + "',InfoApa = '" + Info + "',StatusApa  = '" + Status+"',PriceApa  = '" + Price +"',BookCo  = '" + BookCo +"',IDSup  = '" + IDSup+ "' where IDApa = '" + ID + "'";
                 stmt.executeUpdate(sql);
                 
                btnUpdate.setText("Update");
                 clearTxt();
                 manageButton(true, true, true);
-                btnDeposit.setEnabled(true);
+                btnBook.setEnabled(true);
                 showTable();
                  } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -678,7 +697,8 @@ public class QLCH1 extends javax.swing.JFrame {
         InfoApa = (String)tblModel.getValueAt(row, 4);
         StatusApa = (String)tblModel.getValueAt(row, 5);
         PriceApa = (Double)tblModel.getValueAt(row, 6);
-        IDSupApa = (String)tblModel.getValueAt(row, 7);
+        BookCo = (String)tblModel.getValueAt(row, 7);
+        IDSupApa = (String)tblModel.getValueAt(row, 8);
         txtID.setText(IDApa);
         txtName.setText(NameApa);
         txtAddress.setText(AddressApa);
@@ -686,6 +706,7 @@ public class QLCH1 extends javax.swing.JFrame {
         txtInfo.setText(InfoApa);
         txtStatus.setText(StatusApa);
         txtPrice.setText(String.valueOf(PriceApa));
+        txtBookCo.setText(BookCo);
         txtIDSup.setText(IDSupApa);
         
         pApaImage.inputImage(ImageApa);
@@ -712,16 +733,16 @@ public class QLCH1 extends javax.swing.JFrame {
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
         
-        new Nam.MainControlInterface(continueAccount, continueType, con, stmt).setVisible(true);
+//        new Nam.MainControlInterface(continueAccount, continueType, con, stmt).setVisible(true);
         dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
-    private void btnDepositActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositActionPerformed
+    private void btnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookActionPerformed
         // TODO add your handling code here:
-        String labelBtn = btnDeposit.getText();
-        if( labelBtn.equalsIgnoreCase("Deposit"))
+        String labelBtn = btnBook.getText();
+        if( labelBtn.equalsIgnoreCase("Book"))
         {
-            btnDeposit.setText("Confirm");            
+            btnBook.setText("Confirm");            
             manageTextField(false, false, false,false,false,false,false,false);
             manageButton(false, false, false);
                        
@@ -730,7 +751,7 @@ public class QLCH1 extends javax.swing.JFrame {
                 int ans = JOptionPane.showConfirmDialog(this, "Your balance will be subtract 100USD. Are you sure?");
                 if(ans == JOptionPane.NO_OPTION)
                 {
-                    btnDeposit.setText("Deposit");
+                    btnBook.setText("Deposit");
                     return;
                 }
                 
@@ -740,7 +761,8 @@ public class QLCH1 extends javax.swing.JFrame {
             String ID = txtID.getText();
             String Status = txtStatus.getText();
             try {
-                sql = "update Apartment set  StatusApa = '" + Status + "' where IDApa = '" + ID + "'";
+                //update Apartment set StatusApa = 'Holding' , BookCo = 'C01' where IDApa = 'Ap01'
+                sql = "update Apartment set StatusApa = '" + Status + "' , BookCo = '"+continueAccount+"' where IDApa = '"+ID+"'";
                 stmt.executeUpdate(sql);
                 
                 //update Collaborator set DepositCo = DepositCo - 100 where IDCo = 'Co01'
@@ -749,14 +771,14 @@ public class QLCH1 extends javax.swing.JFrame {
                btnUpdate.setText("Update");
                 clearTxt();
                 manageButton(true, true, true);
-                btnDeposit.setEnabled(true);
+                btnBook.setEnabled(true);
                 dispose();
                  } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }                       
         
-    }//GEN-LAST:event_btnDepositActionPerformed
+    }//GEN-LAST:event_btnBookActionPerformed
 
     /**
      * @param args the command line arguments
@@ -861,12 +883,13 @@ public class QLCH1 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnBook;
     private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnDeposit;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -884,6 +907,7 @@ public class QLCH1 extends javax.swing.JFrame {
     private Library.G2ImagePanel pApaImage;
     private javax.swing.JTable tblApartment;
     private javax.swing.JTextField txtAddress;
+    private javax.swing.JTextField txtBookCo;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtIDSup;
     private javax.swing.JTextField txtImage;
