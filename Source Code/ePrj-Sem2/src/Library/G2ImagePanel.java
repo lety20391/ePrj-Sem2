@@ -15,7 +15,7 @@ import java.io.IOException;
 import javafx.scene.CacheHint;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import sun.net.www.protocol.http.HttpURLConnection;
+//import sun.net.www.protocol.http.HttpURLConnection;
 
 /**
  *
