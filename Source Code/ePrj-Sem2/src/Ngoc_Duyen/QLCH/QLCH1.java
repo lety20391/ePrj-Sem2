@@ -637,7 +637,7 @@ public class QLCH1 extends javax.swing.JFrame {
         if( labelBtn.equalsIgnoreCase("Update"))
         {
             btnUpdate.setText("Save");            
-            manageTextField(false, true, true,true,true,true,true,true);
+            manageTextField(true, true, true,true,true,true,true,true);
             manageButton(false, true, false);
                        
         }else
