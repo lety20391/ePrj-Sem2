@@ -6,6 +6,7 @@
 package Dat_Le_2;
 
 import DatabaseConnection.DatabaseConnect;
+import Duy.QuanlyCTV_2;
 import java.awt.Component;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -25,6 +26,7 @@ import javax.swing.SwingUtilities;
 import Library.G2TextField;
 import Ngoc_Duyen.QLCH.QLCH1;
 import Tuyet_Duyen.Services_2;
+import Tuyet_Duyen.Theme_guest_2;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -66,6 +68,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     Library.G2FrameInterface objG2Frame;
     Tuyet_Duyen.Services_2 objSer2;
     Ngoc_Duyen.QLCH.QLCH1 objQLCH;
+    Duy.QuanlyCTV_2 objCTV;
     
     
     boolean checkInitRow;
@@ -75,6 +78,8 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     boolean BookingSuccess = false;
     
     Double pricePerDay;
+    
+    Theme_guest_2 objGuest;
     
     public uiHolding_2() throws HeadlessException 
     {
@@ -181,6 +186,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         IDGu = "";
         IDHo = "";
         IDApa = "";
+        lbBook.setVisible(false);
     }
     
     public void initDataHoFromMain()
@@ -325,7 +331,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     public void setDataToGuestPanel()
     {
         try {
-            
+            IDGu = txtIDGu.getText();
             rs = stmt.executeQuery("Select * from Guest where IDGu = '" + IDGu + "'");
             rs.beforeFirst();
             rs.next();
@@ -346,7 +352,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     public void setDataToCollaboratorPanel()
     {
         try {
-            
+            IDCo = txtIDCo.getText();
             rs = stmt.executeQuery("Select * from Collaborator where IDCo = '" + IDCo + "'");
             rs.beforeFirst();
             rs.next();
@@ -436,6 +442,14 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             BookingSuccess = true;
             ratioCommission = 0.15;
             this.pricePerDay = objMain.getTempDouble();
+            checkInitRow = true;
+            initRow = 1;
+            tblMouseClickedProcess();
+            txtCommissionHo.setText("");
+            txtTotalHo.setText("");
+            txtIDApa.setText(IDApa);
+            lbApa.setText(IDApa);
+            lbBook.setVisible(true);
             SwingUtilities.invokeLater(new Runnable()
             {
                 public void run()
@@ -562,6 +576,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         jPanel3 = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
         lbApa = new javax.swing.JLabel();
+        lbBook = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -848,12 +863,27 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
 
         txtIDGu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtIDGu.setText("^(Gu)\\d+errGuxx with x is number");
+        txtIDGu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtIDGuMouseClicked(evt);
+            }
+        });
+        txtIDGu.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                txtIDGuPropertyChange(evt);
+            }
+        });
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel18.setText("ID Collaborator");
 
         txtIDCo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtIDCo.setText("^(Co)\\d+errCoxx with x is number");
+        txtIDCo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtIDCoMouseClicked(evt);
+            }
+        });
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel19.setText("ID Apartment");
@@ -1116,7 +1146,12 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         jLabel27.setText("Apartment");
 
         lbApa.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lbApa.setText("Ap01");
+        lbApa.setForeground(new java.awt.Color(51, 153, 0));
+        lbApa.setText("Ap");
+
+        lbBook.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lbBook.setForeground(new java.awt.Color(0, 0, 153));
+        lbBook.setText("BOOKED");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -1128,8 +1163,11 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
                         .addGap(25, 25, 25)
                         .addComponent(jLabel27))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(lbApa)))
+                        .addGap(55, 55, 55)
+                        .addComponent(lbApa))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(lbBook)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -1137,9 +1175,11 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel27)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbApa)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbBook)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pButtonLayout = new javax.swing.GroupLayout(pButton);
@@ -1161,7 +1201,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pButtonLayout.createSequentialGroup()
                 .addGap(100, 100, 100)
-                .addComponent(btnMakeContract, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                .addComponent(btnMakeContract, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1286,7 +1326,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-        getDataFromTextField();
+        
         manageBtn(false, false, true, false);
         
         String labelButton = btnUpdate.getText();
@@ -1297,6 +1337,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         {
             if(validateAllTextField())
                 return;
+            getDataFromTextField();
             CommissionHo = TotalHo * ratioCommission;
             try {
                 //update Holding set IDGu = 'Gu01', IDApa = 'Ap01', IDCo = 'Co02', DateHo = '2018-8-6', FromDateHo = '2019-6-6', ToDateHo = '2019-6-10', PayStatusHo = 'Thanh toan 50%', TotalHo = 100, CommissionHo = 10, IDSer = 'Se02' where IDHo = 'Ho01'
@@ -1435,6 +1476,44 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         });
     }//GEN-LAST:event_txtIDApaMouseClicked
 
+    private void txtIDGuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIDGuMouseClicked
+        // TODO add your handling code here:
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                invokeThemeGuest();
+            }
+        });
+        
+    }//GEN-LAST:event_txtIDGuMouseClicked
+
+    private void txtIDGuPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtIDGuPropertyChange
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txtIDGuPropertyChange
+
+    public void invokeQuanlyCTV()
+    {
+        objCTV = new QuanlyCTV_2(account, type, objConnection, stmt, txtIDCo,this, objMain);
+        objCTV.setVisible(true);
+    }
+    private void txtIDCoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIDCoMouseClicked
+        // TODO add your handling code here:
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                invokeQuanlyCTV();
+            }
+        });
+    }//GEN-LAST:event_txtIDCoMouseClicked
+
+    public void invokeThemeGuest()
+    {
+        objGuest = new Theme_guest_2(account, type, objConnection, stmt, txtIDGu,this, objMain);
+        objGuest.setVisible(true);
+    }
     public void showTotalAndCommission()
     {
         TotalHo = TotalMoney(pricePerDay);
@@ -1539,6 +1618,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbApa;
+    private javax.swing.JLabel lbBook;
     /*
     private javax.swing.JPanel pButton;
     */
@@ -1618,6 +1698,11 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     // End of variables declaration//GEN-END:variables
 
    
+    public void reload()
+    {
+        setDataToGuestPanel();
+        setDataToCollaboratorPanel();
+    }
     
     @Override
     public void dispose(){

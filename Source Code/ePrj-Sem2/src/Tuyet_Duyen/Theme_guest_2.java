@@ -5,6 +5,7 @@
  */
 package Tuyet_Duyen;
 
+import Dat_Le_2.uiHolding_2;
 import Library.G2FileBrowserExtend;
 import Library.G2Panel;
 import Library.G2TextField;
@@ -38,10 +39,13 @@ public class Theme_guest_2 extends javax.swing.JFrame {
 
     String IDGu;
     String NameGu, DOBGu, IdentificationNumberGu, PhoneGu, EmailGu, ImageGu, StatusGu, IDCo;
+    
+    G2TextField objOutputTextField;
 
     /**/
     String continueAccount, type;
     Nam.MainControlInterface objMain;
+    uiHolding_2 objHoldingFrame;
     int initRow;
     boolean checkInitRow;
 
@@ -61,12 +65,15 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         //manageButton(true,false,false);
         manageTextField(false, false, false, false, false, false, false, false);
     }
-     public Theme_guest_2(String account, String type, Connection objConnection, Statement stmt) {
+     public Theme_guest_2(String account, String type, Connection objConnection, Statement stmt, G2TextField objOutputTextField, uiHolding_2 objHoldingFrame, Nam.MainControlInterface objMain) {
         this.objConnection = objConnection;
         this.stmt = stmt;
         continueAccount = account;
         this.type = type;
         this.objMain = objMain;
+        this.objHoldingFrame = objHoldingFrame;
+        this.objOutputTextField = objOutputTextField;
+        
         initComponents();
         
         pButton.attachButtonAndSetMainRight(pButton, type);
@@ -835,8 +842,13 @@ public class Theme_guest_2 extends javax.swing.JFrame {
     public void dispose(){
         if (objMain != null)
         {
-            objMain.setVisible(true);
+            //objMain.setVisible(true);
             returnDataToMainInterface();
+        }
+        if(objOutputTextField != null)
+        {
+            objOutputTextField.setText(IDGu);
+            objHoldingFrame.reload();            
         }
         super.dispose();
     }

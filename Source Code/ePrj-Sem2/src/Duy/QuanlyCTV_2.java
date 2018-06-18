@@ -5,7 +5,9 @@
  */
 package Duy;
 
+import Dat_Le_2.uiHolding_2;
 import Library.G2FileBrowserExtend;
+import Library.G2TextField;
 import Nam.RegisterForm;
 import java.awt.Component;
 import java.sql.Connection;
@@ -46,6 +48,8 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
     Nam.MainControlInterface objMain;
     boolean checkInitRow;
     int initRow;
+    uiHolding_2 objHoldingFrame;
+    G2TextField objOutputTextField;
 
     /**
      * Creates new form QuanlyCTV
@@ -71,8 +75,10 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
         manageTextfield(false, false, false, false, false, false, false, false, false, false, false, false, false, false);
     }
     
-    public QuanlyCTV_2(String account, String type, Connection objConnection, Statement stmt) {
+    public QuanlyCTV_2(String account, String type, Connection objConnection, Statement stmt, G2TextField objOutputTextField, uiHolding_2 objHoldingFrame, Nam.MainControlInterface objMain) {
         this.objMain = objMain;
+        this.objHoldingFrame = objHoldingFrame;
+        this.objOutputTextField = objOutputTextField;
         this.objConnection = objConnection;
         this.stmt = stmt;
         continueAccount = account;
@@ -1010,8 +1016,14 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
     public void dispose(){
         if (objMain != null)
         {
-            objMain.setVisible(true);
+            //objMain.setVisible(true);
             returnDataToMainInterface();
+        }
+        if (objHoldingFrame != null)
+        {
+            objOutputTextField.setText(IDCo);
+            System.out.println(IDCo);
+            objHoldingFrame.reload();
         }
         super.dispose();
     }
