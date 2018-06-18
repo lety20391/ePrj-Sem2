@@ -695,11 +695,36 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
             JOptionPane.showMessageDialog(this, "Sorry. This Feature just be used by Administrator", "Warning", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        int ans = JOptionPane.showConfirmDialog(this, "Are you sure to CONFIRM this Contract", "Warning", JOptionPane.OK_CANCEL_OPTION);
+        if (ans == JOptionPane.CANCEL_OPTION)
+            return;
         txtStatusCon.setText("Activated");
         btnUpdate.setText("Save");
         btnUpdate.doClick();
+        sendMoneyToCollaborator();
     }//GEN-LAST:event_btnConfirmActionPerformed
 
+    public void sendMoneyToCollaborator()
+    {
+        try {
+            //select CommissionHo, IDCo from Holding where IDHo = 'Ho01'
+            sql = "select CommissionHo, IDCo from Holding where IDHo = '"+IDHo+"'";
+            rs = stmt.executeQuery(sql);
+            rs.beforeFirst();
+            rs.next();
+            Double money = rs.getDouble("CommissionHo");
+            String IDCo = rs.getString("IDCo");
+            System.out.println(money);
+            System.out.println(IDCo);
+            
+            //update Collaborator set DepositCo = DepositCo + 1000 where IDCo = 'Co01'
+            sql = "update Collaborator set DepositCo = DepositCo + "+money.toString()+" where IDCo = '"+IDCo+"'";
+            stmt.executeUpdate(sql);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
     private void txtDateConActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDateConActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDateConActionPerformed
@@ -780,6 +805,10 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
         txtStatusCon.setText(StatusCon);
         
         setImageGuestAndCollaborator();
+        if (!StatusCon.equalsIgnoreCase("activated"))
+            btnConfirm.setEnabled(true);
+        else
+            btnConfirm.setEnabled(false);
     }
     
     public void setImageGuestAndCollaborator()

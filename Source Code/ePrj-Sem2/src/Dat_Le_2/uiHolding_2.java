@@ -448,6 +448,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             txtCommissionHo.setText("");
             txtTotalHo.setText("");
             txtIDApa.setText(IDApa);
+            txtIDApa.setEditable(false);
             lbApa.setText(IDApa);
             lbBook.setVisible(true);
             SwingUtilities.invokeLater(new Runnable()
@@ -1266,7 +1267,10 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         TotalHo = (Double)tblModel.getValueAt(row, 8);
         CommissionHo = (Double)tblModel.getValueAt(row, 9);
         IDSer = (String)tblModel.getValueAt(row, 10);
-        CommissionHo = TotalHo * ratioCommission;
+        if (BookingSuccess == true)
+            CommissionHo = TotalHo * ratioCommission + 100;
+        else
+            CommissionHo = TotalHo * ratioCommission;
         
         txtIDHo.setText(IDHo);
         txtIDGu.setText(IDGu);
@@ -1305,8 +1309,16 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         {
             if (validateAllTextField())
                 return;
+            if (validateIDError())
+            {   
+                JOptionPane.showMessageDialog(this, "ID already exist. Please try another", "ID Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             getDataFromTextField();
-            CommissionHo = TotalHo * ratioCommission;
+            if (BookingSuccess == true)
+                CommissionHo = TotalHo * ratioCommission + 100;
+            else
+                CommissionHo = TotalHo * ratioCommission;
             
             try {
                 //insert into Holding values('Ho01', 'Gu01', 'Ap01', 'Co01', '2018-5-5', '2018-6-6', '2018-6-12', 'Chua thanh toan', 10000, 100, 'Se01')
@@ -1326,6 +1338,26 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         
     }//GEN-LAST:event_btnAddActionPerformed
 
+    public boolean validateIDError()
+    {
+        boolean error = true;
+        try {
+            IDHo = txtIDHo.getText();
+            //select * from Holding where IDHo = 'Ho01'
+            sql = "select * from Holding where IDHo = '"+IDHo+"'";
+            rs = stmt.executeQuery(sql);
+            rs.beforeFirst();
+            if (!rs.next())
+            {
+                error = false;
+            }
+                
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return error;
+    }
+    
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
         
@@ -1339,8 +1371,16 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         {
             if(validateAllTextField())
                 return;
+            if (validateIDError())
+            {   
+                JOptionPane.showMessageDialog(this, "ID already exist. Please try another", "ID Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             getDataFromTextField();
-            CommissionHo = TotalHo * ratioCommission;
+            if (BookingSuccess == true)
+                CommissionHo = TotalHo * ratioCommission + 100;
+            else
+                CommissionHo = TotalHo * ratioCommission;
             try {
                 //update Holding set IDGu = 'Gu01', IDApa = 'Ap01', IDCo = 'Co02', DateHo = '2018-8-6', FromDateHo = '2019-6-6', ToDateHo = '2019-6-10', PayStatusHo = 'Thanh toan 50%', TotalHo = 100, CommissionHo = 10, IDSer = 'Se02' where IDHo = 'Ho01'
                 sql = "update Holding set IDGu = '" + IDGu + "', IDApa = '" + IDApa + "', IDCo = '" + IDCo + "', DateHo = '" + DateHo + "', FromDateHo = '" + FromDateHo + "', ToDateHo = '" + ToDateHo + "', PayStatusHo = '" + PayStatusHo + "', TotalHo = " + TotalHo + ", CommissionHo = " + CommissionHo + ", IDSer = '" + IDSer + "' where IDHo = '" + IDHo + "'";
@@ -1520,7 +1560,10 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     {
         TotalHo = TotalMoney(pricePerDay);
         txtTotalHo.setText(String.valueOf(TotalHo));
-        CommissionHo = TotalHo * ratioCommission;
+        if (BookingSuccess == true)
+            CommissionHo = TotalHo * ratioCommission + 100;
+        else
+            CommissionHo = TotalHo * ratioCommission;
         txtCommissionHo.setText(String.valueOf(CommissionHo));
     }
     
