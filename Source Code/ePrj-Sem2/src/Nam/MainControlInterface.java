@@ -177,7 +177,7 @@ public class MainControlInterface extends javax.swing.JFrame {
             Logger.getLogger(NotificationFormToCol.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        sql = "select * from " + continueAccount + " where Status = 'unread' order by Status";
+        sql = "select * from Notification where IDAcc = '" + continueAccount + "' and StatusNot = 'unread'";
         try {
             rs = stmt.executeQuery(sql);
             rs.beforeFirst();
@@ -836,6 +836,7 @@ public class MainControlInterface extends javax.swing.JFrame {
 
     private void guBtnFeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guBtnFeedbackActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_guBtnFeedbackActionPerformed
 
     public void invokeContract() {

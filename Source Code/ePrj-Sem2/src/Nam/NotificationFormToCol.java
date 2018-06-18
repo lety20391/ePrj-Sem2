@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -42,6 +43,7 @@ public class NotificationFormToCol extends javax.swing.JDialog {
      * @param type
      * @param connection
      * @param statement
+     * @param main
      */
     public NotificationFormToCol(java.awt.Frame parent, boolean modal, String account, String type, Connection connection, Statement statement, MainControlInterface main) {
         super(parent, modal);
@@ -60,20 +62,22 @@ public class NotificationFormToCol extends javax.swing.JDialog {
     private void load(){
         ColModel = new DefaultTableModel();
         header = new Vector();
-        header.add("Number");
+        header.add("Message code");
         header.add("Detail");
+        header.add("Status");
         
 
         data = new Vector();
         ColModel.setRowCount(0);
-        sql = "select * from "+continueAccount+" where Status = 'unread'";
+        sql = "select * from Notification where IDAcc = '" + continueAccount +"' and StatusNot = 'unread'";
         try {
             rs = stmt.executeQuery(sql);
             rs.beforeFirst();
             while (rs.next()) {
                 row = new Vector();
-                row.add(rs.getInt("ID"));
-                row.add(rs.getString("Detail"));
+                row.add(rs.getInt("IDNot"));
+                row.add(rs.getString("DetailNot"));
+                row.add(rs.getString("StatusNot"));
                 
                 data.add(row);
             }
@@ -181,7 +185,7 @@ public class NotificationFormToCol extends javax.swing.JDialog {
         String str = (String) tbMess.getValueAt(selectedRow, 1);
         txtArea.setText(str);
         
-        sql = "update "+continueAccount+" set Status = 'read' where ID = "+id;
+        sql = "update Notification set StatusNot = 'read' where IDNot = "+id;
         try {
             stmt.executeUpdate(sql);
         } catch (SQLException ex) {
