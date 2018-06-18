@@ -42,8 +42,8 @@ insert into Services values
 ('Se02', 'Lau nha', 2000)
 
 insert into Apartment values
-('Ap01', 'A01', 'Q10', 'Link', '2 giuong', 'Trong', 1000, 'Su01'),
-('Ap02', 'A02', 'Q5', 'Link', '1 giuong', 'Co nguoi', 2000, 'Su02')
+('Ap01', 'A01', 'Q10', 'Link', '2 giuong', 'Trong', 1000, 'Co01', 'Su01'),
+('Ap02', 'A02', 'Q5', 'Link', '1 giuong', 'Co nguoi', 2000, '' , 'Su02')
 go
 
 insert into Holding values

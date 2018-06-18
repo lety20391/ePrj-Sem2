@@ -72,8 +72,8 @@ create table Apartment
 	StatusApa varchar(50) not null,
 	PriceApa money not null,
 	BookCo varchar(20),
-	constraint pk_Apartment primary key (IDApa),
-	constraint fk_Apartment_Account foreign key (BookCo) references Account(ID)	
+	constraint pk_Apartment primary key (IDApa)
+	/*constraint fk_Apartment_Account foreign key (BookCo) references Account(ID)	*/
 )
 go
 
