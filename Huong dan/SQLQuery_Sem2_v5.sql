@@ -71,15 +71,30 @@ create table Apartment
 	InfoApa nvarchar(150) not null,
 	StatusApa varchar(50) not null,
 	PriceApa money not null,
-	BookCo varchar(20),
-	constraint pk_Apartment primary key (IDApa),
-	constraint fk_Apartment_Account foreign key (BookCo) references Account(ID)	
+	constraint pk_Apartment primary key (IDApa)	
 )
 go
 
 create table FeedbackNote
 (
 	IDFb varchar(20) not null,
+	DateFb date not null,
+	IDGu varchar(20) not null,
+	IDApa varchar(20) not null,
+	ContentFb nvarchar(1000) not null,
+	StatusFb varchar(30) not null,
+	constraint pk_FeedbackNote primary key (IDFb),
+	constraint fk_FeedbackNote_Guest foreign key (IDGu) references Guest(IDGu),
+	constraint fk_FeedbackNote_Apartment foreign key (IDApa) references Apartment(IDApa)
+)
+go
+
+drop table FeedbackNote
+go
+
+create table FeedbackNote
+(
+	IDFb int identity(1, 1) not null,
 	DateFb date not null,
 	IDGu varchar(20) not null,
 	IDApa varchar(20) not null,
@@ -172,6 +187,24 @@ create table [Notification]
 )
 go
 
+create table [Notification]
+(
+	IDNot int identity(1,1) not null,
+	IDAcc varchar(20) not null,
+	DetailNot nvarchar(50) not null,
+	StatusNot varchar(20) not null,
+	constraint pk_Notification primary key (IDNot),
+	constraint fk_Notification_Account foreign key (IDAcc) references Account(ID)
+)
+
 select * from Account
 go
 
+select * from Apartment
+go
+
+select * from Guest
+go
+
+select * from FeedbackNote
+go

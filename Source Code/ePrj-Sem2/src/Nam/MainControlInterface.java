@@ -5,10 +5,6 @@
  */
 package Nam;
 
-import Dat_Le_2.uiContract_2;
-import Dat_Le_2.uiHolding_2;
-import Tuyet_Duyen.Services_2;
-import Tuyet_Duyen.Theme_guest_2;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -16,9 +12,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -181,6 +174,7 @@ public class MainControlInterface extends javax.swing.JFrame {
         if (continueType.equals("ad")) {
             jTabbedPane.remove(jPanelCol);
             jTabbedPane.remove(jPanelGuest);
+            loadAd();
         }
         if (continueType.equals("co")) {
             jTabbedPane.remove(jPanelAdmin);
@@ -193,6 +187,21 @@ public class MainControlInterface extends javax.swing.JFrame {
         }
     }
 
+    public void loadAd(){
+        int countFb = 0;
+        sql = "select * from Notification where StatusFb = 'unread'";
+        try {
+            rs = stmt.executeQuery(sql);
+            rs.beforeFirst();
+            while (rs.next()) {
+                countFb++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NotificationFormToCol.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        txtNotification.setText("Notification: " + countFb);
+    }
+    
     public void loadCol() {
         int countNoti = 0;
         sql = "select * from Collaborator where IDCo = '" + colTxtAccount.getText() + "'";
@@ -249,6 +258,7 @@ public class MainControlInterface extends javax.swing.JFrame {
         btnOwners = new javax.swing.JButton();
         btnContract = new javax.swing.JButton();
         btnApartment = new javax.swing.JButton();
+        txtFeedback = new javax.swing.JTextField();
         jPanelCol = new javax.swing.JPanel();
         colBtnHolding = new javax.swing.JButton();
         colBtnGuest = new javax.swing.JButton();
@@ -417,6 +427,13 @@ public class MainControlInterface extends javax.swing.JFrame {
             }
         });
 
+        txtFeedback.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtFeedback.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtFeedbackMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelAdminLayout = new javax.swing.GroupLayout(jPanelAdmin);
         jPanelAdmin.setLayout(jPanelAdminLayout);
         jPanelAdminLayout.setHorizontalGroup(
@@ -441,7 +458,8 @@ public class MainControlInterface extends javax.swing.JFrame {
                     .addComponent(txtAccount)
                     .addComponent(btnServices, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
                     .addComponent(btnOwners, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-                    .addComponent(btnContract, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE))
+                    .addComponent(btnContract, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                    .addComponent(txtFeedback, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
 
@@ -454,17 +472,18 @@ public class MainControlInterface extends javax.swing.JFrame {
                 .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanelAdminLayout.createSequentialGroup()
                         .addComponent(txtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
+                        .addComponent(txtFeedback, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnServices, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnServices, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnHolding, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCollaborator, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnGuest, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnContract, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnCollaborator, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                    .addComponent(btnGuest, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                    .addComponent(btnContract, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -881,6 +900,11 @@ public class MainControlInterface extends javax.swing.JFrame {
         
     }//GEN-LAST:event_guBtnFeedbackActionPerformed
 
+    private void txtFeedbackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFeedbackMouseClicked
+        // TODO add your handling code here:
+        new FeedBackToAdmin(this, true, continueAccount, continueType, conn, stmt, this).setVisible(true);
+    }//GEN-LAST:event_txtFeedbackMouseClicked
+
     public void invokeContract() {
         objUIContract = new uiContract_2(continueAccount, continueType, conn, stmt, this);
         objUIContract.setVisible(true);
@@ -953,6 +977,7 @@ public class MainControlInterface extends javax.swing.JFrame {
     private javax.swing.JTextField txtCoLogout;
     private javax.swing.JTextField txtCoName;
     private javax.swing.JTextField txtCoNumberOfGuest;
+    private javax.swing.JTextField txtFeedback;
     private javax.swing.JTextField txtNotification;
     // End of variables declaration//GEN-END:variables
 
