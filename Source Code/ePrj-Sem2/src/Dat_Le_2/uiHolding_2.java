@@ -1320,6 +1320,8 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             showTable(sql);
             btnAdd.setText("Add");
             manageBtn(true, true, true, true);
+            btnMakeContract.setEnabled(true);
+            btnMakeContract.doClick();
         }
         
     }//GEN-LAST:event_btnAddActionPerformed

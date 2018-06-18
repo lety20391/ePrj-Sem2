@@ -146,7 +146,7 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
         {
             uiHolding_2 tempObjFrame = (uiHolding_2)objFrame;
             txtDateCon.setText(tempObjFrame.getDateHo());
-            txtPriceCon.setText(String.valueOf(tempObjFrame.getTotalHo()));
+            txtPriceCon.setText(String.valueOf(tempObjFrame.getTotalHo()));            
         }        
         setImageGuestAndCollaborator();
         //tạo giao diện gây sự chú ý
@@ -734,6 +734,8 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
                 return;
             getDataFromTextField();
             try {
+                //insert into [Contract] values ('Con01', '2018-6-3', 'Ho01', 9500, 'Da xac nhan')
+                sql = "insert into [Contract] values ('"+IDCon+"', '"+DateCon+"', '"+IDHo+"', "+ PriceCon+", '"+StatusCon+"')";
                 stmt.executeUpdate(sql);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
