@@ -63,7 +63,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     SearchData objSearch;
     
     Nam.MainControlInterface objMain;
-    TestMain.TestMain objMain2;
+    //TestMain.TestMain2 objMain2;
     uiContract_2 objContract;
     Library.G2FrameInterface objG2Frame;
     Tuyet_Duyen.Services_2 objSer2;
@@ -1756,8 +1756,8 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             objMain.setVisible(true);
             returnDataToMainInterface();
         }
-        if (objMain2 != null)
-            objMain2.setVisible(true);
+//        if (objMain2 != null)
+//            objMain2.setVisible(true);
         super.dispose();
     }
 
