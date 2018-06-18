@@ -7,7 +7,6 @@ package Nam;
 
 import Duy.QuanlyCTV_2;
 import Library.G2FileBrowserExtend;
-import Tuyet_Duyen.Theme_guest_2;
 import java.awt.Image;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -1151,9 +1150,10 @@ public class RegisterForm extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
             if (previousPage.equalsIgnoreCase("main")) {
                 new MainControlInterface(continueAccount, continueType, conn, stmt).setVisible(true);
-            } else {
-                new QuanlyCTV_2(continueAccount, continueType, conn, stmt).setVisible(true);
             }
+//            else {
+//                new QuanlyCTV_2(continueAccount, continueType, conn, stmt).setVisible(true);
+//            }
             dispose();
         } else {
             coResetText();
@@ -1169,13 +1169,14 @@ public class RegisterForm extends javax.swing.JFrame {
                     new MainControlInterface(continueAccount, continueType, conn, stmt).setVisible(true);
                 }
             });
-        } else {
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                public void run() {
-                    new QuanlyCTV_2(continueAccount, continueType, conn, stmt).setVisible(true);
-                }
-            });
         }
+//         else {
+//            java.awt.EventQueue.invokeLater(new Runnable() {
+//                public void run() {
+//                    new QuanlyCTV_2(continueAccount, continueType, conn, stmt).setVisible(true);
+//                }
+//            });
+//        }
         dispose();
     }//GEN-LAST:event_btnBackCoActionPerformed
 
@@ -1187,13 +1188,14 @@ public class RegisterForm extends javax.swing.JFrame {
                     new MainControlInterface(continueAccount, continueType, conn, stmt).setVisible(true);
                 }
             });
-        } else {
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                public void run() {
-                    new Theme_guest_2(continueAccount, continueType, conn, stmt).setVisible(true);
-                }
-            });
         }
+//        else {
+//            java.awt.EventQueue.invokeLater(new Runnable() {
+//                public void run() {
+//                    new Theme_guest_2(continueAccount, continueType, conn, stmt).setVisible(true);
+//                }
+//            });
+//        }
         dispose();
     }//GEN-LAST:event_btnBackGuActionPerformed
 
@@ -1261,9 +1263,10 @@ public class RegisterForm extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
             if (previousPage.equalsIgnoreCase("main")) {
                 new MainControlInterface(continueAccount, continueType, conn, stmt).setVisible(true);
-            } else {
-                new Theme_guest_2(continueAccount, continueType, conn, stmt).setVisible(true);
             }
+//            else {
+//                new Theme_guest_2(continueAccount, continueType, conn, stmt).setVisible(true);
+//            }
             dispose();
         } else {
             guResetText();
