@@ -7,6 +7,9 @@ package TestMain;
 
 import DatabaseConnection.DatabaseConnect;
 import DatabaseConnection.connectionContainer;
+import Duy.QuanlyCTV_2;
+import Duy.QuanlyOwner_2;
+import Tuyet_Duyen.Theme_guest_2;
 import java.sql.Connection;
 import java.sql.Statement;
 import javax.swing.SwingUtilities;
@@ -18,13 +21,23 @@ import javax.swing.SwingUtilities;
 public class TestMain extends javax.swing.JFrame {
     Connection con;
     Statement stmt;
+    Dat_Le_2.uiHolding_2 objUIHolding;
+    Dat_Le_2.uiContract_2 objUIContract;
+    Duy.QuanlyCTV_2 objCTV;
+    Duy.QuanlyOwner_2 objOwner;
+    Tuyet_Duyen.Services_2 objService;
+    Tuyet_Duyen.Theme_guest_2 objThemeGuest;
+    Ngoc_Duyen.QLCH.QLCH1 objQLCH;
+    String account,type;
 
     /**
      * Creates new form TestMain
      */
     public TestMain() {
         initComponents();
-        connectSQL();
+        //connectSQL();
+        account = "Ad01";
+        type = "ad";
     }
     
     public void connectSQL()
@@ -35,6 +48,8 @@ public class TestMain extends javax.swing.JFrame {
         
         con = connectContainer.getObjCon();
         stmt = connectContainer.getStatement();
+        if (con != null)
+            lbStatus.setText("Connected");
     }
     
 
@@ -61,6 +76,10 @@ public class TestMain extends javax.swing.JFrame {
         btnDuyCTV = new javax.swing.JButton();
         btnDuyOwner = new javax.swing.JButton();
         btnDatHolding = new javax.swing.JButton();
+        btnConnect = new javax.swing.JButton();
+        lbStatus = new javax.swing.JLabel();
+        btnDatContract = new javax.swing.JButton();
+        btnDuyenQLCH = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -126,7 +145,7 @@ public class TestMain extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
                         .addComponent(txtPort, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,6 +187,30 @@ public class TestMain extends javax.swing.JFrame {
             }
         });
 
+        btnConnect.setText("Connect SQL");
+        btnConnect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConnectActionPerformed(evt);
+            }
+        });
+
+        lbStatus.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbStatus.setText("Not Connect");
+
+        btnDatContract.setText("Dat Contract");
+        btnDatContract.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDatContractActionPerformed(evt);
+            }
+        });
+
+        btnDuyenQLCH.setText("Duyen QLCH");
+        btnDuyenQLCH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDuyenQLCHActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -181,27 +224,39 @@ public class TestMain extends javax.swing.JFrame {
                             .addComponent(btnDuyenGuest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnConnect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnDuyCTV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnDuyOwner, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addComponent(btnDatHolding, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnDatHolding, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(btnDatContract, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDuyenQLCH, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(71, 71, 71)
+                .addGap(5, 5, 5)
+                .addComponent(lbStatus)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnConnect)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDuyenService)
                     .addComponent(btnDuyCTV)
-                    .addComponent(btnDatHolding))
+                    .addComponent(btnDatHolding)
+                    .addComponent(btnDuyenQLCH))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDuyenGuest)
-                    .addComponent(btnDuyOwner))
+                    .addComponent(btnDuyOwner)
+                    .addComponent(btnDatContract))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -216,14 +271,16 @@ public class TestMain extends javax.swing.JFrame {
 
     private void btnDuyenServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuyenServiceActionPerformed
         // TODO add your handling code here:
-        SwingUtilities.invokeLater(new Runnable()
-            {
-                public void run()
-                {
-                    new Tuyet_Duyen.Services_2(con, stmt).setVisible(true);
-                }
-            }
-        );
+//        SwingUtilities.invokeLater(new Runnable()
+//            {
+//                public void run()
+//                {
+//                    //new Tuyet_Duyen.Services_2(con, stmt).setVisible(true);
+//                    objService = new Services_2(account, type, con, stmt);
+//                    objService.setVisible(true);
+//                }
+//            }
+//        );
     }//GEN-LAST:event_btnDuyenServiceActionPerformed
 
     private void btnDuyenGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuyenGuestActionPerformed
@@ -232,7 +289,9 @@ public class TestMain extends javax.swing.JFrame {
             {
                 public void run()
                 {
-                    new Tuyet_Duyen.Theme_guest_2(con, stmt).setVisible(true);
+                    //new Tuyet_Duyen.Theme_guest_2(con, stmt).setVisible(true);
+                    objThemeGuest = new Theme_guest_2(account, type,con, stmt);
+                    objThemeGuest.setVisible(true);
                 }
             }
         );
@@ -244,7 +303,8 @@ public class TestMain extends javax.swing.JFrame {
             {
                 public void run()
                 {
-                    new Duy.QuanlyCTV_2(con, stmt).setVisible(true);
+                    objCTV = new QuanlyCTV_2(account, type, con, stmt);
+                    objCTV.setVisible(true);
                 }
             }        
         );
@@ -256,7 +316,9 @@ public class TestMain extends javax.swing.JFrame {
         {
             public void run()
             {
-                new Duy.QuanlyOwner_2(con, stmt).setVisible(true);
+                //new Duy.QuanlyOwner_2(con, stmt).setVisible(true);
+                objOwner = new QuanlyOwner_2(account, type, con, stmt);
+                objOwner.setVisible(true);
             }
         }        
         );
@@ -268,11 +330,44 @@ public class TestMain extends javax.swing.JFrame {
         {
             public void run()
             {
-                new Dat_Le_2.uiHolding_2(con, stmt).setVisible(true);
+                invokeUIHolding();
             }
         }        
         );
     }//GEN-LAST:event_btnDatHoldingActionPerformed
+
+    public void invokeUIHolding()
+    {
+//        objUIHolding = new uiHolding_2(account, type, con, stmt, this);
+//        objUIHolding.setVisible(true);
+    }
+    
+    private void btnConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConnectActionPerformed
+        // TODO add your handling code here:
+        connectSQL();
+    }//GEN-LAST:event_btnConnectActionPerformed
+
+    private void btnDatContractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatContractActionPerformed
+        // TODO add your handling code here:
+//        SwingUtilities.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                objUIContract = new uiContract_2(account, type, con, stmt);
+//                objUIContract.setVisible(true);
+//            }
+//        });
+    }//GEN-LAST:event_btnDatContractActionPerformed
+
+    private void btnDuyenQLCHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuyenQLCHActionPerformed
+        // TODO add your handling code here:
+//        SwingUtilities.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                objQLCH = new QLCH1(account, type, con, stmt);
+//                objQLCH.setVisible(true);
+//            }
+//        });
+    }//GEN-LAST:event_btnDuyenQLCHActionPerformed
 
     /**
      * @param args the command line arguments
@@ -310,16 +405,20 @@ public class TestMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConnect;
+    private javax.swing.JButton btnDatContract;
     private javax.swing.JButton btnDatHolding;
     private javax.swing.JButton btnDuyCTV;
     private javax.swing.JButton btnDuyOwner;
     private javax.swing.JButton btnDuyenGuest;
+    private javax.swing.JButton btnDuyenQLCH;
     private javax.swing.JButton btnDuyenService;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lbStatus;
     private javax.swing.JTextField txtDatabase;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPass;

@@ -7,7 +7,12 @@ package Dat_Le_2;
 
 import Dat_Le.*;
 import DatabaseConnection.DatabaseConnect;
+import Library.G2Panel;
+import Library.G2TextField;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Insets;
 import java.sql.*;
 import java.util.Collection;
 import java.util.HashMap;
@@ -15,15 +20,22 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
+import javax.swing.BorderFactory;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
  * @author Dat ThinkPad
  */
-public class uiContract_2 extends javax.swing.JFrame {
+public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameInterface{
     Statement stmt;
     DatabaseConnect objDBConnect;
     Connection objConnection;
@@ -38,90 +50,261 @@ public class uiContract_2 extends javax.swing.JFrame {
     
     String IDCon, DateCon, IDHo, StatusCon;
     Double PriceCon;
+    String IDCo, IDGu, ImageGu, ImageCo;
     
-
+    Library.DateChooser diaDateChooser;
+    javax.swing.JFrame objFrame;
+    
+    Nam.MainControlInterface objMain;
+    
+    SearchData objSearch;
+    String account, type;
+    int initRow;
+    boolean checkInitRow;
+    
     /**
      * Creates new form uiContract
      */
-    public uiContract_2() {
-        initComponents();
-        connectToDatabase();
-        initData();
+    public uiContract_2(String Account, String type, Connection objConnection, Statement stmt, Nam.MainControlInterface objMain) {
+        this.account = account;
+        this.type = type;
+        this.objConnection = objConnection;
+        this.stmt = stmt;
+        this.objMain = objMain;
+        initComponents();        
+        pContract.attachButtonAndSetMainRight(pContract, type);
+        manageConfirmButton();
+        attachRegexAndErrorInform(pContract);
         showTable("Select * from Contract");
-        manageBtn(true, true, false, false);
+        initDataFromMainControl();
+        changeStatusAllTextField(pContract, false);
     }
+    
+    public uiContract_2(String Account, String type, Connection objConnection, Statement stmt, javax.swing.JFrame objFrame, Nam.MainControlInterface objMain) {
+        this.account = account;
+        this.type = type;
+        this.objConnection = objConnection;
+        this.stmt = stmt;
+        this.objMain = objMain;
+        this.objFrame = objFrame;
+        initComponents();            
+        pContract.attachButtonAndSetMainRight(pContract, type);
+        manageConfirmButton();
+        attachRegexAndErrorInform(pContract);
+        showTable("Select * from Contract");
+        changeStatusAllTextField(pContract, false);
+        initData();
+    }
+    
+    private void initDataFromMainControl()
+    {
+        if(objMain.getIDCon().isEmpty())
+            return;
+        IDCon = objMain.getIDCon();
+        checkInitRow = false;
+        TableModel objModel = tblCon.getModel();
+        for (int i = 0; i < objModel.getRowCount(); i++) {
+            if (IDCon.equalsIgnoreCase((String)objModel.getValueAt(i, 0)))
+            {
+                checkInitRow = true;
+                initRow = i;
+                break;
+            }
+        }        
+        tblMouseClickedProcess();
+    }
+    
+    public void manageConfirmButton()
+    {
+        if (type.equalsIgnoreCase("ad"))
+            btnConfirm.setEnabled(true);
+        else
+            btnConfirm.setEnabled(false);
+    }
+    
+//    public void initData()
+//    {
+//        dataMap = new HashMap<String, String>();
+//        dataMap.put("IDCon", "CON001");
+//        dataMap.put("DateCon", "12-12-2018");
+//        dataMap.put("IDHo", "HOL001" );
+//        dataMap.put("PriceCon", "1234");
+//        dataMap.put("StatusCon", "Waiting");
+//        btnConfirm.setEnabled(false);        
+//        txtMap = new HashMap<String, JTextField>(); 
+//        
+//    }
     
     public void initData()
     {
-        dataMap = new HashMap<String, String>();
-        dataMap.put("IDCon", "CON001");
-        dataMap.put("DateCon", "12-12-2018");
-        dataMap.put("IDHo", "HOL001" );
-        dataMap.put("PriceCon", "1234");
-        dataMap.put("StatusCon", "Waiting");
-        btnConfirm.setEnabled(false);
-        
-        txtMap = new HashMap<String, JTextField>();  
-    }
-    
-    public void testCollection(HashMap data, JPanel panel)
-    {
-        Component[] objGetComponents = pContract.getComponents();
-        
-        Set keySet = data.entrySet();
-        Iterator ite = keySet.iterator();
-        
-        while (ite.hasNext())
+        IDHo = objMain.getIDHo();
+        txtIDHo.setText(IDHo);
+        IDCo = objMain.getIDCo();
+        IDGu = objMain.getIDGu();
+        txtStatusCon.setText("Waiting");
+        if (objFrame instanceof uiHolding_2)
         {
-            Map.Entry entry = (Map.Entry)ite.next();
-            String tempKey = (String)entry.getKey();
-            System.out.println(tempKey);
-        }
-        
-    }
-    
-    
-    public void connectToDatabase()
-    {
-        objDBConnect = new DatabaseConnect();        
-        objConnection = objDBConnect.DBConnect("Sem2_project_group2", "sa", "abc123");
-        try {
-            stmt = objConnection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void bindTextField()
-    {
-        Component[] objGetComponents = pContract.getComponents();
-        for (Component objTemp : objGetComponents) {
-            if (objTemp instanceof JTextField)
+            uiHolding_2 tempObjFrame = (uiHolding_2)objFrame;
+            txtDateCon.setText(tempObjFrame.getDateHo());
+            txtPriceCon.setText(String.valueOf(tempObjFrame.getTotalHo()));
+        }        
+        setImageGuestAndCollaborator();
+        //tạo giao diện gây sự chú ý
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
             {
-                JTextField obj = (JTextField) objTemp;
-                
-                Set keySet = dataMap.keySet();
-                Iterator ite = keySet.iterator();
-                
-                
-                while(ite.hasNext())
-                {
-                    String key = (String)ite.next();
-                    String name = obj.getText();
-                    String test = name.substring(3);
-                    
-                    if (test.equalsIgnoreCase(key))
-                    {
-                        txtMap.put(key, obj);
-                        obj.setText(dataMap.get(key));
-                    }
-                }
-                
-                
+                createAttentionGUI();
             }
         }
+        );
+          //createAttentionGUI();
+    }
+    
+    public void createAttentionGUI()
+    {        
+        Component[] objListComp = pContract.getComponents();
+        for (Component objComp : objListComp) {
+            if(objComp instanceof G2TextField)
+                objComp.setBackground(Color.GREEN);
+        }
+        btnAdd.doClick();
+        btnAdd.setBackground(Color.GREEN);
+        btnConfirm.setEnabled(false);
+        JOptionPane.showMessageDialog(this, "Please fill in GREEN form and Click Save button to complete your contract", "New Contract", JOptionPane.INFORMATION_MESSAGE);
         
     }
+    
+    public void attachRegexAndErrorInform(Library.G2Panel panel)
+    {
+        //regexMap = new HashMap<JTextField, String>();
+        Component[] listComponent = panel.getComponents();
+        for (Component component : listComponent) {
+            if (component instanceof Library.G2TextField)
+            {
+                G2TextField tempTextField = (G2TextField)component;
+                //regexMap.put(tempTextField, tempTextField.getText() );
+                String data = tempTextField.getText();
+                tempTextField.setPatStr(data.substring(0, data.indexOf("err")));
+                String tempErr = "' Must change to type of: ";
+                tempTextField.setError(tempErr + data.substring(data.indexOf("err") + 3, data.length()));                
+                tempTextField.setText("");
+            }
+        }
+    }
+    
+    public void initDateChooser()
+    {
+        diaDateChooser = new Library.DateChooser(this, true);
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                diaDateChooser.showGUI();
+                //diaDateChooser.setVisible(true);
+            }
+        }        
+        );   
+    }
+    
+    public void clearAllTextField(G2Panel panel)
+    {
+        Component[] objComponents = panel.getComponents();
+        for (Component objComp : objComponents) {
+            if (objComp instanceof G2TextField)
+                ((G2TextField) objComp).setText("");
+        }
+    }
+    
+    public void changeStatusAllTextField(G2Panel panel, boolean status)
+    {
+        Component[] objComponents = panel.getComponents();
+        for (Component objComp : objComponents) {
+            if (objComp instanceof G2TextField)
+                ((G2TextField) objComp).setEditable(status);
+        }
+        txtStatusCon.setEditable(false);
+    }
+    
+    public boolean validateAllTextField()
+    {
+        Component[] objListComp = pContract.getComponents();
+        String allError = "Please fix GREEN TextField\n";
+        boolean error = false;
+        for (Component objComp : objListComp) {
+            if (objComp instanceof G2TextField)
+            {
+                String temp = ((G2TextField) objComp).allValidate();
+                if (!temp.isEmpty())
+                {
+                    error = true;
+                    allError += temp+ "\n";
+                }
+            }
+        }
+        if (error == true)
+            JOptionPane.showMessageDialog(this, allError, "INPUT ERROR", JOptionPane.ERROR_MESSAGE);
+        return error;
+    }
+    
+//    public void testCollection(HashMap data, JPanel panel)
+//    {
+//        Component[] objGetComponents = pContract.getComponents();
+//        
+//        Set keySet = data.entrySet();
+//        Iterator ite = keySet.iterator();
+//        
+//        while (ite.hasNext())
+//        {
+//            Map.Entry entry = (Map.Entry)ite.next();
+//            String tempKey = (String)entry.getKey();
+//            System.out.println(tempKey);
+//        }
+//        
+//    }
+    
+    
+//    public void connectToDatabase()
+//    {
+//        objDBConnect = new DatabaseConnect();        
+//        objConnection = objDBConnect.DBConnect("Sem2_project_group2", "sa", "abc123");
+//        try {
+//            stmt = objConnection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+//    }
+
+//    public void bindTextField()
+//    {
+//        Component[] objGetComponents = pContract.getComponents();
+//        for (Component objTemp : objGetComponents) {
+//            if (objTemp instanceof JTextField)
+//            {
+//                JTextField obj = (JTextField) objTemp;
+//                
+//                Set keySet = dataMap.keySet();
+//                Iterator ite = keySet.iterator();
+//                
+//                
+//                while(ite.hasNext())
+//                {
+//                    String key = (String)ite.next();
+//                    String name = obj.getText();
+//                    String test = name.substring(3);
+//                    
+//                    if (test.equalsIgnoreCase(key))
+//                    {
+//                        txtMap.put(key, obj);
+//                        obj.setText(dataMap.get(key));
+//                    }
+//                }
+//                
+//                
+//            }
+//        }
+//        
+//    }
     
     public void manageBtn(boolean btnSearchStatus, boolean btnAddStatus, boolean btnUpdateStatus, boolean btnDeleteStatus)
     {
@@ -129,6 +312,7 @@ public class uiContract_2 extends javax.swing.JFrame {
         btnAdd.setEnabled(btnAddStatus);
         btnUpdate.setEnabled(btnUpdateStatus);
         btnDelete.setEnabled(btnDeleteStatus);
+        pContract.attachButtonAndSetMainRight(pContract, type);
     }
     
     public void showTable(String sql)
@@ -171,6 +355,15 @@ public class uiContract_2 extends javax.swing.JFrame {
         tblCon.setModel(conModel);
         //tblBook.setModel(bookModel);
     }
+    public void getDataFromTextField()
+    {
+        IDCon = txtIDCon.getText();
+        DateCon = txtDateCon.getText();
+        IDHo = txtIDHo.getText();
+        PriceCon = Double.parseDouble(txtPriceCon.getText());
+        StatusCon = txtStatusCon.getText();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -186,19 +379,19 @@ public class uiContract_2 extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
+        pGuestImage = new Library.G2ImagePanel();
+        pCollaboratorImage = new Library.G2ImagePanel();
         jLabel13 = new javax.swing.JLabel();
-        pContract = new javax.swing.JPanel();
+        pContract = new Library.G2Panel();
         jLabel14 = new javax.swing.JLabel();
-        txtIDCon = new javax.swing.JTextField();
-        txtIDHo = new javax.swing.JTextField();
+        txtIDCon = new Library.G2TextField();
+        txtIDHo = new Library.G2TextField();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        txtDateCon = new javax.swing.JTextField();
-        txtPriceCon = new javax.swing.JTextField();
+        txtDateCon = new Library.G2TextField();
+        txtPriceCon = new Library.G2TextField();
         jLabel17 = new javax.swing.JLabel();
-        txtStatusCon = new javax.swing.JTextField();
+        txtStatusCon = new Library.G2TextField();
         jLabel18 = new javax.swing.JLabel();
         btnSearch = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
@@ -206,7 +399,7 @@ public class uiContract_2 extends javax.swing.JFrame {
         btnDelete = new javax.swing.JButton();
         btnConfirm = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -259,29 +452,29 @@ public class uiContract_2 extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setText("Guest");
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pGuestImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pGuestImageLayout = new javax.swing.GroupLayout(pGuestImage);
+        pGuestImage.setLayout(pGuestImageLayout);
+        pGuestImageLayout.setHorizontalGroup(
+            pGuestImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 153, Short.MAX_VALUE)
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pGuestImageLayout.setVerticalGroup(
+            pGuestImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 190, Short.MAX_VALUE)
         );
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pCollaboratorImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pCollaboratorImageLayout = new javax.swing.GroupLayout(pCollaboratorImage);
+        pCollaboratorImage.setLayout(pCollaboratorImageLayout);
+        pCollaboratorImageLayout.setHorizontalGroup(
+            pCollaboratorImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 157, Short.MAX_VALUE)
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pCollaboratorImageLayout.setVerticalGroup(
+            pCollaboratorImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
@@ -295,12 +488,12 @@ public class uiContract_2 extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pGuestImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(98, 98, 98)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pCollaboratorImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -312,8 +505,8 @@ public class uiContract_2 extends javax.swing.JFrame {
                     .addComponent(jLabel13))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pGuestImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pCollaboratorImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -322,9 +515,9 @@ public class uiContract_2 extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel14.setText("ID");
 
-        txtIDCon.setText("txtIDCon");
+        txtIDCon.setText("^(Con)\\d+errHoxx with x is number");
 
-        txtIDHo.setText("txtIDHo");
+        txtIDHo.setText("^(Ho)\\d+errHoxx with x is number");
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel15.setText("ID Holding");
@@ -332,19 +525,25 @@ public class uiContract_2 extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel16.setText("Date");
 
-        txtDateCon.setText("txtDateCon");
+        txtDateCon.setText("^\\d{4}(-)\\d{2}(-)\\d{2}erryyyy-MM-dd");
+        txtDateCon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtDateConMouseClicked(evt);
+            }
+        });
         txtDateCon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDateConActionPerformed(evt);
             }
         });
 
-        txtPriceCon.setText("txtPriceCon");
+        txtPriceCon.setText("\\d+(.)*(\\d)+errxxx.xx with x is number");
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel17.setText("Price");
 
-        txtStatusCon.setText("txtStatusCon");
+        txtStatusCon.setEditable(false);
+        txtStatusCon.setText("\\w+(.)*\\werrnormal paragraph");
         txtStatusCon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtStatusConActionPerformed(evt);
@@ -355,6 +554,11 @@ public class uiContract_2 extends javax.swing.JFrame {
         jLabel18.setText("Status");
 
         btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -485,7 +689,15 @@ public class uiContract_2 extends javax.swing.JFrame {
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         // TODO add your handling code here:
-        this.bindTextField();
+        //this.bindTextField();
+        if (!type.equalsIgnoreCase("ad"))
+        {
+            JOptionPane.showMessageDialog(this, "Sorry. This Feature just be used by Administrator", "Warning", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        txtStatusCon.setText("Activated");
+        btnUpdate.setText("Save");
+        btnUpdate.doClick();
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void txtDateConActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDateConActionPerformed
@@ -510,25 +722,19 @@ public class uiContract_2 extends javax.swing.JFrame {
 //            }
 //        }
         
-        //lay du lieu tu textField
-        IDCon = txtIDCon.getText();
-        DateCon = txtDateCon.getText();
-        IDHo = txtIDHo.getText();
-        PriceCon = Double.parseDouble(txtPriceCon.getText());
-        StatusCon = txtStatusCon.getText();
-                
-        manageBtn(false, true, false, false);
-        
+        changeStatusAllTextField(pContract, true);
+        manageBtn(false, true, false, false);        
         String labelButton = btnAdd.getText();
         if (labelButton.equalsIgnoreCase("Add"))
         {
             btnAdd.setText("Save");
         }else
         {
-        
+            if (validateAllTextField())
+                return;
+            getDataFromTextField();
             try {
                 stmt.executeUpdate(sql);
-
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -536,15 +742,29 @@ public class uiContract_2 extends javax.swing.JFrame {
             showTable(sql);
             btnAdd.setText("Add");
             manageBtn(true, true, true, true);
+            clearAllTextField(pContract);
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void tblConMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblConMouseClicked
         // TODO add your handling code here:
+        //tách riêng thành method khác để tái sử dụng khi cần
+        //init Data từ MainControl
+        tblMouseClickedProcess();
+    }//GEN-LAST:event_tblConMouseClicked
+
+    private void tblMouseClickedProcess()
+    {
         int row;
-        
-        row = tblCon.getSelectedRow();
-        
+        //nếu có dữ liệu init thì load trước
+        //không có thì đợi click chuột vào bảng mới load
+        if (checkInitRow)
+        {
+            row = initRow;
+            checkInitRow = false;
+        }
+        else
+            row = tblCon.getSelectedRow();
         IDCon = (String) tblCon.getValueAt(row, 0);       
         DateCon = (String)tblCon.getValueAt(row, 1);
         IDHo = (String)tblCon.getValueAt(row, 2);
@@ -556,27 +776,61 @@ public class uiContract_2 extends javax.swing.JFrame {
         txtIDHo.setText(IDHo);
         txtPriceCon.setText(String.valueOf(PriceCon));
         txtStatusCon.setText(StatusCon);
-    }//GEN-LAST:event_tblConMouseClicked
-
+        
+        setImageGuestAndCollaborator();
+    }
+    
+    public void setImageGuestAndCollaborator()
+    {
+        try {
+            //select IDGu, IDCo from Holding where IDHo = 'Ho01'
+            sql = "select IDGu, IDCo from Holding where IDHo = '"+ IDHo +"'";
+            rs = stmt.executeQuery(sql);
+            rs.beforeFirst();
+            while(rs.next())
+            {
+                IDGu = rs.getString("IDGu");
+                IDCo = rs.getString("IDCo");
+            }
+            
+            //find Guest Image
+            rs = stmt.executeQuery("Select ImageGu from Guest where IDGu = '" + IDGu + "'");
+            rs.beforeFirst();
+            rs.next();
+            ImageGu = rs.getString("ImageGu");
+            System.out.println(ImageGu);
+            
+            //find Collaborator Image
+            rs = stmt.executeQuery("Select ImageCo from Collaborator where IDCo = '" + IDCo + "'");
+            rs.beforeFirst();
+            rs.next();
+            ImageCo = rs.getString("ImageCo");
+            System.out.println(ImageCo);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        pGuestImage.inputImage(ImageGu);
+        pCollaboratorImage.inputImage(ImageCo);
+    }
+    
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-        IDCon = txtIDCon.getText();
-        DateCon = txtDateCon.getText();
-        IDHo = txtIDHo.getText();
-        PriceCon = Double.parseDouble(txtPriceCon.getText());
-        StatusCon = txtStatusCon.getText();
-                
+                        
         manageBtn(false, false, true, false);
-        
+        changeStatusAllTextField(pContract, true);
         String labelButton = btnUpdate.getText();
         if (labelButton.equalsIgnoreCase("Update"))
         {
             btnUpdate.setText("Save");
         }else
         {
-        
+            if (validateAllTextField())
+                return;
+            getDataFromTextField();        
             try {
-                sql = "";
+                //update Contract set DateCon = '1991-03-03', IDHo = 'Ho01', PriceCon = 1234, StatusCon = 'Blocked' where IDCon = 'Con01'
+                sql = "update Contract set DateCon = '"+ DateCon +"', IDHo = '"+ IDHo +"', PriceCon = "+ PriceCon +", StatusCon = '" + StatusCon + "' where IDCon = '" + IDCon + "'";
                 stmt.executeUpdate(sql);
 
             } catch (Exception e) {
@@ -585,9 +839,32 @@ public class uiContract_2 extends javax.swing.JFrame {
             sql = "select * from COntract";
             showTable(sql);
             btnUpdate.setText("Update");
+            clearAllTextField(pContract);
             manageBtn(true, true, true, true);
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void txtDateConMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDateConMouseClicked
+        // TODO add your handling code here:
+        initDateChooser();
+        diaDateChooser.addListener(txtDateCon);
+        diaDateChooser.setVisible(true);
+    }//GEN-LAST:event_txtDateConMouseClicked
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+        String[] arrSearch = {"IDCon" , "DateCon" , "IDHo" ,"StatusCon" };
+        objSearch = new SearchData(this, true);
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                objSearch.showGUI(arrSearch, "Contract");
+                objSearch.setVisible(true);
+            }
+        }        
+        );
+    }//GEN-LAST:event_btnSearchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -618,11 +895,11 @@ public class uiContract_2 extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new uiContract_2().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new uiContract_2().setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -641,15 +918,56 @@ public class uiContract_2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    /*
+    private javax.swing.JPanel pCollaboratorImage;
+    */
+    private Library.G2ImagePanel pCollaboratorImage;
+    /*
     private javax.swing.JPanel pContract;
+    */
+    private Library.G2Panel pContract;
+    /*
+    private javax.swing.JPanel pGuestImage;
+    */
+    private Library.G2ImagePanel pGuestImage;
     private javax.swing.JTable tblCon;
+    /*
     private javax.swing.JTextField txtDateCon;
+    */
+    private Library.G2TextField txtDateCon;
+    /*
     private javax.swing.JTextField txtIDCon;
+    */
+    private Library.G2TextField txtIDCon;
+    /*
     private javax.swing.JTextField txtIDHo;
+    */
+    private Library.G2TextField txtIDHo;
+    /*
     private javax.swing.JTextField txtPriceCon;
+    */
+    private Library.G2TextField txtPriceCon;
+    /*
     private javax.swing.JTextField txtStatusCon;
+    */
+    private Library.G2TextField txtStatusCon;
     // End of variables declaration//GEN-END:variables
+@Override
+    public void dispose(){
+        if (objMain != null)
+        {
+            objMain.setVisible(true);
+            returnDataToMainInterface();
+        }
+        super.dispose();
+    }
+
+    public void returnDataToMainInterface()
+    {
+        objMain.setIDHo(IDHo);
+        objMain.setIDCo(IDCo);
+        objMain.setIDGu(IDGu);
+        objMain.setIDCon(IDCon);
+    }
 }

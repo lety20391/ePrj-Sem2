@@ -5,8 +5,9 @@
  */
 package Tuyet_Duyen;
 
-import DatabaseConnection.DatabaseConnect;
-import DatabaseConnection.connectionContainer;
+import Library.G2FileBrowserExtend;
+import Library.G2Panel;
+import Library.G2TextField;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -14,6 +15,10 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Nam.RegisterForm;
+import java.awt.Component;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -25,29 +30,156 @@ public class Theme_guest_2 extends javax.swing.JFrame {
      * Creates new form Theme_guest
      */
     DefaultTableModel CusModel;
-    Vector header,data,row;
+    Vector header, data, row;
     String sql;
     ResultSet rs;
     Statement stmt;
     Connection objConnection;
-    
-    public Theme_guest_2(Connection objConnection, Statement stmt) {
+
+    String IDGu;
+    String NameGu, DOBGu, IdentificationNumberGu, PhoneGu, EmailGu, ImageGu, StatusGu, IDCo;
+
+    /**/
+    String continueAccount, type;
+    Nam.MainControlInterface objMain;
+    int initRow;
+    boolean checkInitRow;
+
+    public Theme_guest_2(String account, String type, Connection objConnection, Statement stmt, Nam.MainControlInterface objMain) {
         this.objConnection = objConnection;
         this.stmt = stmt;
+        continueAccount = account;
+        this.type = type;
+        this.objMain = objMain;
         initComponents();
         
+        pButton.attachButtonAndSetMainRight(pButton, type);
+        attachRegexAndErrorInform(pGuest);
         //connectSQL();
         showTable();
-        manageButton(true,false,false);
-        manageTextField(false, false, false,false, false, false,false, false);
+        initData();
+        //manageButton(true,false,false);
+        manageTextField(false, false, false, false, false, false, false, false);
     }
-    
+     public Theme_guest_2(String account, String type, Connection objConnection, Statement stmt) {
+        this.objConnection = objConnection;
+        this.stmt = stmt;
+        continueAccount = account;
+        this.type = type;
+        this.objMain = objMain;
+        initComponents();
+        
+        pButton.attachButtonAndSetMainRight(pButton, type);
+        attachRegexAndErrorInform(pGuest);
+        //connectSQL();
+        showTable();
+        initData();
+        //manageButton(true,false,false);
+        manageTextField(false, false, false, false, false, false, false, false);
+    }
+    //init data get from objMain
+    public void initData()
+    {
+        if(objMain.getIDGu().isEmpty())
+            return;
+        IDGu = objMain.getIDGu();
+        checkInitRow = false;
+        TableModel objModel = tblCustomer.getModel();
+        for (int i = 0; i < objModel.getRowCount(); i++) {
+            if (IDGu.equalsIgnoreCase((String)objModel.getValueAt(i, 0)))
+            {
+                checkInitRow = true;
+                initRow = i;
+                break;
+            }
+        }        
+        tblMouseClickedProcess();
+    }
+
+    //---------------------------------------------
+    //Phần này dùng để bỏ bớt mấy cột không cần thiết trong bảng đi
+    //dữ liệu của Table vẫn được lưu trong modal
+    //cột loại bỏ chỉ là view
+    //----------------------------------------------
+    //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+    public void modifyTable() {
+        tblCustomer.removeColumn(tblCustomer.getColumn("Identi No"));
+        tblCustomer.removeColumn(tblCustomer.getColumn("Email"));
+        tblCustomer.removeColumn(tblCustomer.getColumn("Image"));
+        tblCustomer.removeColumn(tblCustomer.getColumn("Collaborator ID"));
+    }
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //---------------------------------------------
+    //Phần này dùng để bỏ bớt mấy cột không cần thiết trong bảng đi
+    //dữ liệu của Table vẫn được lưu trong modal
+    //cột loại bỏ chỉ là view
+    //----------------------------------------------
+
+    //-------------------------------------------------------
+    //cái này dùng để lấy giá trị (gồm Pattern và Thông báo lỗi)
+    //mà mình thêm vào TextField ở trong phần Design
+    //sau đó nhét vào trong tính năng kiểm tra của
+    //G2TextField
+    //--------------------------------------------------------
+    //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+    public void attachRegexAndErrorInform(Library.G2Panel panel) {
+        //regexMap = new HashMap<JTextField, String>();
+        Component[] listComponent = panel.getComponents();
+        for (Component component : listComponent) {
+            if (component instanceof Library.G2TextField) {
+                G2TextField tempTextField = (G2TextField) component;
+                //regexMap.put(tempTextField, tempTextField.getText() );
+                String data = tempTextField.getText();
+                tempTextField.setPatStr(data.substring(0, data.indexOf("err")));
+                String tempErr = "' Must change to type of: ";
+                tempTextField.setError(tempErr + data.substring(data.indexOf("err") + 3, data.length()));
+                tempTextField.setText("");
+            }
+        }
+    }
+
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //-------------------------------------------------------
+    //cái này dùng để lấy giá trị (gồm Pattern và Thông báo lỗi)
+    //mà mình thêm vào TextField ở trong phần Design
+    //sau đó nhét vào trong tính năng kiểm tra của
+    //G2TextField
+    //--------------------------------------------------------
+    //--------------------------------------------------------
+    //Cái này dùng để kiểm tra coi các TextField được nhập vào
+    //có bị lỗi gì không dựa trên các Pattern mình nhập ở Design
+    //--------------------------------------------------------
+    //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+    public boolean validateAllTextField(G2Panel panel) {
+        Component[] objListComp = panel.getComponents();
+        String allError = "";
+        boolean error = false;
+        for (Component objComp : objListComp) {
+            if (objComp instanceof G2TextField) {
+                String temp = ((G2TextField) objComp).allValidate();
+                if (!temp.isEmpty()) {
+                    error = true;
+                    allError += temp + "\n";
+                }
+            }
+        }
+        if (error == true) {
+            JOptionPane.showMessageDialog(this, allError, "Bi loi", JOptionPane.ERROR_MESSAGE);
+            return true;
+        } else {
+            return false;
+        }
+    }
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //--------------------------------------------------------
+    //Cái này dùng để kiểm tra coi các TextField được nhập vào
+    //có bị lỗi gì không dựa trên các Pattern mình nhập ở Design
+    //--------------------------------------------------------
+
     //------------------------------------------------------
     //tui tạo lại method mới để connect nên tui ẩn cái này đi
     //------------------------------------------------------
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-    
-    
 //    public void connectSQL(){
 //        DatabaseConnect objDBConnect;
 //        objDBConnect = new DatabaseConnect();
@@ -59,14 +191,10 @@ public class Theme_guest_2 extends javax.swing.JFrame {
 //            System.out.println(e.getMessage());
 //        }
 //    }
-    
-    
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     //------------------------------------------------------
     //tui tạo lại method mới để connect nên tui ẩn cái này đi
     //------------------------------------------------------
-    
-    
     //------------------------------------------------------
     //đây là cái method mới để kết nối
     //------------------------------------------------------
@@ -80,36 +208,32 @@ public class Theme_guest_2 extends javax.swing.JFrame {
 //        objConnection = connectContainer.getObjCon();
 //        stmt = connectContainer.getStatement();
 //    }
-    
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     //------------------------------------------------------
     //đây là method mới để kết nối
     //------------------------------------------------------
-    
-    
-    public void showTable()
-    {
+    public void showTable() {
         CusModel = new DefaultTableModel();
         header = new Vector();
-        header.add("Service ID");
-        header.add("Service Name");
-        header.add("Service Birthday");
-        header.add("Service Identi No");
-        header.add("Service Phone");
-        header.add("Service Email");
-        header.add("Service Status");
-        header.add("Service Collaborator ID");
-      
+        header.add("ID");
+        header.add("Name");
+        header.add("Birthday");
+        header.add("Identi No");
+        header.add("Phone");
+        header.add("Email");
+        header.add("Image");
+        header.add("Status");
+        header.add("Collaborator ID");
+
         data = new Vector();
         CusModel.setRowCount(0);
-        
-        try {            
+
+        try {
             //select * from Guest
             sql = "select * from Guest";
             rs = stmt.executeQuery(sql);
             rs.beforeFirst();
-            while(rs.next())
-            {
+            while (rs.next()) {
                 row = new Vector();
                 row.add(rs.getString("IDGu"));
                 row.add(rs.getString("NameGu"));
@@ -117,6 +241,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
                 row.add(rs.getString("IdentificationNumberGu"));
                 row.add(rs.getString("PhoneGu"));
                 row.add(rs.getString("EmailGu"));
+                row.add(rs.getString("ImageGu"));
                 row.add(rs.getString("StatusGu"));
                 row.add(rs.getString("IDCo"));
                 data.add(row);
@@ -124,20 +249,20 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         CusModel.setDataVector(data, header);
         tblCustomer.setModel(CusModel);
         //tblBook.setModel(bookModel);
+        modifyTable();        
     }
 
-    public void manageButton(boolean BtnAddStatus, boolean BtnUpdateStatus, boolean BtnDeleteStatus)
-    {
+    public void manageButton(boolean BtnAddStatus, boolean BtnUpdateStatus, boolean BtnDeleteStatus) {
         btnAdd.setEnabled(BtnAddStatus);
         btnUpdate.setEnabled(BtnUpdateStatus);
         btnDelete.setEnabled(BtnDeleteStatus);
     }
-    public void manageTextField(boolean txtIDStatus, boolean txtNameStatus, boolean txtBirthStatus, boolean txtIDNoStatus, boolean txtPhoneStatus, boolean txtEmailStatus,boolean txtStatusStatus, boolean txtCoIDStatus)
-    {
+
+    public void manageTextField(boolean txtIDStatus, boolean txtNameStatus, boolean txtBirthStatus, boolean txtIDNoStatus, boolean txtPhoneStatus, boolean txtEmailStatus, boolean txtStatusStatus, boolean txtCoIDStatus) {
         txtID.setEditable(txtIDStatus);
         txtName.setEditable(txtNameStatus);
         txtBirth.setEditable(txtBirthStatus);
@@ -147,8 +272,8 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         txtStatus.setEditable(txtStatusStatus);
         txtCoID.setEditable(txtCoIDStatus);
     }
-    public void clearTxt()
-    {
+
+    public void clearTxt() {
         txtID.setText("");
         txtName.setText("");
         txtBirth.setText("");
@@ -158,6 +283,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         txtStatus.setText("");
         txtCoID.setText("");
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -167,103 +293,47 @@ public class Theme_guest_2 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        txtID = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txtName = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        txtBirth = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        txtIDNo = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        txtPhone = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        txtEmail = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        txtStatus = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        txtCoID = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblCustomer = new javax.swing.JTable();
-        jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        pButton = new Library.G2Panel();
         btnAdd = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblCustomer = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
+        pGuest = new Library.G2Panel();
+        jLabel2 = new javax.swing.JLabel();
+        txtID = new Library.G2TextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtName = new Library.G2TextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtBirth = new Library.G2TextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtIDNo = new Library.G2TextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtPhone = new Library.G2TextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtEmail = new Library.G2TextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtStatus = new Library.G2TextField();
+        jLabel9 = new javax.swing.JLabel();
+        txtCoID = new Library.G2TextField();
+        jLabel1 = new javax.swing.JLabel();
+        pGuestImage = new Library.G2ImagePanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("GUESTs");
-
-        jLabel1.setBackground(new java.awt.Color(153, 0, 102));
-        jLabel1.setText("Detail:");
-
-        jLabel2.setText("ID");
-
-        txtID.setText("G12");
-        txtID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIDActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setText("Name");
-
-        txtName.setText("John Thomas");
-
-        jLabel4.setText("Birthday");
-
-        txtBirth.setText("12/12/1975");
-
-        jLabel5.setText("Identi No");
-
-        txtIDNo.setText("278376899");
-
-        jLabel6.setText("Phone");
-
-        txtPhone.setText("0934117989");
-
-        jLabel7.setText("Email");
-
-        txtEmail.setText("JonThomas@gamil.com");
-
-        jLabel8.setText("Status");
-
-        txtStatus.setText("Silver");
-
-        jLabel9.setText("CollaboratorsID");
-
-        txtCoID.setText("Co223");
-
-        tblCustomer.setBackground(new java.awt.Color(255, 204, 255));
-        tblCustomer.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        tblCustomer.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "ID", "Name", "Status", "Collaborator ID"
-            }
-        ));
-        tblCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblCustomerMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblCustomer);
-
-        jLabel10.setText("Customer List");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(153, 0, 51));
-        jLabel11.setText("Customner Menagement");
+        jLabel11.setText("Customner Management");
         jLabel11.setToolTipText("");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 14, 549, -1));
 
-        jPanel1.setBackground(new java.awt.Color(102, 0, 102));
+        pButton.setBackground(new java.awt.Color(102, 0, 102));
 
         btnAdd.setBackground(new java.awt.Color(102, 0, 102));
         btnAdd.setText("Add");
@@ -289,49 +359,145 @@ public class Theme_guest_2 extends javax.swing.JFrame {
             }
         });
 
+        btnBack.setBackground(new java.awt.Color(102, 0, 102));
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pButtonLayout = new javax.swing.GroupLayout(pButton);
+        pButton.setLayout(pButtonLayout);
+        pButtonLayout.setHorizontalGroup(
+            pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pButtonLayout.createSequentialGroup()
+                .addContainerGap(37, Short.MAX_VALUE)
+                .addGroup(pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        pButtonLayout.setVerticalGroup(
+            pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pButtonLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGroup(pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        getContentPane().add(pButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(506, 264, -1, 152));
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        tblCustomer.setBackground(new java.awt.Color(255, 204, 255));
+        tblCustomer.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        tblCustomer.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID", "Name", "Status", "Collaborator ID"
+            }
+        ));
+        tblCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCustomerMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblCustomer);
+
+        jLabel10.setText("Customer List");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
-                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 3, Short.MAX_VALUE))
-                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(211, 211, 211)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(376, 60, 341, -1));
+
+        pGuest.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel2.setText("ID");
+
+        txtID.setText("^(Gu)\\d+errGuxx with x is number");
+        txtID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIDActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Name");
+
+        txtName.setText("\\w+(.)*\\w*errnormal paragraph");
+
+        jLabel4.setText("Birthday");
+
+        txtBirth.setText("^\\d{4}(-)\\d{2}(-)\\d{2}erryyyy-MM-dd");
+
+        jLabel5.setText("Identi No");
+
+        txtIDNo.setText("\\d{9}errsequence of 9 digit");
+
+        jLabel6.setText("Phone");
+
+        txtPhone.setText("^(0)\\d{8,10}errsequence of 9 - 11 digit");
+
+        jLabel7.setText("Email");
+
+        txtEmail.setText("(\\w+)[@](\\w+)[.](\\w+)[.]?\\w*errexample@xxx.xx");
+
+        jLabel8.setText("Status");
+
+        txtStatus.setText("\\w+(.)*\\w*errnormal paragraph");
+
+        jLabel9.setText("CollaboratorsID");
+
+        txtCoID.setText("^(Co)\\d+errHoxx with x is number");
+
+        jLabel1.setBackground(new java.awt.Color(153, 0, 102));
+        jLabel1.setText("Detail:");
+
+        javax.swing.GroupLayout pGuestLayout = new javax.swing.GroupLayout(pGuest);
+        pGuest.setLayout(pGuestLayout);
+        pGuestLayout.setHorizontalGroup(
+            pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pGuestLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pGuestLayout.createSequentialGroup()
+                        .addGroup(pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
@@ -340,69 +506,80 @@ public class Theme_guest_2 extends javax.swing.JFrame {
                             .addComponent(jLabel7)
                             .addComponent(jLabel8)
                             .addComponent(jLabel9))
-                        .addGap(23, 23, 23)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtEmail)
-                            .addComponent(txtPhone)
-                            .addComponent(txtIDNo)
-                            .addComponent(txtID)
+                        .addGap(18, 18, 18)
+                        .addGroup(pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
                             .addComponent(txtName)
                             .addComponent(txtBirth)
+                            .addComponent(txtID)
+                            .addComponent(txtIDNo)
+                            .addComponent(txtPhone, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
                             .addComponent(txtStatus)
-                            .addComponent(txtCoID, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(44, 44, 44)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                            .addComponent(txtCoID)))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(4, 4, 4)
-                .addComponent(jLabel11)
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+        pGuestLayout.setVerticalGroup(
+            pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pGuestLayout.createSequentialGroup()
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(txtBirth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(9, 9, 9)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(txtIDNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtBirth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtIDNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCoID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9)))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addGroup(pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pGuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCoID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addGap(61, 61, 61))
         );
+
+        getContentPane().add(pGuest, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+
+        pGuestImage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pGuestImage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pGuestImageMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pGuestImageLayout = new javax.swing.GroupLayout(pGuestImage);
+        pGuestImage.setLayout(pGuestImageLayout);
+        pGuestImageLayout.setHorizontalGroup(
+            pGuestImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 116, Short.MAX_VALUE)
+        );
+        pGuestImageLayout.setVerticalGroup(
+            pGuestImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 148, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(pGuestImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(376, 264, -1, 152));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -411,77 +588,38 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIDActionPerformed
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
-        RegisterForm objRF = new RegisterForm();
-        objRF.setVisible(true);
-        
-        String labelButton = btnAdd.getText();
-            if (labelButton.equalsIgnoreCase("Add"))
-            {
-                //clearTxt();               
-                manageTextField(true, true, true,true, true, true,true, true);
-                btnAdd.setText("Save");            
-            }else{
-                try {    
-                    String ID = txtID.getText();
-                    String Name = txtName.getText();
-                    String DOB = txtBirth.getText();
-                    String IDentiNo = txtIDNo.getText();
-                    String Phone = txtPhone.getText();
-                    String Email = txtEmail.getText();
-                    String Status = txtStatus.getText();
-                    String CoID = txtCoID.getText();
-                    
-                    //bat loi empty voi ID
-                    if (ID.isEmpty())
-                    {
-                        JOptionPane.showMessageDialog(this, "ID cannot be blank. Pls re-enter");
-                        txtID.grabFocus();
-                        return;
-                    }
-                    
-                    //insert into Services(IDSer, NameSer, Price) values ('S02', 'Lau nha', 200)
-                 
-                    //sql = "insert into Services(IDSer, NameSer, Price) values ('" + ID + "', '" + Name + "', " + Price +")";
-                    
-                    //insert into Guest values ('Gu01', 'Dat le', '1995-5-5', '1234456', '012345', 'datle@hetle.com', 'Normal', 'Co01')
-                    sql="insert into Guest values ('"+ ID +"', '"+ Name +"', '"+ DOB +"', '"+ IDentiNo +"', '"+ Phone +"', '"+ Email +"', '"+ Status +"', '"+ CoID +"')";
-                    stmt.executeUpdate(sql);
-                    //hien thi thong tin trong Table
-                    showTable();
-                    //doi ten button lai thanh Add
-                    btnAdd.setText("Add");
-                    //xoa trang cac textfield
-                    clearTxt(); 
-                    //disable cac textfield
-                    manageTextField(false, false, false,false, false, false,false, false);
-
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
-        }
-    }//GEN-LAST:event_btnAddActionPerformed
-
     private void tblCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustomerMouseClicked
         // TODO add your handling code here:
+        tblMouseClickedProcess();
+        //method nằm ở bên dưới
+        //tách ra để dùng ké nhiều lần
+    }//GEN-LAST:event_tblCustomerMouseClicked
+
+    public void tblMouseClickedProcess()
+    {
         manageButton(true, true, true);
         int row;
-        String IDGu;
-        String NameGu,DOBGu,IdentificationNumberGu,PhoneGu,EmailGu,StatusGu,IDCo;
-        
-        
-        row = tblCustomer.getSelectedRow();
-        
-        IDGu = (String) tblCustomer.getValueAt(row, 0);        
-        NameGu = (String)tblCustomer.getValueAt(row, 1);
-        DOBGu = (String)tblCustomer.getValueAt(row, 2);
-        IdentificationNumberGu = (String)tblCustomer.getValueAt(row, 3);
-        PhoneGu = (String)tblCustomer.getValueAt(row, 4);
-        EmailGu = (String)tblCustomer.getValueAt(row, 5);
-        StatusGu = (String)tblCustomer.getValueAt(row, 6);
-        IDCo = (String)tblCustomer.getValueAt(row, 7);
-        
+        //nếu có dữ liệu init thì load trước
+        //không có thì đợi click chuột vào bảng mới load
+        if (checkInitRow)
+        {
+            row = initRow;
+            checkInitRow = false;
+        }
+        else
+            row = tblCustomer.getSelectedRow();
+        TableModel tblModel = tblCustomer.getModel();
+
+        IDGu = (String) tblModel.getValueAt(row, 0);
+        NameGu = (String) tblModel.getValueAt(row, 1);
+        DOBGu = (String) tblModel.getValueAt(row, 2);
+        IdentificationNumberGu = (String) tblModel.getValueAt(row, 3);
+        PhoneGu = (String) tblModel.getValueAt(row, 4);
+        EmailGu = (String) tblModel.getValueAt(row, 5);
+        ImageGu = (String) tblModel.getValueAt(row, 6);
+        StatusGu = (String) tblModel.getValueAt(row, 7);
+        IDCo = (String) tblModel.getValueAt(row, 8);
+
         txtID.setText(IDGu);
         txtName.setText(NameGu);
         txtBirth.setText(DOBGu);
@@ -490,37 +628,41 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         txtEmail.setText(EmailGu);
         txtStatus.setText(StatusGu);
         txtCoID.setText(IDCo);
-    }//GEN-LAST:event_tblCustomerMouseClicked
-
+        //show Guest Image
+        pGuestImage.inputImage(ImageGu);
+    }
+    
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
         String labelBtn = btnUpdate.getText();
-        if( labelBtn.equalsIgnoreCase("Update"))
-        {
-            btnUpdate.setText("Save");            
-            manageTextField(false, true, true,true,true,true,true,true);
+        if (labelBtn.equalsIgnoreCase("Update")) {
+            btnUpdate.setText("Save");
+            manageTextField(false, true, true, true, true, true, true, true);
             //dat lai trang thai cac Button
             manageButton(false, true, false);
-           
-            
-        }else
-        {
-            //kiem tra cac textField co thoa man khong
-             String ID = txtID.getText();
+        } else {
+            //kiem tra cac textField co thoa man khong 
+            //nếu có lỗi thì thoát ra khỏi lệnh update
+            if (validateAllTextField(pGuest)) {
+                return;
+            }
+            String ID = txtID.getText();
             String Name = txtName.getText();
             String DOB = txtBirth.getText();
             String IDentiNo = txtIDNo.getText();
             String Phone = txtPhone.getText();
             String Email = txtEmail.getText();
+            //String Image = 
             String Status = txtStatus.getText();
             String CoID = txtCoID.getText();
             try {
                 //tien hanh update thong tin len database
                 //cau lenh sql mau da kiem tra thu tren SQL
                 //update Guest set  NameSer = 'Ban nha', Price = 100 where IDSer = 'S06'
-                sql = "update Guest set  NameGu = '" + Name + "',DOBGu = '" + DOB + "',IdentificationNumberGu = '" + IDentiNo + "',PhoneGu = '" + Phone + "',EmailGu  = '" + Email + "',StatusGu = '" + Status + "', IDCo = " + CoID + " where IDGu = '" + ID + "'";
+                sql = "update Guest set  NameGu = '" + Name + "',DOBGu = '" + DOB + "',IdentificationNumberGu = '" + IDentiNo + "',PhoneGu = '" + Phone + "',EmailGu  = '" + Email + "', ImageGu = '" + ImageGu + "' ,StatusGu = '" + Status + "', IDCo = '" + CoID + "' where IDGu = '" + ID + "'";
+
                 stmt.executeUpdate(sql);
-                
+
                 //chay xong thi doi ten Button lai thanh Update
                 btnUpdate.setText("Update");
                 //xoa trang cac textField
@@ -529,20 +671,21 @@ public class Theme_guest_2 extends javax.swing.JFrame {
                 manageButton(true, true, true);
                 //cap nhat lai Table
                 showTable();
-                
+
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-            
+
         }
+
+
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         try {
             int check = JOptionPane.showConfirmDialog(this, "Are you sure for deleting?");
-            if (check == JOptionPane.OK_OPTION)
-            {
+            if (check == JOptionPane.OK_OPTION) {
                 String ID = txtID.getText();
                 //cau lenh SQL mau da kiem tra thu tren SQl
                 //delete from Guest where IDGu = 'S06'
@@ -552,7 +695,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
                 showTable();
                 //xoa cac textField
                 clearTxt();
-            }else{
+            } else {
                 return;
             }
         } catch (Exception e) {
@@ -560,7 +703,34 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new RegisterForm(continueAccount, type, objConnection, stmt, "guest").setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void pGuestImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pGuestImageMouseClicked
+        // TODO add your handling code here:
+        G2FileBrowserExtend objFileChooser = new G2FileBrowserExtend();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "JPG & PNG Images", "jpg", "png");
+        objFileChooser.setFileFilter(filter);
+        int returnVal = objFileChooser.showOpenDialog(null);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            this.ImageGu = objFileChooser.getSelectedFile().getPath();
+            pGuestImage.inputImage(ImageGu);
+        }
+    }//GEN-LAST:event_pGuestImageMouseClicked
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        new Nam.MainControlInterface(continueAccount, type, objConnection, stmt).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -590,15 +760,16 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Theme_guest_2().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new Theme_guest_2().setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
@@ -614,14 +785,65 @@ public class Theme_guest_2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    /*
+    private javax.swing.JPanel pButton;
+    */
+    private Library.G2Panel pButton;
+    /*
+    private javax.swing.JPanel pGuest;
+    */
+    private Library.G2Panel pGuest;
+    /*
+    private javax.swing.JPanel pGuestImage;
+    */
+    private Library.G2ImagePanel pGuestImage;
     private javax.swing.JTable tblCustomer;
+    /*
     private javax.swing.JTextField txtBirth;
+    */
+    private Library.G2TextField txtBirth;
+    /*
     private javax.swing.JTextField txtCoID;
+    */
+    private Library.G2TextField txtCoID;
+    /*
     private javax.swing.JTextField txtEmail;
+    */
+    private Library.G2TextField txtEmail;
+    /*
     private javax.swing.JTextField txtID;
+    */
+    private Library.G2TextField txtID;
+    /*
     private javax.swing.JTextField txtIDNo;
+    */
+    private Library.G2TextField txtIDNo;
+    /*
     private javax.swing.JTextField txtName;
+    */
+    private Library.G2TextField txtName;
+    /*
     private javax.swing.JTextField txtPhone;
+    */
+    private Library.G2TextField txtPhone;
+    /*
     private javax.swing.JTextField txtStatus;
+    */
+    private Library.G2TextField txtStatus;
     // End of variables declaration//GEN-END:variables
+@Override
+    public void dispose(){
+        if (objMain != null)
+        {
+            objMain.setVisible(true);
+            returnDataToMainInterface();
+        }
+        super.dispose();
+    }
+
+    public void returnDataToMainInterface()
+    {        
+        objMain.setIDCo(IDCo);
+        objMain.setIDGu(IDGu);
+    }
 }

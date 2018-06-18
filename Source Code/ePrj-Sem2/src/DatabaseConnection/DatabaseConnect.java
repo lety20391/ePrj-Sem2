@@ -55,10 +55,10 @@ public class DatabaseConnect {
     ResultSet resultSet;
     String url;
     connectionContainer objConContainer;
-    String port;
+
     
     
-    public  connectionContainer DBConnect(String DatabaseName, String Account, String Password, String port)
+    public connectionContainer DBConnect(String DatabaseName, String Account, String Password, String port)
     {
         try {
             
@@ -107,6 +107,10 @@ public class DatabaseConnect {
             System.out.println(e.getMessage());
         }
         
+    }
+
+    public connectionContainer DBConnect(String sem2_project_group2, String sa, String string) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated metthrowhods, choose Tools | Templates.
     }
     
 }

@@ -22,14 +22,14 @@ go
 select * from Account
 go
 /* Nhap du lieu vao bang cong tac vien */
-insert into Collaborator(IDCo, NameCo, AddressCo, DOBCo, IdentificationNumberCo, DepositCo, PhoneCo, EmailCo, ActiveCo, ImageCo, GradeCo, NumberOfGuest) values
-('Co01', 'Nguyen Thanh Nam', 'Tan Binh', '1988-04-10', '123456789', 12332, '0969460713', 'nguyenthanhnam1004@gmail.com', 'true', 'image', 'normal', 6),
-('Co02', 'Le Cong Dat', 'Quan 10', '1990-03-11', '123454321', 10, '0909999999', 'lecongdat@gmail.com', 'false', 'image', 'good', 8)
+insert into Collaborator(IDCo, NameCo, AddressCo, DOBCo, IdentificationNumberCo, DepositCo, PhoneCo, EmailCo, ImageCo, GradeCo, NumberOfGuest) values
+('Co01', 'Nguyen Thanh Nam', 'Tan Binh', '1988-04-10', '123456789', 12332, '0969460713', 'nguyenthanhnam1004@gmail.com', 'image', 'normal', 6),
+('Co02', 'Le Cong Dat', 'Quan 10', '1990-03-11', '123454321', 10, '0909999999', 'lecongdat@gmail.com', 'image', 'good', 8)
 go
 
 insert into Guest values
-('Gu01', 'Dat le', '1995-5-5', '1234456', '012345', 'datle@hetle.com', 'Normal', 'Co01'),
-('Gu02', 'Duyen tran truong', '2005-5-5', '566890', '0234435', 'duyenbede@bede.com', 'Normal', 'Co02')
+('Gu01', 'Dat le', '1995-5-5', '1234456', '012345', 'datle@hetle.com', 'Gu01.jpg' , 'Normal', 'Co01'),
+('Gu02', 'Duyen tran truong', '2005-5-5', '566890', '0234435', 'duyenbede@bede.com', 'Gu02.jpg' , 'Normal', 'Co02')
 go
 
 insert into Supplier values
@@ -42,8 +42,8 @@ insert into Services values
 ('Se02', 'Lau nha', 2000)
 
 insert into Apartment values
-('Ap01', 'A01', 'Q10', 'Link', '2 giuong', 'Trong', 1000, 'Su01'),
-('Ap02', 'A02', 'Q5', 'Link', '1 giuong', 'Co nguoi', 2000, 'Su02')
+('Ap01', 'A01', 'Q10', 'Link', '2 giuong', 'Trong', 1000, 'Co01', 'Su01'),
+('Ap02', 'A02', 'Q5', 'Link', '1 giuong', 'Co nguoi', 2000, '' , 'Su02')
 go
 
 insert into Holding values
@@ -67,6 +67,7 @@ insert into [Notification] values
 
 select * from Collaborator
 go
+
 
 
 

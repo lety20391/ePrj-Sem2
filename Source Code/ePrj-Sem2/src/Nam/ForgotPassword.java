@@ -21,35 +21,51 @@ import javax.swing.JOptionPane;
  */
 public class ForgotPassword extends javax.swing.JFrame {
 
-    Connection connection = null;
-    String dbAccount = "sa";
-    String dbPassword = "123";
-    String dbName = "Sem2_Project_Group2";
+    Connection conn;
     Statement stmt;
     ResultSet rs;
     String sql;
+    String dbName, dbAcc, dbPass, dbPort;
 
     CreateNewPassword cnp;
 
     ArrayList<String> listID;
     String question, answer;
 
+//    public final void connectSQL(String databaseName, String databaseAcc, String databasePass, String databasePort) {
+//        DatabaseConnect objDBConnect;
+//        objDBConnect = new DatabaseConnect();
+//        connectionContainer connectContainer = objDBConnect.DBConnect(databaseName, databaseAcc, databasePass, databasePort);
+//
+//        connection = connectContainer.getObjCon();
+//        stmt = connectContainer.getStatement();
+//    }
+
+    private void sqlConnectionClose() {
+        try {
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     /**
      * Creates new form ForgotPassword
+     *
+     * @param connection
+     * @param statement
      */
-    public ForgotPassword() {
+    public ForgotPassword(Connection connection, Statement statement) {
         initComponents();
+        conn = connection;
+        stmt = statement;
         setLocationRelativeTo(null);
-        try {
-            connection = DBConnection.getDBConnection(dbName, dbAccount, dbPassword);
-            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         loadAccountList();
         pack();
     }
-
+    
+    
     private void loadAccountList() {
         listID = new ArrayList();
         sql = "select * from Account";
@@ -161,11 +177,6 @@ public class ForgotPassword extends javax.swing.JFrame {
         txtAnswer.setBackground(new java.awt.Color(153, 153, 153));
         txtAnswer.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtAnswer.setForeground(new java.awt.Color(255, 255, 255));
-        txtAnswer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAnswerActionPerformed(evt);
-            }
-        });
 
         btnContinue.setBackground(new java.awt.Color(102, 153, 255));
         btnContinue.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -264,10 +275,6 @@ public class ForgotPassword extends javax.swing.JFrame {
         this.setState(JFrame.ICONIFIED);
     }//GEN-LAST:event_lbMinMouseClicked
 
-    private void txtAnswerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnswerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAnswerActionPerformed
-
     private void btnContinueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnContinueMouseClicked
         if (txtUsername.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Username cannot be blank. Please re-enter.");
@@ -299,7 +306,7 @@ public class ForgotPassword extends javax.swing.JFrame {
         }
         if (check == true) {
             if (cbQuestion.getSelectedItem().equals(question) && txtAnswer.getText().equals(answer)) {
-                cnp = new CreateNewPassword(txtUsername.getText());
+                cnp = new CreateNewPassword(txtUsername.getText(), conn, stmt);
                 cnp.setVisible(true);
                 dispose();
             } else {

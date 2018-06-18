@@ -51,7 +51,6 @@ create table Collaborator
 	DepositCo money not null,
 	PhoneCo varchar(11) not null,
 	EmailCo varchar(50) not null,
-	ActiveCo bit not null,
 	[ImageCo] varchar(50) not null,
 	GradeCo varchar(20) not null,
 	NumberOfGuest int not null
@@ -60,8 +59,6 @@ create table Collaborator
 )
 go
 
-update Collaborator set ImageCo = 'E:\\NAM_FPT\\Database_Sem2_Mine\\beautiful_1.jpg' where IDCo = 'Co02'
-go
 
 create table Guest
 (
@@ -186,3 +183,8 @@ create table [Notification]
 	constraint pk_Notification primary key (IDNot),
 	constraint fk_Notification_Account foreign key (IDAcc) references Account(ID)
 )
+go
+
+select * from Account
+go
+
