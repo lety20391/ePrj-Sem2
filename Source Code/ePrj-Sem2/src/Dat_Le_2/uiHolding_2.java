@@ -616,6 +616,24 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         return totalDay * pricePerDay;
     }
     
+    public boolean checkCanMakeContractWithHolding(String IDHo)
+    {
+        boolean checkMakeContract = false;
+        try {
+            //select * from Contract where IDHo = 'Ho01'
+            sql = "select * from Contract where IDHo = '"+IDHo+"'";
+            rs = stmt.executeQuery(sql);
+            rs.beforeFirst();
+            if (!rs.next())
+            {
+                checkMakeContract = true;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return checkMakeContract;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1444,6 +1462,11 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             if (!checkBookingPosibility(IDApa, FromDateHo, ToDateHo))
             {   
                 JOptionPane.showMessageDialog(this, "Cannot Book this Apartment in your desire time. From: " + FromDateHo + " - To: " + ToDateHo, "Time Book Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (!checkCanMakeContractWithHolding(txtIDHo.getText()))                
+            {
+                JOptionPane.showMessageDialog(this, "This Holding ID already existed with another Contract. try new one", "Holding ID - Contract Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             //getDataFromTextField();
