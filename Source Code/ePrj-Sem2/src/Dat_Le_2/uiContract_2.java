@@ -162,7 +162,9 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
         {
             uiHolding_2 tempObjFrame = (uiHolding_2)objFrame;
             txtDateCon.setText(tempObjFrame.getDateHo());
-            txtPriceCon.setText(String.valueOf(tempObjFrame.getTotalHo()));            
+            txtDateCon.setEditable(false);
+            txtPriceCon.setText(String.valueOf(tempObjFrame.getTotalHo())); 
+            txtPriceCon.setEditable(false);
         }        
         setImageGuestAndCollaborator();
         //tạo giao diện gây sự chú ý
@@ -767,8 +769,8 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
 //                txtMap.get(key).setText("Test");
 //            }
 //        }
-        
-        changeStatusAllTextField(pContract, true);
+        if(objFrame == null)
+            changeStatusAllTextField(pContract, true);
         //manageBtn(false, true, false, false);        
         String labelButton = btnAdd.getText();
         if (labelButton.equalsIgnoreCase("Add"))

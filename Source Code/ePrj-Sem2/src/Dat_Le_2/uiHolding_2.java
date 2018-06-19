@@ -575,8 +575,9 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         txtFromDateHo.setText(FromDateHo);
         txtFromDateHo.setEditable(false);
         txtToDateHo.setText(ToDateHo);
-        txtFromDateHo.setEditable(false);
+        txtToDateHo.setEditable(false);
         pricePerDay = PriceApa;
+        showTotalAndCommission();
     }
     
     public int checkFromDateToDate()
@@ -1249,6 +1250,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
 
         btnMakeContract.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnMakeContract.setText("->Contract");
+        btnMakeContract.setEnabled(false);
         btnMakeContract.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMakeContractActionPerformed(evt);
@@ -1430,9 +1432,15 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
                 return;
             }
             if (checkDateHo())
+            {
+                JOptionPane.showMessageDialog(this, "Invalid DateHo, please try again", "Date Ho Error", JOptionPane.ERROR_MESSAGE);
                 return;
+            }
             if (checkFromDateToDate() == 0)
+            {
+                JOptionPane.showMessageDialog(this, "Invalid Range Date please choose From and To date again", "Range Date Error", JOptionPane.ERROR_MESSAGE);
                 return;
+            }
             if (!checkBookingPosibility(IDApa, FromDateHo, ToDateHo))
             {   
                 JOptionPane.showMessageDialog(this, "Cannot Book this Apartment in your desire time. From: " + FromDateHo + " - To: " + ToDateHo, "Time Book Error", JOptionPane.ERROR_MESSAGE);
@@ -1458,7 +1466,16 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             //manageBtn(true, true, true, true);
             pButton.returnBtnStatus();
             //btnMakeContract.setEnabled(true);
-            btnMakeContract.doClick();
+            returnDataToMainInterface();
+            objMain.bookSuccess = false;
+            SwingUtilities.invokeLater(new Runnable()
+            {
+                public void run()
+                {
+                    invokeContract();
+                }
+            }
+            );
         }
         
     }//GEN-LAST:event_btnAddActionPerformed
@@ -1503,9 +1520,15 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
                 return;
             }
             if (checkDateHo())
+            {
+                JOptionPane.showMessageDialog(this, "Invalid DateHo, please try again", "Date Ho Error", JOptionPane.ERROR_MESSAGE);
                 return;
+            }
             if (checkFromDateToDate() == 0)
+            {
+                JOptionPane.showMessageDialog(this, "Invalid Range Date please choose From and To date again", "Range Date Error", JOptionPane.ERROR_MESSAGE);
                 return;
+            }
             if (!checkBookingPosibility(IDApa, FromDateHo, ToDateHo))
             {   
                 JOptionPane.showMessageDialog(this, "Cannot Book this Apartment in your desire time. From: " + FromDateHo + " - To: " + ToDateHo, "Time Book Error", JOptionPane.ERROR_MESSAGE);
@@ -1598,6 +1621,8 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         // TODO add your handling code here:
 //        if (shouldInitData == false)
 //            return;
+        if(BookingSuccess)
+            return;
         initDateChooser();
         diaDateChooser.addListener(txtFromDateHo);
         diaDateChooser.setVisible(true); 
@@ -1608,6 +1633,8 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         // TODO add your handling code here:
 //        if (shouldInitData == false)
 //            return;
+        if(BookingSuccess)
+            return;
         initDateChooser();
         diaDateChooser.addListener(txtToDateHo);
         diaDateChooser.setVisible(true);
@@ -1649,6 +1676,13 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
 
     private void txtIDApaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIDApaMouseClicked
         // TODO add your handling code here:
+        if(BookingSuccess)
+            return;
+        if (txtFromDateHo.getText().isEmpty() || txtToDateHo.getText().isEmpty())
+        {
+            JOptionPane.showMessageDialog(this, "You must choose FromDate and ToDate first. Please try again", "Choose Date First", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         SwingUtilities.invokeLater(new Runnable()
         {
             public void run()
