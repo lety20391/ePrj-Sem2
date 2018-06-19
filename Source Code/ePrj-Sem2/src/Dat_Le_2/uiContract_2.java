@@ -78,6 +78,7 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
         showTable("Select * from Contract");
         initDataFromMainControl();
         changeStatusAllTextField(pContract, false);
+        initID();
     }
     
     public uiContract_2(String Account, String type, Connection objConnection, Statement stmt, javax.swing.JFrame objFrame, Nam.MainControlInterface objMain) {
@@ -94,6 +95,7 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
         showTable("Select * from Contract");
         changeStatusAllTextField(pContract, false);
         initData();
+        initID();
     }
     
     private void initDataFromMainControl()
@@ -112,6 +114,15 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
             }
         }        
         tblMouseClickedProcess();
+    }
+    
+    public void initID()
+    {
+        IDHo = "";
+        IDCo = "";
+        IDGu = "";
+        IDCon = "";
+        pContract.createThreadToCheckButton();
     }
     
     public void manageConfirmButton()
@@ -748,7 +759,7 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
 //        }
         
         changeStatusAllTextField(pContract, true);
-        manageBtn(false, true, false, false);        
+        //manageBtn(false, true, false, false);        
         String labelButton = btnAdd.getText();
         if (labelButton.equalsIgnoreCase("Add"))
         {
@@ -768,8 +779,9 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
             sql = "select * from Contract";
             showTable(sql);
             btnAdd.setText("Add");
-            manageBtn(true, true, true, true);
+            //manageBtn(true, true, true, true);
             clearAllTextField(pContract);
+            pContract.returnBtnStatus();
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -848,7 +860,7 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
                         
-        manageBtn(false, false, true, false);
+        //manageBtn(false, false, true, false);
         changeStatusAllTextField(pContract, true);
         String labelButton = btnUpdate.getText();
         if (labelButton.equalsIgnoreCase("Update"))
@@ -871,7 +883,8 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
             showTable(sql);
             btnUpdate.setText("Update");
             clearAllTextField(pContract);
-            manageBtn(true, true, true, true);
+            //manageBtn(true, true, true, true);
+            pContract.returnBtnStatus();
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
