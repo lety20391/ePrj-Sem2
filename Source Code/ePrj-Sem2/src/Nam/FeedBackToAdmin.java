@@ -9,6 +9,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -96,6 +99,12 @@ public class FeedBackToAdmin extends javax.swing.JDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtContent = new javax.swing.JTextArea();
         btnClose = new javax.swing.JButton();
+        lbIDGU = new javax.swing.JLabel();
+        txtIDGU = new javax.swing.JTextField();
+        lbIDGU1 = new javax.swing.JLabel();
+        lbIDGU2 = new javax.swing.JLabel();
+        txtIDApa = new javax.swing.JTextField();
+        txtDateSent = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -132,6 +141,21 @@ public class FeedBackToAdmin extends javax.swing.JDialog {
             }
         });
 
+        lbIDGU.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbIDGU.setText("Guest:");
+
+        txtIDGU.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+
+        lbIDGU1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbIDGU1.setText("Apartment:");
+
+        lbIDGU2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbIDGU2.setText("Date sent:");
+
+        txtIDApa.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+
+        txtDateSent.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -142,21 +166,55 @@ public class FeedBackToAdmin extends javax.swing.JDialog {
                 .addComponent(lbContent, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lbIDGU2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtDateSent, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lbIDGU1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtIDApa, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbIDGU, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtIDGU, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lbIDGU, lbIDGU1, lbIDGU2});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbContent, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbIDGU, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtIDGU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbIDGU1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtIDApa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbIDGU2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDateSent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -169,9 +227,16 @@ public class FeedBackToAdmin extends javax.swing.JDialog {
 
         selectedRow = tbFeedback.getSelectedRow();
         int id = (Integer) tbFeedback.getValueAt(selectedRow, 0);
-        String str = (String) tbFeedback.getValueAt(selectedRow, 3);
-        txtContent.setText(str);
-        
+        String content = (String) tbFeedback.getValueAt(selectedRow, 3);
+        String idGU = (String) tbFeedback.getValueAt(selectedRow, 1);
+        String idApa = (String) tbFeedback.getValueAt(selectedRow, 2);
+        Date datesent = (Date) tbFeedback.getValueAt(selectedRow, 4);
+        txtContent.setText(content);
+        txtIDGU.setText(idGU);
+        txtIDApa.setText(idApa);
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String ds = df.format(datesent);
+        txtDateSent.setText(ds);
         sql = "update FeedbackNote set StatusFb = 'read' where IDFb = "+id;
         try {
             stmt.executeUpdate(sql);
@@ -234,7 +299,13 @@ public class FeedBackToAdmin extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbContent;
+    private javax.swing.JLabel lbIDGU;
+    private javax.swing.JLabel lbIDGU1;
+    private javax.swing.JLabel lbIDGU2;
     private javax.swing.JTable tbFeedback;
     private javax.swing.JTextArea txtContent;
+    private javax.swing.JTextField txtDateSent;
+    private javax.swing.JTextField txtIDApa;
+    private javax.swing.JTextField txtIDGU;
     // End of variables declaration//GEN-END:variables
 }
