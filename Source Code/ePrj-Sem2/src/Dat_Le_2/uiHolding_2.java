@@ -116,6 +116,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         showTable("Select * from Holding");
         initDataHoFromMain();
         checkBookSuccess();
+        initID();
         //initDataApaFromMain();
     }
     
@@ -136,10 +137,21 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         newData();
         showTable("Select * from Holding"); 
         initDataHoFromMain();
+        initID();
         //initDataApaFromMain();
         //pImageGuest.setSize(300, 400);
 //        pImageGuest.inputImage("\\src\\Image\\Guest\\Gu01.jpg");
 //        pImageCollaborator.inputImage("\\src\\Image\\Collaborator\\Co01.jpg");
+    }
+    
+    public void initID()
+    {
+        IDHo = "";
+        IDCo = "";
+        IDGu = "";
+        IDApa = "";
+        pHolding.createThreadToCheckButton();
+        pHolding.createThreadToCheckButton();
     }
     
     public void attachRegexAndErrorInform(Library.G2Panel panel)
@@ -1299,7 +1311,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
                
-        manageBtn(false, true, false, false);
+        //manageBtn(false, true, false, false);
         
         String labelButton = btnAdd.getText();
         if (labelButton.equalsIgnoreCase("Add"))
@@ -1331,8 +1343,9 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             sql = "select * from Holding";
             showTable(sql);
             btnAdd.setText("Add");
-            manageBtn(true, true, true, true);
-            btnMakeContract.setEnabled(true);
+            //manageBtn(true, true, true, true);
+            pButton.returnBtnStatus();
+            //btnMakeContract.setEnabled(true);
             btnMakeContract.doClick();
         }
         
@@ -1361,7 +1374,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
         
-        manageBtn(false, false, true, false);
+        //manageBtn(false, false, true, false);
         
         String labelButton = btnUpdate.getText();
         if (labelButton.equalsIgnoreCase("Update"))
@@ -1371,9 +1384,9 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         {
             if(validateAllTextField())
                 return;
-            if (validateIDError())
+            if (!validateIDError())
             {   
-                JOptionPane.showMessageDialog(this, "ID already exist. Please try another", "ID Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Cannot find ID", "ID Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             getDataFromTextField();
@@ -1392,14 +1405,15 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             sql = "select * from Holding";
             showTable(sql);
             btnUpdate.setText("Update");
-            manageBtn(true, true, true, true);
+            //manageBtn(true, true, true, true);
+            pButton.returnBtnStatus();
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         getDataFromTextField();
-        manageBtn(false, false, false, true);
+        //manageBtn(false, false, false, true);
         String labelButton = btnDelete.getText();
         if (labelButton.equalsIgnoreCase("Delete"))
         {
@@ -1418,7 +1432,8 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             sql = "select * from Holding";
             showTable(sql);
             btnDelete.setText("Delete");
-            manageBtn(true, true, true, true);
+            //manageBtn(true, true, true, true);
+            pButton.returnBtnStatus();
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 

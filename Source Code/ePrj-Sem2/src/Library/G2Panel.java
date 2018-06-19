@@ -7,6 +7,7 @@ package Library;
 
 import java.awt.Component;
 import java.awt.Panel;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -22,7 +23,12 @@ public class G2Panel extends JPanel
 {
     HashMap<String, JButton> mapBtn;
     HashMap<String, Boolean> mapBaseRight;
+    HashMap<String, Boolean> mapBtnStatus;
     String mainRight;
+    G2Panel obj;
+    Thread checkBtn;
+    Boolean[] objListBtnStatus;
+    Component[] objListComponents;
     
     public G2Panel()
     {
@@ -33,17 +39,105 @@ public class G2Panel extends JPanel
     
     public void attachButtonAndSetMainRight(G2Panel obj, String mainRight)
     {
-        Component[] objListComp = obj.getComponents();
-        System.out.println("Comp: " + objListComp.length);
-        for (Component objComp : objListComp) {
+        this.obj = obj;
+        objListComponents = obj.getComponents();
+        System.out.println("Comp: " + objListComponents.length);
+        int i = 0;
+        for (Component objComp : objListComponents) {
             if (objComp instanceof JButton)
             {
+                i++;
                 JButton tempBtn = (JButton)objComp;
                 mapBtn.put(tempBtn.getText().toLowerCase(),tempBtn);
             }
-        }
-        
+        }       
+        saveCurrentBtnStatus();                
         setMainRight(mainRight);
+    }
+    
+    public void returnBtnStatus()
+    {
+        for (Component objComp : objListComponents) 
+        {
+            if (objComp instanceof JButton)
+            {
+                JButton tempBtn = (JButton)objComp;
+                boolean status = (boolean)mapBtnStatus.get(tempBtn.getText());
+                tempBtn.setEnabled(status);                
+            }
+        }
+    }
+    
+    public void saveCurrentBtnStatus()
+    {
+        //Component[] objListComp = obj.getComponents();
+        mapBtnStatus = new HashMap<>();
+        for (Component objComp : objListComponents) 
+        {
+            if (objComp instanceof JButton)
+            {
+                JButton tempBtn = (JButton)objComp;
+                Boolean status = Boolean.FALSE;
+                if (tempBtn.isEnabled())
+                    status = Boolean.TRUE;
+                mapBtnStatus.put(tempBtn.getText(), status);
+            }
+        }
+    }
+    
+    public void checkButton()
+    {
+        //Component[] objListComp = obj.getComponents();
+        boolean checkSaveButton = false;
+        int mark = 0;        
+        for (int i = 0; i < objListComponents.length; i++) 
+        {
+            if (objListComponents[i] instanceof JButton)
+            {
+                JButton tempBtn = (JButton)objListComponents[i];
+                if (tempBtn.getText().equalsIgnoreCase("Save"))
+                {
+                        mark = i;
+                        checkSaveButton = true;
+                        //break;
+                }
+            }  
+        }
+        if (checkSaveButton == false)
+                return;
+        for (int i = 0; i < objListComponents.length; i++) 
+        {
+            if ((objListComponents[i] instanceof JButton) && i != mark)
+            {
+                ((JButton)objListComponents[i]).setEnabled(false);
+            }  
+        }
+        checkSaveButton = false;
+    }
+    
+    public void createThreadToCheckButton()
+    {
+        if (checkBtn == null)
+        {
+            checkBtn = new Thread()
+            {
+                public void run()
+                {
+                    try {
+                        while (true)
+                        {
+                        checkButton();
+                        checkBtn.sleep(4000);
+                        }
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                    
+                }
+            };            
+        }
+        checkBtn.start();
+        
     }
     
     public void setMainRight(String mainRight)
