@@ -58,7 +58,9 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         initComponents();
         
         pButton.attachButtonAndSetMainRight(pButton, type);
+        pButton.createThreadToCheckButton();
         attachRegexAndErrorInform(pGuest);
+        
         //connectSQL();
         showTable();
         initData();
@@ -77,6 +79,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         initComponents();
         
         pButton.attachButtonAndSetMainRight(pButton, type);
+        pButton.createThreadToCheckButton();
         attachRegexAndErrorInform(pGuest);
         //connectSQL();
         showTable();
@@ -663,7 +666,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
             btnUpdate.setText("Save");
             manageTextField(false, true, true, true, true, true, true, true);
             //dat lai trang thai cac Button
-            manageButton(false, true, false);
+            //manageButton(false, true, false);
         } else {
             //kiem tra cac textField co thoa man khong 
             //nếu có lỗi thì thoát ra khỏi lệnh update
@@ -692,9 +695,10 @@ public class Theme_guest_2 extends javax.swing.JFrame {
                 //xoa trang cac textField
                 clearTxt();
                 //enable lai cac Button
-                manageButton(true, true, true);
+                //manageButton(true, true, true);
                 //cap nhat lai Table
                 showTable();
+                pButton.returnBtnStatus();
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -708,6 +712,9 @@ public class Theme_guest_2 extends javax.swing.JFrame {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         try {
+            txtID.setEditable(true);
+            if (txtID.validateTextField())
+                return;
             int check = JOptionPane.showConfirmDialog(this, "Are you sure for deleting?");
             if (check == JOptionPane.OK_OPTION) {
                 String ID = txtID.getText();
