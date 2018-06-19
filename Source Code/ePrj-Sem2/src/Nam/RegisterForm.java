@@ -1218,18 +1218,13 @@ public class RegisterForm extends javax.swing.JFrame {
             txtIdentifyCo.grabFocus();
             return;
         }
-        if (!txtEmailCo.getText().matches("^\\w+@\\w+\\.\\W+$")) {
+        if (!txtEmailCo.getText().matches("^[a-zA-Z0-9]{1,}@[a-zA-Z0-9]{1,}\\.[a-zA-Z0-9]{1,}$")) {
             JOptionPane.showMessageDialog(this, "Email format is xxx@xxx.xxx)");
             txtEmailCo.setText("");
             txtEmailCo.grabFocus();
             return;
         }
-//        if (!txtGradeCo.getText().equalsIgnoreCase("bad") || !txtGradeCo.getText().equalsIgnoreCase("normal") || !txtGradeCo.getText().equalsIgnoreCase("good") || !txtGradeCo.getText().equalsIgnoreCase("excellent")) {
-//            JOptionPane.showMessageDialog(this, "4 Grade only: bad, normal, good, excellent");
-//            txtGradeCo.setText("");
-//            txtGradeCo.grabFocus();
-//            return;
-//        }
+
         if (!txtDepositCo.getText().matches("^[0-9]+$")) {
             JOptionPane.showMessageDialog(this, "Must enter amount money.");
             txtDepositCo.setText("");
@@ -1249,6 +1244,7 @@ public class RegisterForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Name just has characters and spaces");
             txtNameCo.setText("");
             txtNameCo.grabFocus();
+            return ;
         }
         Date date = new Date();
         Calendar calendar = new GregorianCalendar();
@@ -1262,6 +1258,7 @@ public class RegisterForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "This collaborator is under 18 years old. Re-enter");
             dateChooserDOBCo.setDate(null);
             dateChooserDOBCo.grabFocus();
+            return ;
         }
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String dob = df.format(dateChooserDOBCo.getDate());
@@ -1282,12 +1279,6 @@ public class RegisterForm extends javax.swing.JFrame {
             Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-//        sql = "create table " + txtIDCo.getText() + "\n(ID int identity(1,1) primary key, Detail nvarchar(1000) not null, Status varchar(6) not null)";
-//        try {
-//            stmt.executeUpdate(sql);
-//        } catch (SQLException ex) {
-//            Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
-//        }
         if (JOptionPane.showConfirmDialog(new JFrame(),
                 "Create new Collaborator sucessfully.\nDo you want to continue ?", "",
                 JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
@@ -1365,7 +1356,7 @@ public class RegisterForm extends javax.swing.JFrame {
         }
         if (txtPhoneGU.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Phone cannot be blank. Re-Enter.");
-            //txtPhoneGU.setText("");
+            txtPhoneGU.setText("");
             txtPhoneGU.grabFocus();
             return;
         }
@@ -1428,7 +1419,7 @@ public class RegisterForm extends javax.swing.JFrame {
             txtPhoneGU.grabFocus();
             return;
         }
-        if (!txtEmailGU.getText().matches("^^\\w+@\\w+\\.\\W+$")) {
+        if (!txtEmailGU.getText().matches("^[a-zA-Z0-9]{1,}@[a-zA-Z0-9]{1,}\\.[a-zA-Z0-9]{1,}$")) {
             JOptionPane.showMessageDialog(this, "Email format is xxx@xxx.xxx)");
             txtEmailGU.setText("");
             txtEmailGU.grabFocus();
@@ -1444,6 +1435,7 @@ public class RegisterForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Name just has characters and spaces");
             txtNameGU.setText("");
             txtNameGU.grabFocus();
+            return ;
         }
         if (!txtBelongCoGU.getText().matches("^Co[0-9]{1,3}$")) {
             JOptionPane.showMessageDialog(this, "ID collaborator format is Cu[xxx] with xxx is 1-3 digits");
@@ -1477,6 +1469,7 @@ public class RegisterForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "This guest is under 18 years old.");
             dateChooserDOBGU.setDate(null);
             dateChooserDOBGU.grabFocus();
+            return ;
         }
         
         int countGu = 0;
