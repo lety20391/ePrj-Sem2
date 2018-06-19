@@ -1218,7 +1218,7 @@ public class RegisterForm extends javax.swing.JFrame {
             txtIdentifyCo.grabFocus();
             return;
         }
-        if (!txtEmailCo.getText().matches("^[A-z0-9]+@[A-z]+/.[A-z]+$")) {
+        if (!txtEmailCo.getText().matches("^\\w+@\\w+\\.\\W+$")) {
             JOptionPane.showMessageDialog(this, "Email format is xxx@xxx.xxx)");
             txtEmailCo.setText("");
             txtEmailCo.grabFocus();
@@ -1428,7 +1428,7 @@ public class RegisterForm extends javax.swing.JFrame {
             txtPhoneGU.grabFocus();
             return;
         }
-        if (!txtEmailGU.getText().matches("^[A-z0-9]+@[A-z]+/.[A-z]+$")) {
+        if (!txtEmailGU.getText().matches("^^\\w+@\\w+\\.\\W+$")) {
             JOptionPane.showMessageDialog(this, "Email format is xxx@xxx.xxx)");
             txtEmailGU.setText("");
             txtEmailGU.grabFocus();
