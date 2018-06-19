@@ -62,6 +62,8 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
     int initRow;
     boolean checkInitRow;
     
+    boolean checkConfirmBtn = false;
+    
     /**
      * Creates new form uiContract
      */
@@ -71,9 +73,9 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
         this.objConnection = objConnection;
         this.stmt = stmt;
         this.objMain = objMain;
-        initComponents();        
-        pContract.attachButtonAndSetMainRight(pContract, type);
+        initComponents();  
         manageConfirmButton();
+        pContract.attachButtonAndSetMainRight(pContract, type);        
         attachRegexAndErrorInform(pContract);
         showTable("Select * from Contract");
         initDataFromMainControl();
@@ -88,9 +90,9 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
         this.stmt = stmt;
         this.objMain = objMain;
         this.objFrame = objFrame;
-        initComponents();            
-        pContract.attachButtonAndSetMainRight(pContract, type);
+        initComponents();
         manageConfirmButton();
+        pContract.attachButtonAndSetMainRight(pContract, type);        
         attachRegexAndErrorInform(pContract);
         showTable("Select * from Contract");
         changeStatusAllTextField(pContract, false);
@@ -128,7 +130,10 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
     public void manageConfirmButton()
     {
         if (type.equalsIgnoreCase("ad"))
+        {
             btnConfirm.setEnabled(true);
+            checkConfirmBtn = true;
+        }
         else
             btnConfirm.setEnabled(false);
     }
@@ -773,15 +778,16 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
                 //insert into [Contract] values ('Con01', '2018-6-3', 'Ho01', 9500, 'Da xac nhan')
                 sql = "insert into [Contract] values ('"+IDCon+"', '"+DateCon+"', '"+IDHo+"', "+ PriceCon+", '"+StatusCon+"')";
                 stmt.executeUpdate(sql);
+                sql = "select * from Contract";
+                showTable(sql);
+                btnAdd.setText("Add");
+                //manageBtn(true, true, true, true);
+                clearAllTextField(pContract);
+                pContract.returnBtnStatus();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-            sql = "select * from Contract";
-            showTable(sql);
-            btnAdd.setText("Add");
-            //manageBtn(true, true, true, true);
-            clearAllTextField(pContract);
-            pContract.returnBtnStatus();
+            
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -817,6 +823,8 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
         txtStatusCon.setText(StatusCon);
         
         setImageGuestAndCollaborator();
+        if(!checkConfirmBtn)
+            return;
         if (!StatusCon.equalsIgnoreCase("activated"))
             btnConfirm.setEnabled(true);
         else

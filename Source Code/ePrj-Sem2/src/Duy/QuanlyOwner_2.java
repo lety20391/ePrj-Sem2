@@ -49,8 +49,10 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
         showTable();
         initDataFromMainControl();
         pButton.attachButtonAndSetMainRight(pButton, type);
+        pButton.createThreadToCheckButton();
         //manageButton(true,true,true,true);
         manageTextfield(false,false,false,false,false);
+        initID();
     }
        
     private void initDataFromMainControl()
@@ -71,10 +73,15 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
         tblMouseClickedProcess();
     }
     
+    public void initID()
+    {
+        IDSup = "";
+    }
+    
     public void manageButton(boolean btnAddStatus, boolean btnEditStatus, boolean btnViewStatus, boolean btnSearchStatus)
     {
         btnAdd.setEnabled(btnAddStatus);
-        btnEdit.setEnabled(btnEditStatus);
+        btnUpdate.setEnabled(btnEditStatus);
         btnDelete.setEnabled(btnViewStatus);
         btnSearch.setEnabled(btnSearchStatus);
     }
@@ -176,7 +183,7 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         pButton = new Library.G2Panel();
         btnAdd = new javax.swing.JButton();
-        btnEdit = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
 
@@ -347,11 +354,11 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
             }
         });
 
-        btnEdit.setText("Update");
-        btnEdit.setPreferredSize(new java.awt.Dimension(99, 25));
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdate.setText("Update");
+        btnUpdate.setPreferredSize(new java.awt.Dimension(99, 25));
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditActionPerformed(evt);
+                btnUpdateActionPerformed(evt);
             }
         });
 
@@ -377,7 +384,7 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pButtonLayout.createSequentialGroup()
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pButtonLayout.createSequentialGroup()
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -389,7 +396,7 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
             .addGroup(pButtonLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAdd))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -458,7 +465,7 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
         if (labelButton.equalsIgnoreCase("Add"))
         {
             //clearTxt();
-            manageButton(true, false, false, false);
+            //manageButton(true, false, false, false);
             manageTextfield(true, true, true,true, true);
             btnAdd.setText("Save");
         }else
@@ -480,22 +487,22 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-            
             showTable();
             btnAdd.setText("Add");
             
-            manageButton(true, true, true, true);
+            //manageButton(true, true, true, true);
+            pButton.returnBtnStatus();
             manageTextfield(false, false,false,false,false);
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
-    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-    String labelBtn = btnEdit.getText();
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+    String labelBtn = btnUpdate.getText();
         if( labelBtn.equalsIgnoreCase("Update"))
         {
-            btnEdit.setText("Save");
+            btnUpdate.setText("Save");
             manageTextfield(false,true,true,true,true);
-            manageButton(false,true,false,false);
+            //manageButton(false,true,false,false);
         }
         else
         {
@@ -511,15 +518,17 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
                     sql = "update Supplier set NameSup = '"+ NameSup +"', AddressSup = '"+ AddressSup +"', PhoneSup = '"+ PhoneSup +"',EmailSup = '"+ EmailSup  +"',StatusSup = '"+ StatusSup +"' where IDSup = '"+ IDSup +"'";
                     //System.out.println(StatusSup);
                     stmt.executeUpdate(sql);
-                    btnEdit.setText("Update");
-                    clearTxt();
-                    manageButton(true,true,true,true);
-                    showTable();
+                    
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
+            btnUpdate.setText("Update");
+            clearTxt();
+            //manageButton(true,true,true,true);
+            showTable();
+            pButton.returnBtnStatus();
         }
-    }//GEN-LAST:event_btnEditActionPerformed
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void tblSupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSupMouseClicked
         //tách thành method riêng khai báo ở bên dưới
@@ -570,6 +579,11 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
     
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
      try {
+            if (txtID.getText().isEmpty())
+            {
+                JOptionPane.showMessageDialog(this, "ID cannot be blank", "ID Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             int check = JOptionPane.showConfirmDialog(this, "You want to delete,sure?");
             if (check == JOptionPane.OK_OPTION)
             {
@@ -646,9 +660,9 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnEdit;
     private javax.swing.ButtonGroup btnGroupRad;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

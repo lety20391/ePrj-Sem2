@@ -45,7 +45,7 @@ public class QLCH1 extends javax.swing.JFrame {
     int initRow;
     boolean checkInitRow;
     
-    boolean checkDepositBtn = false;
+    boolean checkBookBtn = false;
     
     public QLCH1(String account, String type, Connection con, Statement stmt, Nam.MainControlInterface objMain) 
     {
@@ -58,10 +58,14 @@ public class QLCH1 extends javax.swing.JFrame {
         //connectSQL();
         showTable();
         initDataFromMainControl();
-        manageButton(true,true, true );//false,false);
-        btnBook.setEnabled(false);
+        pButton.attachButtonAndSetMainRight(pButton, type);
+        pButton.createThreadToCheckButton();
+        //manageButton(true,true, true );//false,false);
+        //btnBook.setEnabled(false);
         manageTextField(false, false, false, false, false, false, false, false);
         this.setTitle("Apartment Management");
+        initID();
+        manageBookButton();
     }
 
     public QLCH1(String account, String type, Connection con, Statement stmt, Dat_Le_2.uiHolding_2 objHoldingFrame, Nam.MainControlInterface objMain) 
@@ -77,10 +81,25 @@ public class QLCH1 extends javax.swing.JFrame {
         //connectSQL();
         showTable();
         initDataFromMainControl();
-        manageButton(true,true, true );//false,false);
-        btnBook.setEnabled(false);
+        pButton.attachButtonAndSetMainRight(pButton, type);
+        pButton.createThreadToCheckButton();
+        //manageButton(true,true, true );//false,false);
+        //btnBook.setEnabled(false);
         manageTextField(false, false, false, false, false, false, false, false);
         this.setTitle("Apartment Management");
+        initID();
+        manageBookButton();
+    }
+    
+    public void manageBookButton()
+    {
+        if (continueType.equalsIgnoreCase("ad") || continueType.equalsIgnoreCase("co"))
+        {
+            btnBook.setEnabled(true);
+            checkBookBtn = true;
+        }
+        else
+            btnBook.setEnabled(false);
     }
     
     private void initDataFromMainControl()
@@ -101,6 +120,11 @@ public class QLCH1 extends javax.swing.JFrame {
         tblMouseClickedProcess();
     }
     
+    public void initID()
+    {
+        IDApa = "";
+        PriceApa = 0.0;
+    }
 
 //    public void connectSQL()
 //    {
@@ -267,7 +291,7 @@ public class QLCH1 extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         pApaImage = new Library.G2ImagePanel();
-        jPanel2 = new javax.swing.JPanel();
+        pButton = new Library.G2Panel();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
@@ -440,7 +464,7 @@ public class QLCH1 extends javax.swing.JFrame {
             .addGap(0, 252, Short.MAX_VALUE)
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnUpdate.setText("Update");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -465,18 +489,17 @@ public class QLCH1 extends javax.swing.JFrame {
 
         btnBook.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnBook.setText("Book");
-        btnBook.setEnabled(false);
         btnBook.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBookActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout pButtonLayout = new javax.swing.GroupLayout(pButton);
+        pButton.setLayout(pButtonLayout);
+        pButtonLayout.setHorizontalGroup(
+            pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pButtonLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnBook)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -487,11 +510,11 @@ public class QLCH1 extends javax.swing.JFrame {
                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        pButtonLayout.setVerticalGroup(
+            pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pButtonLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdate)
                     .addComponent(btnDelete)
                     .addComponent(btnAdd)
@@ -520,7 +543,7 @@ public class QLCH1 extends javax.swing.JFrame {
                                 .addComponent(pApaImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -554,7 +577,7 @@ public class QLCH1 extends javax.swing.JFrame {
                             .addComponent(pApaImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnBack)))
                 .addContainerGap(111, Short.MAX_VALUE))
@@ -570,6 +593,11 @@ public class QLCH1 extends javax.swing.JFrame {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         try {
+            if (txtID.getText().isEmpty())
+            {
+                JOptionPane.showMessageDialog(this, "ID cannot be blank", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             int check = JOptionPane.showConfirmDialog(this, "Are you sure for deleting?");
             if (check == JOptionPane.OK_OPTION)
             {
@@ -622,6 +650,7 @@ public class QLCH1 extends javax.swing.JFrame {
                     btnAdd.setText("Add");
                     clearTxt(); 
                     manageTextField(false, false, false,false, false, false, false, false);
+                    pButton.returnBtnStatus();
                     } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
@@ -638,7 +667,7 @@ public class QLCH1 extends javax.swing.JFrame {
         {
             btnUpdate.setText("Save");            
             manageTextField(true, true, true,true,true,true,true,true);
-            manageButton(false, true, false);
+            //manageButton(false, true, false);
                        
         }else
             {
@@ -661,9 +690,10 @@ public class QLCH1 extends javax.swing.JFrame {
                 
                btnUpdate.setText("Update");
                 clearTxt();
-                manageButton(true, true, true);
-                btnBook.setEnabled(true);
+                //manageButton(true, true, true);
+                //btnBook.setEnabled(true);
                 showTable();
+                pButton.returnBtnStatus();
                  } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -711,6 +741,8 @@ public class QLCH1 extends javax.swing.JFrame {
         txtIDSup.setText(IDSupApa);
         
         pApaImage.inputImage(ImageApa);
+        if (!checkBookBtn)
+            return;
         if (StatusApa.equalsIgnoreCase("Holding"))
             setStatusDepositButton("On-Hold");
         else
@@ -917,12 +949,15 @@ public class QLCH1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     /*
     private javax.swing.JPanel pApaImage;
     */
     private Library.G2ImagePanel pApaImage;
+    /*
+    private javax.swing.JPanel pButton;
+    */
+    private Library.G2Panel pButton;
     private javax.swing.JTable tblApartment;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtBookCo;
