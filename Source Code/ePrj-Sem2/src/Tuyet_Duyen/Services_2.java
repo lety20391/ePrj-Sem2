@@ -54,6 +54,7 @@ public class Services_2 extends javax.swing.JFrame {
 //        manageButton(true,false,false);
         manageTextField(false, false, false);
         //clearAllTextField(pService);
+        initID();
     }
     
     public Services_2(String Account, String type, Connection objConnection, Statement stmt, G2TextField objOutputTextField, Nam.MainControlInterface objMain) {
@@ -70,6 +71,7 @@ public class Services_2 extends javax.swing.JFrame {
 //        manageButton(true,false,false);
         manageTextField(false, false, false);
         //clearAllTextField(pService);
+        initID();
     }
     //-------------------------------------------------------
     //cái này dùng để lấy giá trị (gồm Pattern và Thông báo lỗi)
@@ -95,6 +97,12 @@ public class Services_2 extends javax.swing.JFrame {
                 tempTextField.setText("");
             }
         }
+    }
+    
+    public void initID()
+    {
+        IDSer = "";
+        pButton.createThreadToCheckButton();
     }
     
     //init data get from objMain
@@ -497,6 +505,8 @@ public class Services_2 extends javax.swing.JFrame {
                 btnAdd.setText("Save");            
             }else{
                 try {    
+                    if (validateAllTextField(pService))
+                        return;
                     String ID = txtID.getText();
                     String Name = txtName.getText();
                     String Price = txtPrice.getText();
@@ -520,6 +530,7 @@ public class Services_2 extends javax.swing.JFrame {
                     clearTxt(); 
                     //disable cac textfield
                     manageTextField(false, false, false);
+                    pButton.returnBtnStatus();
 
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
@@ -568,7 +579,7 @@ public class Services_2 extends javax.swing.JFrame {
             btnUpdate.setText("Save");            
             manageTextField(true, true, true);
             //dat lai trang thai cac Button
-            manageButton(false, true, false);           
+            //manageButton(false, true, false);           
             
         }else
         {
@@ -592,9 +603,10 @@ public class Services_2 extends javax.swing.JFrame {
                 //xoa trang cac textField
                 clearTxt();
                 //enable lai cac Button
-                manageButton(true, true, true);
+                //manageButton(true, true, true);
                 //cap nhat lai Table
                 showTable();
+                pButton.returnBtnStatus();
                 
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -607,10 +619,15 @@ public class Services_2 extends javax.swing.JFrame {
         //manageTextField(true, true, true);
         
         try {
+            txtID.setEditable(true);
+            if (txtID.validateTextField())
+                return;
             int check = JOptionPane.showConfirmDialog(this, "Are you sure for deleting?");
             if (check == JOptionPane.OK_OPTION)
             {
+                
                 String ID = txtID.getText();
+                
                 //cau lenh SQL mau da kiem tra thu tren SQl
                 //delete from Services where IDSer = 'S06'
                 sql = "delete from Services where IDSer = '" + ID + "'";
@@ -619,6 +636,7 @@ public class Services_2 extends javax.swing.JFrame {
                 showTable();
                 //xoa cac textField
                 clearTxt();
+                txtID.setEditable(true);
             }else{
                 return;
             }

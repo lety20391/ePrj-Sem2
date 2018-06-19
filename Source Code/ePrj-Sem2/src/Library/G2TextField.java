@@ -80,8 +80,9 @@ public class G2TextField extends JTextField {
         JOptionPane.showMessageDialog(this, finalError, "Error", JOptionPane.INFORMATION_MESSAGE);
     }
     
-    public void validateTextField()
+    public boolean validateTextField()
     {
+        checkError = false;
         tempColor = this.getBackground();
         if (!Pattern.matches(patStr, this.getText()))
         {
@@ -91,6 +92,7 @@ public class G2TextField extends JTextField {
             repaint();
             showError();
         }
+        return checkError;
     }
     
     public String allValidate()
