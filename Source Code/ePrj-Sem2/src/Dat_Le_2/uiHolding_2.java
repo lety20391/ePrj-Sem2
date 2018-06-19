@@ -1459,6 +1459,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             int ans = JOptionPane.showConfirmDialog(this, "Are you sure to delete this? " + txtIDHo.getText() , "Delete Confirm", JOptionPane.OK_CANCEL_OPTION);
             if (ans == JOptionPane.CANCEL_OPTION)
                 return;
+            IDHo = txtIDHo.getText();
             try {
                 //delete Holding where IDHo = 'Ho03'
                 sql = "delete Holding where IDHo = '"+ IDHo +"'";
@@ -1471,6 +1472,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             showTable(sql);
             //manageBtn(true, true, true, true);
             pButton.returnBtnStatus();
+            IDHo = "";
         
     }//GEN-LAST:event_btnDeleteActionPerformed
 
