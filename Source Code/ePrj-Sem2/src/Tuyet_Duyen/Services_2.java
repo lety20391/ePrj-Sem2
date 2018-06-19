@@ -66,7 +66,7 @@ public class Services_2 extends javax.swing.JFrame {
         pButton.attachButtonAndSetMainRight(pButton, type);
         attachRegexAndErrorInform(pService);
         showTable();
-        initData();
+        //initData();
 //        manageButton(true,false,false);
         manageTextField(false, false, false);
         //clearAllTextField(pService);

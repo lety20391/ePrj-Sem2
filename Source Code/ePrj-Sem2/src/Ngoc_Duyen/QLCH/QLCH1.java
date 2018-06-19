@@ -64,24 +64,24 @@ public class QLCH1 extends javax.swing.JFrame {
         this.setTitle("Apartment Management");
     }
 
-//    public QLCH1(String account, String type, Connection con, Statement stmt, Dat_Le_2.uiHolding_2 objHoldingFrame, Nam.MainControlInterface objMain) 
-//
-//    {
-//        this.objMain = objMain;
-//        this.objHoldingFrame = objHoldingFrame;
-//        this.con = con;
-//        this.stmt = stmt;
-//        continueAccount = account;
-//        continueType = type;
-//        initComponents();
-//        //connectSQL();
-//        showTable();
-//        initDataFromMainControl();
-//        manageButton(true,true, true );//false,false);
-//        btnBook.setEnabled(false);
-//        manageTextField(false, false, false, false, false, false, false, false);
-//        this.setTitle("Apartment Management");
-//    }
+    public QLCH1(String account, String type, Connection con, Statement stmt, Dat_Le_2.uiHolding_2 objHoldingFrame, Nam.MainControlInterface objMain) 
+
+    {
+        this.objMain = objMain;
+        this.objUIHolding = objHoldingFrame;
+        this.con = con;
+        this.stmt = stmt;
+        continueAccount = account;
+        continueType = type;
+        initComponents();
+        //connectSQL();
+        showTable();
+        initDataFromMainControl();
+        manageButton(true,true, true );//false,false);
+        btnBook.setEnabled(false);
+        manageTextField(false, false, false, false, false, false, false, false);
+        this.setTitle("Apartment Management");
+    }
     
     private void initDataFromMainControl()
     {
@@ -637,7 +637,7 @@ public class QLCH1 extends javax.swing.JFrame {
         if( labelBtn.equalsIgnoreCase("Update"))
         {
             btnUpdate.setText("Save");            
-            manageTextField(false, true, true,true,true,true,true,true);
+            manageTextField(true, true, true,true,true,true,true,true);
             manageButton(false, true, false);
                        
         }else
@@ -776,7 +776,8 @@ public class QLCH1 extends javax.swing.JFrame {
                 btnBook.setEnabled(true);
                 objMain.bookSuccess = true;
                 returnDataToMainInterface();
-                invokeUIHolding();
+                objUIHolding.dispose();
+                invokeNewUIHolding();
                 dispose();
                  } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -785,7 +786,7 @@ public class QLCH1 extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnBookActionPerformed
 
-    public void invokeUIHolding()
+    public void invokeNewUIHolding()
     {
         SwingUtilities.invokeLater(new Runnable()
         {
@@ -940,11 +941,11 @@ public class QLCH1 extends javax.swing.JFrame {
             objMain.setVisible(true);
             returnDataToMainInterface();
         }
-//        if (objHoldingFrame != null)
-//        {
-//            objHoldingFrame.setIDApa(IDApa);
-//            //objHoldingFrame.goToContract();
-//        }
+        if (objUIHolding != null)
+        {
+            objUIHolding.setIDApa(IDApa);
+            //objHoldingFrame.goToContract();
+        }
         super.dispose();
     }
 
