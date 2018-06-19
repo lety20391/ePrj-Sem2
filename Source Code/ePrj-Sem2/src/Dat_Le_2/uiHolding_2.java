@@ -1612,6 +1612,24 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     }
     public void showTotalAndCommission()
     {
+        //get Price Apa from SQL
+        //select PriceApa from Apartment where IDApa = 'Ap01'
+        try {
+            IDApa = txtIDApa.getText();
+            sql = "select PriceApa from Apartment where IDApa = '"+IDApa+"'";
+            rs = stmt.executeQuery(sql);
+            rs.beforeFirst();
+            if(!rs.next())
+            {
+                JOptionPane.showMessageDialog(this, "Cannot Find Apartment. Try again", "Apartment ID Error", JOptionPane.ERROR_MESSAGE);
+                pricePerDay = 0.0;
+                return;
+            }
+            pricePerDay = rs.getDouble("PriceApa");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
         TotalHo = TotalMoney(pricePerDay);
         txtTotalHo.setText(String.valueOf(TotalHo));
         if (BookingSuccess == true)
