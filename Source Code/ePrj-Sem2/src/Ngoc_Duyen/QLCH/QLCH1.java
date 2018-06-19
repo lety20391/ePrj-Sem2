@@ -495,39 +495,44 @@ public class QLCH1 extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout pButtonLayout = new javax.swing.GroupLayout(pButton);
-        pButton.setLayout(pButtonLayout);
-        pButtonLayout.setHorizontalGroup(
-            pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pButtonLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnBook)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
-                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        pButtonLayout.setVerticalGroup(
-            pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pButtonLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUpdate)
-                    .addComponent(btnDelete)
-                    .addComponent(btnAdd)
-                    .addComponent(btnBook))
-                .addGap(23, 23, 23))
-        );
-
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
             }
         });
+
+        javax.swing.GroupLayout pButtonLayout = new javax.swing.GroupLayout(pButton);
+        pButton.setLayout(pButtonLayout);
+        pButtonLayout.setHorizontalGroup(
+            pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pButtonLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnBook, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
+                .addGroup(pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pButtonLayout.createSequentialGroup()
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        pButtonLayout.setVerticalGroup(
+            pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pButtonLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnUpdate)
+                    .addComponent(btnDelete)
+                    .addComponent(btnAdd)
+                    .addComponent(btnBook))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(btnBack)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -543,10 +548,7 @@ public class QLCH1 extends javax.swing.JFrame {
                                 .addComponent(pApaImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(pButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(pButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -563,7 +565,7 @@ public class QLCH1 extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -577,10 +579,7 @@ public class QLCH1 extends javax.swing.JFrame {
                             .addComponent(pApaImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addComponent(pButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnBack)))
-                .addContainerGap(111, Short.MAX_VALUE))
+                        .addComponent(pButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         pack();
@@ -776,7 +775,7 @@ public class QLCH1 extends javax.swing.JFrame {
         String labelBtn = btnBook.getText();
         if( labelBtn.equalsIgnoreCase("Book"))
         {
-            btnBook.setText("Confirm");            
+            btnBook.setText("Save");            
             manageTextField(false, false, false,false,false,false,false,false);
             manageButton(false, false, false);
                        
@@ -785,8 +784,7 @@ public class QLCH1 extends javax.swing.JFrame {
                 int ans = JOptionPane.showConfirmDialog(this, "Your balance will be subtract 100USD. But Commission is increase to 15%. Do you want to continue?");
                 if(ans == JOptionPane.NO_OPTION)
                 {
-                    btnBook.setText("Book");
-                    
+                    btnBook.setText("Book");                    
                     return;
                 }
                 
@@ -801,15 +799,22 @@ public class QLCH1 extends javax.swing.JFrame {
                 stmt.executeUpdate(sql);
                 
                 //update Collaborator set DepositCo = DepositCo - 100 where IDCo = 'Co01'
-                sql = "update Collaborator set DepositCo = DepositCo - 100 where IDCo = '"+ continueAccount +"'";
-                stmt.executeUpdate(sql);
-               btnUpdate.setText("Update");
+                
+                if (continueType.equalsIgnoreCase("co"))
+                {
+                    sql = "update Collaborator set DepositCo = DepositCo - 100 where IDCo = '"+ continueAccount +"'";
+                    stmt.executeUpdate(sql);
+                }
+                
                 clearTxt();
-                manageButton(true, true, true);
-                btnBook.setEnabled(true);
+                //manageButton(true, true, true);
+                //btnBook.setEnabled(true);
+                btnBook.setText("Book");
+                pButton.returnBtnStatus();
                 objMain.bookSuccess = true;
                 returnDataToMainInterface();
-                objUIHolding.dispose();
+                if (objUIHolding != null)
+                    objUIHolding.dispose();
                 invokeNewUIHolding();
                 dispose();
                  } catch (Exception e) {

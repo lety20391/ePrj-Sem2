@@ -487,9 +487,8 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         
     }
     
-    public double TotalMoney(Double price)
+    public int checkFromDateToDate()
     {
-        System.out.println(pricePerDay);
         int totalDay = 0;
         FromDateHo = txtFromDateHo.getText();
         ToDateHo = txtToDateHo.getText();
@@ -505,10 +504,22 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             
             totalDay = cal2.get(Calendar.DAY_OF_YEAR) - cal1.get(Calendar.DAY_OF_YEAR) + 1;
                         
+            if (totalDay < 0)
+            {
+                JOptionPane.showMessageDialog(this, "Please choose valid time From Date - To Date (ToDate is later than FromDate). Please try again", "Date Error", JOptionPane.ERROR_MESSAGE);
+                return 0;
+            }
+            
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
+        return totalDay;
+    }
+    
+    public double TotalMoney(Double price)
+    {
+        System.out.println(pricePerDay);
+        int totalDay = checkFromDateToDate();
         return totalDay * pricePerDay;
     }
     
@@ -1325,6 +1336,8 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
                 JOptionPane.showMessageDialog(this, "ID already exist. Please try another", "ID Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            if (checkFromDateToDate() == 0)
+                return;
             getDataFromTextField();
             if (BookingSuccess == true)
                 CommissionHo = TotalHo * ratioCommission + 100;
@@ -1388,6 +1401,8 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
                 JOptionPane.showMessageDialog(this, "Cannot find ID", "ID Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            if (checkFromDateToDate() == 0)
+                return;
             getDataFromTextField();
             if (BookingSuccess == true)
                 CommissionHo = TotalHo * ratioCommission + 100;
@@ -1419,7 +1434,9 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             btnDelete.setText("Continue");
         }else
         {
-        
+            txtIDHo.setEditable(true);
+            if (txtIDHo.validateTextField())
+                return;
             try {
                 //delete Holding where IDHo = 'Ho03'
                 sql = "delete Holding where IDHo = '"+ IDHo +"'";
