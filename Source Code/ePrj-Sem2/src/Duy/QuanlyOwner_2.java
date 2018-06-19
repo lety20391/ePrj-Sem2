@@ -579,6 +579,7 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
     
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
      try {
+            txtID.setEditable(true);
             if (txtID.getText().isEmpty())
             {
                 JOptionPane.showMessageDialog(this, "ID cannot be blank", "ID Error", JOptionPane.ERROR_MESSAGE);

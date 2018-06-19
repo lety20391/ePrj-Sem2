@@ -593,6 +593,7 @@ public class QLCH1 extends javax.swing.JFrame {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         try {
+            txtID.setEditable(true);
             if (txtID.getText().isEmpty())
             {
                 JOptionPane.showMessageDialog(this, "ID cannot be blank", "Error", JOptionPane.ERROR_MESSAGE);

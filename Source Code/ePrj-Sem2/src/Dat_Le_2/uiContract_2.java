@@ -591,6 +591,11 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
         });
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnConfirm.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         btnConfirm.setText("Confirm");
@@ -917,6 +922,35 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
         }        
         );
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        getDataFromTextField();
+        //manageBtn(false, false, false, true);
+        String labelButton = btnDelete.getText();
+        if (labelButton.equalsIgnoreCase("Delete"))
+        {
+            btnDelete.setText("Continue");
+        }else
+        {
+            txtIDCon.setEditable(true);
+            if (txtIDCon.validateTextField())
+                return;
+            try {
+                //delete Holding where IDHo = 'Ho03'
+                sql = "delete Contract where IDCon = '"+ IDCon +"'";
+                stmt.executeUpdate(sql);
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            sql = "select * from Contract";
+            showTable(sql);
+            btnDelete.setText("Delete");
+            //manageBtn(true, true, true, true);
+            pContract.returnBtnStatus();
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
