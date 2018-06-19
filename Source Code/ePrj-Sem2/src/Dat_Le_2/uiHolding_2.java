@@ -487,6 +487,28 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         
     }
     
+    public boolean checkDateHo()
+    {
+        boolean checkError = false;
+        DateHo = txtDateHo.getText();
+        SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date dateHo = myFormat.parse(DateHo);
+            Calendar cal1 = Calendar.getInstance();
+            cal1.setTime(dateHo);
+            Calendar cal2 = Calendar.getInstance();
+            int diff = cal2.get(Calendar.DAY_OF_YEAR) - cal1.get(Calendar.DAY_OF_YEAR);
+            if (diff >= 0)
+                return checkError;
+            checkError = true;
+            JOptionPane.showMessageDialog(this, "DateHo must be Today or Sooner", "DateHo Error", JOptionPane.ERROR_MESSAGE);
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return checkError;
+    }
+    
     public int checkFromDateToDate()
     {
         int totalDay = 0;
@@ -1336,6 +1358,8 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
                 JOptionPane.showMessageDialog(this, "ID already exist. Please try another", "ID Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            if (checkDateHo())
+                return;
             if (checkFromDateToDate() == 0)
                 return;
             getDataFromTextField();
@@ -1401,6 +1425,8 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
                 JOptionPane.showMessageDialog(this, "Cannot find ID", "ID Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            if (checkDateHo())
+                return;
             if (checkFromDateToDate() == 0)
                 return;
             getDataFromTextField();
@@ -1426,16 +1452,12 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        getDataFromTextField();
-        //manageBtn(false, false, false, true);
-        String labelButton = btnDelete.getText();
-        if (labelButton.equalsIgnoreCase("Delete"))
-        {
-            btnDelete.setText("Continue");
-        }else
-        {
+        
             txtIDHo.setEditable(true);
             if (txtIDHo.validateTextField())
+                return;
+            int ans = JOptionPane.showConfirmDialog(this, "Are you sure to delete this? " + txtIDHo.getText() , "Delete Confirm", JOptionPane.OK_CANCEL_OPTION);
+            if (ans == JOptionPane.CANCEL_OPTION)
                 return;
             try {
                 //delete Holding where IDHo = 'Ho03'
@@ -1447,10 +1469,9 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             }
             sql = "select * from Holding";
             showTable(sql);
-            btnDelete.setText("Delete");
             //manageBtn(true, true, true, true);
             pButton.returnBtnStatus();
-        }
+        
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnMakeContractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMakeContractActionPerformed
