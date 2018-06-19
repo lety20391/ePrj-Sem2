@@ -803,6 +803,7 @@ public class MainControlInterface extends javax.swing.JFrame {
             }
         }
         );
+        dispose();
     }//GEN-LAST:event_btnGuestActionPerformed
 
     private void colBtnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colBtnCreateActionPerformed
