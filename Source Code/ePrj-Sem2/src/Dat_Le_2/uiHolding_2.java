@@ -151,7 +151,6 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         IDGu = "";
         IDApa = "";
         pHolding.createThreadToCheckButton();
-        pHolding.createThreadToCheckButton();
     }
     
     public void attachRegexAndErrorInform(Library.G2Panel panel)
