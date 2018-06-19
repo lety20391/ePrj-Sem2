@@ -446,6 +446,26 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         }
     }
     
+    public boolean checkBookingPosibility()
+    {
+        boolean apaCanBeBooked = true;
+        getDataFromTextField();
+        try {
+            //select * from Holding where IDApa = 'Ap02' AND NOT( FromDateHo > '2018-06-20' OR ToDateHo < '2018-06-13')
+            sql = "select * from Holding where IDApa = '" + IDApa + "' AND NOT( FromDateHo > '"+ ToDateHo +"' OR ToDateHo < '" + FromDateHo + "')";
+            rs = stmt.executeQuery(sql);
+            rs.beforeFirst();
+            if (rs.next())
+            {
+                apaCanBeBooked = false;
+            }
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return apaCanBeBooked;
+    }
+    
     public void checkBookSuccess()
     {
         if (objMain.bookSuccess == true)
