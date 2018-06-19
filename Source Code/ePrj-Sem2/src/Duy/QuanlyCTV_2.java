@@ -75,6 +75,22 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
         manageTextfield(false, false, false, false, false, false, false, false, false, false, false, false, false, false);
     }
     
+    public QuanlyCTV_2(String account, String type, Connection objConnection, Statement stmt) {
+        //this.objMain = objMain;
+        this.objConnection = objConnection;
+        this.stmt = stmt;
+        continueAccount = account;
+        continueType = type;
+        initComponents();
+        manageAccountPanel();
+        showTable();
+        
+        initData();
+        pButton.attachButtonAndSetMainRight(pButton, type);
+        //manageButton(true, true, true, true);
+        manageTextfield(false, false, false, false, false, false, false, false, false, false, false, false, false, false);
+    }
+    
     public QuanlyCTV_2(String account, String type, Connection objConnection, Statement stmt, G2TextField objOutputTextField, uiHolding_2 objHoldingFrame, Nam.MainControlInterface objMain) {
         this.objMain = objMain;
         this.objHoldingFrame = objHoldingFrame;
@@ -767,7 +783,7 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegisterForm(continueAccount, continueType, objConnection, stmt, "col").setVisible(true);
+                new RegisterForm(continueAccount, continueType, objConnection, stmt, "co").setVisible(true);
             }
         });
         dispose();

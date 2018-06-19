@@ -84,6 +84,23 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         //manageButton(true,false,false);
         manageTextField(false, false, false, false, false, false, false, false);
     }
+     
+     public Theme_guest_2(String account, String type, Connection objConnection, Statement stmt) {
+        this.objConnection = objConnection;
+        this.stmt = stmt;
+        continueAccount = account;
+        this.type = type;
+        //this.objMain = objMain;
+        initComponents();
+        
+        pButton.attachButtonAndSetMainRight(pButton, type);
+        attachRegexAndErrorInform(pGuest);
+        //connectSQL();
+        showTable();
+        initData();
+        //manageButton(true,false,false);
+        manageTextField(false, false, false, false, false, false, false, false);
+    }
     //init data get from objMain
     public void initData()
     {
@@ -714,7 +731,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         // TODO add your handling code here:
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegisterForm(continueAccount, type, objConnection, stmt, "guest").setVisible(true);
+                new RegisterForm(continueAccount, type, objConnection, stmt, "gu").setVisible(true);
             }
         });
     }//GEN-LAST:event_btnAddActionPerformed

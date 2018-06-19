@@ -7,6 +7,7 @@ package Nam;
 
 import Duy.QuanlyCTV_2;
 import Library.G2FileBrowserExtend;
+import Tuyet_Duyen.Theme_guest_2;
 import java.awt.Image;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -109,11 +110,12 @@ public class RegisterForm extends javax.swing.JFrame {
     }
 
     private void load() {
-        if (continueType.equals("co")) {
+        if (continueType.equalsIgnoreCase("co")) {
             jTabblePane.remove(pnelCol);
             txtBelongCoGU.setText(continueAccount);
             txtBelongCoGU.setEditable(false);
         }
+        
     }
 
     private void checkBlankCo() {
@@ -1170,13 +1172,13 @@ public class RegisterForm extends javax.swing.JFrame {
                 }
             });
         }
-//         else {
-//            java.awt.EventQueue.invokeLater(new Runnable() {
-//                public void run() {
-//                    new QuanlyCTV_2(continueAccount, continueType, conn, stmt).setVisible(true);
-//                }
-//            });
-//        }
+         else {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new QuanlyCTV_2(continueAccount, continueType, conn, stmt).setVisible(true);
+                }
+            });
+        }
         dispose();
     }//GEN-LAST:event_btnBackCoActionPerformed
 
@@ -1189,13 +1191,13 @@ public class RegisterForm extends javax.swing.JFrame {
                 }
             });
         }
-//        else {
-//            java.awt.EventQueue.invokeLater(new Runnable() {
-//                public void run() {
-//                    new Theme_guest_2(continueAccount, continueType, conn, stmt).setVisible(true);
-//                }
-//            });
-//        }
+        else {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new Theme_guest_2(continueAccount, continueType, conn, stmt).setVisible(true);
+                }
+            });
+        }
         dispose();
     }//GEN-LAST:event_btnBackGuActionPerformed
 
