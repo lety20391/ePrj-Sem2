@@ -46,6 +46,7 @@ public class QLCH1 extends javax.swing.JFrame {
     boolean checkInitRow;
     
     boolean checkBookBtn = false;
+    String FromDate, ToDate;
     
     public QLCH1(String account, String type, Connection con, Statement stmt, Nam.MainControlInterface objMain) 
     {
@@ -124,6 +125,11 @@ public class QLCH1 extends javax.swing.JFrame {
     {
         IDApa = "";
         PriceApa = 0.0;
+        if (objUIHolding != null)
+        {
+            this.FromDate = objUIHolding.getFromDate();
+            this.ToDate = objUIHolding.getToDate();
+        }
     }
 
 //    public void connectSQL()
@@ -732,10 +738,27 @@ public class QLCH1 extends javax.swing.JFrame {
         pApaImage.inputImage(ImageApa);
         if (!checkBookBtn)
             return;
-        if (StatusApa.equalsIgnoreCase("Holding"))
+        //nếu gửi từ UIHolding qua thì check xem có đặt đc phòng trong khoảng thời gian đó không
+        if (objUIHolding != null)
+        {
+            FromDate = objUIHolding.getFromDate();
+            ToDate = objUIHolding.getToDate();
+            if (!objUIHolding.checkBookingPosibility(IDApa, FromDate, ToDate))
+            {
+                setStatusDepositButton("On-Hold");
+                JOptionPane.showMessageDialog(this, "Cannot Book this Apartment in your desire time. From: " + FromDate + " - To: " + ToDate, "Time Book Error", JOptionPane.ERROR_MESSAGE);
+            }else{
+                setStatusDepositButton("OK");
+            }
+        }else
+        {
             setStatusDepositButton("On-Hold");
-        else
-            setStatusDepositButton("OK");
+        }
+        //có thể sẽ bỏ khúc này
+//        if (StatusApa.equalsIgnoreCase("Holding"))
+//            setStatusDepositButton("On-Hold");
+//        else
+//            setStatusDepositButton("OK");
     }
     
     private void pApaImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pApaImageMouseClicked
@@ -825,6 +848,7 @@ public class QLCH1 extends javax.swing.JFrame {
             {
                 objUIHolding = new uiHolding_2(continueAccount, continueType, con, stmt, objMain);
                 objUIHolding.setVisible(true);
+                objUIHolding.setDataFromApartment(IDApa, FromDate, ToDate, PriceApa);
             }
         });
     }

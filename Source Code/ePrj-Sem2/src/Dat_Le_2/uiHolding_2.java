@@ -81,6 +81,9 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     
     Theme_guest_2 objGuest;
     
+    
+    //boolean shouldInitData = false;
+    
     public uiHolding_2() throws HeadlessException 
     {
         
@@ -120,6 +123,29 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         //initDataApaFromMain();
     }
     
+//    public uiHolding_2(String account, String type, Connection objConnection, Statement stmt, Nam.MainControlInterface objMain, boolean shouldInitData)
+//    {
+//        this.account = account;
+//        this.type = type;
+//        this.objConnection = objConnection;
+//        this.stmt = stmt;
+//        this.objMain = objMain;
+//        this.shouldInitData = shouldInitData;
+//        objMain.setVisible(false);
+//        
+//        initComponents();   
+//        pButton.attachButtonAndSetMainRight(pButton,type); 
+//        attachRegexAndErrorInform(pHolding);  
+//        newData();        
+//        showTable("Select * from Holding");
+//        if (shouldInitData)
+//            initDataHoFromMain();
+//        checkBookSuccess();
+//        initID();
+//        IDApa = objMain.getIDApa();
+//        //initDataApaFromMain();
+//    }
+//    
     public uiHolding_2(String Account, String type, Connection objConnection, Statement stmt, Library.G2FrameInterface objG2Frame, Nam.MainControlInterface objMain)
     {
         this.objConnection = objConnection;
@@ -142,6 +168,18 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         //pImageGuest.setSize(300, 400);
 //        pImageGuest.inputImage("\\src\\Image\\Guest\\Gu01.jpg");
 //        pImageCollaborator.inputImage("\\src\\Image\\Collaborator\\Co01.jpg");
+    }
+    
+    public String getFromDate()
+    {
+        FromDateHo = txtFromDateHo.getText();
+        return FromDateHo;
+    }
+    
+    public String getToDate()
+    {
+        ToDateHo = txtToDateHo.getText();
+        return ToDateHo;
     }
     
     public void initID()
@@ -196,7 +234,8 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         IDCo = "";
         IDGu = "";
         IDHo = "";
-        IDApa = "";
+//        if (shouldInitData )
+            IDApa = "";
         lbBook.setVisible(false);
     }
     
@@ -446,13 +485,12 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         }
     }
     
-    public boolean checkBookingPosibility()
+    public boolean checkBookingPosibility(String IDApa, String FromDate, String ToDate)
     {
         boolean apaCanBeBooked = true;
-        getDataFromTextField();
         try {
             //select * from Holding where IDApa = 'Ap02' AND NOT( FromDateHo > '2018-06-20' OR ToDateHo < '2018-06-13')
-            sql = "select * from Holding where IDApa = '" + IDApa + "' AND NOT( FromDateHo > '"+ ToDateHo +"' OR ToDateHo < '" + FromDateHo + "')";
+            sql = "select * from Holding where IDApa = '" + IDApa + "' AND NOT( FromDateHo > '"+ ToDate +"' OR ToDateHo < '" + FromDate + "')";
             rs = stmt.executeQuery(sql);
             rs.beforeFirst();
             if (rs.next())
@@ -474,14 +512,15 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             ratioCommission = 0.15;
             this.pricePerDay = objMain.getTempDouble();
             checkInitRow = true;
-            initRow = 1;
-            tblMouseClickedProcess();
-            txtCommissionHo.setText("");
-            txtTotalHo.setText("");
-            txtIDApa.setText(IDApa);
+            //initRow = 1;
+            //tblMouseClickedProcess();
+//            txtCommissionHo.setText("");
+//            txtTotalHo.setText("");
+//            txtIDApa.setText(IDApa);
             txtIDApa.setEditable(false);
             lbApa.setText(IDApa);
             lbBook.setVisible(true);
+            //showTotalAndCommission();
             SwingUtilities.invokeLater(new Runnable()
             {
                 public void run()
@@ -527,6 +566,17 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             System.out.println(e.getMessage());
         }
         return checkError;
+    }
+    
+    public void setDataFromApartment(String IDApa, String FromDateHo, String ToDateHo, Double PriceApa)
+    {
+        txtIDApa.setText(IDApa);
+        txtIDApa.setEditable(false);
+        txtFromDateHo.setText(FromDateHo);
+        txtFromDateHo.setEditable(false);
+        txtToDateHo.setText(ToDateHo);
+        txtFromDateHo.setEditable(false);
+        pricePerDay = PriceApa;
     }
     
     public int checkFromDateToDate()
@@ -1371,6 +1421,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             btnAdd.setText("Save");
         }else
         {
+            getDataFromTextField();
             if (validateAllTextField())
                 return;
             if (validateIDError())
@@ -1382,7 +1433,12 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
                 return;
             if (checkFromDateToDate() == 0)
                 return;
-            getDataFromTextField();
+            if (!checkBookingPosibility(IDApa, FromDateHo, ToDateHo))
+            {   
+                JOptionPane.showMessageDialog(this, "Cannot Book this Apartment in your desire time. From: " + FromDateHo + " - To: " + ToDateHo, "Time Book Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            //getDataFromTextField();
             if (BookingSuccess == true)
                 CommissionHo = TotalHo * ratioCommission + 100;
             else
@@ -1438,6 +1494,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             btnUpdate.setText("Save");
         }else
         {
+            getDataFromTextField();
             if(validateAllTextField())
                 return;
             if (!validateIDError())
@@ -1449,7 +1506,12 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
                 return;
             if (checkFromDateToDate() == 0)
                 return;
-            getDataFromTextField();
+            if (!checkBookingPosibility(IDApa, FromDateHo, ToDateHo))
+            {   
+                JOptionPane.showMessageDialog(this, "Cannot Book this Apartment in your desire time. From: " + FromDateHo + " - To: " + ToDateHo, "Time Book Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            //getDataFromTextField();
             if (BookingSuccess == true)
                 CommissionHo = TotalHo * ratioCommission + 100;
             else
@@ -1534,6 +1596,8 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
 
     private void txtFromDateHoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFromDateHoMouseClicked
         // TODO add your handling code here:
+//        if (shouldInitData == false)
+//            return;
         initDateChooser();
         diaDateChooser.addListener(txtFromDateHo);
         diaDateChooser.setVisible(true); 
@@ -1542,6 +1606,8 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
 
     private void txtToDateHoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtToDateHoMouseClicked
         // TODO add your handling code here:
+//        if (shouldInitData == false)
+//            return;
         initDateChooser();
         diaDateChooser.addListener(txtToDateHo);
         diaDateChooser.setVisible(true);
@@ -1590,6 +1656,8 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
                invokeQLCH(); 
             }
         });
+        IDApa = txtIDApa.getText();
+        lbApa.setText(IDApa);
     }//GEN-LAST:event_txtIDApaMouseClicked
 
     private void txtIDGuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIDGuMouseClicked
