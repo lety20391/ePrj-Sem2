@@ -109,7 +109,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         objMain.setVisible(false);
         
         initComponents();   
-        pHolding.attachButtonAndSetMainRight(pButton,type); 
+        pButton.attachButtonAndSetMainRight(pButton,type); 
         attachRegexAndErrorInform(pHolding);  
         newData();
         
@@ -130,7 +130,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         
         initComponents();   
         //patStr = txtIDHo.getText();
-        pHolding.attachButtonAndSetMainRight(pButton,type); 
+        pButton.attachButtonAndSetMainRight(pButton,type); 
         attachRegexAndErrorInform(pHolding);
         
         //initDateChooser();
@@ -150,7 +150,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
         IDCo = "";
         IDGu = "";
         IDApa = "";
-        pHolding.createThreadToCheckButton();
+        pButton.createThreadToCheckButton();
     }
     
     public void attachRegexAndErrorInform(Library.G2Panel panel)
