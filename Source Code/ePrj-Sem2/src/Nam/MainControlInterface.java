@@ -178,17 +178,17 @@ public class MainControlInterface extends javax.swing.JFrame {
     }
 
     private void load() {
-        if (continueType.equals("ad")) {
+        if (continueType.equalsIgnoreCase("ad")) {
             jTabbedPane.remove(jPanelCol);
             jTabbedPane.remove(jPanelGuest);
             loadAd();
         }
-        if (continueType.equals("co")) {
+        if (continueType.equalsIgnoreCase("co")) {
             jTabbedPane.remove(jPanelAdmin);
             jTabbedPane.remove(jPanelGuest);
             loadCol();
         }
-        if (continueType.equals("gu")) {
+        if (continueType.equalsIgnoreCase("gu")) {
             jTabbedPane.remove(jPanelAdmin);
             jTabbedPane.remove(jPanelCol);
         }
@@ -904,6 +904,7 @@ public class MainControlInterface extends javax.swing.JFrame {
 
     private void guBtnFeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guBtnFeedbackActionPerformed
         // TODO add your handling code here:
+        new FeedBackGujDialog(this, true, continueAccount, continueType, conn, stmt).setVisible(true);
         
     }//GEN-LAST:event_guBtnFeedbackActionPerformed
 

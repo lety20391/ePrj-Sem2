@@ -225,7 +225,7 @@ public class FeedBackGujDialog extends javax.swing.JDialog {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String dof = df.format(txtDate.getDate());
         
-        sql = "insert into FeedbackNote(DateFb, IDGu, IDApa, ContentFb, StatusFb) values ('"+dof+"', '"+txtIDGU+"', '"+txtIDApa+"', '"+txtAreaFeedback+"', 'unread')";
+        sql = "insert into FeedbackNote(DateFb, IDGu, IDApa, ContentFb, StatusFb) values ('"+dof+"', '"+txtIDGU.getText()+"', '"+txtIDApa.getText()+"', '"+txtAreaFeedback.getText()+"', 'unread')";
         try {
             stmt.executeUpdate(sql);
         } catch (SQLException ex) {
