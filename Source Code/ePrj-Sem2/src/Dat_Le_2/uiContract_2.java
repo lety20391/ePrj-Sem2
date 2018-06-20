@@ -74,6 +74,7 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
         this.stmt = stmt;
         this.objMain = objMain;
         initComponents();  
+        objMain.setVisible(false);
         manageConfirmButton();
         pContract.attachButtonAndSetMainRight(pContract, type);        
         attachRegexAndErrorInform(pContract);

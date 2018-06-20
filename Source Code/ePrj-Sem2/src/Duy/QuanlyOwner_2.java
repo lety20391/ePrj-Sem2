@@ -45,6 +45,7 @@ public class QuanlyOwner_2 extends javax.swing.JFrame {
         this.account = account;
         this.type = type;
         initComponents();
+        objMain.setVisible(false);
         //connect();
         showTable();
         initDataFromMainControl();

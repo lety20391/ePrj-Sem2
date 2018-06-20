@@ -56,6 +56,7 @@ public class QLCH1 extends javax.swing.JFrame {
         continueAccount = account;
         continueType = type;
         initComponents();
+        objMain.setVisible(false);
         //connectSQL();
         showTable();
         initDataFromMainControl();
@@ -996,14 +997,15 @@ public class QLCH1 extends javax.swing.JFrame {
     public void dispose(){
         if (objMain != null)
         {
-            objMain.setVisible(true);
+            
             returnDataToMainInterface();
         }
         if (objUIHolding != null)
         {
             objUIHolding.setIDApa(IDApa);
-            //objHoldingFrame.goToContract();
-        }
+            objMain.setVisible(false);
+        }else
+            objMain.setVisible(true);
         super.dispose();
     }
 

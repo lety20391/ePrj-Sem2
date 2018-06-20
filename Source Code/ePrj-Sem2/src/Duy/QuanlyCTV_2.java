@@ -66,6 +66,7 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
         continueAccount = account;
         continueType = type;
         initComponents();
+        objMain.setVisible(false);
         manageAccountPanel();
         showTable();
         
@@ -1041,15 +1042,16 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
     public void dispose(){
         if (objMain != null)
         {
-            //objMain.setVisible(true);
+            objMain.setVisible(true);
             returnDataToMainInterface();
         }
         if (objHoldingFrame != null)
         {
             objOutputTextField.setText(IDCo);
-            System.out.println(IDCo);
             objHoldingFrame.reload();
-        }
+            objMain.setVisible(false);
+        }else
+            objMain.setVisible(true);
         super.dispose();
     }
 

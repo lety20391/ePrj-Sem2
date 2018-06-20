@@ -822,7 +822,7 @@ public class MainControlInterface extends javax.swing.JFrame {
             }
         }
         );
-        dispose();
+        //dispose();
     }//GEN-LAST:event_btnHoldingActionPerformed
 
     private void colBtnHoldingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colBtnHoldingActionPerformed
@@ -833,7 +833,7 @@ public class MainControlInterface extends javax.swing.JFrame {
             }
         }
         );
-        dispose();
+        //dispose();
     }//GEN-LAST:event_colBtnHoldingActionPerformed
 
     public void invokeUIHolding() {
@@ -851,7 +851,7 @@ public class MainControlInterface extends javax.swing.JFrame {
             }
         }
         );
-        dispose();
+        //dispose();
 
     }//GEN-LAST:event_btnCreateActionPerformed
 
@@ -879,7 +879,7 @@ public class MainControlInterface extends javax.swing.JFrame {
             }
         }
         );
-        dispose();
+        //dispose();
     }//GEN-LAST:event_btnGuestActionPerformed
 
     private void colBtnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colBtnCreateActionPerformed
@@ -937,7 +937,7 @@ public class MainControlInterface extends javax.swing.JFrame {
             }
         }
         );
-        dispose();
+        //dispose();
     }//GEN-LAST:event_colBtnGuestActionPerformed
 
     public void invokeThemeGuest2() {

@@ -45,7 +45,8 @@ public class Services_2 extends javax.swing.JFrame {
         this.objMain = objMain;
         this.objConnection = objConnection;
         this.stmt = stmt;
-        initComponents();      
+        initComponents(); 
+        objMain.setVisible(false);
         //connectSQL();
         pButton.attachButtonAndSetMainRight(pButton, type);
         attachRegexAndErrorInform(pService);
@@ -722,11 +723,15 @@ public class Services_2 extends javax.swing.JFrame {
     public void dispose(){
         if (objMain != null)
         {
-            objMain.setVisible(true);
+            
             returnDataToMainInterface();
         }
         if(objOutputTextField != null)
+        {
             objOutputTextField.setText(IDSer);
+            objMain.setVisible(false);
+        }else
+            objMain.setVisible(true);
         super.dispose();
     }
 

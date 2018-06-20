@@ -56,6 +56,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         this.type = type;
         this.objMain = objMain;
         initComponents();
+        objMain.setVisible(false);
         
         pButton.attachButtonAndSetMainRight(pButton, type);
         pButton.createThreadToCheckButton();
@@ -758,7 +759,7 @@ public class Theme_guest_2 extends javax.swing.JFrame {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        new Nam.MainControlInterface(continueAccount, type, objConnection, stmt).setVisible(true);
+        //objMain.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
@@ -868,12 +869,15 @@ public class Theme_guest_2 extends javax.swing.JFrame {
         {
             //objMain.setVisible(true);
             returnDataToMainInterface();
+            objMain.setVisible(true);
         }
         if(objOutputTextField != null)
         {
             objOutputTextField.setText(IDGu);
-            objHoldingFrame.reload();            
-        }
+            objHoldingFrame.reload(); 
+            objMain.setVisible(false);
+        }else
+            objMain.setVisible(true);
         super.dispose();
     }
 

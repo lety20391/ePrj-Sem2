@@ -81,6 +81,8 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     
     Theme_guest_2 objGuest;
     
+    boolean canDispose = true;
+    
     
     //boolean shouldInitData = false;
     
@@ -512,6 +514,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             ratioCommission = 0.15;
             this.pricePerDay = objMain.getTempDouble();
             checkInitRow = true;
+            canDispose = false;
             //initRow = 1;
             //tblMouseClickedProcess();
 //            txtCommissionHo.setText("");
@@ -1491,6 +1494,7 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
             //btnMakeContract.setEnabled(true);
             returnDataToMainInterface();
             objMain.bookSuccess = false;
+            canDispose = true;            
             SwingUtilities.invokeLater(new Runnable()
             {
                 public void run()
@@ -1968,6 +1972,19 @@ public class uiHolding_2 extends javax.swing.JFrame implements Library.G2FrameIn
     
     @Override
     public void dispose(){
+        if (!canDispose)
+        {
+            int ans = JOptionPane.showConfirmDialog(this, "If you Close this Windows you will loose your promotion interest. If you still want to close choose Yes, if you want to continue choose No", "Close Window Warning", JOptionPane.YES_NO_CANCEL_OPTION);
+            if (ans == JOptionPane.NO_OPTION)
+                return;
+            if (ans == JOptionPane.YES_OPTION)
+            {
+                objMain.bookSuccess = false;
+                canDispose = true;
+                dispose();
+            }
+            return;
+        }
         if (objMain != null)
         {
             objMain.setVisible(true);
