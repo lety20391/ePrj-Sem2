@@ -162,7 +162,9 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
         {
             uiHolding_2 tempObjFrame = (uiHolding_2)objFrame;
             txtDateCon.setText(tempObjFrame.getDateHo());
-            txtPriceCon.setText(String.valueOf(tempObjFrame.getTotalHo()));            
+            txtDateCon.setEditable(false);
+            txtPriceCon.setText(String.valueOf(tempObjFrame.getTotalHo())); 
+            txtPriceCon.setEditable(false);
         }        
         setImageGuestAndCollaborator();
         //tạo giao diện gây sự chú ý
@@ -767,8 +769,8 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
 //                txtMap.get(key).setText("Test");
 //            }
 //        }
-        
-        changeStatusAllTextField(pContract, true);
+        if(objFrame == null)
+            changeStatusAllTextField(pContract, true);
         //manageBtn(false, true, false, false);        
         String labelButton = btnAdd.getText();
         if (labelButton.equalsIgnoreCase("Add"))
@@ -925,17 +927,13 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        getDataFromTextField();
-        //manageBtn(false, false, false, true);
-        String labelButton = btnDelete.getText();
-        if (labelButton.equalsIgnoreCase("Delete"))
-        {
-            btnDelete.setText("Continue");
-        }else
-        {
             txtIDCon.setEditable(true);
             if (txtIDCon.validateTextField())
                 return;
+            int ans = JOptionPane.showConfirmDialog(this, "Are you sure to delete this? " + txtIDCon.getText() , "Delete Confirm", JOptionPane.OK_CANCEL_OPTION);
+            if (ans == JOptionPane.CANCEL_OPTION)
+                return;
+            IDCon = txtIDCon.getText();
             try {
                 //delete Holding where IDHo = 'Ho03'
                 sql = "delete Contract where IDCon = '"+ IDCon +"'";
@@ -949,7 +947,7 @@ public class uiContract_2 extends javax.swing.JFrame implements Library.G2FrameI
             btnDelete.setText("Delete");
             //manageBtn(true, true, true, true);
             pContract.returnBtnStatus();
-        }
+            IDCon = "";
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
