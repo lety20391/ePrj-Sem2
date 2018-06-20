@@ -83,7 +83,10 @@ public class MainControlInterface extends javax.swing.JFrame {
     }
 
     public String getIDCo() {
-        return IDCo;
+        if (IDCo != null)
+            return IDCo;
+        else
+            return "";
     }
 
     public String getIDApa() {

@@ -60,7 +60,8 @@ public class QLCH1 extends javax.swing.JFrame {
         //connectSQL();
         showTable();
         initDataFromMainControl();
-        pButton.attachButtonAndSetMainRight(pButton, type);
+        btnBook.setEnabled(false);
+        pButton.attachButtonAndSetMainRight(pButton, type);        
         pButton.createThreadToCheckButton();
         //manageButton(true,true, true );//false,false);
         //btnBook.setEnabled(false);
@@ -485,6 +486,7 @@ public class QLCH1 extends javax.swing.JFrame {
 
         btnBook.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnBook.setText("Book");
+        btnBook.setEnabled(false);
         btnBook.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBookActionPerformed(evt);

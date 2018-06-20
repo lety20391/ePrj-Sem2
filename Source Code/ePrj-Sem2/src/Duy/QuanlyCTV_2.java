@@ -135,6 +135,7 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
     //init data get from objMain
     public void initData()
     {
+        
         if(objMain.getIDCo().isEmpty())
             return;
         IDCo = objMain.getIDCo();
