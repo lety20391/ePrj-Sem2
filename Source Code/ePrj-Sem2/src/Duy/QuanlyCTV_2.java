@@ -73,6 +73,8 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
         pButton.attachButtonAndSetMainRight(pButton, type);
         //manageButton(true, true, true, true);
         manageTextfield(false, false, false, false, false, false, false, false, false, false, false, false, false, false);
+        initID();
+        
     }
     
     public QuanlyCTV_2(String account, String type, Connection objConnection, Statement stmt) {
@@ -89,6 +91,7 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
         pButton.attachButtonAndSetMainRight(pButton, type);
         //manageButton(true, true, true, true);
         manageTextfield(false, false, false, false, false, false, false, false, false, false, false, false, false, false);
+        initID();
     }
     
     public QuanlyCTV_2(String account, String type, Connection objConnection, Statement stmt, G2TextField objOutputTextField, uiHolding_2 objHoldingFrame, Nam.MainControlInterface objMain) {
@@ -107,6 +110,12 @@ public class QuanlyCTV_2 extends javax.swing.JFrame {
         pButton.attachButtonAndSetMainRight(pButton, type);
         //manageButton(true, true, true, true);
         manageTextfield(false, false, false, false, false, false, false, false, false, false, false, false, false, false);
+        initID();
+    }
+    
+    public void initID()
+    {
+        IDCo = "";
     }
     
     private void manageAccountPanel()
