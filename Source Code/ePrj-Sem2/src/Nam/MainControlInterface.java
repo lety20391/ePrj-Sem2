@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -33,6 +34,7 @@ public class MainControlInterface extends javax.swing.JFrame {
 
     String continueAccount, continueType;
     int count = 0;
+    ArrayList<String> listaccCol, listaccGu;
 
     //phan dat ten cac variable cho tung Frame
     Dat_Le_2.uiHolding_2 objUIHolding;
@@ -160,6 +162,7 @@ public class MainControlInterface extends javax.swing.JFrame {
         txtCoNumberOfGuest.setEditable(false);
         txtNotification.setEditable(false);
         txtCoLogout.setEditable(false);
+        rbCo.setSelected(true);
         pack();
         initData();
     }
@@ -239,7 +242,34 @@ public class MainControlInterface extends javax.swing.JFrame {
         txtNotification.setText("Notification: " + countNoti);
         txtCoLogout.setText("Logout");
     }
-
+    
+    public void loadAccCol(){
+        listaccCol = new ArrayList<>();
+        sql = "select * from Collaborator";
+        try {
+            rs = stmt.executeQuery(sql);
+            rs.beforeFirst();
+            while (rs.next()) {
+                listaccCol.add(rs.getString("IDCo"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainControlInterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void loadAccGu(){
+        listaccGu = new ArrayList<>();
+        sql = "select * from Guest";
+        try {
+            rs = stmt.executeQuery(sql);
+            rs.beforeFirst();
+            while (rs.next()) {
+                listaccGu.add(rs.getString("IDGu"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainControlInterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -249,6 +279,7 @@ public class MainControlInterface extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         lbMain = new javax.swing.JLabel();
         lbClose = new javax.swing.JLabel();
@@ -266,6 +297,10 @@ public class MainControlInterface extends javax.swing.JFrame {
         btnContract = new javax.swing.JButton();
         btnApartment = new javax.swing.JButton();
         txtFeedback = new javax.swing.JTextField();
+        txtSearch = new javax.swing.JTextField();
+        rbCo = new javax.swing.JRadioButton();
+        rbGu = new javax.swing.JRadioButton();
+        btnSearch = new javax.swing.JButton();
         jPanelCol = new javax.swing.JPanel();
         colBtnHolding = new javax.swing.JButton();
         colBtnGuest = new javax.swing.JButton();
@@ -441,6 +476,25 @@ public class MainControlInterface extends javax.swing.JFrame {
             }
         });
 
+        txtSearch.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtSearch.setToolTipText("");
+
+        buttonGroup1.add(rbCo);
+        rbCo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        rbCo.setText("Collaborators");
+
+        buttonGroup1.add(rbGu);
+        rbGu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        rbGu.setText("Guest");
+
+        btnSearch.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelAdminLayout = new javax.swing.GroupLayout(jPanelAdmin);
         jPanelAdmin.setLayout(jPanelAdminLayout);
         jPanelAdminLayout.setHorizontalGroup(
@@ -453,21 +507,36 @@ public class MainControlInterface extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnHolding, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelAdminLayout.createSequentialGroup()
-                        .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnCreate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(btnCollaborator, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE))
+                        .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btnCreate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                                .addComponent(btnCollaborator, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE))
+                            .addGroup(jPanelAdminLayout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnGuest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnApartment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnApartment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanelAdminLayout.createSequentialGroup()
+                                .addComponent(rbCo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(rbGu, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtAccount)
-                    .addComponent(btnServices, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-                    .addComponent(btnOwners, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-                    .addComponent(btnContract, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-                    .addComponent(txtFeedback, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
+                    .addGroup(jPanelAdminLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtAccount)
+                            .addComponent(btnServices, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                            .addComponent(btnOwners, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                            .addComponent(btnContract, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                            .addComponent(txtFeedback, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAdminLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51))))
         );
 
         jPanelAdminLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnHolding, btnNotification});
@@ -497,7 +566,14 @@ public class MainControlInterface extends javax.swing.JFrame {
                         .addComponent(btnCreate, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
                         .addComponent(btnApartment, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnOwners, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                        .addComponent(rbCo)
+                        .addComponent(rbGu))
+                    .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanelAdminLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnHolding, btnNotification});
@@ -602,10 +678,6 @@ public class MainControlInterface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelColLayout.createSequentialGroup()
-                        .addComponent(colBtnHolding, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(colBtnGuest))
-                    .addGroup(jPanelColLayout.createSequentialGroup()
                         .addComponent(colTxtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCoName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -614,12 +686,16 @@ public class MainControlInterface extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCoDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCoGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCoGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(colBtnHolding, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelColLayout.createSequentialGroup()
                         .addComponent(txtNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCoLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addComponent(txtCoLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(colBtnGuest))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(jPanelColLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(colBtnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(colBtnViewApartment, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -676,7 +752,7 @@ public class MainControlInterface extends javax.swing.JFrame {
                 .addComponent(guTxtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(106, 106, 106)
                 .addComponent(guBtnViewAllRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addComponent(guBtnFeedback, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -695,7 +771,7 @@ public class MainControlInterface extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 451, Short.MAX_VALUE))
+                .addComponent(jTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -861,6 +937,7 @@ public class MainControlInterface extends javax.swing.JFrame {
             }
         }
         );
+        dispose();
     }//GEN-LAST:event_colBtnGuestActionPerformed
 
     public void invokeThemeGuest2() {
@@ -914,6 +991,47 @@ public class MainControlInterface extends javax.swing.JFrame {
         new FeedBackToAdmin(this, true, continueAccount, continueType, conn, stmt, this).setVisible(true);
     }//GEN-LAST:event_txtFeedbackMouseClicked
 
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+        loadAccCol();
+        loadAccGu();
+        if (txtSearch.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Field search can not be blank.");
+            return ;
+        }
+        if (rbCo.isSelected()) {
+            boolean check = false;
+            for (String str : listaccCol) {
+                if (str.equals(txtSearch.getText())) {
+                    check = true;
+                    break;
+                }
+            }
+            if (check == true) {
+                new SearchCol(this, true, continueAccount, continueType, conn, stmt, txtSearch.getText(), this).setVisible(true);
+            }else{
+                JOptionPane.showMessageDialog(this, "Cannot find this collaborator");
+                //return ;
+            }
+        }
+        
+        if (rbGu.isSelected()) {
+            boolean check = false;
+            for (String str : listaccGu) {
+                if (str.equals(txtSearch.getText())) {
+                    check = true;
+                    break;
+                }
+            }
+            if (check == true) {
+                new SearchGuest(this, true, continueAccount, continueType, conn, stmt, txtSearch.getText(), this).setVisible(true);
+            }else{
+                JOptionPane.showMessageDialog(this, "Cannot find this guest");
+                //return ;
+            }
+        }
+    }//GEN-LAST:event_btnSearchActionPerformed
+
     public void invokeContract() {
         objUIContract = new uiContract_2(continueAccount, continueType, conn, stmt, this);
         objUIContract.setVisible(true);
@@ -963,7 +1081,9 @@ public class MainControlInterface extends javax.swing.JFrame {
     private javax.swing.JButton btnHolding;
     private javax.swing.JButton btnNotification;
     private javax.swing.JButton btnOwners;
+    private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnServices;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton colBtnCreate;
     private javax.swing.JButton colBtnGuest;
     private javax.swing.JButton colBtnHolding;
@@ -980,6 +1100,8 @@ public class MainControlInterface extends javax.swing.JFrame {
     private javax.swing.JLabel lbClose;
     private javax.swing.JLabel lbMain;
     private javax.swing.JLabel lbMin;
+    private javax.swing.JRadioButton rbCo;
+    private javax.swing.JRadioButton rbGu;
     private javax.swing.JTextField txtAccount;
     private javax.swing.JTextField txtCoDeposit;
     private javax.swing.JTextField txtCoGrade;
@@ -988,6 +1110,7 @@ public class MainControlInterface extends javax.swing.JFrame {
     private javax.swing.JTextField txtCoNumberOfGuest;
     private javax.swing.JTextField txtFeedback;
     private javax.swing.JTextField txtNotification;
+    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 
 }

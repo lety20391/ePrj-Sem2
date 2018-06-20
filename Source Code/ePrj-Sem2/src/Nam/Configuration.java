@@ -30,6 +30,8 @@ public class Configuration extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         configOnOff(false);
+        btnConfigReset.setEnabled(false);
+        txtConfigOK.setEnabled(false);
         pack();
     }
 
@@ -276,10 +278,13 @@ public class Configuration extends javax.swing.JFrame {
         // TODO add your handling code here:
         configOnOff(true);
         txtDBPort.grabFocus();
+        txtConfigOK.setEnabled(true);
+        btnConfigReset.setEnabled(true);
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void txtConfigOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConfigOKActionPerformed
         // TODO add your handling code here:
+        
         try {
             conn = DBConnection.getDBConnection(txtDBName.getText(), txtDBAccount.getText(), txtDBPass.getText(), txtDBPort.getText());
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
