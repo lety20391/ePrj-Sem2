@@ -7,7 +7,6 @@ package Nam;
 
 import Duy.QuanlyCTV_2;
 import Library.G2FileBrowserExtend;
-import Tuyet_Duyen.Theme_guest_2;
 import java.awt.Image;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -32,15 +31,16 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author Namcham
  */
 public class RegisterForm extends javax.swing.JFrame {
-    
+
     Connection conn;
     Statement stmt;
     ResultSet rs;
     String sql;
-    
+
     String continueAccount, continueType, previousPage;
     ArrayList<String> listID, listCoID;
-    
+    double deposit;
+
     QuanlyCTV_2 qlyCTV;
 
     /**
@@ -70,7 +70,7 @@ public class RegisterForm extends javax.swing.JFrame {
         txtGradeCo.setText("normal");
         txtGradeCo.setEditable(false);
     }
-    
+
     private void coResetText() {
         txtAddressCo.setText("");
         txtIDCo.setText("");
@@ -86,7 +86,7 @@ public class RegisterForm extends javax.swing.JFrame {
         txtAnswerCo.setText("");
         cbQuestionCo.setSelectedIndex(0);
     }
-    
+
     private void guResetText() {
         txtIDGU.setText("");
         txtNameGU.setText("");
@@ -101,7 +101,7 @@ public class RegisterForm extends javax.swing.JFrame {
         txtAnswerGU.setText("");
         cbQuestionGU.setSelectedIndex(0);
     }
-    
+
     private void loadAccountList() {
         listID = new ArrayList();
         listCoID = new ArrayList<>();
@@ -115,7 +115,7 @@ public class RegisterForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         sql = "select * from Account where Type = 'co'";
         try {
             rs = stmt.executeQuery(sql);
@@ -127,139 +127,20 @@ public class RegisterForm extends javax.swing.JFrame {
             Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void load() {
         if (continueType.equalsIgnoreCase("co")) {
             jTabblePane.remove(pnelCol);
             txtBelongCoGU.setText(continueAccount);
             txtBelongCoGU.setEditable(false);
         }
-        
+
         if (previousPage.equalsIgnoreCase("co")) {
             jTabblePane.remove(pnelGuest);
         }
-        
+
         if (previousPage.equalsIgnoreCase("gu")) {
             jTabblePane.remove(pnelCol);
-        }
-    }
-    
-    private void checkBlankCo() {
-        if (txtIDCo.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "ID cannot be blank. Re-Enter.");
-            txtIDCo.grabFocus();
-            return;
-        }
-        if (txtPhoneCo.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Phone cannot be blank. Re-Enter.");
-            txtPhoneCo.grabFocus();
-            return;
-        }
-        if (txtNameCo.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Name cannot be blank. Re-Enter.");
-            txtNameCo.grabFocus();
-            return;
-        }
-        if (txtEmailCo.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Email cannot be blank. Re-Enter.");
-            txtEmailCo.grabFocus();
-            return;
-        }
-        if (txtIdentifyCo.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Identified number cannot be blank. Re-Enter.");
-            txtIdentifyCo.grabFocus();
-            return;
-        }
-        if (txtGradeCo.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Grade cannot be blank. Re-Enter.");
-            txtGradeCo.grabFocus();
-            return;
-        }
-        if (dateChooserDOBCo.getDate() == null) {
-            JOptionPane.showMessageDialog(this, "DOB cannot be blank. Re-Enter.");
-            dateChooserDOBCo.grabFocus();
-            return;
-        }
-        if (txtDepositCo.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Deposit cannot be blank. Re-Enter.");
-            txtDepositCo.grabFocus();
-            return;
-        }
-        if (txtAddressCo.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Address cannot be blank. Re-Enter.");
-            txtAddressCo.grabFocus();
-            return;
-        }
-        if (txtAnswerCo.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Answer cannot be blank. Re-Enter.");
-            txtAnswerCo.grabFocus();
-            return;
-        }
-        if (txtPasswordCo.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Password cannot be blank. Re-Enter.");
-            txtPasswordCo.grabFocus();
-            return;
-        }
-        if (txtPathImageCo.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Image cannot be blank. Re-Enter.");
-            return;
-        }
-    }
-    
-    private void checkBlankGu() {
-        if (txtIDGU.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "ID cannot be blank. Re-Enter.");
-            txtIDGU.grabFocus();
-            return;
-        }
-        if (txtNameGU.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Name cannot be blank. Re-Enter.");
-            txtNameGU.grabFocus();
-            return;
-        }
-        if (dateChooserDOBGU.getDate() == null) {
-            JOptionPane.showMessageDialog(this, "DOB cannot be blank. Re-Enter.");
-            dateChooserDOBGU.grabFocus();
-            return;
-        }
-        if (txtIdentifyGU.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Identified number cannot be blank. Re-Enter.");
-            txtIdentifyGU.grabFocus();
-            return;
-        }
-        if (txtPhoneGU.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Phone cannot be blank. Re-Enter.");
-            txtPhoneGU.grabFocus();
-            return;
-        }
-        if (txtEmailGU.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Email cannot be blank. Re-Enter.");
-            txtEmailGU.grabFocus();
-            return;
-        }
-        if (txtStatusGU.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Status cannot be blank. Re-Enter.");
-            txtStatusGU.grabFocus();
-            return;
-        }
-        if (txtBelongCoGU.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Belonging to Collaborator cannot be blank. Re-Enter.");
-            txtBelongCoGU.grabFocus();
-            return;
-        }
-        if (txtAnswerGU.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Answer cannot be blank. Re-Enter.");
-            txtAnswerGU.grabFocus();
-            return;
-        }
-        if (txtPasswordGU.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Password cannot be blank. Re-Enter.");
-            txtPasswordGU.grabFocus();
-            return;
-        }
-        if (txtPathImageGU.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Image cannot be blank. Re-Enter.");
-            return;
         }
     }
 
@@ -1225,40 +1106,51 @@ public class RegisterForm extends javax.swing.JFrame {
             return;
         }
 
-        if (!txtDepositCo.getText().matches("^[0-9]+$")) {
-            JOptionPane.showMessageDialog(this, "Must enter amount money.");
-            txtDepositCo.setText("");
-            txtDepositCo.grabFocus();
-            return;
+//        if (!txtDepositCo.getText().matches("^[0-9]+$")) {
+//            JOptionPane.showMessageDialog(this, "Must enter amount money.");
+//            txtDepositCo.setText("");
+//            txtDepositCo.grabFocus();
+//            return;
+//        }
+        while (true) {
+            try {
+                deposit = Double.parseDouble(txtDepositCo.getText());
+                break;
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Must enter amount money.");
+                txtDepositCo.setText("");
+                txtDepositCo.grabFocus();
+                return ;
+            }
         }
-        Double deposit = Double.parseDouble(txtDepositCo.getText());
-        
+        //Double deposit = Double.parseDouble(txtDepositCo.getText());
+
         if (deposit <= 0) {
             JOptionPane.showMessageDialog(this, "Deposit must be greater than zero. Re-enter.");
             txtDepositCo.setText("");
             txtDepositCo.grabFocus();
-            return ;
+            return;
         }
-        
+
         if (!txtNameCo.getText().matches("^[A-z ]+$")) {
             JOptionPane.showMessageDialog(this, "Name just has characters and spaces");
             txtNameCo.setText("");
             txtNameCo.grabFocus();
-            return ;
+            return;
         }
         Date date = new Date();
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         int currentyear = calendar.get(Calendar.YEAR);
-        
+
         calendar.setTime(dateChooserDOBCo.getDate());
         int year = calendar.get(Calendar.YEAR);
-        
+
         if ((currentyear - year) < 18) {
             JOptionPane.showMessageDialog(this, "This collaborator is under 18 years old. Re-enter");
             dateChooserDOBCo.setDate(null);
             dateChooserDOBCo.grabFocus();
-            return ;
+            return;
         }
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String dob = df.format(dateChooserDOBCo.getDate());
@@ -1269,10 +1161,10 @@ public class RegisterForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         sql = "insert into Collaborator(IDCo, NameCo, AddressCo, DOBCo, IdentificationNumberCo, DepositCo, PhoneCo, EmailCo, ImageCo, GradeCo, NumberOfGuest) values\n"
                 + "('" + txtIDCo.getText() + "'," + "'" + txtNameCo.getText() + "'," + "'" + txtAddressCo.getText() + "'," + "'" + dob + "'," + "'" + txtIdentifyCo.getText() + "'," + txtDepositCo.getText() + "," + "'" + txtPhoneCo.getText() + "'," + "'" + txtEmailCo.getText() + "'," + "'" + txtPathImageCo.getText() + "'," + "'" + txtGradeCo.getText() + "'," + "0" + ")";
-        
+
         try {
             stmt.executeUpdate(sql);
         } catch (SQLException ex) {
@@ -1303,13 +1195,14 @@ public class RegisterForm extends javax.swing.JFrame {
                     new MainControlInterface(continueAccount, continueType, conn, stmt).setVisible(true);
                 }
             });
-        } else {
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                public void run() {
-                    new QuanlyCTV_2(continueAccount, continueType, conn, stmt).setVisible(true);
-                }
-            });
         }
+//        else {
+//            java.awt.EventQueue.invokeLater(new Runnable() {
+//                public void run() {
+//                    new QuanlyCTV_2(continueAccount, continueType, conn, stmt).setVisible(true);
+//                }
+//            });
+//        }
         dispose();
     }//GEN-LAST:event_btnBackCoActionPerformed
 
@@ -1321,13 +1214,14 @@ public class RegisterForm extends javax.swing.JFrame {
                     new MainControlInterface(continueAccount, continueType, conn, stmt).setVisible(true);
                 }
             });
-        } else {
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                public void run() {
-                    new Theme_guest_2(continueAccount, continueType, conn, stmt).setVisible(true);
-                }
-            });
         }
+//        else {
+//            java.awt.EventQueue.invokeLater(new Runnable() {
+//                public void run() {
+//                    new Theme_guest_2(continueAccount, continueType, conn, stmt).setVisible(true);
+//                }
+//            });
+//        }
         dispose();
     }//GEN-LAST:event_btnBackGuActionPerformed
 
@@ -1390,7 +1284,7 @@ public class RegisterForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Image cannot be blank. Re-Enter.");
             return;
         }
-        
+
         if (!txtIDGU.getText().matches("^Gu[0-9]{1,3}$")) {
             JOptionPane.showMessageDialog(this, "ID format is Gu[xxx] with xxx is 1-3 digits");
             txtIDGU.setText("");
@@ -1435,7 +1329,7 @@ public class RegisterForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Name just has characters and spaces");
             txtNameGU.setText("");
             txtNameGU.grabFocus();
-            return ;
+            return;
         }
         if (!txtBelongCoGU.getText().matches("^Co[0-9]{1,3}$")) {
             JOptionPane.showMessageDialog(this, "ID collaborator format is Cu[xxx] with xxx is 1-3 digits");
@@ -1456,26 +1350,26 @@ public class RegisterForm extends javax.swing.JFrame {
             txtBelongCoGU.grabFocus();
             return;
         }
-        
+
         Date date = new Date();
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         int currentyear = calendar.get(Calendar.YEAR);
-        
+
         calendar.setTime(dateChooserDOBGU.getDate());
         int year = calendar.get(Calendar.YEAR);
-        
+
         if ((currentyear - year) < 18) {
             JOptionPane.showMessageDialog(this, "This guest is under 18 years old.");
             dateChooserDOBGU.setDate(null);
             dateChooserDOBGU.grabFocus();
-            return ;
+            return;
         }
-        
+
         int countGu = 0;
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String dob = df.format(dateChooserDOBGU.getDate());
-        
+
         sql = "insert into Account(ID, Password, Type, Question, Answer, Active) values\n"
                 + "('" + txtIDGU.getText() + "'," + "'" + txtPasswordGU.getText() + "'," + "'gu'," + "'" + cbQuestionGU.getSelectedItem() + "'," + "'" + txtAnswerGU.getText() + "'," + "1)";
         try {
@@ -1483,7 +1377,7 @@ public class RegisterForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         sql = "insert into Guest(IDGu, NameGu, DOBGu, IdentificationNumberGu, PhoneGu, EmailGu, ImageGu, StatusGu, IDCo) values\n"
                 + "('" + txtIDGU.getText() + "'," + "'" + txtNameGU.getText() + "'," + "'" + dob + "'," + "'" + txtIdentifyGU.getText() + "'," + "'" + txtPhoneGU.getText() + "'," + "'" + txtEmailGU.getText() + "'," + "'" + txtPathImageGU.getText() + "'," + "'" + txtStatusGU.getText() + "'," + "'" + txtBelongCoGU.getText() + "')";
         try {
@@ -1491,7 +1385,7 @@ public class RegisterForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         sql = "select * from Collaborator where IDCo = '" + txtBelongCoGU.getText() + "'";
         try {
             rs = stmt.executeQuery(sql);
@@ -1502,9 +1396,9 @@ public class RegisterForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         sql = "update Collaborator set NumberOfGuest = " + countGu + " where IDCo = '" + txtBelongCoGU.getText() + "'";
-        
+
         try {
             stmt.executeUpdate(sql);
         } catch (SQLException ex) {
