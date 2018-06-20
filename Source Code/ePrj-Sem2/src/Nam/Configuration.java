@@ -72,7 +72,7 @@ public class Configuration extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jPanel1.setBackground(new java.awt.Color(255, 153, 0));
+        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
         lbConfiguration.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         lbConfiguration.setForeground(new java.awt.Color(255, 255, 255));

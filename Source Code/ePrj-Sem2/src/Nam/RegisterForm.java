@@ -223,7 +223,7 @@ public class RegisterForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jPanel1.setBackground(new java.awt.Color(255, 153, 51));
+        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
         lbRegister.setBackground(new java.awt.Color(255, 153, 0));
         lbRegister.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
@@ -1239,7 +1239,7 @@ public class RegisterForm extends javax.swing.JFrame {
             return;
         }
         if (dateChooserDOBGU.getDate() == null) {
-            JOptionPane.showMessageDialog(this, "DOB cannot be blank. Re-Enter.");
+            JOptionPane.showMessageDialog(this, "DOB format is not exact. Re-Enter.");
             dateChooserDOBGU.grabFocus();
             return;
         }
